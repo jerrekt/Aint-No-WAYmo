@@ -1,3 +1,6 @@
+## V1.011 — 2026-10-29
+- Add build list to the About page
+
 ## V1.010 — 2026-10-29
 - Hallway map redrawn as a vector drawing sheet (crisp, estimated, not to scale)
 

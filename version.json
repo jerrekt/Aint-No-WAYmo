@@ -1,7 +1,7 @@
 {
-  "version": "V1.010",
+  "version": "V1.011",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-29",
-  "note": "Hallway map redrawn as a vector drawing sheet (crisp, estimated, not to scale)"
+  "note": "Add build list to the About page"
 }
