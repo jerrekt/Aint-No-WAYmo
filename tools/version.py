@@ -39,6 +39,27 @@ def check(base_ref=None):
             raise SystemExit(f'PR must increment version exactly once: base={raw}; expected=V1.{base_number+1:03d}; found={version}')
     print('Version check OK:',version,'(baseline check)' if base_ref is None else f'(increment from {raw})')
 
+def stamp_pages(new):
+    """Write the current version into the visible header text of the site pages."""
+    subs = {
+        'Mini_Waymo_V12_Demo.html': [
+            (r'(<span class="version">)V1\.\d{3}( · DRAFT)', r'\g<1>%s\2'),
+            (r"(ver\.textContent=')V1\.\d{3}( · DRAFT')", r'\g<1>%s\2'),
+            (r'(<title>[^<]*?)V1\.\d{3}( Draft)', r'\g<1>%s\2'),
+            (r'(document\.title="Ain\'t No Waymo \| )V1\.\d{3}( Draft")', r'\g<1>%s\2'),
+        ],
+        'Mini_Waymo_V12_About.html': [
+            (r'(<span class="pill">)V1\.\d{3}( draft · Student prototype)', r'\g<1>%s\2'),
+        ],
+    }
+    for name, rules in subs.items():
+        path = ROOT/name
+        if not path.exists(): continue
+        text = path.read_text(encoding='utf-8')
+        for pattern, repl in rules:
+            text = re.sub(pattern, lambda m, r=repl: m.expand(r % new), text)
+        path.write_text(text, encoding='utf-8')
+
 def bump(message):
     prev = current()
     n = parse(prev)
@@ -61,6 +82,7 @@ def bump(message):
         note = note_path.read_text(encoding='utf-8')
         note = re.sub(r'^Current repo version: V1\.\d{3}\.$',f'Current repo version: {new}.',note,flags=re.MULTILINE)
         note_path.write_text(note,encoding='utf-8')
+    stamp_pages(new)
     print(f'Updated: {prev} -> {new}')
 
 def main():
