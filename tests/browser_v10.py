@@ -7,12 +7,12 @@ with sync_playwright() as pw:
  errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
  page.set_content((root/'Mini_Waymo_V10_Demo.html').read_text(),wait_until='load')
  page.wait_for_timeout(550)
- assert page.locator('#roomSelect').input_value()=='263'
+ assert page.locator('#roomSelect').input_value()=='227'
  assert page.locator('#batteryLevel').inner_text().endswith('V')
  assert 'Not yet confirmed' in page.locator('#arrivalState').inner_text()
  page.locator('#goNow').click();page.wait_for_timeout(160)
- assert '263' in page.locator('#destination').inner_text()
- page.locator('#roomSelect').select_option('251');page.locator('#addStop').click();assert '251' in page.locator('#queueLive').inner_text()
+ assert '227' in page.locator('#destination').inner_text()
+ page.locator('#roomSelect').select_option('224');page.locator('#addStop').click();assert '224' in page.locator('#queueLive').inner_text()
  page.locator('#pauseRoute').click();page.wait_for_timeout(110);assert 'PAUSED' in page.locator('#status').inner_text()
  page.locator('#pauseRoute').click();page.wait_for_timeout(100)
  page.locator('#recoverQuick').click();page.wait_for_timeout(100)
@@ -22,12 +22,12 @@ with sync_playwright() as pw:
  page.locator('#recoverQuick').click();page.wait_for_timeout(100)
  assert page.locator('#location').inner_text()=='UNKNOWN'
  page.locator('#noMarkers').uncheck();page.locator('#recoverQuick').click();page.wait_for_timeout(100)
- assert page.locator('#location').inner_text()=='IS 251'
+ assert page.locator('#location').inner_text()=='IS 224'
  page.locator('#guestBtn').click();assert page.locator('#recoverQuick').is_disabled()
  page.locator('#adminBtn').click();assert page.locator('#recoverQuick').is_enabled()
  page.screenshot(path=str(root/'v10_dashboard_preview.png'),full_page=True)
  assert not errors,errors
- print('Browser V10 dashboard: Go IS263, queue, pause, front recovery, guest, battery and arrival UI passed')
+ print('Browser V10 dashboard: Go IS227, queue, pause, front recovery, guest, battery and arrival UI passed')
  fit=browser.new_page(viewport={'width':1250,'height':900},accept_downloads=True)
  fiterr=[];fit.on('pageerror',lambda e:fiterr.append(str(e)))
  fit.set_content((root/'Mini_Waymo_Fit_Planner.html').read_text(),wait_until='load')

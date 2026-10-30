@@ -13,7 +13,7 @@ async def main():
   assert await page.locator('#centerRail #map').count()==1
   assert await page.locator('#taskRail .teamMini').count()==6
   assert await page.locator('#railBuildPercent').inner_text()=='25%'
-  await page.locator('#roomSelect').select_option('263')
+  await page.locator('#roomSelect').select_option('227')
   await page.locator('#goNow').click()
   await page.wait_for_timeout(350)
   print('AFTER GO',await page.locator('#status').inner_text(),await page.locator('#destination').inner_text())

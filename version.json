@@ -3,5 +3,5 @@
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-30",
-  "note": "Fix the map compass: true north is about 31 degrees clockwise of plan up (measured from the Google Maps footprint)"
+  "note": "Fix map compass (true north ~31 deg clockwise of plan up) and update the Where to? room list to the new map rooms"
 }

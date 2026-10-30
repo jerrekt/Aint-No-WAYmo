@@ -12,8 +12,9 @@ export const NODES={
 export const EDGES=[['A','B'],['B','C'],['C','D'],['D','E'],['E','F'],['F','G'],
  ['G','H'],['H','I'],['I','J'],['J','K'],['K','L'],
  ['A','M'],['M','N'],['N','O'],['O','P']];
-export const ROOMS={'200':'A','205':'B','210':'C','215':'D','220':'E','225':'F','230':'G',
- '240':'H','251':'I','263':'J','265':'L','202':'M','204':'N','208':'O','212':'P'};
+export const ROOMS={'214':'A','213':'A','245':'A','216':'B','217':'C','221':'E','220':'F','222':'G','223':'H','230':'H',
+ '224':'I','226':'I','227':'J','229':'K','239':'M','210':'M','211':'M','209':'M','212':'M','240':'N',
+ '206':'N','207':'N','205':'N','208':'N','241':'O','203':'O','202':'O','204':'O','201':'O'};
 export const LABELS={0:'IDLE',1:'DRIVING',2:'WAITING FOR PEDESTRIAN',3:'OBSTACLE STOP',4:'SENSOR STOP',5:'MQTT LOST',6:'LOCALIZATION UNCERTAIN',7:'360° SCANNING',8:'ROOM CONFIRMED',9:'EMERGENCY STOP'};
 export const hypot=(a,b)=>Math.hypot(a,b);
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -100,7 +101,7 @@ export async function makeCore(wasmBytes){
  return {reset:()=>exp.core_reset(),run(values){const mem=new Float64Array(exp.memory.buffer);mem.set(values,inputPtr/8);exp.core_wasm_step();return Array.from(mem.slice(outPtr/8,outPtr/8+5));}};
 }
 export class MicroSimulation {
- constructor(core,{seed=1,mission=['200'],autoScan=false,noise=1,survey=null}={}){this.core=core;this.seed=seed;this.originalMission=[...mission];this.mission=[...mission];this.autoScan=autoScan;this.noise=noise;this.survey=survey;this.reset()}
+ constructor(core,{seed=1,mission=['214'],autoScan=false,noise=1,survey=null}={}){this.core=core;this.seed=seed;this.originalMission=[...mission];this.mission=[...mission];this.autoScan=autoScan;this.noise=noise;this.survey=survey;this.reset()}
  reset(){
   this.rng=mulberry32(this.seed);this.core.reset();this.time=0;const startNode=NODES[ROOMS[this.mission[0]]];this.robot={x:startNode[0],y:startNode[1],yaw:Math.PI/2,lv:0,rv:0};
   this.est={x:startNode[0]+0.02,y:startNode[1]+0.015,yaw:Math.PI/2+0.012,sigma:0.045};this.lastMarker=this.mission[0];this.sensor={front:3.5,side:1.0,grid:Array(8).fill(3.5),personConf:0,personRange:9};
