@@ -1,3 +1,6 @@
+## V1.022 — 2026-10-30
+- Show the version number in the site header (all colorways, desktop and mobile)
+
 ## V1.021 — 2026-10-30
 - Add a tab logo (favicon) to the site pages
 
