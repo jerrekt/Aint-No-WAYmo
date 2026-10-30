@@ -1,3 +1,6 @@
+## V1.021 — 2026-10-30
+- Add a tab logo (favicon) to the site pages
+
 ## V1.020 — 2026-10-30
 - Show the version in the page headers and stamp it on every bump
 

@@ -1,7 +1,7 @@
 {
-  "version": "V1.020",
+  "version": "V1.021",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-30",
-  "note": "Show the version in the page headers and stamp it on every bump"
+  "note": "Add a tab logo (favicon) to the site pages"
 }
