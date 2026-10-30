@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 with tempfile.TemporaryDirectory() as tmp:
     os.environ['WAYMO_TASKS_DB'] = str(Path(tmp)/'board.sqlite3')
     os.environ['WAYMO_TASK_PASSWORD'] = 'local-test-not-a-real-password'
+    os.environ.pop('WAYMO_TASK_WRITES', None)
     from kratos.team_tasks import router, TASKS_SEED
     app=FastAPI()
     app.include_router(router)
@@ -21,6 +22,9 @@ with tempfile.TemporaryDirectory() as tmp:
     target=next(t for t in tasks['tasks'] if t['status']=='todo')
     tid=target['id']
     endpoint=f'/api/tasks/{tid}'
+    off=cli.post(endpoint+'/claim',json={'name':'Branden Adsuara','password':os.environ['WAYMO_TASK_PASSWORD']})
+    assert off.status_code==503,off.text  # password alone must not turn on live claims
+    os.environ['WAYMO_TASK_WRITES'] = '1'
     wrong=cli.post(endpoint+'/claim',json={'name':'Branden Adsuara','password':'wrong'})
     assert wrong.status_code==401,wrong.text
     payload={'name':'Branden Adsuara','password':os.environ['WAYMO_TASK_PASSWORD']}

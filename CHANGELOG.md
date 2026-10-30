@@ -1,3 +1,6 @@
+## V1.014 — 2026-10-29
+- Team updates: Send an update form posts to Discord; live claims are a separate opt-in
+
 ## V1.013 — 2026-10-29
 - Auto-pull updater: root-owned install, fast-forward only, rollback and bad-commit skip
 

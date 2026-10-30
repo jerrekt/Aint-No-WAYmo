@@ -70,11 +70,28 @@ def normalize(name):
         raise HTTPException(422,'Enter a valid full name (2-70 characters).')
     return normalized
 
+def client_key(request: Request) -> str:
+    """Who is asking, for rate limits. The app listens on 127.0.0.1 only, so every request comes
+    through cloudflared, which sets CF-Connecting-IP to the visitor's address."""
+    cf = (request.headers.get('cf-connecting-ip') or '').strip()
+    if cf and len(cf) <= 64:
+        return cf
+    return request.client.host if request.client else 'unknown'
+
+def live_writes_enabled() -> bool:
+    """Live SQLite claims are a separate opt-in. Setting the team password alone (for Discord
+    updates) must not switch them on."""
+    return os.environ.get('WAYMO_TASK_WRITES') == '1'
+
+def require_live_writes():
+    if not live_writes_enabled():
+        raise HTTPException(503,'Live claims are off. Use "Send an update" below the checklist instead.')
+
 def enforce_password(request: Request, secret):
     value=os.environ.get('WAYMO_TASK_PASSWORD')
     if not value or len(value)<8:
         raise HTTPException(503,'Task assignment is not configured on Kratos.')
-    key=request.client.host if request.client else 'unknown'
+    key=client_key(request)
     now=time.monotonic()
     with lock:
         attempts=failed_attempts[key]
@@ -124,18 +141,21 @@ def list_tasks():
 
 @router.post('/api/tasks/{task_id}/claim')
 def claim_task(task_id:str,action:MemberAction,request:Request):
+    require_live_writes()
     enforce_password(request,action.password)
     setup()
     return update_task(task_id,action.name,'claim')
 
 @router.post('/api/tasks/{task_id}/status')
 def change_status(task_id:str,action:StatusAction,request:Request):
+    require_live_writes()
     enforce_password(request,action.password)
     setup()
     return update_task(task_id,action.name,'status',action.status)
 
 @router.post('/api/tasks/{task_id}/release')
 def release_task(task_id:str,action:MemberAction,request:Request):
+    require_live_writes()
     enforce_password(request,action.password)
     setup()
     return update_task(task_id,action.name,'release')

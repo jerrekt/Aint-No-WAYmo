@@ -1,7 +1,7 @@
 {
-  "version": "V1.013",
+  "version": "V1.014",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-29",
-  "note": "Auto-pull updater: root-owned install, fast-forward only, rollback and bad-commit skip"
+  "note": "Team updates: Send an update form posts to Discord; live claims are a separate opt-in"
 }

@@ -392,6 +392,8 @@ async def request_recovery(authorization: str | None=Header(None)):
 # only a server-verified team password can change task ownership/status.
 from .team_tasks import router as team_tasks_router
 app.include_router(team_tasks_router)
+from .team_updates import router as team_updates_router
+app.include_router(team_updates_router)
 
 # Single-origin deployment convenience. FastAPI serves the static site and
 # /api/tasks from the same hostname, avoiding browser CORS and hidden API hosts.
