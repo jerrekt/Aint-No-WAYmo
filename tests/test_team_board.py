@@ -22,6 +22,8 @@ with tempfile.TemporaryDirectory() as tmp:
     target=next(t for t in tasks['tasks'] if t['status']=='todo')
     tid=target['id']
     endpoint=f'/api/tasks/{tid}'
+    k1=next(t for t in tasks['tasks'] if t['id']=='kratos-01')
+    assert k1['status']=='done' and k1['owner'], 'with live claims off, /api/tasks serves team_tasks.json'
     off=cli.post(endpoint+'/claim',json={'name':'Branden Adsuara','password':os.environ['WAYMO_TASK_PASSWORD']})
     assert off.status_code==503,off.text  # password alone must not turn on live claims
     os.environ['WAYMO_TASK_WRITES'] = '1'

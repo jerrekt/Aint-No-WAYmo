@@ -177,8 +177,8 @@
       "id": "kratos-01",
       "milestone": "kratos",
       "title": "Create/inspect Waymo Proxmox LXC",
-      "status": "todo",
-      "owner": null,
+      "status": "done",
+      "owner": "Branden Adsuara",
       "detail": "CT 312 reported created; privileges/network not verified."
     },
     {
