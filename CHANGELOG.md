@@ -1,3 +1,6 @@
+## V1.009 — 2026-10-29
+- SME header logo uses the real swoosh colors
+
 ## V1.008 — 2026-10-30
 - Replace tiny white-backed SJSU and SME header badges with readable transparent supplied logos on desktop and mobile
 
