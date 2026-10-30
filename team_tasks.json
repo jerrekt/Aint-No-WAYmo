@@ -225,9 +225,9 @@
       "id": "kratos-07",
       "milestone": "kratos",
       "title": "Auto-pull GitHub changes into the container",
-      "status": "in_progress",
+      "status": "done",
       "owner": "Branden Adsuara",
-      "detail": "Timer installed and running every minute. Waiting on the first real deploy from a merged pull request."
+      "detail": "Merged pull requests reach the container within a minute on their own. Confirmed on two deploys, one with an app restart and one pages-only."
     },
     {
       "id": "kratos-08",
