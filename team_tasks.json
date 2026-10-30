@@ -59,15 +59,15 @@
       "title": "Publish About page and SME team profiles",
       "status": "done",
       "owner": null,
-      "detail": "About page and team links prepared as source files; public deployment pending."
+      "detail": "About page and team links are live at aintnowaymo.adsuaracloud.com."
     },
     {
       "id": "simulator-04",
       "milestone": "simulator",
       "title": "Build shared task board and claim workflow",
-      "status": "in_progress",
+      "status": "done",
       "owner": null,
-      "detail": "Draft website and backend implementation; live deployment unverified."
+      "detail": "Build list is on the site. Teammates send updates to Discord with the team sign-in; BJ applies them by pull request."
     },
     {
       "id": "diecast-fit-01",
@@ -179,7 +179,7 @@
       "title": "Create/inspect Waymo Proxmox LXC",
       "status": "done",
       "owner": "Branden Adsuara",
-      "detail": "CT 312 reported created; privileges/network not verified."
+      "detail": "CT 312 created. Repo is root-owned, the app runs as an unprivileged user, outbound HTTPS works."
     },
     {
       "id": "kratos-02",
@@ -193,17 +193,17 @@
       "id": "kratos-03",
       "milestone": "kratos",
       "title": "Deploy website through dedicated Cloudflare Tunnel",
-      "status": "todo",
-      "owner": null,
-      "detail": "Hostname planned; actual deployment unverified."
+      "status": "done",
+      "owner": "Branden Adsuara",
+      "detail": "Live at aintnowaymo.adsuaracloud.com through a dedicated Cloudflare Tunnel; app listens on 127.0.0.1 only."
     },
     {
       "id": "kratos-04",
       "milestone": "kratos",
       "title": "Deploy persistent task board API and SQLite database",
-      "status": "todo",
+      "status": "in_progress",
       "owner": null,
-      "detail": "API code drafted; on-Kratos deployment pending."
+      "detail": "API and SQLite run on CT 312. Live claims are off on purpose: updates go through Discord and a pull request."
     },
     {
       "id": "kratos-05",
@@ -222,20 +222,44 @@
       "detail": "Currently simulated and stubbed."
     },
     {
+      "id": "kratos-07",
+      "milestone": "kratos",
+      "title": "Auto-pull GitHub changes into the container",
+      "status": "in_progress",
+      "owner": "Branden Adsuara",
+      "detail": "Timer installed and running every minute. Waiting on the first real deploy from a merged pull request."
+    },
+    {
+      "id": "kratos-08",
+      "milestone": "kratos",
+      "title": "Protect main branch on GitHub",
+      "status": "done",
+      "owner": "Branden Adsuara",
+      "detail": "Pull request and passing check required; no force pushes."
+    },
+    {
+      "id": "kratos-09",
+      "milestone": "kratos",
+      "title": "Send team updates from the site to Discord",
+      "status": "done",
+      "owner": "Branden Adsuara",
+      "detail": "Tested live with a real message; sign-in check and rate limits on."
+    },
+    {
       "id": "survey-01",
       "milestone": "survey",
       "title": "Verify IS room and corridor map on site",
       "status": "in_progress",
       "owner": null,
-      "detail": "iPhone measurements and annotated room map exist; labels provisional."
+      "detail": "To-scale second-floor map drawn from iPhone and Google Maps measurements; labels still provisional."
     },
     {
       "id": "survey-02",
       "milestone": "survey",
       "title": "Measure and correct door locations and hallway width",
-      "status": "todo",
+      "status": "in_progress",
       "owner": null,
-      "detail": "North/south ~168 ft, east ~300 ft; accuracy unverified."
+      "detail": "South wall doors and walls (201-214) set to scale. North wall spacing still needed; hall lengths of about 168 ft and 300 ft are unverified."
     },
     {
       "id": "survey-03",

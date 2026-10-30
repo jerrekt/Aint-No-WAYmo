@@ -1,3 +1,6 @@
+## V1.016 — 2026-10-29
+- Refresh build list: tunnel, task board, auto-pull, main protection, Discord updates
+
 ## V1.015 — 2026-10-29
 - Task update: kratos-01 done (Branden Adsuara); board serves team_tasks.json while live claims are off
 
