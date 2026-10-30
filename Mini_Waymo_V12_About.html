@@ -643,10 +643,75 @@ body:not([data-colorway="app"]) .appDock,body:not([data-colorway="app"]) .appSce
 <div class="boardReveal"><span><span aria-hidden="true" class="boardRevealIcon">+</span> View full checklist and task ownership</span><span id="boardTaskCount">Loading tasks...</span></div>
 </summary>
 <div class="boardPanel">
-<div class="boardToolbar"><div><h3>Team build checklist</h3><p>Claim a task, then update its status as you work. Ownership is self-reported; only a shared password is required.</p></div><div class="boardKey"><span class="boardDot done"></span> Done <span class="boardDot progress"></span> In progress <span class="boardDot blocked"></span> Blocked <span class="boardDot todo"></span> To do</div></div>
+<div class="boardToolbar"><div><h3>Team build checklist</h3><p>Pick a task and send an update below; BJ updates the checklist. Names are self-reported.</p></div><div class="boardKey"><span class="boardDot done"></span> Done <span class="boardDot progress"></span> In progress <span class="boardDot blocked"></span> Blocked <span class="boardDot todo"></span> To do</div></div>
 <div class="boardToolbarBottom"><div aria-label="Task filter" class="boardFilters" role="group"><button class="boardFilter selected" data-filter="all" type="button">All tasks</button><button class="boardFilter" data-filter="open" type="button">Open</button><button class="boardFilter" data-filter="mine" type="button">Assigned</button></div><button class="boardRefresh" id="boardRefresh" type="button">Refresh</button></div>
 <p class="boardConnection" id="boardConnection">Checking team sync...</p>
 <div aria-live="polite" class="boardGroups" id="taskBoardGroups"></div>
+<section aria-labelledby="teamUpdateTitle" class="teamUpdate" id="teamUpdate">
+<style>
+#teamUpdate{margin:18px 0 6px;padding:16px;border:1px solid #c7d5e4;border-radius:12px}
+#teamUpdate h4{margin:0 0 4px;font-size:15px}
+#teamUpdate .tuIntro{margin:0 0 12px;font-size:12px;line-height:1.5;opacity:.85}
+#teamUpdate .tuGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#teamUpdate .tuWide{grid-column:1/-1}
+#teamUpdate label{display:block;font-size:11px;font-weight:700;margin:0 0 4px}
+#teamUpdate input,#teamUpdate select,#teamUpdate textarea{width:100%;box-sizing:border-box;border:1px solid #c7d5e4;border-radius:7px;padding:10px;font:inherit;font-size:14px;color:inherit;background:transparent}
+#teamUpdate select option{color:#193957}
+#teamUpdate textarea{min-height:84px;resize:vertical}
+#teamUpdate .tuActions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+#teamUpdate button{border:1px solid currentColor;border-radius:8px;padding:9px 14px;font:inherit;font-size:13px;font-weight:700;background:transparent;color:inherit;cursor:pointer}
+#teamUpdate button.tuPrimary{background:#e5a823;border-color:#e5a823;color:#0b2a5b}
+#teamUpdate button:disabled{opacity:.45;cursor:not-allowed}
+#teamUpdate .tuMsg{margin:10px 0 0;font-size:12px;min-height:1em}
+#teamUpdate .tuMsg.bad{color:#d9534f}
+#teamUpdate .tuNote{margin:8px 0 0;font-size:11px;opacity:.75}
+@media(max-width:600px){#teamUpdate .tuGrid{grid-template-columns:1fr}}
+</style>
+<h4 id="teamUpdateTitle">Send an update</h4>
+<p class="tuIntro">Not coding? Pick your task, say what you got done, and send it. BJ gets it in Discord and updates the checklist.</p>
+<form id="teamUpdateForm" novalidate>
+<div class="tuGrid">
+<div class="tuWide"><label for="tuTask">Task</label><select id="tuTask" required></select></div>
+<div><label for="tuName">Your name</label><input autocomplete="name" id="tuName" list="boardTeamNames" maxlength="70" placeholder="Full name" required type="text"/></div>
+<div><label for="tuStatus">Status</label><select id="tuStatus"><option value="claim">Claiming it</option><option value="in_progress">In progress</option><option value="blocked">Blocked / need help</option><option value="done">Done</option></select></div>
+<div class="tuWide"><label for="tuSummary">What did you do?</label><textarea id="tuSummary" maxlength="600" placeholder="Short summary: what you did, what you found, what's next" required></textarea></div>
+<div class="tuWide"><label for="tuPassword">Team password</label><input autocomplete="off" id="tuPassword" placeholder="Shared team password" type="password"/></div>
+</div>
+<div class="tuActions"><button class="tuPrimary" id="tuSend" type="submit">Send to Discord</button><button id="tuCopy" type="button">Copy update</button></div>
+<p aria-live="polite" class="tuMsg" id="tuMsg"></p>
+<p class="tuNote">The password is checked on the server and never saved in this page. If sending is off, use Copy update and paste it to BJ.</p>
+</form>
+<script>
+function waymoUpdateInit(){
+ const form=document.getElementById('teamUpdateForm');if(!form)return;
+ const sel=document.getElementById('tuTask'),nameI=document.getElementById('tuName'),st=document.getElementById('tuStatus'),sum=document.getElementById('tuSummary'),pw=document.getElementById('tuPassword'),send=document.getElementById('tuSend'),msg=document.getElementById('tuMsg');
+ let tasks=[];let sendOn=false;
+ try{tasks=(JSON.parse(document.getElementById('boardTasksFallback').textContent).tasks)||[];}catch(_){}
+ for(const t of tasks){const o=document.createElement('option');o.value=t.id;o.textContent=t.title;sel.append(o);}
+ function say(text,bad){msg.textContent=text;msg.classList.toggle('bad',!!bad);}
+ function setSend(on){sendOn=on;send.disabled=!on;send.title=on?'':'Sending is not set up on the server yet. Use Copy update.';}
+ setSend(false);
+ if(/^https?:$/.test(location.protocol)){fetch('/api/updates/status',{cache:'no-store'}).then(r=>r.ok?r.json():{}).then(b=>setSend(!!b.enabled)).catch(()=>setSend(false));}
+ window.waymoPickTask=function(t){sel.value=t.id;document.getElementById('teamUpdate').scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>nameI.focus(),300);};
+ function fields(){return{task_id:sel.value,name:nameI.value.trim(),status:st.value,summary:sum.value.trim()};}
+ function check(f){if(!f.task_id)return'Pick a task.';if(f.name.length<2)return'Enter your full name.';if(f.summary.length<3)return'Write a short summary.';return'';}
+ function asText(f){const t=tasks.find(x=>x.id===f.task_id)||{title:f.task_id};const label={claim:'Claiming',in_progress:'In progress',blocked:'Blocked / need help',done:'Done'}[f.status];
+  const repo={claim:'in_progress',in_progress:'in_progress',blocked:'blocked',done:'done'}[f.status];
+  return 'Team update: '+label+'\nTask: '+t.title+' ('+f.task_id+')\nFrom: '+f.name+'\n'+f.summary+'\nFor team_tasks.json: '+JSON.stringify({id:f.task_id,owner:f.name,status:repo});}
+ document.getElementById('tuCopy').addEventListener('click',async()=>{const f=fields();const bad=check(f);if(bad){say(bad,true);return;}
+  const text=asText(f);try{await navigator.clipboard.writeText(text);say('Copied. Paste it to BJ in Discord.');}catch(_){sum.value=text;sum.select();say('Copy did not work here. The update is in the box: select it and copy.',true);}});
+ form.addEventListener('submit',async e=>{e.preventDefault();if(!sendOn){say('Sending is off. Use Copy update.',true);return;}
+  const f=fields();const bad=check(f);if(bad){say(bad,true);return;}if(!pw.value){say('Enter the team password.',true);return;}
+  send.disabled=true;say('Sending...');
+  try{const r=await fetch('/api/updates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...f,password:pw.value})});
+   let b={};try{b=await r.json();}catch(_){}
+   if(!r.ok)throw Error(b.detail||'Could not send. Use Copy update.');
+   pw.value='';sum.value='';say('Sent. BJ will update the checklist.');
+  }catch(err){say(String(err.message||err),true);}finally{send.disabled=!sendOn;}});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waymoUpdateInit);else waymoUpdateInit();
+</script>
+</section>
 <details class="progressDetails boardMilestoneDetails"><summary>View original eight milestone summaries</summary><ol class="progressMilestones" id="projectMilestones"></ol></details>
 <p class="boardCaution">Completing a checklist item does not automatically mark a major milestone verified. Physical robot performance must be tested before the 25% gauge changes.</p>
 </div>
@@ -830,12 +895,13 @@ body:not([data-colorway="app"]) .appDock,body:not([data-colorway="app"]) .appSce
  const password=document.getElementById('boardPassword');
  const error=document.getElementById('boardDialogError');
  const fallback=JSON.parse(document.getElementById('boardTasksFallback').textContent);
- let data=fallback, live=false, selected=null, operation='claim', filter='all';
+ let data=fallback, live=false, selected=null, operation='claim', filter='all', liveClaims=false;
+ if(/^https?:$/.test(location.protocol)){fetch('/api/updates/status',{cache:'no-store'}).then(r=>r.ok?r.json():{}).then(b=>{liveClaims=!!b.live_claims;redraw();}).catch(()=>{});}
  const stateName={todo:'Not started',in_progress:'In progress',blocked:'Blocked',done:'Done'};
  const stateClass={todo:'todo',in_progress:'in_progress',blocked:'blocked',done:'done'};
  const actionFor=(task)=>task.status==='done'?'':!task.owner?'Claim':task.status==='in_progress'?'Update':'Update';
  function element(tag,className,value){const node=document.createElement(tag);if(className)node.className=className;if(value!==undefined)node.textContent=value;return node;}
- function refreshCount(){const entries=data.tasks||[];const d=entries.filter(t=>t.status==='done').length;const n=entries.filter(t=>t.owner).length;document.getElementById('boardTaskCount').textContent=d+'/'+entries.length+' tasks done';statusLine.textContent=live?'Live sync active - '+n+' assigned task'+(n===1?'':'s')+'. Refreshes every 15 seconds.':'Preview only - connect the Kratos task API to save and share claims.';statusLine.classList.toggle('offline',!live);indicator.classList.toggle('live',live);indicator.textContent=live?'Live sync':'Preview only';}
+ function refreshCount(){const entries=data.tasks||[];const d=entries.filter(t=>t.status==='done').length;const n=entries.filter(t=>t.owner).length;document.getElementById('boardTaskCount').textContent=d+'/'+entries.length+' tasks done';statusLine.textContent=!liveClaims?'Checklist is updated by BJ from team updates. Use Send update on a task.':live?'Live sync active - '+n+' assigned task'+(n===1?'':'s')+'. Refreshes every 15 seconds.':'Preview only - connect the Kratos task API to save and share claims.';statusLine.classList.toggle('offline',liveClaims&&!live);indicator.classList.toggle('live',live);indicator.textContent=live?'Live sync':'Preview only';}
  function redraw(){
   refreshCount();panel.replaceChildren();
   const tasks=data.tasks||[];const groups={};for(const t of tasks){if(!groups[t.milestone])groups[t.milestone]=[];groups[t.milestone].push(t);}
@@ -852,7 +918,8 @@ body:not([data-colorway="app"]) .appDock,body:not([data-colorway="app"]) .appSce
     if(t.owner)meta.append(element('span','boardTaskOwner','- '+t.owner));
     details.append(heading,meta);card.appendChild(details);
     const label=actionFor(t);
-    if(label){const button=element('button','boardTaskAction',label);button.type='button';button.disabled=!live;button.title=!live?'Connect to Kratos to submit shared changes':'Update task';button.addEventListener('click',()=>openTask(t));card.append(button);}
+    if(label&&!liveClaims){const button=element('button','boardTaskAction','Send update');button.type='button';button.title='Send an update for this task';button.addEventListener('click',()=>window.waymoPickTask&&window.waymoPickTask(t));card.append(button);}
+    else if(label){const button=element('button','boardTaskAction',label);button.type='button';button.disabled=!live;button.title=!live?'Connect to Kratos to submit shared changes':'Update task';button.addEventListener('click',()=>openTask(t));card.append(button);}
     group.append(card);
    }
    panel.append(group);
