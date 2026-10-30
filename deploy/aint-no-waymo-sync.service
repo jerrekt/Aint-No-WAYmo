@@ -1,0 +1,23 @@
+[Unit]
+Description=Pull Ain't No Waymo main (pull-only) and restart the app if server code changed
+After=network-online.target
+Wants=network-online.target
+ConditionPathIsDirectory=/opt/aint-no-waymo/.git
+
+[Service]
+Type=oneshot
+# Root-owned copy, installed by hand. Never point this at a file inside the repo.
+ExecStart=/usr/local/sbin/aint-no-waymo-sync
+Environment=HOME=/root
+RuntimeDirectory=aint-no-waymo-sync
+StateDirectory=aint-no-waymo-sync
+TimeoutStartSec=120
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/aint-no-waymo
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
