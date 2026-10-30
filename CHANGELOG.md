@@ -1,3 +1,6 @@
+## V1.013 — 2026-10-29
+- Auto-pull updater: root-owned install, fast-forward only, rollback and bad-commit skip
+
 ## V1.012 — 2026-10-29
 - Map: south wall doors 201 to 214 to scale from the 100/65/108 inch pattern
 
