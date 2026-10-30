@@ -1,3 +1,6 @@
+## V1.018 — 2026-10-30
+- kratos-07 auto-pull confirmed done
+
 ## V1.017 — 2026-10-30
 - Add design guidance to task detail lines
 
