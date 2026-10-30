@@ -1,3 +1,6 @@
+## V1.019 — 2026-10-30
+- Desktop pages 20 percent larger
+
 ## V1.018 — 2026-10-30
 - kratos-07 auto-pull confirmed done
 
