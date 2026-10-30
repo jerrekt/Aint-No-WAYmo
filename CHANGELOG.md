@@ -1,3 +1,6 @@
+## V1.017 — 2026-10-30
+- Add design guidance to task detail lines
+
 ## V1.016 — 2026-10-29
 - Refresh build list: tunnel, task board, auto-pull, main protection, Discord updates
 
