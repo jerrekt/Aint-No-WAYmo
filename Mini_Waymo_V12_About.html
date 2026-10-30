@@ -675,6 +675,47 @@ body:not([data-colorway="app"]) .appDock,body:not([data-colorway="app"]) .appSce
 <p>Our goal is an indoor, supervised demonstration—not a self-driving car on public roads.</p>
 <div class="scopeMini">ESP32-S3: on-car motion and local safety <span aria-hidden="true">·</span> Kratos: missions, map, and live status</div>
 </section>
+<section class="aboutBlock" id="buildList">
+<style>
+#buildList .onHand{display:block;margin-top:6px;font-size:11px;line-height:1.45;font-weight:400;text-transform:none;letter-spacing:0;opacity:.9}
+#buildList .aboutTable{min-width:0}
+#buildList .aboutTable th:first-child,#buildList .aboutTable td:first-child{width:22%}
+#buildList .aboutTable th:nth-child(2){width:50%}
+#buildList .aboutTable th:nth-child(3){width:28%}
+@media(max-width:600px){
+#buildList .aboutTableWrap{border:1px solid #344656;overflow:auto}
+#buildList .aboutTable{display:table;width:100%;min-width:0;table-layout:fixed}
+#buildList .aboutTable th:first-child,#buildList .aboutTable td:first-child{width:26%;white-space:normal;overflow-wrap:anywhere}
+#buildList .aboutTable th:nth-child(2){width:44%}
+#buildList .aboutTable th:nth-child(3){width:30%}
+#buildList .aboutTable th{white-space:normal}
+#buildList .aboutTable thead{display:table-header-group}
+#buildList .aboutTable tbody{display:table-row-group}
+#buildList .aboutTable tr{display:table-row;background:none;border:0;border-radius:0;margin:0;padding:0}
+#buildList .aboutTable th,#buildList .aboutTable td{display:table-cell;width:auto;padding:10px 8px;font-size:12px}
+#buildList .aboutTable td:first-child{font-size:12px;padding-bottom:10px;width:24%}
+#buildList .aboutTable td:nth-child(2):before,#buildList .aboutTable td:nth-child(3):before{content:none;display:none}
+}
+</style>
+<div class="aboutHead"><h2>Build list</h2><span class="aside">Candidates, fit not confirmed</span></div>
+<div class="aboutTableWrap"><table class="aboutTable">
+<thead><tr><th>Part</th><th>What it does</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Vehicle body</td><td>World's Littlest Waymo Jaguar I-PACE diecast model. Inside dimensions still to be measured.</td><td><span class="scopeStatus">Fit unverified</span></td></tr>
+<tr><td>Chassis idea from the challenge</td><td>1/43 mini RC drift car with gyroscope and 4WD proportional control (Akeleo, sold on Amazon). Suggested by Dan Berte, who researched it and says it should fit. Not tested.</td><td><span class="scopeStatus">Fit unverified</span></td></tr>
+<tr><td>Controller</td><td>Seeed XIAO ESP32-S3 Sense: camera, on-car motion and local safety.</td><td><span class="scopeStatus">Planned</span><span class="onHand">On hand: An ESP32-C3 test board (Seeed, exact model unconfirmed) is on hand for bench tests. It is not the S3 Sense.</span></td></tr>
+<tr><td>Drive</td><td>2 ultra-small geared DC motors, differential drive.</td><td><span class="scopeStatus">Candidate</span></td></tr>
+<tr><td>Motor driver</td><td>Compact DRV8835 or DRV8833 dual driver. Voltage, current and pinout to confirm.</td><td><span class="scopeStatus">Candidate</span><span class="onHand">On hand: A driver module is on hand; which one is unconfirmed.</span></td></tr>
+<tr><td>Forward depth sensor</td><td>VL53L7CX 8x8 time-of-flight sensor.</td><td><span class="scopeStatus">Candidate</span></td></tr>
+<tr><td>Motion sensing</td><td>Small IMU plus wheel odometry.</td><td><span class="scopeStatus">Candidate</span></td></tr>
+<tr><td>Power</td><td>1S LiPo with protected charging and power.</td><td><span class="scopeStatus">Candidate</span></td></tr>
+<tr><td>Emergency stop</td><td>Physical, independent motor power-cut that does not depend on Wi-Fi or Kratos.</td><td><span class="scopeStatus">Planned</span></td></tr>
+<tr><td>Driver feedback</td><td>Amber turn indicators and a tiny sounder.</td><td><span class="scopeStatus">Candidate</span></td></tr>
+</tbody>
+</table></div>
+<p class="aboutMini"><span class="scopeStatus">Extra</span> Spectator video, later: an optional detachable FPV trailer with a DJI O4 camera and air unit. It is not part of the main car.</p>
+<p class="aboutMini">Parts without an on-hand note are not confirmed as owned. Nothing here is confirmed to fit yet: the shell's inside dimensions, motor space across the axle, battery fit, camera window and antenna performance, and cooling still need to be measured.</p>
+</section>
 </div>
 <section class="aboutBlock">
 <div class="aboutHead"><h2>Real Waymo vs. our Mini-Waymo</h2><span class="aside">Same concepts, very different scale</span></div>
