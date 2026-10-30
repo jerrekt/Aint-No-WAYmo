@@ -1,7 +1,7 @@
 {
-  "version": "V1.015",
+  "version": "V1.016",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-29",
-  "note": "Task update: kratos-01 done (Branden Adsuara); board serves team_tasks.json while live claims are off"
+  "note": "Refresh build list: tunnel, task board, auto-pull, main protection, Discord updates"
 }
