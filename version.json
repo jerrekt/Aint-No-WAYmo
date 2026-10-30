@@ -1,7 +1,7 @@
 {
-  "version": "V1.022",
+  "version": "V1.023",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-30",
-  "note": "Show the version number in the site header (all colorways, desktop and mobile)"
+  "note": "Fix the map compass: true north is about 31 degrees clockwise of plan up (measured from the Google Maps footprint)"
 }

@@ -1,3 +1,6 @@
+## V1.023 — 2026-10-30
+- Fix the map compass: true north is about 31 degrees clockwise of plan up (measured from the Google Maps footprint)
+
 ## V1.022 — 2026-10-30
 - Show the version number in the site header (all colorways, desktop and mobile)
 

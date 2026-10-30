@@ -187,11 +187,23 @@ a(f'<rect x="1400" y="510" width="94" height="76" fill="{P["sheet"]}"/>')
 text(1447, 548, "300'", 20, color=P["dim"], weight="bold"); text(1447, 574, "(3600&quot;)", 20, color=P["dim"], weight="bold")
 
 # ---- compass ----
+# Plan "up" is the building's own north. Measured from the Google Maps footprint (2026-10-30, north-up screenshot),
+# the building's long axis tilts 31 deg west of true north, so true north points 31 deg clockwise of plan-up.
+TRUE_NORTH_CW = 31
 cx, cy = 125, 860
+def rot(dx, dy, deg=TRUE_NORTH_CW):
+    r = math.radians(deg)
+    return dx * math.cos(r) - dy * math.sin(r), dx * math.sin(r) + dy * math.cos(r)
 a(f'<circle cx="{cx}" cy="{cy}" r="34" fill="none" stroke="{P["line"]}" stroke-width="1"/>')
+a(f'<g transform="rotate({TRUE_NORTH_CW} {cx} {cy})">')
 a(f'<polygon points="{cx},{cy-42} {cx+8},{cy} {cx},{cy+42} {cx-8},{cy}" fill="{P["line"]}"/>')
 a(f'<polygon points="{cx-42},{cy} {cx},{cy-8} {cx+42},{cy} {cx},{cy+8}" fill="none" stroke="{P["line"]}" stroke-width="1.2"/>')
-text(cx, cy - 52, "N", 16, weight="bold"); text(cx, cy + 66, "S", 14); text(cx - 56, cy + 5, "W", 14); text(cx + 56, cy + 5, "E", 14)
+a('</g>')
+for s, (dx, dy), size, wt in (("N", (0, -57), 16, "bold"), ("S", (0, 61), 14, "normal"), ("W", (-56, 0), 14, "normal"), ("E", (56, 0), 14, "normal")):
+    rx, ry = rot(dx, dy)
+    text(round(cx + rx, 1), round(cy + ry + 5, 1), s, size, weight=wt)   # letters stay upright; positions follow the rose
+text(cx, cy + 90, "N = TRUE NORTH", 12, color=P["note"], weight="bold")
+text(cx, cy + 106, f"{TRUE_NORTH_CW}&#176; RIGHT OF PLAN UP", 11, color=P["note"])
 
 # ---- sheet title (top-left) and title block (bottom-right) ----
 bx, by, bw, bh = 1290, 936, 196, 100

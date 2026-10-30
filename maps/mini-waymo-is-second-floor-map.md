@@ -18,7 +18,7 @@ Door-spacing locations for this sequence remain provisional; 202–213 assigned 
 Single-door symbol: two short strokes. Double-door symbol: three strokes.
 Other visible room IDs are provisional transcriptions from sketch; locations not field verified.
 Mission destinations 251 and 263 have not been located on the sketch.
-Compass orientation follows sketch only; geographic north unverified.
+Compass: plan "up" is the building's own north. True north points about 31 degrees clockwise of plan-up (measured 2026-10-30 from the Google Maps building footprint in a north-up screenshot; long wings 31.0 deg, cross wings 30.9 deg). Approximate, not surveyed.
 
 Artifacts: IS_Building_Mini_Waymo_Map.png, IS_Building_Mini_Waymo_Map.svg, is_second_floor_provisional_map.json.
 
