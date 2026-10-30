@@ -1,0 +1,9 @@
+[Unit]
+Description=Pull Ain't No Waymo main and restart the app if server code changed
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/aint-no-waymo/deploy/aint-no-waymo-sync.sh
+NoNewPrivileges=true
