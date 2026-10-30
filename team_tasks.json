@@ -35,7 +35,7 @@
       "title": "Agree on team roles and handoff workflow",
       "status": "todo",
       "owner": null,
-      "detail": "Responsibilities for Noah and Gage still need confirmation."
+      "detail": "Responsibilities for Noah and Gage still need confirmation. Assign one owner per active task; do not assume roles for anyone."
     },
     {
       "id": "simulator-01",
@@ -75,7 +75,7 @@
       "title": "Measure actual diecast interior and wheelbase",
       "status": "todo",
       "owner": null,
-      "detail": "Record length, width, height, and axle distances."
+      "detail": "Record length, width, height, and axle distances. Also record track widths, wheel diameter, wheel-well clearance, roof height, camera openings and ground clearance. Use calipers and photograph the opened shell. Earlier 1:43 numbers are not measurements."
     },
     {
       "id": "diecast-fit-02",
@@ -83,7 +83,7 @@
       "title": "Mock-fit ESP32-S3 Sense, ToF and driver",
       "status": "todo",
       "owner": null,
-      "detail": "Clearance and camera sightline require physical verification."
+      "detail": "Clearance and camera sightline require physical verification. Candidates, not verified: XIAO ESP32-S3 Sense, VL53L7CX ToF, DRV8835 driver. Check antenna clearance near metal."
     },
     {
       "id": "diecast-fit-03",
@@ -91,7 +91,7 @@
       "title": "Confirm battery and motor mounting positions",
       "status": "todo",
       "owner": null,
-      "detail": "Check wheels, drivetrain geometry, and shell closure."
+      "detail": "Check wheels, drivetrain geometry, and shell closure. Candidate: 1S LiPo, 200 to 300 mAh. Two 6 mm gearmotors may not fit across the axle; compare staggered motors, small gearing or a micro-RC donor drivetrain."
     },
     {
       "id": "diecast-fit-04",
@@ -99,7 +99,7 @@
       "title": "Print first fitted chassis and iterate",
       "status": "todo",
       "owner": null,
-      "detail": "Chassis depends on real diecast measurements."
+      "detail": "Chassis depends on real diecast measurements. Use the parametric sizing jig. Low profile, motor and battery retention, reachable switch, nothing sharp against the LiPo. Print a test fit first."
     },
     {
       "id": "hardware-01",
@@ -107,7 +107,7 @@
       "title": "Order final matched motors, driver, and wheels",
       "status": "todo",
       "owner": null,
-      "detail": "Avoid committing until actual shell fit is confirmed."
+      "detail": "Avoid committing until actual shell fit is confirmed. Check motor size, stall current, shaft and speed against the DRV8835 driver before buying."
     },
     {
       "id": "hardware-02",
@@ -115,7 +115,7 @@
       "title": "Assemble differential drivetrain",
       "status": "todo",
       "owner": null,
-      "detail": "Verify motion, clearance, and repeatable steering."
+      "detail": "Verify motion, clearance, and repeatable steering. Differential drive. Test forward, reverse, turns and low-speed stops; find the minimum reliable PWM."
     },
     {
       "id": "hardware-03",
@@ -123,7 +123,7 @@
       "title": "Wire 1S battery, charging, and supply protection",
       "status": "todo",
       "owner": null,
-      "detail": "Verify motor startup current and safe charging."
+      "detail": "Verify motor startup current and safe charging. Check voltage sag and ESP32 brownouts. The XIAO battery features alone do not protect against motor current."
     },
     {
       "id": "hardware-04",
@@ -131,7 +131,7 @@
       "title": "Install and verify physical motor-power E-stop",
       "status": "todo",
       "owner": null,
-      "detail": "Real hardware E-stop not yet tested."
+      "detail": "Real hardware E-stop not yet tested. Must cut motor power physically, work without Wi-Fi, MQTT or Kratos, and block automatic restart. Build before any autonomous driving test."
     },
     {
       "id": "hardware-05",
@@ -139,7 +139,7 @@
       "title": "Fit turn signals and chime hardware",
       "status": "todo",
       "owner": null,
-      "detail": "Keep part footprint and wiring lightweight."
+      "detail": "Keep part footprint and wiring lightweight. Use non-blocking timing so lights and sound never delay obstacle checks. Lowest priority."
     },
     {
       "id": "sensors-01",
@@ -147,7 +147,7 @@
       "title": "Bring up ToF depth sensor on ESP32-S3",
       "status": "todo",
       "owner": null,
-      "detail": "Verify real obstacle readings."
+      "detail": "Verify real obstacle readings. VL53L7CX gives an 8x8 grid over about 60 degrees; it is not 360 degree LiDAR."
     },
     {
       "id": "sensors-02",
@@ -155,7 +155,7 @@
       "title": "Integrate IMU and/or wheel odometry",
       "status": "todo",
       "owner": null,
-      "detail": "Select smallest suitable parts, characterize drift."
+      "detail": "Select smallest suitable parts, characterize drift. Start with motor timing plus IMU; timing alone will not hold over a 300 ft hallway."
     },
     {
       "id": "sensors-03",
@@ -163,7 +163,7 @@
       "title": "Verify local obstacle-stop and Wi-Fi watchdog",
       "status": "todo",
       "owner": null,
-      "detail": "Must work independently of Kratos connectivity."
+      "detail": "Must work independently of Kratos connectivity. Stop on a close obstacle, invalid sensor reading, watchdog timeout or E-stop. Prove it with the network disconnected."
     },
     {
       "id": "sensors-04",
@@ -171,7 +171,7 @@
       "title": "Implement landmark or room-marker recognition",
       "status": "todo",
       "owner": null,
-      "detail": "Unique markers needed for reliable localization."
+      "detail": "Unique markers needed for reliable localization. Start with two distinct landmarks. Stop safely rather than guess between similar hallways."
     },
     {
       "id": "kratos-01",
@@ -187,7 +187,7 @@
       "title": "Install private MQTT broker and test ESP32-C3 link",
       "status": "todo",
       "owner": null,
-      "detail": "C3 receive-only bench kit prepared; latency not measured."
+      "detail": "C3 receive-only bench kit prepared; latency not measured. Bench topics are isolated from the real car. Measure round trip, 95th percentile and max, ack rate and reconnect time. Targets: under 150 ms at p95 and 99% acked (not measured)."
     },
     {
       "id": "kratos-03",
@@ -203,7 +203,7 @@
       "title": "Deploy persistent task board API and SQLite database",
       "status": "in_progress",
       "owner": null,
-      "detail": "API and SQLite run on CT 312. Live claims are off on purpose: updates go through Discord and a pull request."
+      "detail": "API and SQLite run on CT 312. Live claims are off on purpose: updates go through Discord and a pull request. Keep published, acknowledged and completed commands as separate states."
     },
     {
       "id": "kratos-05",
@@ -211,7 +211,7 @@
       "title": "Secure admin controls and separate guest access",
       "status": "todo",
       "owner": null,
-      "detail": "Keep MQTT private and require backend authorization."
+      "detail": "Keep MQTT private and require backend authorization. Admin issues commands; guests view only. Enforce on the server, not just in the UI."
     },
     {
       "id": "kratos-06",
@@ -219,7 +219,7 @@
       "title": "Connect real ESP32 telemetry and mission history",
       "status": "todo",
       "owner": null,
-      "detail": "Currently simulated and stubbed."
+      "detail": "Currently simulated and stubbed. Keep measured, estimated and simulated data distinct. A disconnected car must not look live from cached state."
     },
     {
       "id": "kratos-07",
@@ -227,7 +227,7 @@
       "title": "Auto-pull GitHub changes into the container",
       "status": "in_progress",
       "owner": "Branden Adsuara",
-      "detail": "Timer installed and running every minute. Waiting on the first real deploy from a merged pull request."
+      "detail": "Timer installed and running every minute. Waiting on the first real deploy from a merged pull request. A merged pull request is not a live deploy; confirm service health too."
     },
     {
       "id": "kratos-08",
@@ -251,7 +251,7 @@
       "title": "Verify IS room and corridor map on site",
       "status": "in_progress",
       "owner": null,
-      "detail": "To-scale second-floor map drawn from iPhone and Google Maps measurements; labels still provisional."
+      "detail": "To-scale second-floor map drawn from iPhone and Google Maps measurements; labels still provisional. Lengths are approximate walking estimates, not survey data."
     },
     {
       "id": "survey-02",
@@ -259,7 +259,7 @@
       "title": "Measure and correct door locations and hallway width",
       "status": "in_progress",
       "owner": null,
-      "detail": "South wall doors and walls (201-214) set to scale. North wall spacing still needed; hall lengths of about 168 ft and 300 ft are unverified."
+      "detail": "South wall doors and walls (201-214) set to scale. North wall spacing still needed; hall lengths of about 168 ft and 300 ft are unverified. The hand sketch is authoritative. Mark unsure doors A, B, C with a guessed room number and ?."
     },
     {
       "id": "survey-03",
@@ -267,7 +267,7 @@
       "title": "Install permitted unique location markers",
       "status": "todo",
       "owner": null,
-      "detail": "Coordinate permission before placing markings."
+      "detail": "Coordinate permission before placing markings. If markers are not allowed, use existing signs or document a marker-free plan."
     },
     {
       "id": "survey-04",
@@ -275,7 +275,7 @@
       "title": "Teach robot a short supervised hallway route",
       "status": "todo",
       "owner": null,
-      "detail": "Start with 2 nearby room destinations."
+      "detail": "Start with 2 nearby room destinations. Reuse the saved map; relocalize only when needed. Confirm the room marker on arrival."
     },
     {
       "id": "demo-01",
@@ -283,7 +283,7 @@
       "title": "Test stop-for-person and signal behavior",
       "status": "todo",
       "owner": null,
-      "detail": "Only simulated so far."
+      "detail": "Only simulated so far. Record failed trials as well as good ones."
     },
     {
       "id": "demo-02",
@@ -291,7 +291,7 @@
       "title": "Complete two-room autonomous trip with confirmed arrival",
       "status": "todo",
       "owner": null,
-      "detail": "No verified physical mission yet."
+      "detail": "No verified physical mission yet. Record failed trials as well as good ones."
     },
     {
       "id": "demo-03",
@@ -299,7 +299,7 @@
       "title": "Test network loss and manual emergency stop",
       "status": "todo",
       "owner": null,
-      "detail": "Test on physical car with supervision."
+      "detail": "Test on physical car with supervision. Also test safe restart after an interruption. Record failed trials."
     },
     {
       "id": "demo-04",
@@ -307,7 +307,7 @@
       "title": "Capture evidence, log results, prepare SME presentation",
       "status": "todo",
       "owner": null,
-      "detail": "Final three-week challenge demonstration pending."
+      "detail": "Final three-week challenge demonstration pending. Record videos, photos, latency, mission counts and failures. Tie the progress gauge to documented milestones."
     }
   ]
 }

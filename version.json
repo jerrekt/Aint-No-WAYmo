@@ -1,7 +1,7 @@
 {
-  "version": "V1.016",
+  "version": "V1.017",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-10-29",
-  "note": "Refresh build list: tunnel, task board, auto-pull, main protection, Discord updates"
+  "date": "2026-10-30",
+  "note": "Add design guidance to task detail lines"
 }
