@@ -1,0 +1,43 @@
+{
+  "project": "aint-no-waymo",
+  "local_package_version": "V1.008",
+  "version_state": "unmerged draft / actual GitHub main unverified",
+  "date_local": "2026-10-29",
+  "domain_planned": "aintnowaymo.adsuaracloud.com",
+  "deploy_verified": false,
+  "physical_robot_verified": false,
+  "team_members": [
+    "Branden Adsuara",
+    "Noah Zerarka",
+    "Gage Watts",
+    "Subir Khan",
+    "Isabel Burgos",
+    "Brandon Wu"
+  ],
+  "task_summary": {
+    "done": 5,
+    "todo": 27,
+    "in_progress": 2
+  },
+  "task_count": 34,
+  "milestones": {
+    "complete": 2,
+    "total": 8,
+    "display_percent": 25
+  },
+  "container_user_reported": {
+    "id": 312,
+    "memory_gb": 1,
+    "cpu_cores": 2,
+    "verified": false
+  },
+  "survey_estimated_ft": {
+    "north": 168,
+    "south": 168,
+    "east": 300
+  },
+  "current_site_filename": "Mini_Waymo_V12_Demo.html",
+  "current_about_filename": "Mini_Waymo_V12_About.html",
+  "main_safety_state": "ESP32-S3 motor outputs disabled; no real driving verified",
+  "handoff_changes_only": true
+}

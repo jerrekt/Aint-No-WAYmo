@@ -1,0 +1,121 @@
+{
+  "source": "User-uploaded reference image (image(8).png), October 29, 2026",
+  "file": "maps/reference/is_building_user_map_2026-10-29.png",
+  "image_width_px": 1500,
+  "image_height_px": 1049,
+  "status": "estimated user-provided drawing, not a calibrated map",
+  "corridor_length_estimates_ft": {
+    "north": 168,
+    "east": 300,
+    "south": 168
+  },
+  "room_hotspot_centers_px": {
+    "202": [
+      446,
+      910
+    ],
+    "204": [
+      557,
+      911
+    ],
+    "205": [
+      612,
+      911
+    ],
+    "208": [
+      818,
+      911
+    ],
+    "210": [
+      926,
+      911
+    ],
+    "212": [
+      1036,
+      911
+    ],
+    "220": [
+      1252,
+      347
+    ],
+    "230": [
+      887,
+      288
+    ],
+    "240": [
+      738,
+      783
+    ]
+  },
+  "simulator_projection_nodes_px": {
+    "A": [
+      1165,
+      847
+    ],
+    "B": [
+      1165,
+      736
+    ],
+    "C": [
+      1165,
+      630
+    ],
+    "D": [
+      1165,
+      525
+    ],
+    "E": [
+      1165,
+      420
+    ],
+    "F": [
+      1165,
+      315
+    ],
+    "G": [
+      1165,
+      215
+    ],
+    "H": [
+      950,
+      215
+    ],
+    "I": [
+      720,
+      215
+    ],
+    "J": [
+      495,
+      215
+    ],
+    "K": [
+      495,
+      239
+    ],
+    "L": [
+      650,
+      239
+    ],
+    "M": [
+      945,
+      847
+    ],
+    "N": [
+      710,
+      847
+    ],
+    "O": [
+      480,
+      847
+    ],
+    "P": [
+      480,
+      826
+    ]
+  },
+  "cautions": [
+    "Some room labels in supplied drawing repeat (e.g. 205, 223); verify before navigation",
+    "Some simulator rooms (251, 263, 265) do not appear in this image; they are selectable in demo menu only",
+    "The overlay coordinates do not encode verified meters, door locations or robot localization"
+  ]
+}

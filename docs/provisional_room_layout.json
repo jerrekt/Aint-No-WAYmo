@@ -1,0 +1,146 @@
+{
+  "building": "Industrial Studies",
+  "floor": 2,
+  "shape": "reversed-C approximate based on user screenshot",
+  "start_room": "200",
+  "direction": "counterclockwise from bottom right upward",
+  "measurement_units": "fictional coordinate units (not measured meters)",
+  "verified": false,
+  "rooms": [
+    {
+      "room": "200",
+      "anchor": "A",
+      "xy_units": [
+        20,
+        2
+      ],
+      "verified": false
+    },
+    {
+      "room": "202",
+      "anchor": "M",
+      "xy_units": [
+        16,
+        2
+      ],
+      "verified": false
+    },
+    {
+      "room": "204",
+      "anchor": "N",
+      "xy_units": [
+        12,
+        2
+      ],
+      "verified": false
+    },
+    {
+      "room": "205",
+      "anchor": "B",
+      "xy_units": [
+        20,
+        4
+      ],
+      "verified": false
+    },
+    {
+      "room": "208",
+      "anchor": "O",
+      "xy_units": [
+        9,
+        2
+      ],
+      "verified": false
+    },
+    {
+      "room": "210",
+      "anchor": "C",
+      "xy_units": [
+        20,
+        6
+      ],
+      "verified": false
+    },
+    {
+      "room": "212",
+      "anchor": "P",
+      "xy_units": [
+        9,
+        4
+      ],
+      "verified": false
+    },
+    {
+      "room": "215",
+      "anchor": "D",
+      "xy_units": [
+        20,
+        8
+      ],
+      "verified": false
+    },
+    {
+      "room": "220",
+      "anchor": "E",
+      "xy_units": [
+        20,
+        10
+      ],
+      "verified": false
+    },
+    {
+      "room": "225",
+      "anchor": "F",
+      "xy_units": [
+        20,
+        12
+      ],
+      "verified": false
+    },
+    {
+      "room": "230",
+      "anchor": "G",
+      "xy_units": [
+        20,
+        14
+      ],
+      "verified": false
+    },
+    {
+      "room": "240",
+      "anchor": "H",
+      "xy_units": [
+        16,
+        14
+      ],
+      "verified": false
+    },
+    {
+      "room": "251",
+      "anchor": "I",
+      "xy_units": [
+        12,
+        14
+      ],
+      "verified": false
+    },
+    {
+      "room": "263",
+      "anchor": "J",
+      "xy_units": [
+        9,
+        14
+      ],
+      "verified": false
+    },
+    {
+      "room": "265",
+      "anchor": "L",
+      "xy_units": [
+        9,
+        9
+      ],
+      "verified": false
+    }
+  ]
+}

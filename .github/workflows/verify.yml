@@ -1,0 +1,49 @@
+name: Verify team changes
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  version-and-simulator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate repo version
+        run: python tools/version.py check
+      - name: Require one version bump for every PR
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: python tools/version.py check --base-ref "$BASE_SHA"
+      - name: Run shared C++/WASM simulator checks
+        run: |
+          node tests/test_v6.mjs
+          node tests/test_v9.mjs
+          node tests/test_v10.mjs
+          node tests/test_pause.mjs
+      - name: Validate team metadata and public map caveats
+        run: python tools/check_repo.py
+  bench-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python probe test requirements
+        run: pip install -r bench/esp32-c3/requirements.txt
+      - name: Check bench probe without hardware
+        run: |
+          python bench/esp32-c3/tests/test_probe.py
+          python bench/esp32-c3/tests/test_inmemory_roundtrip.py

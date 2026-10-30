@@ -1,0 +1,11 @@
+# Add to a *dedicated private* Mosquitto broker's ACL file.
+# No access to live waymo/micro-01/cmd topics.
+user waymo_bench_c3
+topic read waymo/bench-c3/cmd
+topic write waymo/bench-c3/ack
+topic write waymo/bench-c3/status
+
+user waymo_bench_controller
+topic write waymo/bench-c3/cmd
+topic read waymo/bench-c3/ack
+topic read waymo/bench-c3/status

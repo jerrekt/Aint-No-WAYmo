@@ -1,0 +1,41 @@
+# Local secrets (do not remove)
+.env
+.env.*
+!.env.example
+**/secrets.h
+**/credentials.json
+**/*token*
+!**/*token*.example
+*.pem
+*.key
+id_rsa*
+*.p12
+*.pfx
+
+# Python / Node
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.pytest_cache/
+.coverage
+
+# Device tools
+.pio/
+.vscode/
+
+# Runtime / private data
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.csv
+*.bak
+.DS_Store
+
+# Team task board SQLite and deployment credentials
+/data/
+*.sqlite3-shm
+*.sqlite3-wal
+*.env

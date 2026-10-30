@@ -1,0 +1,21 @@
+┌─────────┬───────────────────────────┬──────┬────────┬─────┬───────────┬──────┬──────────────────────────────────────────┬────────────────────────────────────────────────────────────┬─────────────┐
+│ (index) │ mission                   │ done │ failed │ t   │ collision │ edge │ arrivals                                 │ last                                                       │ status      │
+├─────────┼───────────────────────────┼──────┼────────┼─────┼───────────┼──────┼──────────────────────────────────────────┼────────────────────────────────────────────────────────────┼─────────────┤
+│ 0       │ '200→230'                 │ true │ false  │ 75  │ 0         │ 0    │ [ '230' ]                                │ 'Ready at IS 230; dispatch another room without remapping' │             │
+│ 1       │ '200→202'                 │ true │ false  │ 25  │ 0         │ 0    │ [ '202' ]                                │ 'Ready at IS 202; dispatch another room without remapping' │             │
+│ 2       │ '251→263→251→202'         │ true │ false  │ 188 │ 0         │ 0    │ [ '263', '251', '202' ]                  │ 'Ready at IS 202; dispatch another room without remapping' │             │
+│ 3       │ '200→230→251→263→202'     │ true │ false  │ 313 │ 0         │ 0    │ [ '230', '251', '263', ... 1 more item ] │ 'Ready at IS 202; dispatch another room without remapping' │             │
+│ 4       │ '263→200'                 │ true │ false  │ 144 │ 0         │ 0    │ [ '200' ]                                │ 'Ready at IS 200; dispatch another room without remapping' │             │
+│ 5       │ '202→230'                 │ true │ false  │ 100 │ 0         │ 0    │ [ '230' ]                                │ 'Ready at IS 230; dispatch another room without remapping' │             │
+│ 6       │ 'queued 200→230→251→202'  │ true │ false  │ 274 │ 0         │ 0    │ [ '230', '251', '202', ... 1 more item ] │ 'Ready at IS 202; dispatch another room without remapping' │             │
+│ 7       │ 'later 202→200'           │ true │ false  │ 299 │ 0         │ 0    │ [ '230', '251', '202', ... 1 more item ] │ 'Ready at IS 200; dispatch another room without remapping' │             │
+│ 8       │ 'Go now 200→210 mid trip' │ true │ false  │ 25  │ 0         │ 0    │ [ '210' ]                                │ 'Ready at IS 210; dispatch another room without remapping' │             │
+│ 9       │ 'MQTT lost - no dispatch' │      │        │     │           │      │                                          │                                                            │ 'MQTT LOST' │
+└─────────┴───────────────────────────┴──────┴────────┴─────┴───────────┴──────┴──────────────────────────────────────────┴────────────────────────────────────────────────────────────┴─────────────┘
+Room labels: [
+  '200', '202', '204',
+  '205', '208', '210',
+  '212', '215', '220',
+  '225', '230', '240',
+  '251', '263', '265'
+]

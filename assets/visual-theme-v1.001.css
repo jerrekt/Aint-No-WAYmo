@@ -1,0 +1,139 @@
+
+/* V1.001 visual refinement: light navigation-product interface, original student-project identity. */
+:root{color-scheme:light;--bg:#f6f8fc;--panel:#ffffff;--panel2:#eef3fa;--border:#dce3ed;--ink:#172843;--muted:#63748a;--aqua:#169c78;--orange:#a66a19;--red:#b8434e;--blue:#3564d8;--waymoBlue:#3564d8;--waymoGreen:#169c78}
+html{background:#f6f8fc}
+body{background:#f6f8fc;color:var(--ink);font-family:Arial,'Helvetica Neue',Helvetica,system-ui,sans-serif;font-size:14px}
+header{background:#fff;border-bottom:1px solid #dde5ed;padding:15px 30px;min-height:79px;box-shadow:none}
+.brand{gap:12px;min-width:235px}
+.logo{width:44px;height:44px;border-radius:11px;background:#e9f0ff;box-shadow:none;color:#3564d8;font-family:Georgia,serif;font-weight:700;font-size:27px;letter-spacing:-.12em}
+.logo>span{transform:translate(-2px,-1px)}
+.brandWordmark{display:flex;flex-direction:column;justify-content:center}
+.brandWordmark h1{font-size:20px;letter-spacing:-.03em;font-weight:800;margin:0;color:#183152;line-height:1.15}
+.brandWordmark .brandSubtitle{font-size:11px;font-weight:700;color:#4b6c85;letter-spacing:.02em;margin-top:4px}
+.eyebrow{display:none}
+.headerRight{gap:12px}
+.pageNav{background:transparent;border:0;gap:2px;padding:0;border-radius:0}
+.pageNav button{color:#576b80;background:transparent;border-radius:7px;font-weight:600;font-size:12px;padding:9px 12px}
+.pageNav button.active{background:#eaf0ff;color:#2751b3}
+.pageNav button:focus-visible{outline:2px solid #3564d8}
+.roles{border:1px solid #dce3ed;background:#f1f5f9;border-radius:8px;padding:2px}
+.roles button{color:#617189;border-radius:6px}
+.roles button.active{background:#fff;color:#254675;box-shadow:0 1px 3px #162d4b10}
+.pill{color:#226a53;border:1px solid #b9dccc;background:#f0f9f3;border-radius:6px;font-size:11px;padding:7px 10px}
+.version{color:#738396}
+main{gap:16px;padding:24px}
+.column{gap:16px}
+.card{background:#fff;border:1px solid #dde5ed;border-radius:11px;box-shadow:0 2px 10px #1d35510a}
+.head{padding:17px 20px 13px}
+.head h2,.tripHeader h2{font-size:14px;font-weight:700;color:#192c49}
+.sub,.head small,.legend,.infoBar,.tripFooter,.mapTip,.smallhelp{color:#667b8e}
+.mapFrame{background:#f1f5fa;border-color:#d4dde8;border-radius:8px}
+.mapFrame svg{background:#e8eff7}
+.mapBody{padding:0 14px 12px}
+.legend i{background:#169c78}
+.legend i.true{border-color:#db943c}
+.badge{background:#ebf1fc;color:#3359ac;border-radius:5px}
+.warn{color:#a46914}
+.metric{border:1px solid #e1e7ee;background:#fff;border-radius:9px;padding:15px}
+.metric label{color:#5e7289}
+.metric small{color:#8190a0}
+.trow{color:#355069}
+.trow span:first-child{color:#5e7289}
+.bar{background:#e6ecf2}
+.barInner{background:#169c78}
+.btn{background:#fff;color:#244060;border:1px solid #cdd8e4;border-radius:7px;font-weight:650;box-shadow:none}
+.btn.primary{background:#3564d8;border-color:#3564d8;color:#fff}
+.btn.danger{background:#fff2f2;border-color:#eabec0;color:#a72f41}
+.btn:hover:not(:disabled){filter:none;background:#edf3fc}
+.btn.primary:hover:not(:disabled){background:#284fbe}
+.controlGroup label{color:#60748b}
+.controlGroup select,.controlGroup input[type=text]{background:#fff;color:#172843;border-color:#cbd7e3}
+.controlGroup select:focus-visible,.largeSelect:focus-visible{outline:2px solid #3564d8;outline-offset:2px}
+.rangeLine output{color:#496078}
+.switch{color:#324a65;border-color:#e1e7ee}
+.switch input{accent-color:#3564d8}
+.switch em{color:#75869b}
+.roomStep{background:#f5f8fd;color:#4d6075;border-color:#dce4ed;border-radius:6px}
+.roomStep.active{background:#e9f2ff;color:#2255b5;border-color:#87a8ed}
+.arrow{color:#8c9aac}
+.events .evt{border-color:#e1e7ee}
+.evt time{color:#738399}.evt span{color:#354e65}
+.foot{color:#718298}
+.sensorGrid{background:#f0f4f8}
+.statusDot{background:#169c78;box-shadow:none}.statusDot.bad{box-shadow:none}
+.caution{background:#fff8e8;color:#765b2e;border-left-color:#cf8c2e}
+a,.aboutLink{color:#2b5fc7}
+.aboutLink{border-bottom:1px solid #8da9e8}
+.toggleShow{color:#667b8e}
+.dispatchCard{padding:22px}
+.dispatchTitle{font-size:25px;letter-spacing:-.035em}
+.destinationLabel{color:#546a80}
+.largeSelect{background:#fff;color:#152843;border:1px solid #cbd7e3;border-radius:7px}
+.secondaryBtn{background:#fff}
+.driveBottom{border-color:#e2e8f0}
+.pauseBtn{background:#ebf5f1;border-color:#c4ddd2;color:#17654d}
+.pauseBtn.paused{background:#dbf2e9;border-color:#169c78;color:#146249}
+.textAction{color:#315db5}
+.advancedDisclosure,.diagnostics{background:#fff;border-color:#dce3ed;border-radius:10px}
+.advancedDisclosure>summary,.diagnostics>summary{color:#27435f}
+.advancedDisclosure>summary:after,.diagnostics>summary:after{color:#8090a1}
+.diagnostics>.card{border-color:#e1e7ee}
+.summaryHint{color:#728599}
+.room-hotspot:hover rect,.room-hotspot:focus-visible rect{stroke:#3564d8}
+.room-hotspot:focus-visible{outline-color:#3564d8}
+main#aboutPage{max-width:1050px;padding-top:24px}
+.aboutHero,.aboutHeroCompact{background:#f0f4ff;border:1px solid #d9e4f9;border-radius:11px;padding:34px 38px}
+.aboutHero:after{content:none}
+.aboutHero .kicker{color:#345fb4;letter-spacing:.055em;font-size:11px;font-weight:700}
+.aboutHero h2,.aboutHeroCompact h2{color:#142849;letter-spacing:-.045em;line-height:1.13;font-size:clamp(33px,4vw,47px)}
+.heroMuted{color:#476d96;font-weight:400}
+.aboutHero p,.aboutHeroCompact p{color:#51657d;line-height:1.6}
+.aboutHeroMeta span,.aboutHeroCompact .aboutHeroMeta span{background:#fff;border:1px solid #d9e3f2;color:#3c5d7d;border-radius:5px;font-size:11px;padding:7px 10px}
+.aboutBlock{background:#fff;border:1px solid #e0e7ee;border-radius:10px;box-shadow:none}
+.aboutHead h2{color:#1b3557;letter-spacing:-.025em}
+.aboutHead .aside{color:#8292a4}
+.aboutBlock p,.aboutNarrative{color:#445b72 !important}
+.aboutMini{color:#72879a !important}
+.teamPerson{background:#fff;border:1px solid #dce5ed;border-radius:8px;min-height:165px}
+.teamAvatar{background:#eaf1ff;color:#315cba;border-radius:8px}
+.teamPerson h3{color:#203958}
+.teamPerson .role{color:#506880}
+.teamPerson .meta,.teamPerson .teamAffiliation{color:#71869a}
+.aboutTableWrap{border:1px solid #dce4ed;border-radius:8px}
+.aboutTable th{background:#eef3fa;color:#234362}
+.aboutTable td{border-color:#e2e8f1;color:#4b6178}
+.aboutTable th:first-child,.aboutTable td:first-child{color:#213f62}
+.scopeStatus{color:#187b60}
+.aboutSteps{gap:10px}
+.aboutStep{background:#f9fbfe;border:1px solid #dce5ed;border-radius:8px}
+.aboutStep strong{color:#243c59}
+.aboutFoot{color:#7a899b}
+.buildProgress{background:#fff;border:1px solid #dce5ed;border-radius:10px;box-shadow:none}
+.progressKicker{color:#627d92}
+.progressHeader h2{color:#1d3552}
+.progressHeader p{color:#657b90}
+.progressScore{color:#2b5fc7}
+.progressTrack{background:#e7ecf4;border:0;border-radius:4px;height:8px}
+.progressFill{background:#169c78;border-radius:4px}
+.progressBottom{color:#647a8d}
+.progressDetails{border-color:#e0e8ee}
+.progressDetails summary{color:#2d5aa8}
+.progressMilestones li{background:#f7f9fc;border-color:#e1e7ef;border-radius:7px}
+.progressMilestones b{color:#2e4660}
+.progressMilestones small{color:#697c91}
+.progressMilestones .milestoneStatus{color:#24785f}
+.progressNote{color:#74869b}
+.kratosNote{background:#f4f8fc;border-left-color:#3564d8;border-radius:4px}
+.kratosNote strong{color:#24436a}
+.kratosNote p{color:#557087}
+@media(max-width:1120px){header{flex-wrap:wrap}.headerRight{margin-left:auto}}
+@media(max-width:700px){header{padding:14px 16px}.brandWordmark h1{font-size:18px}.logo{width:40px;height:40px}.headerRight{width:100%;justify-content:space-between;gap:7px}.pageNav{order:0;width:auto}.pageNav button{padding:8px}.headerRight .pill{font-size:10px}.roles button{padding:7px 10px}main#aboutPage{padding:14px}.aboutHeroCompact{padding:24px 20px}.aboutHero h2{font-size:33px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:0s !important;animation-duration:0s !important}}
+/* Refinements: white scope divider and readable mobile comparison cards. */
+.scopeMini{color:#58748a;border-top-color:#dce5ed}
+@media(max-width:600px){
+ .aboutTable tr{background:#f8fafc;border-color:#dce5ed;border-radius:8px}
+ .aboutTable td{color:#43596f}
+ .aboutTable td:first-child{color:#213e60}
+ .aboutTable td:nth-child(2):before,.aboutTable td:nth-child(3):before{color:#3168ad}
+}

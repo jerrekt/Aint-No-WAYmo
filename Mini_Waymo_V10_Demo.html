@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Mini-Waymo Micro V10 • Fit-first Indoor Autonomy</title>
+<style>
+:root{color-scheme:dark;--bg:#0b111a;--panel:#131e2a;--panel2:#182635;--border:#293847;--ink:#e9f2f4;--muted:#8da3b4;--aqua:#46e5c5;--orange:#ffc16c;--red:#ff7779;--blue:#9dc7ff}
+*{box-sizing:border-box}body{background:radial-gradient(ellipse 1000px 550px at 25% -30%,#253848 0%,#0b111a 78%);color:var(--ink);margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.4}
+header{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 26px;border-bottom:1px solid #263749;background:#111a25e5}.brand{display:flex;gap:14px;align-items:center}.logo{width:44px;height:44px;background:#23463e;border-radius:13px;display:grid;place-items:center;color:var(--aqua);font-weight:900;font-size:22px;box-shadow:inset 0 0 0 1px #368978}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:700;color:var(--aqua)}h1{margin:3px 0 0;font-size:23px;letter-spacing:-.045em}h2{font-size:14px;margin:0;letter-spacing:-.01em}p{line-height:1.5}.sub{font-size:12px;color:var(--muted)}.headerRight{display:flex;align-items:center;gap:11px;flex-wrap:wrap}.pill{font-size:11px;border:1px solid #3d6257;color:#8affd6;background:#163126;padding:7px 10px;border-radius:99px}.version{font-size:11px;color:#718ca0}.roles{display:flex;background:#0b121c;border-radius:10px;border:1px solid var(--border);padding:3px}.roles button{border:0;background:transparent;color:var(--muted);padding:8px 13px;border-radius:8px}.roles button.active{color:#e4fffa;background:#214d43}
+main{max-width:1600px;margin:auto;padding:22px;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(340px,.78fr);gap:18px}.column{min-width:0;display:flex;flex-direction:column;gap:18px}.card{border:1px solid var(--border);border-radius:16px;background:linear-gradient(160deg,#172331,#111a26);overflow:hidden;box-shadow:0 8px 40px #00000018}.head{padding:18px 20px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.head small{color:var(--muted)}.mapBody{padding:0 15px 15px}.mapFrame{position:relative;border:1px solid #31414d;border-radius:13px;background:#0d1b27;overflow:hidden}.mapFrame svg{width:100%;display:block;aspect-ratio:1000/600}.legend{display:flex;flex-wrap:wrap;gap:15px;padding:12px 6px 0;color:var(--muted);font-size:11px}.legend span{display:flex;align-items:center;gap:6px}.legend i{width:10px;height:10px;border-radius:100%;background:var(--aqua);display:inline-block}.legend i.true{background:transparent;border:2px solid #ffb26e}.legend i.route{width:18px;height:2px;border-radius:0}.infoBar{display:flex;justify-content:space-between;gap:10px;padding:10px 20px 18px;color:var(--muted);font-size:11px}.badge{font-size:11px;padding:5px 9px;border-radius:6px;background:#1e3242;color:var(--blue)}.warn{color:var(--orange)}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.metric{border:1px solid var(--border);background:#131e2a;border-radius:13px;padding:14px}.metric label{display:block;color:var(--muted);font-size:11px}.metric b{display:block;margin:9px 0 3px;font-size:22px;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.metric small{color:#8a9dac;font-size:10px}.gridtwo{display:grid;grid-template-columns:1fr 1fr;gap:18px}.padded{padding:18px 20px}.trow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:13px 0;color:#bed2dc}.trow span:first-child{color:var(--muted)}.bar{height:6px;border-radius:8px;background:#2a3945;overflow:hidden}.barInner{background:var(--aqua);height:100%;transition:width .2s}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 0}.btn{background:#243443;color:var(--ink);border:1px solid #385064;border-radius:9px;padding:10px 13px;font-weight:600;font-size:12px}.btn.primary{background:#1d9e86;border-color:#1bc2a4;color:#041713}.btn.danger{background:#572831;border-color:#9d4753;color:#ffd7dc}.btn:hover:not(:disabled){filter:brightness(1.12)}.controlGroup{margin:13px 0 18px}.controlGroup label{font-size:11px;color:var(--muted);display:block;margin:0 0 7px}.controlGroup select,.controlGroup input[type=text]{width:100%;border:1px solid #34485b;border-radius:8px;padding:9px 11px;color:var(--ink);background:#111b28;outline:0}.rangeLine{display:flex;gap:8px;align-items:center}.rangeLine input{flex:1}.rangeLine output{font-variant-numeric:tabular-nums;font-size:12px;color:#b4ced6;min-width:34px}.switch{display:flex;align-items:center;gap:10px;font-size:12px;color:#cbdde2;padding:9px 0;border-bottom:1px solid #273645}.switch:last-child{border:0}.switch input{accent-color:#31b99f;min-width:15px;min-height:15px}.switch em{margin-left:auto;color:#6f8797;font-style:normal;font-size:10px}.roomSteps{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px}.roomStep{border-radius:8px;background:#21313f;border:1px solid #3b5365;padding:8px 11px;min-width:55px;text-align:center;color:#bdd0d8;font-size:12px}.roomStep.active{border-color:#43c4af;background:#183b36;color:#a6fff0}.roomStep.done{opacity:.65}.arrow{color:#617d90}.events{height:270px;overflow:auto;padding:2px 20px 15px}.evt{border-bottom:1px solid #273643;display:flex;gap:15px;font-size:11px;line-height:1.45;padding:10px 0}.evt time{color:#7594a5;min-width:55px;font-variant-numeric:tabular-nums}.evt span{color:#cbdce1}.foot{max-width:1600px;margin:0 auto 28px;padding:0 25px;color:#74899a;font-size:11px;line-height:1.55}.sensorGrid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;padding:12px;background:#0d1824;border-radius:9px}.sensorCell{border-radius:2px;aspect-ratio:1}.smallhelp{font-size:11px;color:var(--muted);line-height:1.45}.statusRing{display:flex;align-items:center;gap:8px}.statusDot{width:7px;height:7px;border-radius:50%;background:var(--aqua);box-shadow:0 0 11px #3fe7c5}.statusDot.bad{background:var(--red);box-shadow:0 0 11px #ff7879}.caution{padding:10px 13px;margin:0 20px 15px;background:#1d2c38;border-left:2px solid #e7b46d;color:#afc2c8;font-size:11px;line-height:1.45}a{color:var(--aqua)}.toggleShow{font-size:11px;color:#b1c3cf}.break{display:block}
+@media(max-width:1120px){main{grid-template-columns:1fr}.column{gap:14px}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){header{padding:16px;align-items:flex-start}.headerRight{justify-content:flex-end}h1{font-size:18px}.brand{gap:10px}.logo{width:36px;height:36px}main{padding:12px;gap:12px}.head{padding:14px}.gridtwo{grid-template-columns:1fr}.mapBody{padding:0 8px 12px}.metrics{gap:7px}.metric{padding:10px}.metric b{font-size:20px}.events{height:190px}}
+
+/* V9: simple dispatch, mission pause/resume, recovery and E-stop */
+main{grid-template-columns:minmax(0,1.55fr) minmax(330px,.70fr);align-items:start}
+.tripHeader{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tripHeader h2{font-size:14px}
+.dispatchCard{padding:22px;position:sticky;top:16px}
+.dispatchTitle{font-size:27px;letter-spacing:-.05em;margin-top:8px}
+.destinationLabel{display:block;color:#b6c9d2;font-size:12px;margin:22px 0 8px}
+.largeSelect{width:100%;font-size:21px;font-weight:700;color:var(--ink);background:#0e1a25;border:1px solid #4e6875;border-radius:12px;padding:15px 14px}
+.primaryActions{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:9px;margin-top:12px}
+.bigBtn{min-height:54px;font-size:14px;border-radius:12px;padding:12px}
+.secondaryBtn{background:#223947}
+.driveBottom{display:flex;align-items:center;gap:10px;border-top:1px solid var(--border);padding-top:17px;margin-top:18px}
+.stopBtn{flex:1;min-height:45px;font-size:13px}.pauseBtn{flex:1;min-height:45px;font-size:13px;background:#224b4a;border-color:#397e78;color:#c1fff1}.pauseBtn.paused{background:#255a4b;border-color:#46e5c5}.soundBtn{min-height:45px}
+.mapTip{font-size:11px;color:#9bb2bd;margin-top:14px}
+.textAction{border:none;background:transparent;color:#97dccc;padding:4px 0;font-size:12px;text-decoration:underline;text-underline-offset:3px}
+.queuePreview{min-height:40px;margin-top:12px}
+.tripCard{padding:19px}.tripFooter{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:12px}.tripFooter strong{color:var(--ink)}
+.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.metrics .metric:last-child{display:none}
+.advancedDisclosure,.diagnostics{border:1px solid var(--border);border-radius:14px;background:#121f2a;overflow:hidden}
+.advancedDisclosure>summary,.diagnostics>summary{display:flex;justify-content:space-between;cursor:pointer;list-style:none;padding:16px 20px;color:#d4e7ec;font-weight:650}
+.advancedDisclosure>summary::-webkit-details-marker,.diagnostics>summary::-webkit-details-marker{display:none}
+.advancedDisclosure>summary:after,.diagnostics>summary:after{content:'⌄';color:#9fb3be}
+.advancedDisclosure[open]>summary:after,.diagnostics[open]>summary:after{content:'⌃'}
+.summaryHint{font-size:11px;font-weight:400;color:var(--muted);margin-left:auto;margin-right:15px}
+.advancedContent{padding:0 11px 12px;display:flex;flex-direction:column;gap:12px}
+.diagnostics{padding:0}.diagnostics>.card{border:0;border-top:1px solid var(--border);border-radius:0;box-shadow:none}
+.diagnostics .sensorGrid{max-width:450px}
+.screenReader{display:none}
+.room-hotspot:hover rect,.room-hotspot:focus-visible rect{stroke:#9ef7e5;stroke-width:3}
+.room-hotspot:focus-visible{outline:2px solid #9ef7e5}
+@media(max-width:1120px){main{grid-template-columns:1fr}.dispatchCard{position:static}.controlsColumn{order:-1}}
+@media(max-width:600px){.dispatchTitle{font-size:24px}.primaryActions{grid-template-columns:1fr 1fr}.bigBtn{font-size:12px}.dispatchCard{padding:16px}main{display:flex;flex-direction:column}.controlsColumn{order:0}.metrics .metric b{font-size:17px}.headerRight .version{display:none}}
+</style></head>
+<body>
+<header><div class="brand"><div class="logo">W</div><div><div class="eyebrow">KRATOS / ROBOTICS LAB</div><h1>Mini-Waymo <span style="color:#88a1ac;font-weight:400">Micro</span></h1></div></div><div class="headerRight"><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button id="adminBtn" class="active">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V9 · RECOVERY + E-STOP</span></div></header>
+<main>
+<div class="column">
+ <section class="card"><div class="head"><div><div class="eyebrow" style="margin-bottom:6px">ROOM-TO-ROOM NAVIGATION</div><h2>Industrial Studies · Floor 2 <span class="badge">DEMO MAP</span></h2></div><span class="sub" id="clock">00:00</span></div><div class="mapBody"><div class="mapFrame"><svg id="map" viewBox="0 0 1000 600" aria-label="Illustrative second floor hallway with robot route"></svg></div><div class="legend"><span><i></i>Estimated robot position</span><span><i class="true"></i>Physical truth <input type="checkbox" id="showTruth" style="margin:0"/></span><span><i class="route" style="background:#46e5c5"></i>Current route</span><span>□ Room markers</span><span>◌ Depth scan points</span></div></div><div class="infoBar"><span>Illustrative C-shaped corridor. Room positions are placeholders, not a surveyed floor plan.</span><span>Start: IS 200 (bottom-right) · up to 230 counterclockwise</span></div></section>
+ <div class="metrics"><div class="metric"><label>Vehicle decision</label><b id="status" style="font-size:15px">READY</b><small id="statusHint">Awaiting start</small></div><div class="metric"><label>Current location</label><b id="location">IS 200</b><small id="marker">Marker A</small></div><div class="metric"><label>Next destination</label><b id="destination">Choose room</b><small id="progress">Step 1 of 3</small></div><div class="metric"><label>Pose uncertainty</label><b id="uncertainty">±0.05 m</b><small>Estimated 1σ, synthetic</small></div></div>
+ <section class="card padded" style="padding:13px 18px;display:flex;gap:12px;align-items:center"><span style="font-size:20px">◉</span><div><strong style="display:block;font-size:13px">Waymo is deciding</strong><span id="decisionLine" style="color:#9fb6c2;font-size:12px">Checking environment and awaiting destination.</span></div></section>
+ <section class="card padded" style="padding:15px 19px"><div class="tripHeader"><h2>Vehicle readiness</h2><span class="sub">Simulation only</span></div>
+ <div class="trow"><span>Battery (synthetic 1S LiPo)</span><strong id="batteryLevel">4.12 V</strong></div><div class="bar"><div class="barInner" id="batteryBar" style="width:92%"></div></div>
+ <div class="trow"><span>Room arrival confirmation</span><strong id="arrivalState">Awaiting marker</strong></div>
+ <div class="actions"><button class="btn" id="recoverQuick">↻ Recover location</button><span class="sub" id="recoverQuickHint">Uses marker first; does not move automatically</span></div>
+ </section>
+ <section class="card padded tripCard"><div class="tripHeader"><h2>Current trip</h2><span class="sub" id="mode">Standby</span></div>
+ <div id="roomSteps" class="roomSteps"></div><div class="bar" style="margin-top:16px"><div class="barInner" id="routeBar" style="width:0%"></div></div>
+ <div class="tripFooter"><span>Last verified location: <strong id="confirmed">IS 200</strong></span><span>Distance: <strong id="distance">0.0 m</strong></span></div></section>
+ <details class="diagnostics"><summary>Live sensors and activity</summary>
+   <section class="card padded"><div class="tripHeader"><h2>Depth perception</h2><span class="sub">Simulated VL53L7CX</span></div><div class="sensorGrid" id="depthGrid"></div><div class="trow"><span>Front clearance</span><strong id="front">3.50 m</strong></div><div class="trow"><span>Side wall</span><strong id="side">1.20 m</strong></div><p class="smallhelp">Projected horizontal zones for this simulator; not actual 8×8 measurements.</p></section>
+   <section class="card"><div class="head"><h2>Decision log</h2><button class="btn" id="copyLog">Copy</button></div><div class="events" id="events"></div></section>
+ </details>
+</div>
+<div class="column controlsColumn">
+ <section class="card padded dispatchCard"><div class="tripHeader"><div><div class="eyebrow">SEND WAYMO</div><h2 class="dispatchTitle">Where to?</h2></div><span class="badge">IS · FLOOR 2</span></div>
+ <label class="destinationLabel" for="roomSelect">Choose a room</label>
+ <select class="largeSelect" id="roomSelect" aria-label="Choose destination room"></select>
+ <div class="primaryActions"><button id="goNow" class="btn primary bigBtn">Go to IS 263 <span aria-hidden="true">→</span></button><button id="addStop" class="btn bigBtn secondaryBtn">+ Add stop</button></div>
+ <div class="tripHeader" style="margin-top:20px"><h2>Upcoming stops</h2><button class="textAction" id="clearFuture">Clear queue</button></div>
+ <div id="queueLive" class="roomSteps queuePreview"></div>
+ <div class="driveBottom"><button id="pauseRoute" class="btn pauseBtn" disabled aria-label="Pause current trip">Ⅱ Pause</button><button id="holdRoute" class="btn danger stopBtn">■ Stop</button></div><button id="hardEstop" class="btn" style="width:100%;background:#6d2228;border:1px solid #e65b61;color:#fff;margin-top:9px;min-height:44px;font-weight:800">⛔ Emergency stop (simulation)</button><div id="safetyBanner" role="status" style="margin-top:8px;font-size:12px;color:#ffbcac;display:none">E-stop latched. Release the switch and perform a local reset; Go and Resume are blocked.</div><div style="margin-top:9px"><button id="sound" class="btn soundBtn" style="width:100%">♪ Enable audio</button></div>
+ <div class="mapTip">Tip: click a room for an immediate trip. Arrival keeps the map and position, ready for the next room.</div>
+ <div class="screenReader" aria-hidden="true"><span id="selectedRoom">IS 230</span><select id="mapClickMode"><option value="now" selected>Go now</option></select></div>
+ </section>
+ <details class="advancedDisclosure" id="advancedPanel"><summary><span>Map setup & advanced testing</span><span class="summaryHint">Optional</span></summary><div class="advancedContent">
+ <section class="card padded"><div class="head" style="padding:0 0 12px"><h2>Mapping tools</h2><span class="badge">OFFLINE SURVEY</span></div>
+ <p class="smallhelp">You can survey the floor over multiple sessions. This demo records synthetic 360° depth signatures at operator-annotated anchors, not real SLAM. In the physical project, drive to each anchor, label it, and record scans on Kratos.</p>
+ <div class="trow"><span>Recorded reference anchors</span><strong id="surveyStatus">0 / 16</strong></div>
+ <div class="bar"><div class="barInner" id="surveyBar" style="width:0%"></div></div>
+ <div class="actions"><button class="btn" id="surveyNext">+ Record next anchor</button><button class="btn primary" id="surveyAll">Survey all (accelerated)</button></div>
+ <div class="actions"><button class="btn" id="exportMap">↓ Export survey JSON</button><button class="btn" id="importMapBtn">↑ Import survey JSON</button><input type="file" id="importMap" accept=".json,application/json" style="display:none"/></div>
+ <p class="smallhelp" id="surveyHint">No survey recorded yet. Map geometry shown at left is an unverified fictional fixture.</p>
+ </section>
+ <section class="card padded"><div class="head" style="padding:0 0 12px"><h2>Relocalization tools</h2><span class="badge">RELOCALIZATION</span></div>
+ <div class="controlGroup"><label for="dropNode">Place the robot at an unknown mapped point</label><select id="dropNode"></select></div>
+ <div class="actions"><button class="btn" id="drop">Move vehicle (auto-find)</button><button class="btn primary" id="recover">↻ Supervised 360° recovery scan</button></div>
+ <div class="actions"><button class="btn" id="readTag">▣ Recognize unique marker</button></div>
+ <div class="trow"><span>Kratos localization</span><strong id="recoveryStatus">Known start</strong></div>
+ <p class="smallhelp" id="recoveryHint">Automatic recovery first checks for a unique visible location marker without rotating. Otherwise the robot stops; a 360° turn needs supervised clearance checks. Ambiguous matches never authorize driving.</p>
+ </section>
+<section class="card padded"><div class="head" style="padding:0 0 12px"><h2>Simulation playback</h2><span class="badge" id="roleLabel">ADMIN SIMULATION</span></div><div class="controlGroup"><label for="preset">Room-to-room mission</label><select id="preset"><option value="200,230,251,263,202">200 → 230 → 251 → 263 → 202</option><option value="200,230">200 → 230</option><option value="202,230">202 → 230</option><option value="263,200">263 → 200</option><option value="251,263,251,202">251 → 263 → 251 → 202</option><option value="200,202,230">200 → 202 → 230</option></select></div><div class="actions"><button class="btn primary" id="start">▶ Start mission</button><button class="btn" id="reset">↺ Reset</button></div><div class="actions"><button class="btn" id="scan">↻ Scan 360°</button></div><div class="controlGroup"><label>Simulation speed</label><div class="rangeLine"><input id="speed" type="range" min="1" max="40" step="1" value="12"/><output id="speedNum">12×</output></div></div><p class="smallhelp">This page runs locally, not on your real Kratos server. Guest is a read-only UI preview, not implemented authentication.</p></section>
+ <section class="card padded"><div class="head" style="padding:0 0 10px"><h2>Fault simulation</h2><span class="badge warn">SIMULATION</span></div>
+  <label class="switch"><input type="checkbox" id="people"/> Moving pedestrian <em>camera + depth</em></label>
+  <label class="switch"><input type="checkbox" id="chair"/> Chair in hallway <em>block and wait</em></label>
+  <label class="switch"><input type="checkbox" id="lostWifi"/> Disconnect MQTT <em>stop within timeout</em></label>
+  <label class="switch"><input type="checkbox" id="badTof"/> Fail depth sensor <em>stop immediately</em></label>
+  <label class="switch"><input type="checkbox" id="noMarkers"/> Remove room tags <em>no confirmation</em></label>
+  <label class="switch"><input type="checkbox" id="autoScan"/> Scan selected junctions <em>match to map</em></label>
+  <label class="switch"><input type="checkbox" id="estop"/> Physical E-stop switch pressed <em>latches until local reset</em></label><div class="actions"><button class="btn" id="releaseEstop">Release switch (simulate)</button><button class="btn" id="resetEstop">Reset latch locally (simulate)</button></div><p class="smallhelp">In real hardware, a dual-pole normally-closed physical E-stop must disconnect motor-driver power independently of firmware. This browser action only models that circuit.</p>
+  <div class="controlGroup"><label>Sensor / odometry noise</label><div class="rangeLine"><input type="range" id="noise" min="0.4" max="4" step="0.2" value="1"/><output id="noiseNum">1.0×</output></div></div>
+ </section>
+ <section class="card padded"><h2>Vehicle actuators</h2><div class="trow"><span>Left motor</span><strong id="leftMotor">0.000 m/s</strong></div><div class="trow"><span>Right motor</span><strong id="rightMotor">0.000 m/s</strong></div><div class="trow"><span>Signal lamps</span><strong id="lamps">Off</strong></div><div class="trow"><span>Chime</span><strong id="chime">Ready</strong></div><div class="trow"><span>Estimated heading</span><strong id="heading">0°</strong></div></section>
+ <section class="card padded"><div class="tripHeader"><h2>Mission history</h2><button class="btn" id="exportHistory">Export JSON</button></div><div id="historyLive" class="smallhelp">No trips recorded.</div></section>
+ <section class="card padded"><h2>Diecast fit planning</h2><p class="smallhelp">The exact World's Littlest shell interior is not verified. Measure it before purchasing motors or a battery.</p><a class="btn" href="Mini_Waymo_Fit_Planner.html" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none">Open dimension-driven component planner</a></section>
+ <section class="card"><div class="head"><h2>Build status</h2><span class="badge">V10</span></div><div class="caution"><strong>Verified:</strong> native and browser C++ core compile. <strong>Not verified:</strong> physical shell fit, actual sensor drivers, model-specific camera inference, real MQTT authentication, real IS floor layout, permission to operate in hallways.</div></section>
+</div></main><div class="foot">Educational autonomous robotics proof of concept. Reverse-C shape is based only on the supplied footprint; corridor centerlines, room positions, marker detections and localization measurements are synthetic; this is not the actual IS second-floor map. The live dashboard, authentication, real camera processing, and motor pins require implementation on Kratos and ESP32 hardware before campus trials. A 360° depth scan does not uniquely determine hallway location.</div>
+<script>
+// Mini-Waymo Micro V4: simulated hallway telemetry, idealized depth scan, noisy odometry,
+// gyroscope drift, landmark correction, MQTT watchdog, Kratos route planner.
+// This is intentionally an illustrative / FICTIONAL hallway topology.
+// Placeholder reverse-C hallway graph based on user-supplied IS building footprint.
+// NO room number position is field verified. 200 starts bottom-right and 230
+// runs up the right-hand leg, followed by the upper wing counter-clockwise.
+const NODES={
+ A:[20,2], B:[20,4], C:[20,6], D:[20,8], E:[20,10], F:[20,12], G:[20,14],
+ H:[16,14], I:[12,14], J:[9,14], K:[9,11], L:[9,9],
+ M:[16,2], N:[12,2], O:[9,2], P:[9,4]
+};
+const EDGES=[['A','B'],['B','C'],['C','D'],['D','E'],['E','F'],['F','G'],
+ ['G','H'],['H','I'],['I','J'],['J','K'],['K','L'],
+ ['A','M'],['M','N'],['N','O'],['O','P']];
+const ROOMS={'200':'A','205':'B','210':'C','215':'D','220':'E','225':'F','230':'G',
+ '240':'H','251':'I','263':'J','265':'L','202':'M','204':'N','208':'O','212':'P'};
+const LABELS={0:'IDLE',1:'DRIVING',2:'WAITING FOR PEDESTRIAN',3:'OBSTACLE STOP',4:'SENSOR STOP',5:'MQTT LOST',6:'LOCALIZATION UNCERTAIN',7:'360° SCANNING',8:'ROOM CONFIRMED',9:'EMERGENCY STOP'};
+const hypot=(a,b)=>Math.hypot(a,b);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
+const distance=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+const XY=([x,y])=>({x,y});
+function segDist(p,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],q=clamp(((p[0]-a[0])*dx+(p[1]-a[1])*dy)/(dx*dx+dy*dy),0,1);return Math.hypot(p[0]-a[0]-q*dx,p[1]-a[1]-q*dy)}
+function walkDist(x,y){let d=1e9;for(const [a,b] of EDGES)d=Math.min(d,segDist([x,y],NODES[a],NODES[b]));return d}
+const WIDTH=1.9;
+function inHall(x,y,margin=0){return walkDist(x,y)<WIDTH/2-margin}
+function route(start,end,blocked=[]){
+ const distances={};const parent={};const open=new Set(Object.keys(NODES));for(const k of open) distances[k]=Infinity;distances[start]=0;
+ while(open.size){let u=null;for(const v of open)if(u===null||distances[v]<distances[u])u=v;
+ if(!Number.isFinite(distances[u]))break;open.delete(u);if(u===end)break;
+ for(const [a,b] of EDGES){const v=u===a?b:u===b?a:null;if(!v||!open.has(v)||blocked.includes([u,v].sort().join('-')))continue;
+ const alt=distances[u]+distance(NODES[u],NODES[v]);if(alt<distances[v]){distances[v]=alt;parent[v]=u;}}
+ }
+ if(!Number.isFinite(distances[end]))return [];
+ let path=[end];let n=end;while(n!==start){n=parent[n];if(!n)return [];path.unshift(n);}return path;
+}
+function ray(x,y,theta,max=3.5,objects=[]){
+ for(let r=0.05;r<=max;r+=0.045){let px=x+Math.cos(theta)*r,py=y+Math.sin(theta)*r;
+ if(!inHall(px,py))return r;
+ for(const o of objects){if(Math.hypot(o.x-px,o.y-py)<o.r)return r;}
+ }return max;
+}
+// The model casts eight horizontal ray directions; 8x8 optical depth zones are not
+// faithfully modeled in 3D, and no real images or AprilTag detections are processed.
+function tofGrid(x,y,yaw,objects=[]){return Array.from({length:8},(_,i)=>ray(x,y,yaw+(i-3.5)*0.105,3.5,objects));}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296}}
+function gaussian(rng){return Math.sqrt(-2*Math.log(Math.max(1e-8,rng())))*Math.cos(2*Math.PI*rng())}
+
+// Saved survey: topology comes from an operator-drawn floor plan. Reference scans
+// are recorded at operator-annotated landmarks. This is NOT automatic SLAM.
+const SCAN_BINS=24;
+function newSurvey(){return {schema:1,building:'IS',floor:2,source:'synthetic operator-annotated training fixture',created:new Date().toISOString(),nodes:JSON.parse(JSON.stringify(NODES)),edges:EDGES.map(x=>[...x]),rooms:{...ROOMS},signatures:{}};}
+function validateSurvey(map){
+ if(!map||map.schema!==1||!map.signatures||!map.nodes||!map.edges||!map.rooms)throw Error('Invalid survey schema');
+ for(const [key,v] of Object.entries(map.signatures)){
+  if(!(key in NODES)||!Array.isArray(v)||v.length!==SCAN_BINS||v.some(n=>!Number.isFinite(n)||n<0.03||n>3.51))throw Error('Invalid signature '+key);
+ }
+ return map;
+}
+function recordSurveyAnchor(map,node,noiseSeed=1){
+ validateSurvey(map);if(!(node in NODES))throw Error('Unknown survey anchor');
+ const rng=mulberry32(noiseSeed+node.charCodeAt(0)*2917),[x,y]=NODES[node];
+ map.signatures[node]=Array.from({length:SCAN_BINS},(_,i)=>clamp(ray(x,y,i*2*Math.PI/SCAN_BINS,3.5,[])+gaussian(rng)*.011,.05,3.5));
+ return map;
+}
+function scoreSurvey(reference,readings,shift){
+ // Robust matching: trim the most inconsistent 20% (e.g. moving students).
+ const differences=readings.map(z=>{
+  const j=Math.round((z.rel/(2*Math.PI))*SCAN_BINS+shift)%SCAN_BINS;
+  return Math.pow(reference[(j+SCAN_BINS)%SCAN_BINS]-z.range,2);
+ }).sort((a,b)=>a-b);
+ return differences.slice(0,Math.max(5,Math.floor(differences.length*.80))).reduce((a,b)=>a+b,0)/Math.max(5,Math.floor(differences.length*.80));
+}
+function matchSurvey(map,readings){
+ validateSurvey(map);
+ if(readings.length<10)return {ok:false,reason:'Too few valid scan headings',ranked:[]};
+ let ranked=[];
+ for(const [node,ref] of Object.entries(map.signatures)){
+  let best={score:Infinity,heading:0};
+  for(let shift=0;shift<SCAN_BINS;shift++){
+   const score=scoreSurvey(ref,readings,shift);
+   if(score<best.score)best={score,heading:shift*2*Math.PI/SCAN_BINS};
+  }
+  ranked.push({node,score:best.score,heading:best.heading});
+ }
+ ranked.sort((a,b)=>a.score-b.score);
+ if(!ranked.length)return {ok:false,reason:'No survey anchors recorded',ranked};
+ const first=ranked[0],second=ranked[1];
+ // Exact repeated T-junctions are intentionally NOT accepted based on depth alone.
+ const distinct=!second || (second.score-first.score>0.009 && second.score>first.score*3.0);
+ const quality=first.score<0.095;
+ return {ok:distinct&&quality,node:distinct&&quality?first.node:null,heading:first.heading,
+  reason:!quality?'Scan does not match surveyed walls':!distinct?'Multiple hallway positions look alike':'Unique surveyed anchor matched',ranked:ranked.slice(0,4)};
+}
+
+async function makeCore(wasmBytes){
+ const {instance}=await WebAssembly.instantiate(wasmBytes,{env:{sin:Math.sin,cos:Math.cos,atan2:Math.atan2}});
+ const exp=instance.exports, inputPtr=exp.core_input(),outPtr=exp.core_output();
+ if(exp.core_input_count()!=15||exp.core_output_count()!=5)throw Error('Controller ABI mismatch');
+ return {reset:()=>exp.core_reset(),run(values){const mem=new Float64Array(exp.memory.buffer);mem.set(values,inputPtr/8);exp.core_wasm_step();return Array.from(mem.slice(outPtr/8,outPtr/8+5));}};
+}
+class MicroSimulation {
+ constructor(core,{seed=1,mission=['200'],autoScan=false,noise=1,survey=null}={}){this.core=core;this.seed=seed;this.originalMission=[...mission];this.mission=[...mission];this.autoScan=autoScan;this.noise=noise;this.survey=survey;this.reset()}
+ reset(){
+  this.rng=mulberry32(this.seed);this.core.reset();this.time=0;const startNode=NODES[ROOMS[this.mission[0]]];this.robot={x:startNode[0],y:startNode[1],yaw:Math.PI/2,lv:0,rv:0};
+  this.est={x:startNode[0]+0.02,y:startNode[1]+0.015,yaw:Math.PI/2+0.012,sigma:0.045};this.lastMarker=this.mission[0];this.sensor={front:3.5,side:1.0,grid:Array(8).fill(3.5),personConf:0,personRange:9};
+  this.heartbeatAge=0;this.wifi=true;this.tofHealthy=true;this.markersEnabled=true;this.estop=false;this.estopSwitchPressed=false;this.estopLatched=false;this.autoRecover=true;this.people=false;this.chair=false;
+  this.waitS=0;this.stops=0;this.arrivals=0;this.collisions=0;this.boundaryViolations=0;this.totalTravel=0;
+  this.mode='IDLE';this.prevStatus=-1;this.out=[0,0,0,0,0];this.stepIndex=0;this.currentRoom=this.mission[0];this.plan=[];this.pathIndex=0;
+  this.logged=[];this.scans=[];this.scanData=[];this.scanHeading=0;this.scannedNodes=new Set();this.scanRequested=false;this.scanning=false;this.scanStart=0;this.scanTurns=0;this.nextScanAngle=0;
+  this.complete=false;this.failed=false;this.operatorPaused=false;this.lastMarkerTime=-100;this.dwell=0;this.goalConfirmed=false;this.dispatchCount=0;this.completedStops=[];this.tripHistory=[];this.activeLeg=null;this.batteryVoltage=4.12;this.lowBatteryStop=false;
+  this.localized=true;this.relocalizeRequested=false;this.relocalizationResult=null;this.relocalizationNode=null;this.log('Booted at room '+this.currentRoom+'; map is fictional');
+ }
+ log(m){if(this.logged.at(-1)?.text===m)return;this.logged.push({t:this.time,text:m});if(this.logged.length>120)this.logged.shift()}
+ start(){
+  if(!this.localized){this.log('Kratos refused mission: position not confirmed');return false;}
+  if(this.stepIndex>=this.mission.length-1){this.complete=true;this.running=false;this.log('Idle at IS '+this.currentRoom+'; ready for another room');return true}
+  this.complete=false;this.running=true;this.nextLeg();if(!this.activeLeg)this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};return true;
+ }
+
+ // Dispatch APIs mirror the server model: a Go now replaces the outstanding
+ // queue, while Add stop never interrupts the active leg. Neither operation
+ // resets the map, odometry, history, or the virtual hardware.
+ canDispatch(){
+  if(!this.localized || this.est.sigma>0.65){this.log('Dispatch refused: position is not confirmed');return false;}
+  if(this.batteryVoltage<3.55){this.log('Dispatch refused: low battery voltage');return false;}
+  if(!this.wifi||!this.tofHealthy||this.estopLatched||this.estop){this.log('Dispatch refused: connection or E-stop safety not ready');return false;}
+  return true;
+ }
+ plannedStops(){return this.mission.slice(this.stepIndex+1);}
+ nextFromEstimatedPose(dest){
+  // Candidate start points must be endpoints of the closest walkable edge.
+  // The robot drives along an observed hallway; it never teleports to a node.
+  let bestEdge=null, bestGap=1e8;
+  for(const [a,b] of EDGES){const d=segDist([this.est.x,this.est.y],NODES[a],NODES[b]);if(d<bestGap){bestGap=d;bestEdge=[a,b];}}
+  if(!bestEdge || bestGap>WIDTH/2+0.1)return [];
+  let best=null;
+  for(const n of bestEdge){const rest=route(n,dest);if(!rest.length)continue;
+   let cost=distance([this.est.x,this.est.y],NODES[n]);
+   for(let j=0;j<rest.length-1;j++)cost+=distance(NODES[rest[j]],NODES[rest[j+1]]);
+   if(!best||cost<best.cost)best={cost,path:rest};
+  }
+  return best?.path||[];
+ }
+ goNow(room){
+  if(!(room in ROOMS)){this.log('Unknown room '+room);return false;}
+  if(!this.canDispatch())return false;
+  // Current location remains the last *confirmed* room. Path from the
+  // estimated physical pose, not from an older marker or a spawned start.
+  if(!this.running && room===this.currentRoom){this.log('Already at IS '+room+'; ready for another destination');return true;}
+  const newPlan=this.nextFromEstimatedPose(ROOMS[room]);
+  if(!newPlan.length){this.log('Go now refused: no verified mapped route');return false;}
+  this.mission=[this.currentRoom,room];this.stepIndex=0;this.plan=newPlan;this.pathIndex=0;
+  this.goalConfirmed=false;this.dwell=0;this.complete=false;this.failed=false;
+  if(this.activeLeg)this.finishLeg('rerouted');this.activeLeg={from:this.currentRoom,to:room,start:this.time};
+  this.scanning=false;this.scanRequested=false;this.relocalizeRequested=false;
+  this.scannedNodes=new Set();this.running=true;this.dispatchCount++;
+  this.operatorPaused=false;this.log('GO NOW to IS '+room+'; replaced pending stops; replan '+newPlan.join('→'));
+  return true;
+ }
+ addStop(room){
+  if(!(room in ROOMS)){this.log('Unknown room '+room);return false;}
+  if(!this.canDispatch())return false;
+  if(!this.running || this.complete){
+    this.mission=[this.currentRoom,room];this.stepIndex=0;
+    this.plan=[];this.complete=false;this.failed=false;
+    this.activeLeg={from:this.currentRoom,to:room,start:this.time};this.dispatchCount++;this.log('New trip from IS '+this.currentRoom+' to IS '+room);
+    if(room===this.currentRoom){this.complete=true;this.log('Already at destination IS '+room);return true;}
+    return this.start();
+  }
+  if(this.mission.length-this.stepIndex>15){this.log('Queue limit reached');return false;}
+  this.mission.push(room);this.dispatchCount++;
+  this.log('Queued IS '+room+' after '+this.mission[this.mission.length-2]);return true;
+ }
+ removeQueued(index){
+  // index 0 is the ACTIVE destination, which cannot be removed this way.
+  const i=this.stepIndex+1+index;
+  if(index<1||i>=this.mission.length)return false;
+  const [removed]=this.mission.splice(i,1);this.log('Removed queued IS '+removed);return true;
+ }
+ clearPending(){
+  const keep=Math.min(this.mission.length,this.stepIndex+2);
+  const removed=this.mission.length-keep;this.mission.length=keep;
+  this.log('Cleared '+removed+' future stop(s); current leg unchanged');return removed;
+ }
+ holdAndClear(){
+  if(this.estopLatched){this.log('Stop request received but E-stop remains latched');return;}
+  if(this.activeLeg)this.finishLeg('operator stopped');
+  this.operatorPaused=false;this.running=false;this.robot.lv=0;this.robot.rv=0;
+  this.mission=[this.currentRoom];this.stepIndex=0;this.plan=[];this.pathIndex=0;
+  this.complete=false;this.scanning=false;this.goalConfirmed=false;
+  this.out=[0,0,0,0,0];this.mode='HELD — READY';this.log('Operator HOLD: route and queue canceled');
+ }
+ // Independent *simulated* hard E-stop. The physical design uses a dual-pole
+ // normally-closed latching switch: one pole interrupts motor-driver VM and
+ // one sends a normally-low signal to an ESP32 input. Simulation cannot
+ // establish physical stopping distance or power isolation.
+ pressEstop(){
+  if(this.activeLeg)this.finishLeg('emergency stop');
+  this.estopSwitchPressed=true;this.estopLatched=true;this.estop=true;
+  this.running=false;this.scanning=false;this.relocalizeRequested=false;
+  this.robot.lv=0;this.robot.rv=0;this.out=[0,0,9,2,0];this.mode='E-STOP LATCHED';
+  this.log('HARD E-STOP (simulated): motor supply interrupted; manual reset required');
+ }
+ releaseEstopSwitch(){
+  this.estopSwitchPressed=false;
+  this.log('E-stop switch released; safety latch remains active');
+ }
+ localResetEstop(){
+  if(this.estopSwitchPressed){this.log('Local reset refused: E-stop switch still pressed');return false;}
+  if(!this.estopLatched)return true;
+  this.estopLatched=false;this.estop=false;
+  this.running=false;this.operatorPaused=false;this.plan=[];this.mission=[this.currentRoom];this.stepIndex=0;
+  this.mode='DISARMED — SELECT NEW TRIP';this.out=[0,0,0,0,0];
+  this.log('Local reset simulated: no automatic restart; select a new trip');return true;
+ }
+ // Unknown drop-off point: only the simulator knows the physical spawn location.
+ // Kratos starts with NO position. It must match a scan or read a location marker.
+ placeUnknown(node){
+  if(!(node in NODES))throw Error('Unknown placement node');
+  if(this.activeLeg)this.finishLeg('picked up - localization lost');
+  this.core.reset();this.mission=[...this.originalMission];this.stepIndex=0;
+  this.robot={x:NODES[node][0],y:NODES[node][1],yaw:0.38,lv:0,rv:0};
+  this.est={x:0,y:0,yaw:0,sigma:1.2};this.currentRoom='unknown';this.currentNode=null;
+  this.lastMarker='None';this.localized=false;this.relocalizationNode=null;
+  this.relocalizationResult=null;this.relocalizeRequested=false;
+  this.scanning=false;this.scanRequested=false;this.scanData=[];this.scans=[];
+  this.complete=false;this.failed=false;this.running=false;this.plan=[];this.pathIndex=0;
+  this.out=[0,0,6,2,0];this.mode='LOCALIZATION UNCERTAIN';this.prevStatus=-1;
+  this.log('Robot placed in hallway; Kratos location is UNKNOWN');
+  if(this.autoRecover && !this.estopLatched){
+   // Prefer non-motion marker detection first; no 360 scan is required when a tag is visible.
+   if(this.tryMarkerRecovery())this.log('AUTO RECOVERY: marker confirmed location without rotating');
+   else this.log('AUTO RECOVERY: no unique visual marker; stop and request supervised 360 scan');
+  }
+ }
+ finishLeg(result){
+  if(!this.activeLeg)return;
+  const v={from:this.activeLeg.from,to:this.activeLeg.to,start_s:+this.activeLeg.start.toFixed(1),end_s:+this.time.toFixed(1),result,arrival_verified:result==='marker confirmed',battery_end_v:+this.batteryVoltage.toFixed(2)};
+  this.tripHistory.push(v);if(this.tripHistory.length>150)this.tripHistory.shift();this.activeLeg=null;
+ }
+ recoverNow(){
+  if(this.estopLatched||!this.wifi||!this.tofHealthy||this.batteryVoltage<3.55){this.log('Recovery unavailable: safety or connection fault');return false;}
+  if(this.localized&&this.est.sigma<0.40){this.log('Recovery unnecessary: position already verified');return true;}
+  if(this.tryMarkerRecovery())return true;
+  this.log('Marker not visible: stationary scan needs supervised clearance');
+  return false;
+ }
+ beginRelocalize(){
+  if(this.estopLatched){this.log('Recovery requires local E-stop reset');return false;}
+  if(!this.survey||Object.keys(this.survey.signatures).length===0){this.log('No saved survey to match against');return false}
+  if(!this.wifi||!this.tofHealthy||this.estop||this.estopLatched){this.log('Recovery scan refused: connection/sensor/estop');return false}
+  this.running=true;this.relocalizeRequested=true;this.scanning=true;
+  this.scanData=[];this.scanTurns=0;this.nextScanAngle=0;this.scanStart=this.robot.yaw;
+  this.log('Relocalization: rotate 360° and compare saved scans');return true;
+ }
+ applyKnownNode(node,source){
+  if(!(node in NODES))return false;
+  const ref=NODES[node];this.est={x:ref[0],y:ref[1],yaw:this.relocalizationResult?.heading??this.robot.yaw,sigma:0.07};
+  this.localized=true;this.relocalizationNode=node;this.lastMarker=source==='marker'?'Tag '+node:'Depth '+node;
+  const named=Object.entries(ROOMS).find(([,n])=>n===node)?.[0]||node;
+  this.currentRoom=named;this.currentNode=node;this.mission=[...this.originalMission];this.stepIndex=0;
+  if(node!==ROOMS[this.mission[0]])this.mission=[named,...this.mission];
+  this.scannedNodes=new Set();this.plan=[];this.running=false;this.robot.lv=0;this.robot.rv=0;this.out=[0,0,0,0,0];this.mode='READY';
+  this.log(source==='marker'?'Unique location marker identified '+node:'Depth scan uniquely matched anchor '+node);
+  return true;
+ }
+ tryMarkerRecovery(){
+  if(this.localized)return true;
+  if(!this.wifi||!this.tofHealthy||this.estopLatched)return false;
+  if(!this.markersEnabled){this.log('No valid location markers available');return false;}
+  // Simulated decoded marker near a surveyed junction. Real camera inference absent.
+  const entries=Object.entries(NODES).map(([n,p])=>[n,distance([this.robot.x,this.robot.y],p)]).sort((a,b)=>a[1]-b[1]);
+  if(entries[0][1]>.30||!this.survey?.signatures?.[entries[0][0]]){this.log('No recognizable surveyed marker nearby');return false;}
+  this.relocalizationResult={ok:true,node:entries[0][0],heading:this.robot.yaw,reason:'Simulated unique marker'};
+  return this.applyKnownNode(entries[0][0],'marker');
+ }
+ nextLeg(){const from=this.currentNode||ROOMS[this.currentRoom],to=this.mission[this.stepIndex+1], dest=ROOMS[to];this.plan=route(from,dest);this.pathIndex=1;this.goalConfirmed=false;this.dwell=0;if(!this.plan.length){this.failed=true;this.log('No mapped route');return;}this.log('Kratos planned: IS '+this.currentRoom+' → IS '+to+' ('+this.plan.join('→')+')')}
+ currentTarget(){return this.plan[this.pathIndex]||null}
+ person(){if(!this.people)return null; // periodic crossing near junction C: a moving student, not a real vision feed
+  const phase=(this.time%22)/22;
+  return {x:20+(phase-.5)*1.8,y:7.7,r:0.22,person:true};
+ }
+ objects(){let o=[];const p=this.person();if(p)o.push(p);if(this.chair)o.push({x:20.10,y:9.30,r:0.25,chair:true});return o;}
+ landmarks(){ // Printed AprilTag / coded landmark assumptions. Not actually trained or captured.
+  if(!this.markersEnabled)return null;
+  let best=null,d=1e10;
+  for(let n in NODES){let dd=distance([this.robot.x,this.robot.y],NODES[n]);if(dd<d&&dd<0.67){d=dd;best=n;}}
+  if(!best||this.rng()>.94)return null;
+  return {node:best,d};
+ }
+ sense(){
+  const objects=this.objects();const forward=tofGrid(this.robot.x,this.robot.y,this.robot.yaw,objects);this.sensor.grid=forward.map(r=>clamp(r+gaussian(this.rng)*this.noise*0.012,.02,3.5));
+  this.sensor.front=Math.min(...this.sensor.grid.slice(2,6));
+  this.sensor.side=clamp(ray(this.robot.x,this.robot.y,this.robot.yaw+Math.PI/2,1.2,objects)+gaussian(this.rng)*0.02*this.noise,0,1.2);
+  // One-dimensional side-wall scan matching: correct cross-track drift when a
+  // stable mapped wall is in range. In a real building this needs gating for
+  // glass walls / doorways and independent validation.
+  const predictedSide=ray(this.est.x,this.est.y,this.est.yaw+Math.PI/2,1.2,[]);
+  if(predictedSide<1.15&&this.sensor.side<1.15){
+    const correction=clamp((predictedSide-this.sensor.side)*0.16,-0.025,0.025);
+    this.est.x+=Math.cos(this.est.yaw+Math.PI/2)*correction;
+    this.est.y+=Math.sin(this.est.yaw+Math.PI/2)*correction;
+  }
+  // Person detection is a synthetic camera classifier, not real image inference.
+  const p=this.person();const pd=p?Math.hypot(this.robot.x-p.x,this.robot.y-p.y):9;
+  const bearing=p?wrap(Math.atan2(p.y-this.robot.y,p.x-this.robot.x)-this.robot.yaw):0;
+  this.sensor.personRange=pd;
+  this.sensor.personConf=p&&pd<1.8&&Math.abs(bearing)<0.9?(.92-.09*this.rng()):0;
+  if(this.markersEnabled&&this.localized){let mark=this.landmarks();if(mark){
+    this.est.x=this.robot.x+gaussian(this.rng)*0.025*this.noise;
+    this.est.y=this.robot.y+gaussian(this.rng)*0.025*this.noise;
+    this.est.yaw=wrap(this.robot.yaw+gaussian(this.rng)*0.015*this.noise);
+    this.est.sigma=0.040;this.lastMarker=mark.node;
+    if(this.time-this.lastMarkerTime>2.0){this.log('Marker '+mark.node+' corrected pose');this.lastMarkerTime=this.time;}
+    if(mark.node===ROOMS[this.mission[this.stepIndex+1]]&&mark.d<0.40)this.goalConfirmed=true;
+   }}
+ }
+ scanMatch(){
+  // Coarse scan matching over nearby candidate poses (a tiny educational model).
+  const d=this.scanData.filter(z=>z.range<3.43);
+  if(d.length<6){this.log('360 scan: insufficient stable walls');return;}
+  let best=null;const e=this.est;
+  for(let dx=-0.24;dx<=0.241;dx+=0.08)for(let dy=-0.24;dy<=0.241;dy+=0.08)for(let da=-0.13;da<=0.131;da+=0.065){
+    let score=0;
+    for(const m of d){const expected=ray(e.x+dx,e.y+dy,m.yaw+da,3.5,[]);let residual=Math.abs(expected-m.range);score+=Math.min(residual,0.5)**2;}
+    if(!best||score<best.score)best={score,dx,dy,da};
+  }
+  if(best&&best.score/d.length<0.022){this.est.x+=best.dx*0.5;this.est.y+=best.dy*0.5;this.est.yaw=wrap(this.est.yaw+best.da*0.6);this.est.sigma=Math.max(0.075,Math.min(this.est.sigma,0.13));this.log('Kratos matched 360 scan to saved hallway map');}
+  else this.log('Scan geometry ambiguous; kept odometry estimate');
+ }
+ pauseVehicle(){
+  if(!this.running||this.complete||this.failed){this.log('Nothing to pause; select a room first');return false;}
+  if(this.operatorPaused)return true;
+  this.operatorPaused=true;this.out=[0,0,0,0,0];this.mode='PAUSED';
+  this.log('PAUSED — route and upcoming stops preserved; wheel targets zero');
+  return true;
+ }
+ resumeVehicle(){
+  if(!this.operatorPaused)return false;
+  if(!this.wifi||!this.tofHealthy||this.estop||this.estopLatched||!this.localized||this.est.sigma>0.65){
+   this.log('Resume refused: link, sensors, E-stop or localization not ready');return false;
+  }
+  this.operatorPaused=false;this.log('RESUMED — continuing toward IS '+this.mission[this.stepIndex+1]);return true;
+ }
+ tick(dt=0.08){
+  if(!this.running||this.complete||this.failed)return;
+  this.time+=dt;
+  // Synthetic 1S LiPo model; the physical firmware needs a calibrated ADC input.
+  this.batteryVoltage=Math.max(3.05,this.batteryVoltage-dt*(0.000018+(this.running&&!this.operatorPaused?0.00010:0)));
+  if(this.batteryVoltage<3.48&&!this.lowBatteryStop){this.lowBatteryStop=true;if(this.activeLeg)this.finishLeg('battery safety stop');this.log('Battery below conservative stop threshold; motors commanded to zero');}
+
+  const active=this.wifi;this.heartbeatAge=active?0.07:this.heartbeatAge+dt;
+  const old={...this.robot};this.sense();
+  let target=this.currentTarget();
+  if(!this.operatorPaused&&target&&!this.scanning&&Math.hypot(this.est.x-NODES[target][0],this.est.y-NODES[target][1])<0.18){
+    if((this.autoScan||this.scanRequested)&&!this.scannedNodes.has(target)&&['C','E','G','H','J','M','N'].includes(target)){
+      this.scanning=true;this.scanStart=this.robot.yaw;this.scanTurns=0;this.nextScanAngle=0;this.scanData=[];this.scannedNodes.add(target);this.scanRequested=false;this.log('Stopped at junction '+target+' for 360° scan');
+    }else if(this.pathIndex<this.plan.length-1){this.pathIndex++;target=this.currentTarget();}
+  }
+  if(!this.operatorPaused&&this.scanRequested&&!this.scanning&&this.localized){this.scanning=true;this.scanStart=this.robot.yaw;this.scanTurns=0;this.nextScanAngle=0;this.scanData=[];this.scanRequested=false;this.log('Manual 360° scan requested');}
+  let desiredHeading=target?Math.atan2(NODES[target][1]-this.est.y,NODES[target][0]-this.est.x):this.est.yaw;
+  let dGoal=target?Math.hypot(NODES[target][0]-this.est.x,NODES[target][1]-this.est.y):0;
+  let signal=0;
+  if(target&&dGoal<1.5&&this.pathIndex<this.plan.length-1){const n2=this.plan[this.pathIndex+1],dh=Math.atan2(NODES[n2][1]-NODES[target][1],NODES[n2][0]-NODES[target][0]);let a=wrap(dh-desiredHeading);signal=Math.abs(a)>.3?Math.sign(a):0;}
+  // Goal is only declared reached if an observed marker agrees with the route endpoint.
+  const lastLeg=this.pathIndex>=this.plan.length-1;
+  let atGoal=!!target&&lastLeg&&dGoal<0.25;
+  let commandMode=this.operatorPaused?0:atGoal?3:this.scanning?2:!this.localized?0:1;
+  const inArrive=!this.operatorPaused&&atGoal&&this.goalConfirmed;
+  let input=[commandMode,wrap(desiredHeading-this.est.yaw),signal,this.sensor.front,this.tofHealthy?1:0,this.sensor.personConf,this.sensor.personRange,this.sensor.side,!this.localized?(this.scanning?.45:1.2):this.est.sigma,this.heartbeatAge,0.03,0.04,0.03,(this.estop||this.estopLatched)?1:0,inArrive?1:0];
+  this.out=this.core.run(input);
+  if(this.lowBatteryStop){this.out[0]=0;this.out[1]=0;this.out[2]=4;this.out[3]=2;this.running=false;}
+this.mode=this.operatorPaused&&this.out[2]===0?'PAUSED':(LABELS[this.out[2]]||'UNKNOWN');if(this.relocalizeRequested&&[4,5,9].includes(this.out[2])){this.relocalizeRequested=false;this.scanning=false;this.running=false;this.log('Recovery scan aborted by safety controller');}
+  if(this.out[2]!==this.prevStatus){
+    if([2,3,4,5,6,9].includes(this.out[2]))this.log(this.mode+' — fail-safe motor command = 0');
+    if(this.out[2]===7)this.log('Scanning: differential wheels counter-rotate');
+    this.prevStatus=this.out[2];
+  }
+  if(this.out[4])this.log('Arrival chime triggered (original placeholder audio)');
+  // Wheel inertia / drive train latency; measured wheel speeds are noisy.
+  const tau=0.14;this.robot.lv+=(this.out[0]-this.robot.lv)*Math.min(1,dt/tau);this.robot.rv+=(this.out[1]-this.robot.rv)*Math.min(1,dt/tau);
+  let actualL=this.robot.lv*(1+gaussian(this.rng)*0.018*this.noise),actualR=this.robot.rv*(1+gaussian(this.rng)*0.018*this.noise);
+  let v=(actualL+actualR)/2,omega=(actualR-actualL)/0.060;
+  let nyaw=wrap(this.robot.yaw+omega*dt);this.robot.yaw=nyaw;
+  this.robot.x+=v*dt*Math.cos(nyaw);this.robot.y+=v*dt*Math.sin(nyaw);
+  this.totalTravel+=Math.abs(v*dt);
+  // Encoder + IMU dead reckoning. The error is independent from true vehicle pose.
+  const l=actualL+gaussian(this.rng)*0.0035*this.noise;const r=actualR+gaussian(this.rng)*0.0035*this.noise;
+  const gyro=omega+0.0006*this.noise+gaussian(this.rng)*0.015*this.noise;
+  this.est.yaw=wrap(this.est.yaw+(0.35*gyro+0.65*(r-l)/.060)*dt);
+  let odomV=(l+r)/2;this.est.x+=odomV*dt*Math.cos(this.est.yaw);this.est.y+=odomV*dt*Math.sin(this.est.yaw);
+  this.est.sigma+=dt*(.00065+Math.abs(v)*.0025)*this.noise;
+  if(!this.operatorPaused&&this.scanning){
+    this.scanTurns+=Math.abs(omega*dt);
+    if(this.scanTurns>=this.nextScanAngle){const rr=ray(this.robot.x,this.robot.y,this.robot.yaw,3.5,[])+gaussian(this.rng)*0.017*this.noise;
+      this.scanData.push({yaw:this.robot.yaw,rel:this.scanTurns,range:clamp(rr,0,3.5),x:this.robot.x,y:this.robot.y});this.scans.push({x:this.robot.x+Math.cos(this.robot.yaw)*rr,y:this.robot.y+Math.sin(this.robot.yaw)*rr});this.nextScanAngle+=Math.PI/6;}
+    if(this.scanTurns>=2*Math.PI-.12){this.scanning=false;if(this.relocalizeRequested){this.relocalizeRequested=false;this.relocalizationResult=matchSurvey(this.survey,this.scanData);if(this.relocalizationResult.ok){this.applyKnownNode(this.relocalizationResult.node,'scan')}else{this.localized=false;this.running=false;this.robot.lv=0;this.robot.rv=0;this.est.sigma=1.2;this.log('Location unresolved: '+this.relocalizationResult.reason)}}else this.scanMatch();if(this.currentTarget()&&Math.hypot(this.est.x-NODES[this.currentTarget()][0],this.est.y-NODES[this.currentTarget()][1])<0.25)this.pathIndex=Math.min(this.pathIndex+1,this.plan.length-1);this.log('Scan complete ('+this.scanData.length+' headings)');}
+  }
+  if(!inHall(this.robot.x,this.robot.y,0.07))this.boundaryViolations++;
+  for(const o of this.objects())if(Math.hypot(o.x-this.robot.x,o.y-this.robot.y)<o.r+0.064)this.collisions++;
+  if(this.out[2]===2)this.waitS+=dt;
+  if(this.out[2]===3)this.stops++;
+  if(!this.operatorPaused&&this.out[2]===8){this.dwell+=dt;if(this.dwell>1.1){
+    const reached=this.mission[this.stepIndex+1];
+    if(!this.goalConfirmed){this.log('Arrival denied: no confirmed room marker');return;}
+    if(this.activeLeg)this.finishLeg('marker confirmed');
+    this.arrivals++;this.completedStops.push(reached);this.currentRoom=reached;this.currentNode=ROOMS[reached];this.stepIndex++;this.log('Confirmed IS '+reached+'; '+(this.stepIndex===this.mission.length-1?'mission complete':'dwell and replan'));
+    this.est.x=NODES[ROOMS[reached]][0];this.est.y=NODES[ROOMS[reached]][1];this.est.sigma=.04;
+    if(this.stepIndex>=this.mission.length-1){this.complete=true;this.running=false;this.log('Ready at IS '+reached+'; dispatch another room without remapping');}
+    else {this.nextLeg();this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};}
+  }}
+  if(this.time>680){this.failed=true;this.log('Simulation exceeded maximum time');}
+ }
+ snapshot(){return {time:this.time,robot:this.robot,est:this.est,sensor:this.sensor,mode:this.mode,status:this.out[2],signal:this.out[3],path:this.plan,stepIndex:this.stepIndex,mission:this.mission,goal:this.mission[this.stepIndex+1],current:this.currentRoom,complete:this.complete,failed:this.failed,arrivals:this.arrivals,collisions:this.collisions,boundaryViolations:this.boundaryViolations,waitS:this.waitS,lastMarker:this.lastMarker,heartbeatAge:this.heartbeatAge,scans:this.scans,objects:this.objects(),noise:this.noise,scanning:this.scanning,localized:this.localized,relocalizationNode:this.relocalizationNode,relocalizationResult:this.relocalizationResult,surveyAnchors:Object.keys(this.survey?.signatures||{}).length,pending:this.plannedStops(),operatorPaused:this.operatorPaused,estopLatched:this.estopLatched,estopSwitchPressed:this.estopSwitchPressed,dispatchCount:this.dispatchCount,completedStops:[...this.completedStops],running:!!this.running,batteryVoltage:this.batteryVoltage,batteryLow:this.lowBatteryStop,arrivalVerified:!!this.goalConfirmed,tripHistory:[...this.tripHistory]};}
+}
+
+const wasmBase64='AGFzbQEAAAABGAVgAXwBfGACfHwBfGAAAGACf38AYAABfwIhAwNlbnYDc2luAAADZW52A2NvcwAAA2VudgVhdGFuMgABAwkIAgIDBAQCBAQFBAEBAgIGPwp/AUGwiQQLfwBBgAgLfwBBqAkLfwBBsAkLfwBBsIkEC38AQYAIC38AQbCJBAt/AEGAgAgLfwBBAAt/AEEBCweNAhIGbWVtb3J5AgARX193YXNtX2NhbGxfY3RvcnMAAwpjb3JlX3Jlc2V0AAQJY29yZV9zdGVwAAUKY29yZV9pbnB1dAAGC2NvcmVfb3V0cHV0AAcOY29yZV93YXNtX3N0ZXAACBBjb3JlX2lucHV0X2NvdW50AAkRY29yZV9vdXRwdXRfY291bnQACgxfX2Rzb19oYW5kbGUDAQpfX2RhdGFfZW5kAwILX19zdGFja19sb3cDAwxfX3N0YWNrX2hpZ2gDBA1fX2dsb2JhbF9iYXNlAwULX19oZWFwX2Jhc2UDBgpfX2hlYXBfZW5kAwcNX19tZW1vcnlfYmFzZQMIDF9fdGFibGVfYmFzZQMJCswMCAIACw0AQQBBADoAgIiAgAALhwwCAX8GfCABQgA3AwAgAUIANwMYIAFCgICAgICAgIjAADcDECABQQhqIgJCADcDACABQSBqQgA3AwACQAJAIAArA0giA71C////////////AINC//////////f/AFUNACAAKwMYIgS9Qv///////////wCDQv/////////3/wBVDQAgACsDCCIFvUL///////////8Ag0L/////////9/8AVQ0AIAArA0AiBr1C////////////AINC//////////f/AFUNACAAKwMwIge9Qv///////////wCDQoCAgICAgID4/wBTDQELIAFCADcDACABQoCAgICAgICAwAA3AxggAUKAgICAgICAiMAANwMQIAJCADcDAA8LAkAgACsDaEQAAAAAAADgP2RFDQAgAUIANwMAIAFCgICAgICAgIDAADcDGCABQoCAgICAgICRwAA3AxAgAUEIakIANwMADwsCQCADRJqZmZmZmek/ZEUNACABQgA3AwAgAUKAgICAgICAgMAANwMYIAFCgICAgICAgIrAADcDECABQQhqQgA3AwAPCwJAIAZEzczMzMzM5D9kRQ0AIAFCADcDACABQoCAgICAgICAwAA3AxggAUKAgICAgICAjMAANwMQIAFBCGpCADcDAA8LAkACQCAAKwMgRAAAAAAAAOA/Yw0AIAArA2BEmpmZmZmZ2T9kDQAgACsDUERmZmZmZmbWP2QNACAAKwNYRAAAAAAAAOA/ZA0AIAREAAAAAAAAAABjRQ0BCyABQgA3AwAgAUKAgICAgICAgMAANwMYIAFCgICAgICAgIjAADcDECABQQhqQgA3AwAPCwJAAkAgACsDACIDRAAAAAAAAAhAYg0AIAArA3AhAyABQQhqQgA3AwAgAUIANwMAAkAgA0QAAAAAAADgP2RFDQAgAUIANwMYIAFCgICAgICAgJDAADcDEEEALQCAiICAAA0CQQBBAToAgIiAgAAgAUKAgICAgICA+D83AyAPCyABQoCAgICAgICAwAA3AxggAUKAgICAgICAjMAANwMQDwtBAEEAOgCAiICAAAJAIANEAAAAAAAAAABiDQAgAUIANwMAIAFBGGpCADcDACABQRBqQgA3AwAgAUEIakIANwMADwsCQCAAKwMoIgZE16NwPQrX4z9kRQ0AIAdEAAAAAAAA8D9jRQ0AIAFCADcDACABQoCAgICAgICAwAA3AxggAUKAgICAgICAgMAANwMQIAFBCGpCADcDAA8LAkAgBER7FK5H4XrUP2NFDQAgAUIANwMAIAFCgICAgICAgIDAADcDGCABQoCAgICAgICEwAA3AxAgAUEIakIANwMADwsCQCADRAAAAAAAAABAYg0AIAFCgICAgICAgI7AADcDECABQoquj4XXx8LTPzcDCCABQoquj4XXx8LTv383AwAPCwJAIANEAAAAAAAA8D9hDQAgAUIANwMAIAFBGGpCADcDACABQRBqQgA3AwAgAUEIakIANwMADwtEzczMzMzM/L9EzczMzMzM/D8gBRCAgICAACAFEIGAgIAAEIKAgIAAIgVEmpmZmZmZAUCiIgMgA0TNzMzMzMz8P2QbIANEzczMzMzM/L9jGyEIRAAAAAAAAAAAIQMCQCAFmSIFRM3MzMzMzPA/ZA0ARHsUrkfhesQ/IQMgBUTNzMzMzMzcP2RFDQBEMzMzMzMzsz8hAwsgAUKAgICAgICA+D83AxAgAUQAAAAAAADwP0QAAAAAAADwv0QAAAAAAAAAACAAKwMQIgVEAAAAAAAA4L9jGyAFRAAAAAAAAOA/ZBs5AxggAUQpXI/C9SjMv0QpXI/C9SjMPyAIRLgehetRuJ4/oiIFRLgehetRuK4/RLgehetRuK4/IAMgB0QAAAAAAAD4P2MbIAMgBkTXo3A9CtfjP2QbIAREMzMzMzMz6z9jGyIEoCIDIANEKVyPwvUozD9kGyADRClcj8L1KMy/Yxs5AwggAUQpXI/C9SjMv0QpXI/C9SjMPyAEIAWhIgMgA0QpXI/C9SjMP2QbIANEKVyPwvUozL9jGzkDAAsLCABBiIiAgAALCABBgImAgAALFABBiIiAgABBgImAgAAQhYCAgAALBABBDwsEAEEFCwC4AQRuYW1lABAPY29udHJvbGxlci53YXNtAYoBCwADc2luAQNjb3MCBWF0YW4yAxFfX3dhc21fY2FsbF9jdG9ycwQKY29yZV9yZXNldAUJY29yZV9zdGVwBgpjb3JlX2lucHV0Bwtjb3JlX291dHB1dAgOY29yZV93YXNtX3N0ZXAJEGNvcmVfaW5wdXRfY291bnQKEWNvcmVfb3V0cHV0X2NvdW50BxIBAA9fX3N0YWNrX3BvaW50ZXIAfwlwcm9kdWNlcnMBDHByb2Nlc3NlZC1ieQEFY2xhbmdfMTcuMC4wIChodHRwczovL2dpdGh1Yi5jb20vc3dpZnRsYW5nL2xsdm0tcHJvamVjdC5naXQgMTA5OTliNmQwMzRmZTMxOGYzZDU2YzgzYmRkYjY1NzI1OTNhOGJiMCkASQ90YXJnZXRfZmVhdHVyZXMEKwptdWx0aXZhbHVlKw9tdXRhYmxlLWdsb2JhbHMrD3JlZmVyZW5jZS10eXBlcysIc2lnbi1leHQ=';
+const wasmBytes=Uint8Array.from(atob(wasmBase64),c=>c.charCodeAt(0));
+let sim=null,audio=false,audioCtx=null,role='admin',paused=true,lastChimeLog=0,frameLast=performance.now(),accumulator=0,lastRender=0,survey=newSurvey();
+const $=id=>document.getElementById(id);
+const map=$('map');
+const parseMission=()=> $('preset').value.split(',');
+let selectedRoom='263';
+function setRole(name){role=name;const guest=name==='guest';$('adminBtn').classList.toggle('active',!guest);$('guestBtn').classList.toggle('active',guest);$('roleLabel').textContent=guest?'VIEWER PREVIEW':'ADMIN SIMULATION';for(const id of ['preset','start','reset','scan','people','chair','lostWifi','badTof','noMarkers','autoScan','estop','noise','surveyNext','surveyAll','exportMap','importMapBtn','dropNode','drop','recover','readTag','roomSelect','mapClickMode','goNow','addStop','pauseRoute','holdRoute','clearFuture','hardEstop','releaseEstop','resetEstop','recoverQuick','exportHistory'])$(id).disabled=guest;}
+function beep(){if(!audio)return; try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;[[620,0,.14],[780,.18,.13],[950,.37,.22]].forEach(([f,off,d])=>{let osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=f;gain.gain.setValueAtTime(0,now+off);gain.gain.linearRampToValueAtTime(.12,now+off+.025);gain.gain.exponentialRampToValueAtTime(.001,now+off+d);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now+off);osc.stop(now+off+d+.02);});}catch(e){}}
+const X=x=>115+(x-9)*46, Y=y=>518-(y-2)*34;
+function nodeText(str,x,y,color='#d8edf1',size=14){return `<text x="${x}" y="${y}" font-family="Inter,Arial,sans-serif" fill="${color}" font-size="${size}" text-anchor="middle">${str}</text>`}
+function draw(){if(!sim)return;const s=sim.snapshot();const routeSegs=[];for(let j=0;j<s.path.length-1;j++){const p=NODES[s.path[j]],q=NODES[s.path[j+1]];routeSegs.push(`<line x1="${X(p[0])}" y1="${Y(p[1])}" x2="${X(q[0])}" y2="${Y(q[1])}" stroke="#44e2c1" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 11" opacity=".9"/>`)}
+ let h=`<defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0L0 0 0 30" fill="none" stroke="#203441" stroke-width=".6"/></pattern><filter id="glow"><feGaussianBlur stdDeviation="6"/></filter></defs><rect width="1000" height="600" fill="#0e1c28"/><rect width="1000" height="600" fill="url(#grid)"/>`;
+ // Geometry inspired by the reverse-C building silhouette, not a surveyed plan.
+ h+=`<path d="M 101 93 H 712 V 536 H 100 V 434 H 250 V 350 H 445 V 286 H 506 V 214 H 230 V 196 H 101 Z" fill="#a6adb5" opacity=".075" stroke="#6f8792" stroke-width="2"/><text x="300" y="292" fill="#425c6d" opacity=".7" font-size="48" font-weight="800" text-anchor="middle">IS BUILDING</text><text x="505" y="42" fill="#9fb9cb" font-size="15">BOYCE GATE · NORTH</text>`;
+ for(let [a,b] of EDGES){const p=NODES[a],q=NODES[b];h+=`<line x1="${X(p[0])}" y1="${Y(p[1])}" x2="${X(q[0])}" y2="${Y(q[1])}" stroke="#405969" stroke-width="${WIDTH*34}" stroke-linecap="round"/><line x1="${X(p[0])}" y1="${Y(p[1])}" x2="${X(q[0])}" y2="${Y(q[1])}" stroke="#536b77" stroke-width="${WIDTH*34-4}" stroke-linecap="round"/>`}
+ for(let [a,b] of EDGES){const p=NODES[a],q=NODES[b];h+=`<line x1="${X(p[0])}" y1="${Y(p[1])}" x2="${X(q[0])}" y2="${Y(q[1])}" stroke="#91a1a4" stroke-opacity=".30" stroke-width="1" stroke-dasharray="5 10"/>`}
+ h+=routeSegs.join('');
+ for(const [room,n] of Object.entries(ROOMS)){
+  const [x,y]=NODES[n],xx=X(x),yy=Y(y);
+  const onRight=x===20, onTop=y===14&&!onRight, onBottom=y===2&&!onRight;
+  const lx=onRight?xx+76:xx, ly=onTop?yy-46:onBottom?yy+52:yy+26;
+  const cy=onRight?yy-12:ly-16;
+  const pending=s.pending?.includes(room),active=s.goal===room;
+  const stroke=active?'#45e5c5':pending?'#f9bb78':'#7796a8';
+  h+=`<g class="room-hotspot" role="button" tabindex="0" data-room="${room}" aria-label="Select room ${room}" style="cursor:pointer"><rect x="${onRight?lx-34:lx-34}" y="${cy}" width="68" height="31" rx="8" fill="${active?'#114d46':'#193041'}" stroke="${stroke}" stroke-width="${active?2.4:1.2}"/><text x="${lx}" y="${cy+21}" font-size="15" font-weight="700" fill="#efffff" text-anchor="middle">${room}</text></g>`;
+  if(onRight)h+=`<path d="M ${xx+13} ${yy} L ${lx-35} ${cy+15}" stroke="#718e9b" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+ }
+ for(const [node,p]of Object.entries(NODES)){const xx=X(p[0]),yy=Y(p[1]);h+=`<rect x="${xx-5}" y="${yy-5}" width="10" height="10" fill="#c5f5e9" stroke="#173b38" rx="1"/><circle cx="${xx}" cy="${yy}" r="13" fill="none" stroke="#8bd9c6" stroke-width=".8" stroke-opacity=".22"/>`}
+ for(const pt of s.scans.slice(-280))h+=`<circle cx="${X(pt.x)}" cy="${Y(pt.y)}" r="2.2" fill="#69ceff" opacity=".65"/>`;
+ for(const o of s.objects)h+=`<circle cx="${X(o.x)}" cy="${Y(o.y)}" r="${o.r*34}" fill="${o.person?'#ffc16c':'#f2848a'}" stroke="#fff0dc" stroke-width="1.5" opacity=".95"/><text x="${X(o.x)}" y="${Y(o.y)-17}" font-size="12" text-anchor="middle" fill="#ffdfb3">${o.person?'PERSON':'CHAIR'}</text>`;
+ const rx=X(s.est.x),ry=Y(s.est.y),yaw=s.est.yaw;
+ if(s.localized)h+=`<circle cx="${rx}" cy="${ry}" r="${Math.max(5,s.est.sigma*34)}" fill="#20cba6" opacity=".10" stroke="#40d7b8" stroke-width="1" stroke-dasharray="3 4"/>`;
+ if($('showTruth').checked)h+=`<circle cx="${X(s.robot.x)}" cy="${Y(s.robot.y)}" r="8" fill="none" stroke="#ffb773" stroke-width="2" stroke-dasharray="2 3"/>`;
+ if(s.localized)h+=`<g transform="translate(${rx} ${ry}) rotate(${-yaw*180/Math.PI})"><circle r="19" fill="#20ccaa" opacity=".24" filter="url(#glow)"/><rect x="-16" y="-10" width="32" height="20" rx="7" fill="#e7f8fa" stroke="#214c52" stroke-width="2"/><rect x="-7" y="-7" width="12" height="14" rx="2" fill="#8ab8ca"/><path d="M 17 0L24 0" stroke="#66f0d7" stroke-width="3" stroke-linecap="round"/><rect x="-17" y="-13" width="7" height="3" rx="1" fill="${s.signal===1||s.signal===2?'#ffc16c':'#627785'}"/><rect x="-17" y="10" width="7" height="3" rx="1" fill="${s.signal===-1||s.signal===2?'#ffc16c':'#627785'}"/></g>`;
+ h+=`<rect x="16" y="13" width="290" height="28" rx="7" fill="#172936" opacity=".95"/>${nodeText('KRATOS / REVERSE-C FLOOR SKETCH',177,32,'#a6c9ce',13)}<rect x="822" y="13" width="145" height="29" rx="7" fill="#172936"/>${nodeText('NOT SURVEYED',896,32,'#9aadb9',12)}`;
+ map.innerHTML=h;
+ $('status').textContent=s.mode;$('status').style.color=[2,3,4,5,6,9].includes(s.status)?'#ffad9a':'#92f4d7';$('decisionLine').textContent=s.estopLatched?'Safety latch engaged. Motor power cut; local reset required.':!s.localized?(s.scanning?'Recovering position by scan...':'Location uncertain. Looking for a unique room marker.'):s.status===2?'Pedestrian nearby. Yielding until clear.':s.status===3?'Path blocked. Waiting for a safe route.':s.status===7?'Scanning walls to compare with saved map.':s.status===1?'Following corridor toward IS '+s.goal+'.':s.complete?'Destination confirmed. Waiting for your next room.':s.operatorPaused?'Paused. Destination and stops are preserved.':'Ready. Select a room to begin.';$('safetyBanner').style.display=s.estopLatched?'block':'none';$('hardEstop').disabled=role==='guest'||s.estopLatched;$('goNow').disabled=role==='guest'||s.estopLatched;$('addStop').disabled=role==='guest'||s.estopLatched; $('statusHint').textContent=s.operatorPaused?'Route and queue saved; motors commanded to stop':s.complete?'All mission stops confirmed':s.scanning?'Collecting angular range readings':s.status===3?'Route blocked; operator assistance':s.status===2?'Waiting for person to move':s.status===5?'Lost commands; motors inhibited':'Independent onboard decision';
+ $('clock').textContent=`${String(Math.floor(s.time/60)).padStart(2,'0')}:${String(Math.floor(s.time%60)).padStart(2,'0')}`;
+ $('location').textContent=s.localized?(/^[0-9]+$/.test(s.current)?`IS ${s.current}`:`Junction ${s.current}`):'UNKNOWN';$('marker').textContent=`Last marker: ${s.lastMarker}`;$('destination').textContent=s.goal?`IS ${s.goal}`:'Ready for a room';$('progress').textContent=`Step ${Math.min(s.stepIndex+1,s.mission.length-1)} of ${s.mission.length-1}`;$('uncertainty').textContent=s.localized?`±${s.est.sigma.toFixed(2)} m`:'Not localized';
+ $('confirmed').textContent=s.lastMarker;$('distance').textContent=`${sim.totalTravel.toFixed(1)} m`;$('mode').textContent=s.operatorPaused?'Paused · tap Resume':s.scanning?'Scanning / updating map':(!s.running?'Ready for next trip':'Heading / route tracking');
+ $('pauseRoute').disabled=role==='guest'||!s.running||s.complete||s.failed||s.estopLatched;
+ $('pauseRoute').textContent=s.operatorPaused?'▶ Resume':'Ⅱ Pause';
+ $('pauseRoute').classList.toggle('paused',s.operatorPaused);
+ $('pauseRoute').setAttribute('aria-label',s.operatorPaused?'Resume current trip':'Pause current trip');
+ $('front').textContent=s.sensor.front.toFixed(2)+' m';$('side').textContent=s.sensor.side.toFixed(2)+' m';$('leftMotor').textContent=sim.out[0].toFixed(3)+' m/s';$('rightMotor').textContent=sim.out[1].toFixed(3)+' m/s';$('heading').textContent=(s.est.yaw*180/Math.PI).toFixed(1)+'°';$('lamps').textContent=s.signal===2?'Hazard flashing':s.signal===1?'Left amber blinking':s.signal===-1?'Right amber blinking':'Off';
+ $('batteryLevel').textContent=s.batteryVoltage.toFixed(2)+' V'+(s.batteryLow?' · STOP':'');$('batteryBar').style.width=clamp((s.batteryVoltage-3.3)/0.9*100,0,100).toFixed(0)+'%';$('batteryBar').style.background=s.batteryVoltage<3.55?'#ff7779':'#46e5c5';$('arrivalState').textContent=s.arrivalVerified?'Marker observed for '+s.goal:'Not yet confirmed';$('historyLive').innerHTML=s.tripHistory.length?s.tripHistory.slice(-7).reverse().map(h=>`<div class="trow"><span>IS ${h.from} → ${h.to}</span><strong>${h.result}</strong></div>`).join(''):'No trips recorded yet.';
+ $('routeBar').style.width=(s.mission.length>1?Math.round(100*s.stepIndex/(s.mission.length-1)):0)+'%';$('queueLive').innerHTML=s.pending?.length?s.pending.map((r,i)=>`<span class="roomStep ${i===0?'active':''}">${i===0?'NEXT ':''}${r}</span>`).join(' → '):'<span class="sub">No pending destinations — ready for another room.</span>'; $('roomSteps').innerHTML=s.mission.map((v,i)=>`<span class="roomStep ${s.stepIndex===i?'active':s.stepIndex>i?'done':''}">${v}</span>${i<s.mission.length-1?'<span class="arrow">→</span>':''}`).join('');
+ const a=s.sensor.grid;$('depthGrid').innerHTML=Array.from({length:64},(_,i)=>{const r=a[i%8];const hue=r<.45?'#e86f69':r<.9?'#e6aa69':r<1.5?'#86c6a9':'#426f82';return `<div class="sensorCell" style="background:${hue};opacity:${.42+((7-Math.floor(i/8))/7)*.50}" title="Horizontal zone ${(i%8)+1}: ${r.toFixed(2)}m"></div>`}).join('');
+ $('surveyStatus').textContent=Object.keys(survey.signatures).length+' / '+Object.keys(NODES).length; $('surveyBar').style.width=(100*Object.keys(survey.signatures).length/Object.keys(NODES).length)+'%'; $('surveyHint').textContent=Object.keys(survey.signatures).length===Object.keys(NODES).length?'Fictional reference scans preloaded for demo. Import a compatible survey to replace them.':'Survey progress is stored in this page until you export it; do not rely on browser refresh to preserve it.'; $('recoveryStatus').textContent=s.localized?(s.relocalizationNode?'Recovered '+s.relocalizationNode:'Known starting location'):(s.scanning?'Scanning 360°':'LOCATION UNKNOWN'); $('recoveryHint').textContent=s.relocalizationResult?(s.relocalizationResult.reason+'; candidates: '+(s.relocalizationResult.ranked||[]).map(x=>x.node+' '+x.score.toFixed(3)).join(', ')):'Try a 360° scan. If hallways are identical, use a unique marker. The map matcher must not use hidden true position.'; $('events').innerHTML=sim.logged.slice(-22).reverse().map(e=>`<div class="evt"><time>${Math.floor(e.t/60).toString().padStart(2,'0')}:${Math.floor(e.t%60).toString().padStart(2,'0')}</time><span>${e.text.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</span></div>`).join('');$('serverPill').textContent=sim.wifi?'● Virtual MQTT linked':'● Virtual MQTT offline';$('serverPill').style.color=sim.wifi?'#8affd6':'#ffb5ae';
+ if(sim.out[4]&&s.time>lastChimeLog+.4){beep();$('chime').textContent='Arrival ♫';lastChimeLog=s.time;}
+ }
+const MODE='Heading / route tracking';
+function configure(){sim.people=$('people').checked;sim.chair=$('chair').checked;sim.wifi=!$('lostWifi').checked;sim.tofHealthy=!$('badTof').checked;sim.markersEnabled=!$('noMarkers').checked;if($('estop').checked&&!sim.estopSwitchPressed)sim.pressEstop();sim.autoScan=$('autoScan').checked;sim.noise=Number($('noise').value);}
+function reset(usePreset=false){sim=new MicroSimulation(controller,{seed:17,mission:usePreset?parseMission():['200'],autoScan:$('autoScan').checked,survey});paused=true;lastChimeLog=0;configure();draw();$('start').textContent='▶ Start mission';$('chime').textContent='Ready';}
+let controller;
+async function init(){
+ $('roomSelect').innerHTML=Object.keys(ROOMS).map(r=>`<option value="${r}">IS ${r} (provisional)</option>`).join('');
+ chooseRoom('263');
+ $('dropNode').innerHTML=Object.keys(NODES).map(n=>`<option value="${n}">${n} · ${Object.entries(ROOMS).find(([,id])=>id===n)?.[0]||'junction'}</option>`).join('');
+ // Demo UX: make one synthetic survey immediately available. This is NOT
+ // real-world mapping, location recognition, or an imported floor plan.
+ for(const n of Object.keys(NODES))recordSurveyAnchor(survey,n,17);
+ controller=await makeCore(wasmBytes);reset();requestAnimationFrame(frame);
+}
+function chooseRoom(room){if(!(room in ROOMS))return; selectedRoom=room;$('roomSelect').value=room;$('selectedRoom').textContent='IS '+room;$('goNow').innerHTML='Go to IS '+room+' <span aria-hidden="true">→</span>';}
+function sendRoom(type){if(role==='guest')return;if(Object.keys(survey.signatures).length<3){sim.log('Build or import a survey before dispatch');draw();return;}
+ const ok=type==='now'?sim.goNow(selectedRoom):sim.addStop(selectedRoom);
+ if(ok){paused=false;$('start').textContent='▶ Running';}
+ draw();}
+$('recoverQuick').onclick=()=>{if(role==='guest')return;if(sim.recoverNow()){sim.log('Recovery completed or not needed');}draw();};
+$('exportHistory').onclick=()=>{if(role==='guest')return;const blob=new Blob([JSON.stringify(sim.tripHistory,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='mini-waymo-mission-history-SYNTHETIC.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),500);};
+$('roomSelect').onchange=()=>chooseRoom($('roomSelect').value);
+$('goNow').onclick=()=>sendRoom('now');$('addStop').onclick=()=>sendRoom('queue');
+$('pauseRoute').onclick=()=>{if(role==='guest')return;if(sim.operatorPaused){if(sim.resumeVehicle()){paused=false;}}else if(sim.pauseVehicle()){paused=false;}draw();};
+$('holdRoute').onclick=()=>{if(role==='guest')return;sim.holdAndClear();sim.operatorPaused=false;paused=true;draw();};
+$('hardEstop').onclick=()=>{if(role==='guest')return;sim.pressEstop();$('estop').checked=true;paused=true;draw();};
+$('releaseEstop').onclick=()=>{if(role==='guest')return;$('estop').checked=false;sim.releaseEstopSwitch();draw();};
+$('resetEstop').onclick=()=>{if(role==='guest')return;if(sim.localResetEstop())paused=true;draw();};
+$('clearFuture').onclick=()=>{if(role==='guest')return;sim.clearPending();draw();};
+map.addEventListener('click',e=>{const el=e.target.closest('[data-room]');if(!el||role==='guest')return;chooseRoom(el.dataset.room);const mode=$('mapClickMode').value;if(mode!=='select')sendRoom(mode);else draw();});
+map.addEventListener('keydown',e=>{const el=e.target.closest('[data-room]');if(!el||role==='guest'||!['Enter',' '].includes(e.key))return;e.preventDefault();chooseRoom(el.dataset.room);const mode=$('mapClickMode').value;if(mode!=='select')sendRoom(mode);else draw();});
+function frame(t){const diff=Math.min(.2,(t-frameLast)/1000);frameLast=t;if(!paused&&sim&&!sim.complete&&!sim.failed){accumulator+=diff*Number($('speed').value);let cycles=0;while(accumulator>.08&&cycles++<85){sim.tick(.08);accumulator-=.08;}if(cycles>=85)accumulator=0;}
+ if(t-lastRender>180){draw();lastRender=t;}requestAnimationFrame(frame);}
+$('start').onclick=()=>{if(role==='guest')return;if(Object.keys(survey.signatures).length<3){sim.log('Mission refused: complete the saved hallway survey first');draw();return;}if(!sim.localized){sim.log('Mission refused: relocalize first');draw();return;}if(sim.failed){sim.log('Resolve failure and reset before restarting');draw();return;}if(sim.complete){sim.log('Trip complete — select Go now or Add stop to dispatch another room');draw();return;}if(sim.plan.length===0&&!sim.start())return;sim.running=true;paused=false;$('start').textContent='▶ Running';beep();};
+
+$('reset').onclick=()=>{if(role!=='guest')reset(true)};$('scan').onclick=()=>{if(role==='guest')return;if(!sim.localized){if(sim.beginRelocalize()){paused=false;}return;}sim.scanRequested=true;paused=false;sim.running=true;if(sim.plan.length===0)sim.start();};
+
+function downloadSurvey(){const blob=new Blob([JSON.stringify(survey,null,2)],{type:'application/json'});const href=URL.createObjectURL(blob);const a=document.createElement('a');a.href=href;a.download='is-floor2-survey-SYNTHETIC.json';a.click();setTimeout(()=>URL.revokeObjectURL(href),500);}
+$('surveyNext').onclick=()=>{if(role==='guest')return;const next=Object.keys(NODES).find(k=>!survey.signatures[k]);if(next){recordSurveyAnchor(survey,next,17);sim.log('Surveyed synthetic anchor '+next);draw();}};
+$('surveyAll').onclick=()=>{if(role==='guest')return;for(const n of Object.keys(NODES))recordSurveyAnchor(survey,n,17);sim.log('Completed accelerated synthetic survey ('+Object.keys(NODES).length+' anchors)');draw();};
+$('exportMap').onclick=()=>{if(role!=='guest')downloadSurvey();};
+$('importMapBtn').onclick=()=>{if(role!=='guest')$('importMap').click();};
+$('importMap').onchange=async()=>{try{const file=$('importMap').files[0];if(!file)return;const imported=validateSurvey(JSON.parse(await file.text())); // Strictly validate geometry matches bundled simulation.
+ if(JSON.stringify(imported.nodes)!==JSON.stringify(NODES)||JSON.stringify(imported.edges)!==JSON.stringify(EDGES)||JSON.stringify(imported.rooms)!==JSON.stringify(ROOMS))throw Error('Floor geometry differs from current simulation');
+ survey=imported;sim.survey=survey;sim.log('Imported saved survey with '+Object.keys(survey.signatures).length+' anchors');draw();}catch(e){sim.log('Survey import refused: '+e.message);draw();}finally{$('importMap').value='';}};
+$('drop').onclick=()=>{if(role==='guest')return;paused=true;sim.placeUnknown($('dropNode').value);draw();};
+$('recover').onclick=()=>{if(role==='guest')return;if(sim.beginRelocalize())paused=false;draw();};
+$('readTag').onclick=()=>{if(role==='guest')return;paused=true;sim.tryMarkerRecovery();draw();};
+$('sound').onclick=()=>{audio=!audio;$('sound').textContent=audio?'♪ Sound enabled':'♪ Enable audio';if(audio)beep();};
+for(const id of ['people','chair','lostWifi','badTof','noMarkers','autoScan','noise'])$(id).onchange=configure;
+$('estop').onchange=()=>{if(role==='guest')return;if($('estop').checked)sim.pressEstop();else sim.releaseEstopSwitch();paused=true;draw();};
+$('guestBtn').onclick=()=>{setRole('guest');draw();};$('adminBtn').onclick=()=>{setRole('admin');draw();};$('preset').onchange=()=>reset(true);$('speed').oninput=()=>$('speedNum').textContent=$('speed').value+'×';$('noise').oninput=()=>$('noiseNum').textContent=(+$('noise').value).toFixed(1)+'×';$('copyLog').onclick=()=>{if(sim)navigator.clipboard?.writeText(sim.logged.map(e=>e.t.toFixed(1)+'s '+e.text).join('\n'));};
+init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="background:#a33;color:white;padding:18px">Simulator initialization failed: ${e.message}</div>`);console.error(e);});
+</script></body></html>

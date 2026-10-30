@@ -1,0 +1,28 @@
+name: Engineering task
+description: Track a focused Mini-Waymo work item
+labels: [task]
+body:
+  - type: dropdown
+    id: workstream
+    attributes:
+      label: Workstream
+      options:
+        - Diecast / electronics
+        - ESP32 MQTT and firmware
+        - Navigation and sensors
+        - Kratos backend
+        - Website and map
+        - Integration and test
+    validations:
+      required: true
+  - type: textarea
+    id: target
+    attributes:
+      label: Goal and acceptance criteria
+      description: What working evidence is needed?
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies / blockers

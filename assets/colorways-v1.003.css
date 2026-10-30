@@ -1,0 +1,108 @@
+
+/* V1.003 draft — colorway studio. Original student mark; inspired by the map-first Waymo app, not an official Waymo design. */
+body[data-colorway="blue"]{
+ --cw-bg:#eaf1fb;--cw-top:#0d3677;--cw-topInk:#fff;--cw-surface:#fff;--cw-soft:#edf5ff;
+ --cw-hero:#dbeafe;--cw-heroInk:#10366a;--cw-text:#102b4a;--cw-muted:#566d85;--cw-border:#cbd9e9;
+ --cw-primary:#0869ef;--cw-primaryHover:#0055c9;--cw-primaryInk:#fff;--cw-green:#00a88a;--cw-greenSoft:#dff7ee;
+ --cw-map:#dbe9f8;--cw-mark:#b8d7ff;--cw-alert:#fff4db;--cw-mutedBtn:#eaf3ff;--cw-brandSub:#cbdfef;--cw-meta:#e5effd;
+ --cw-logo:#bbf4e0;--cw-logoInk:#075676;--cw-shadow:0 6px 25px #0b397412;
+}
+body[data-colorway="night"]{
+ --cw-bg:#08182d;--cw-top:#081226;--cw-topInk:#f1f7ff;--cw-surface:#11253c;--cw-soft:#1a3651;
+ --cw-hero:#193d61;--cw-heroInk:#f3f8ff;--cw-text:#e6f3ff;--cw-muted:#aac1d7;--cw-border:#34516b;
+ --cw-primary:#4ba9ff;--cw-primaryHover:#81c6ff;--cw-primaryInk:#06172b;--cw-green:#5fe3c3;--cw-greenSoft:#123f42;
+ --cw-map:#183550;--cw-mark:#194d76;--cw-alert:#533c27;--cw-mutedBtn:#193652;--cw-brandSub:#9ab6ce;--cw-meta:#234260;
+ --cw-logo:#203f63;--cw-logoInk:#67e1c4;--cw-shadow:0 8px 24px #02091866;
+}
+body[data-colorway="mint"]{
+ --cw-bg:#e9f7f2;--cw-top:#0b514e;--cw-topInk:#fffef5;--cw-surface:#fffefa;--cw-soft:#e1f5ea;
+ --cw-hero:#d0f6e6;--cw-heroInk:#0b4a48;--cw-text:#12423e;--cw-muted:#55776f;--cw-border:#c2e0d4;
+ --cw-primary:#0b8e81;--cw-primaryHover:#087264;--cw-primaryInk:#fff;--cw-green:#16886d;--cw-greenSoft:#c5efdd;
+ --cw-map:#daf0e8;--cw-mark:#b3e4d4;--cw-alert:#fff3dd;--cw-mutedBtn:#e1f6ee;--cw-brandSub:#c5e9dd;--cw-meta:#dbf1e7;
+ --cw-logo:#fff1c7;--cw-logoInk:#0b615c;--cw-shadow:0 5px 22px #0b5b4815;
+}
+body[data-colorway]{color:var(--cw-text);background:var(--cw-bg);--ink:var(--cw-text);--muted:var(--cw-muted);--panel:var(--cw-surface);--panel2:var(--cw-soft);--border:var(--cw-border);--aqua:var(--cw-green);--blue:var(--cw-primary);min-height:100vh}
+body[data-colorway] header{background:var(--cw-top);border-bottom:0;color:var(--cw-topInk);box-shadow:0 4px 18px #06192f15}
+body[data-colorway] .brandWordmark h1{color:var(--cw-topInk);font-size:22px;font-weight:800}
+body[data-colorway] .brandWordmark .brandSubtitle{color:var(--cw-brandSub)}
+body[data-colorway] .logo{background:var(--cw-logo);color:var(--cw-logoInk);border-radius:13px}
+body[data-colorway] .pageNav button{color:var(--cw-brandSub)}
+body[data-colorway] .pageNav button.active{color:var(--cw-top);background:var(--cw-topInk)}
+body[data-colorway] .roles{background:#ffffff12;border-color:#ffffff36}
+body[data-colorway] .roles button{color:var(--cw-brandSub)}
+body[data-colorway] .roles button.active{background:var(--cw-topInk);color:var(--cw-top)}
+body[data-colorway] .headerRight .pill{color:var(--cw-topInk);background:#ffffff13;border-color:#ffffff3d}
+body[data-colorway] .headerRight .version{color:var(--cw-brandSub)}
+body[data-colorway] main{gap:19px}
+body[data-colorway] .card,body[data-colorway] .aboutBlock,body[data-colorway] .buildProgress,body[data-colorway] .campusIdentity,body[data-colorway] .metric,body[data-colorway] .advancedDisclosure,body[data-colorway] .diagnostics{background:var(--cw-surface);border-color:var(--cw-border);color:var(--cw-text);box-shadow:var(--cw-shadow)}
+body[data-colorway] .card{border-radius:15px}
+body[data-colorway] .metric{border-radius:11px}
+body[data-colorway] .head h2,body[data-colorway] .tripHeader h2,body[data-colorway] .aboutHead h2,body[data-colorway] .progressHeader h2,body[data-colorway] .boardToolbar h3,body[data-colorway] .boardGroupHead h4{color:var(--cw-text)}
+body[data-colorway] .head small,body[data-colorway] .sub,body[data-colorway] .tripFooter,body[data-colorway] .mapTip,body[data-colorway] .smallhelp,body[data-colorway] .metric label,body[data-colorway] .metric small,body[data-colorway] .trow span:first-child{color:var(--cw-muted)}
+body[data-colorway] .metric b,body[data-colorway] .tripFooter strong{color:var(--cw-text)}
+body[data-colorway] .mapFrame{border-color:var(--cw-border);background:var(--cw-map);border-radius:12px}
+body[data-colorway] .mapFrame svg{background:var(--cw-map)}
+body[data-colorway] .bar,body[data-colorway] .progressTrack{background:var(--cw-soft)}
+body[data-colorway] .barInner,body[data-colorway] .progressFill{background:var(--cw-green)}
+body[data-colorway] .btn{background:var(--cw-soft);color:var(--cw-text);border-color:var(--cw-border);box-shadow:none}
+body[data-colorway] .btn.primary{background:var(--cw-primary);color:var(--cw-primaryInk);border-color:var(--cw-primary)}
+body[data-colorway] .btn.primary:hover:not(:disabled){background:var(--cw-primaryHover);border-color:var(--cw-primaryHover)}
+body[data-colorway] .btn.secondaryBtn,body[data-colorway] .btn.pauseBtn{background:var(--cw-mutedBtn);color:var(--cw-text)}
+body[data-colorway] .btn.danger{background:#bd35451a;color:var(--cw-text);border-color:#e0606f5c}
+body[data-colorway] .largeSelect,body[data-colorway] .controlGroup select,body[data-colorway] .controlGroup input[type=text]{background:var(--cw-surface);color:var(--cw-text);border-color:var(--cw-border)}
+body[data-colorway] .destinationLabel,body[data-colorway] .controlGroup label,body[data-colorway] .switch{color:var(--cw-muted)}
+body[data-colorway] .advancedDisclosure>summary,body[data-colorway] .diagnostics>summary{color:var(--cw-text)}
+body[data-colorway] .events .evt,body[data-colorway] .switch{border-color:var(--cw-border)}
+body[data-colorway] .evt span{color:var(--cw-text)}
+body[data-colorway] .roomStep{color:var(--cw-text);background:var(--cw-soft);border-color:var(--cw-border)}
+body[data-colorway] .roomStep.active{background:var(--cw-mark);border-color:var(--cw-primary);color:var(--cw-text)}
+body[data-colorway] .caution{background:var(--cw-alert);color:var(--cw-text);border-color:#ca9a53}
+body[data-colorway] .legend,body[data-colorway] .infoBar,body[data-colorway] .foot{color:var(--cw-muted)}
+body[data-colorway] .aboutHero,body[data-colorway] .aboutHeroCompact{background:var(--cw-hero);border-color:var(--cw-border);border-radius:14px}
+body[data-colorway] .aboutHero h2,body[data-colorway] .aboutHeroCompact h2{color:var(--cw-heroInk)}
+body[data-colorway] .aboutHero p,body[data-colorway] .aboutHeroCompact p,body[data-colorway] .aboutHero .kicker,body[data-colorway] .heroMuted{color:var(--cw-heroInk)}
+body[data-colorway] .aboutHeroMeta span,body[data-colorway] .aboutHeroCompact .aboutHeroMeta span{background:var(--cw-surface);color:var(--cw-text);border-color:var(--cw-border)}
+body[data-colorway] .aboutBlock p,body[data-colorway] .aboutNarrative,body[data-colorway] .scopeMini{color:var(--cw-muted)!important}
+body[data-colorway] .aboutTableWrap,body[data-colorway] .aboutTable td{border-color:var(--cw-border)}
+body[data-colorway] .aboutTable th{color:var(--cw-text);background:var(--cw-soft)}
+body[data-colorway] .aboutTable td,body[data-colorway] .aboutTable td:first-child{color:var(--cw-text)}
+body[data-colorway] .teamPerson,body[data-colorway] .aboutStep,body[data-colorway] .progressMilestones li{background:var(--cw-soft);border-color:var(--cw-border)}
+body[data-colorway] .teamPerson h3,body[data-colorway] .aboutStep strong,body[data-colorway] .progressMilestones b{color:var(--cw-text)}
+body[data-colorway] .teamPerson .role,body[data-colorway] .teamPerson .teamAffiliation,body[data-colorway] .progressMilestones small,body[data-colorway] .progressHeader p{color:var(--cw-muted)}
+body[data-colorway] .teamAvatar{background:var(--cw-mark);color:var(--cw-text)}
+body[data-colorway] .progressScore{color:var(--cw-primary)}
+body[data-colorway] .progressKicker,body[data-colorway] .progressBottom,body[data-colorway] .progressNote{color:var(--cw-muted)}
+body[data-colorway] .progressDetails{border-color:var(--cw-border)}
+body[data-colorway] .progressDetails summary{color:var(--cw-primary)}
+body[data-colorway] .kratosNote{background:var(--cw-soft);border-color:var(--cw-green)}
+body[data-colorway] .kratosNote strong,body[data-colorway] .kratosNote p{color:var(--cw-text)}
+body[data-colorway] .campusIdentityText{color:var(--cw-text)}
+body[data-colorway] .campusIdentityText span{color:var(--cw-muted)}
+body[data-colorway] .boardPanel{background:var(--cw-surface);border-color:var(--cw-border)}
+body[data-colorway] .boardReveal{border-color:var(--cw-border);color:var(--cw-primary)}
+body[data-colorway] .boardGroup,body[data-colorway] .boardTask{background:var(--cw-surface);border-color:var(--cw-border)}
+body[data-colorway] .boardGroupHead{background:var(--cw-soft);border-color:var(--cw-border)}
+body[data-colorway] .boardTaskTitle,body[data-colorway] .boardGroupHead span{color:var(--cw-text)}
+body[data-colorway] .boardTaskMeta,body[data-colorway] .boardCaution,body[data-colorway] .boardToolbar p,body[data-colorway] .boardConnection{color:var(--cw-muted)}
+body[data-colorway] .boardFilter,body[data-colorway] .boardRefresh,body[data-colorway] .boardTaskAction{background:var(--cw-soft);border-color:var(--cw-border);color:var(--cw-text)}
+body[data-colorway] .boardFilter.selected{background:var(--cw-mark);border-color:var(--cw-primary);color:var(--cw-text)}
+body[data-colorway] .boardTaskOwner,body[data-colorway] .boardLiveFlag.live{color:var(--cw-primary)}
+body[data-colorway] .boardStatus.status-todo{background:var(--cw-soft);color:var(--cw-text)}
+body[data-colorway] .boardClaimDialog{background:var(--cw-surface);border-color:var(--cw-border);color:var(--cw-text)}
+body[data-colorway] .boardDialogHeading h3,body[data-colorway] .boardClaimDialog label{color:var(--cw-text)}
+body[data-colorway] .boardClaimDialog input,body[data-colorway] .boardClaimDialog select{color:var(--cw-text);background:var(--cw-surface);border-color:var(--cw-border)}
+body[data-colorway] #boardSubmit{background:var(--cw-primary);border-color:var(--cw-primary);color:var(--cw-primaryInk)}
+body[data-colorway] .scopeStatus,body[data-colorway] a{color:var(--cw-primary)}
+/* A colorway chooser with real, keyboard-accessible controls. */
+.colorwayChooser{display:flex;align-items:center;gap:7px;background:#ffffff16;border:1px solid #ffffff30;border-radius:10px;padding:6px 8px;margin:0 4px}
+.colorwayChooser>span{font-size:10px;letter-spacing:.04em;text-transform:uppercase;font-weight:750;color:var(--cw-brandSub);margin:0 3px}
+.colorwayButton{font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--cw-topInk)}
+.colorwayButton::before{content:'';width:11px;height:11px;border-radius:50%;border:1px solid #ffffff7a;background:linear-gradient(135deg,var(--s1),var(--s2));display:inline-block;flex-shrink:0}
+.colorwayButton[aria-pressed="true"]{border-color:#ffffff9b;background:#ffffff30}
+.colorwayButton:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.colorwayButton[data-theme-value="blue"]{--s1:#0d3677;--s2:#147efb}
+.colorwayButton[data-theme-value="night"]{--s1:#081226;--s2:#5fe3c3}
+.colorwayButton[data-theme-value="mint"]{--s1:#0b514e;--s2:#9fe1bc}
+body[data-colorway="night"] .aboutTable td{color:#c9dfef}
+@media(max-width:1200px){.colorwayChooser{order:9}.headerRight{gap:8px}}
+@media(max-width:650px){.colorwayChooser{width:100%;justify-content:space-between;order:9;margin:2px 0}.colorwayButton{padding:7px 10px;flex:1;justify-content:center}.colorwayChooser>span{white-space:nowrap}.brandWordmark h1{font-size:18px!important}}

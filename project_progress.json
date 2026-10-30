@@ -1,0 +1,56 @@
+{
+  "project": "mini-waymo-micro",
+  "updated": "2026-10-29",
+  "phase": "Mechanical fit and component validation",
+  "basis": "Eight equally weighted build milestones. Only verified completed milestones contribute to the displayed percentage; software simulation is not proof of a working physical robot.",
+  "milestones": [
+    {
+      "id": "scope",
+      "title": "Challenge scope and architecture",
+      "status": "complete",
+      "evidence": "Three-week scope, ESP32-S3 / Kratos split and indoor building goal defined."
+    },
+    {
+      "id": "simulator",
+      "title": "Interactive website and virtual missions",
+      "status": "complete",
+      "evidence": "Room queue, Go now, Pause/Resume, route preview and safety simulation built and tested in a browser."
+    },
+    {
+      "id": "diecast-fit",
+      "title": "Measure diecast and verify component fit",
+      "status": "in_progress",
+      "evidence": "Adjustable fit planner exists; actual shell interior has not been measured or validated."
+    },
+    {
+      "id": "hardware",
+      "title": "Assemble drivetrain, power and electronics",
+      "status": "not_started",
+      "evidence": "Motors, battery, wiring and physical E-stop are not verified on a built vehicle."
+    },
+    {
+      "id": "sensors",
+      "title": "Integrate real sensing and local safety",
+      "status": "not_started",
+      "evidence": "Depth sensor, encoders, IMU, markers and motor control need physical calibration."
+    },
+    {
+      "id": "kratos",
+      "title": "Deploy Kratos website, MQTT and telemetry",
+      "status": "not_started",
+      "evidence": "FastAPI/MQTT examples exist but are not deployed to the live server or vehicle."
+    },
+    {
+      "id": "survey",
+      "title": "Survey IS second-floor route and relocalize",
+      "status": "not_started",
+      "evidence": "Current C-shaped hallway map is schematic; actual room locations and localization remain unverified."
+    },
+    {
+      "id": "demo",
+      "title": "Demonstrate supervised room-to-room mission",
+      "status": "not_started",
+      "evidence": "Physical routes (e.g., 251 → 263 → 251 → 202), arrival chime and turn signals need tests."
+    }
+  ]
+}

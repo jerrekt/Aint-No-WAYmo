@@ -1,0 +1,5 @@
+# Paste into a teammate's chat — Ain't No Waymo
+
+We are building **Ain't No Waymo**, a tiny SJSU SME autonomous Jaguar I-PACE diecast, challenged to finish an impressive prototype in three weeks. Use the attached V1.008 local repo as the working draft; read `README.md`, `docs/TEAM_HANDOFF_CURRENT.md`, `docs/HARDWARE_FIRMWARE_MAP_HANDOFF.md`, and `VERSIONING.md` before changing code. Check current GitHub `main` first; do not overwrite new work.
+
+Our workstreams: diecast fit/chassis, ESP32-C3 MQTT bench, ESP32-S3 controller and local safety, IS Building room mapping/navigation, Kratos+Cloudflare/backend, and website/34-task board. The approved website design is dark navy, three-column, SJSU/SME logos, user-supplied diecast photo and hallway map. Simulated software is not evidence the robot is physically functional. Choose and claim one task when the team board backend is actually live; for now coordinate in GitHub issues/PRs. Never commit credentials. Submit focused PRs that advance the official V1.xxx exactly once per merged update, and document test evidence.

@@ -1,0 +1,135 @@
+/* V1.007 DRAFT — implemented layout based on team-approved reference mockup.
+ * All car/status information remains labeled as simulation/illustration until hardware is verified.
+ * Only the presentation shell is changed; existing simulator/board event handlers stay in place.
+ */
+body[data-colorway="app"]{background:radial-gradient(ellipse at 55% -15%,#284968 0,transparent 44%),linear-gradient(180deg,#11293f 0,#071727 600px);min-height:100vh;color:#eaf2ff}
+body[data-colorway="app"] header{max-width:none;margin:0;min-height:88px;display:flex;justify-content:space-between;padding:12px clamp(16px,2.2vw,35px);background:linear-gradient(110deg,#162f48,#18334f 55%,#0d2033);border-bottom:1px solid #ffffff12}
+body[data-colorway="app"] .brand{gap:15px}
+body[data-colorway="app"] .logo{width:76px;height:61px;display:grid;place-items:center;border-radius:18px;background:#173c5c;border:1px solid #426582;color:#d7f0ff}
+body[data-colorway="app"] .logo span{font-size:32px}
+body[data-colorway="app"] .brandWordmark h1{font-size:clamp(24px,2.45vw,39px);letter-spacing:-.046em;font-weight:760}
+body[data-colorway="app"] .brandSubtitle{font-size:13px;color:#8fbee7}
+body[data-colorway="app"] .headerRight .version{display:none}
+body[data-colorway="app"] .headerLogos{display:flex;gap:17px;align-items:center;margin-right:5px}
+body[data-colorway="app"] .headerLogos img{width:auto;max-width:125px;height:40px;object-fit:contain;background:#fff;padding:5px 8px;border-radius:7px}
+body[data-colorway="app"] .headerLogos img.smeHeader{height:43px;max-width:88px}
+body[data-colorway="app"] .headerRight .appearanceMenu>summary{height:44px;width:44px;display:flex;align-items:center;justify-content:center;font-size:0;padding:0;border-radius:14px;background:#233e57;border:1px solid #ffffff14}
+body[data-colorway="app"] .headerRight .appearanceMenu>summary:before{content:'⚙';font-size:20px;color:#dbe7f7}
+body[data-colorway="app"] .headerRight .roles,body[data-colorway="app"] .headerRight #serverPill{display:none}
+body[data-colorway="app"] #dashboardPage{max-width:1840px;box-sizing:border-box;margin:0 auto;display:grid!important;grid-template-columns:minmax(245px,330px) minmax(0,1fr) minmax(250px,305px)!important;gap:15px!important;align-items:start;padding:13px clamp(12px,1.45vw,22px) 160px!important}
+body[data-colorway="app"] #dashboardPage .mockRail{min-width:0;display:flex;flex-direction:column;gap:13px}
+body[data-colorway="app"] #dashboardPage .mockRail>*{min-width:0;margin:0}
+body[data-colorway="app"] #dashboardPage .mockPanel{background:linear-gradient(142deg,#1b334b 0%,#152b41 100%);border:1px solid #39536a;border-radius:20px;box-shadow:inset 0 1px #ffffff08,0 8px 22px #010c180d;color:#edf5ff;overflow:hidden}
+body[data-colorway="app"] #dashboardPage #vehicleRail .appScene{position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:0;min-height:284px;padding:0;overflow:hidden;border-radius:20px;background:radial-gradient(ellipse at 50% 50%,#4d6481 0%,#21374d 67%,#172b41 100%);box-shadow:none}
+body[data-colorway="app"] #dashboardPage .appScene:before{display:none}
+body[data-colorway="app"] #dashboardPage .appScene .sceneArt{display:block;position:relative;left:auto;right:auto;bottom:auto;z-index:1;width:100%;height:auto;max-height:243px;min-height:195px;padding:8px 4px 0;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;filter:drop-shadow(0 14px 11px #0715207a);opacity:1;box-sizing:border-box}
+body[data-colorway="app"] #dashboardPage .appScene .sceneWords{order:2;position:relative;z-index:2;max-width:none;width:100%;padding:11px 15px 14px;background:#0c1c2bc9;border-top:1px solid #ffffff13;box-sizing:border-box}
+body[data-colorway="app"] #dashboardPage .appScene .sceneWords h2{font-size:16px;margin:0 0 3px;letter-spacing:-.03em;line-height:1.2}
+body[data-colorway="app"] #dashboardPage .appScene .sceneWords p{font-size:11px;max-width:none;color:#b8cee5;line-height:1.4}
+body[data-colorway="app"] #dashboardPage .sceneKicker{display:none}
+body[data-colorway="app"] #dashboardPage .appScene .sceneLabel{position:absolute;right:12px;top:11px;z-index:3;padding:6px 9px;font-size:9px;background:#132c40bb;border:1px solid #9eb8cb50;border-radius:10px}
+body[data-colorway="app"] .vehicleMeta{display:flex;justify-content:space-between;align-items:center;gap:9px}
+body[data-colorway="app"] .simFlag{font-size:10px;color:#bfe8ff;background:#244763;border:1px solid #50728d;border-radius:99px;padding:5px 8px;white-space:nowrap}
+body[data-colorway="app"] .mapHeadTitle{padding:16px 14px 10px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+body[data-colorway="app"] .mapHeadTitle h2{font-weight:740;font-size:21px;color:#fff;letter-spacing:-.04em;line-height:1.2;margin:0 0 5px}
+body[data-colorway="app"] .mapHeadTitle p{font-size:11px;color:#a8c3dd;margin:0;line-height:1.4}
+body[data-colorway="app"] #centerRail>.card:first-child{padding:0;background:linear-gradient(145deg,#19324a,#122a40);border-color:#35516c}
+body[data-colorway="app"] #centerRail>.card:first-child>.head{display:none}
+body[data-colorway="app"] #centerRail .mapBody{padding:0 13px 11px}
+body[data-colorway="app"] #centerRail .mapFrame{border:1px solid #42617a;background:#142b40;border-radius:11px;overflow:hidden;box-shadow:inset 0 0 22px #08192f}
+body[data-colorway="app"] #centerRail .mapFrame svg{display:block;width:100%;height:auto;background:#142b40}
+body[data-colorway="app"] #centerRail .legend{font-size:10px;display:flex;gap:7px 13px;flex-wrap:wrap;margin-top:10px}
+body[data-colorway="app"] #centerRail .infoBar{margin:0;padding:8px 14px 14px;background:transparent;font-size:10px;line-height:1.5}
+body[data-colorway="app"] #centerRail .infoBar span{color:#adc0d6}
+body[data-colorway="app"] #centerRail .tripCard{background:#1a3047;padding:17px}
+body[data-colorway="app"] #centerRail .diagnostics,body[data-colorway="app"] #centerRail #advancedPanel{background:#182e43;border:1px solid #3d5870;border-radius:19px;padding:13px}
+body[data-colorway="app"] #centerRail .card{border-radius:19px}
+body[data-colorway="app"] #vehicleRail .dispatchCard{background:linear-gradient(145deg,#21374e,#172c42);padding:17px;border-radius:20px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .dispatchTitle{font-size:23px;letter-spacing:-.045em}
+body[data-colorway="app"] #vehicleRail .dispatchCard .tripHeader{gap:5px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .tripHeader .badge{font-size:9px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .largeSelect{width:100%;box-sizing:border-box;font-size:16px;padding:12px 10px;min-height:49px;background:#101f32;border-radius:13px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .primaryActions{display:grid;grid-template-columns:1fr;gap:7px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .primaryActions .btn{width:100%;min-height:42px;font-size:12px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .btn{border-radius:13px}
+body[data-colorway="app"] #vehicleRail .dispatchCard .driveBottom{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body[data-colorway="app"] #vehicleRail .dispatchCard #hardEstop{font-size:11px;min-height:40px!important}
+body[data-colorway="app"] #vehicleRail .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body[data-colorway="app"] #vehicleRail .metrics>.metric{padding:10px 12px;background:#20384f;min-height:78px;border-radius:16px;border-color:#425a71}
+body[data-colorway="app"] #vehicleRail .metrics .metric b{font-size:18px}
+body[data-colorway="app"] #vehicleRail .metrics .metric b#status{font-size:13px!important}
+body[data-colorway="app"] #vehicleRail .metrics .metric label{font-size:10px}
+body[data-colorway="app"] #vehicleRail .metrics .metric small{font-size:9px}
+body[data-colorway="app"] .railHeading{font-size:17px;font-weight:700;color:#fff;margin:0;letter-spacing:-.025em}
+body[data-colorway="app"] .railHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 15px}
+body[data-colorway="app"] .railHead button{border:0;background:transparent;color:#acc8e4;font-size:22px;cursor:pointer;padding:2px 8px;border-radius:8px}
+body[data-colorway="app"] .railHead button:hover{background:#284663}
+body[data-colorway="app"] #taskRail .mockPanel{padding:17px 14px}
+body[data-colorway="app"] .buildRing{width:132px;height:132px;margin:4px auto 17px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#65e7c9 0 25%,#334b64 25% 100%);box-shadow:inset 0 0 0 1px #4b66814a;position:relative}
+body[data-colorway="app"] .buildRing:before{content:'';position:absolute;inset:13px;border-radius:50%;background:#1a3047;box-shadow:inset 0 0 8px #07172888}
+body[data-colorway="app"] .buildRingInner{position:relative;text-align:center;z-index:1}
+body[data-colorway="app"] .buildRingInner strong{display:block;font-size:36px;line-height:1.1;font-weight:790;color:#fff;letter-spacing:-.06em}
+body[data-colorway="app"] .buildRingInner span{display:block;font-size:10px;color:#bccfe5;margin-top:4px}
+body[data-colorway="app"] .statusRows{display:flex;flex-direction:column;gap:2px}
+body[data-colorway="app"] .statusRow{display:flex;align-items:center;gap:9px;min-height:31px;border-bottom:1px solid #5c748929;font-size:11px;color:#dceafd}
+body[data-colorway="app"] .statusRow strong{margin-left:auto;font-size:12px;color:#fff;font-variant-numeric:tabular-nums}
+body[data-colorway="app"] .countDot{width:9px;height:9px;border-radius:50%;background:#a4bad1;flex-shrink:0}
+body[data-colorway="app"] .countDot.done{background:#55d9a7}body[data-colorway="app"] .countDot.progress{background:#f7c65d}body[data-colorway="app"] .countDot.blocked{background:#ef944d}body[data-colorway="app"] .countDot.todo{background:#a5b9d2}
+body[data-colorway="app"] .railButton{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#28548d;color:#f7fbff;width:100%;text-align:left;border:1px solid #3c6ca5;border-radius:12px;min-height:44px;padding:11px 13px;margin-top:16px;font-size:12px;font-weight:750;cursor:pointer}
+body[data-colorway="app"] .railButton:hover{background:#3264a5}
+body[data-colorway="app"] .teamMiniList{display:flex;flex-direction:column;gap:1px}
+body[data-colorway="app"] .teamMini{width:100%;border:0;border-bottom:1px solid #506d833c;display:flex;align-items:center;gap:10px;color:#e8f3ff;padding:7px 0;text-align:left;background:transparent;cursor:pointer}
+body[data-colorway="app"] .teamMini:hover{background:#26425b}
+body[data-colorway="app"] .teamMini .initials{height:33px;width:33px;border-radius:50%;display:grid;place-items:center;background:#405e80;color:#f3f8ff;font-size:12px;font-weight:760;flex-shrink:0}
+body[data-colorway="app"] .teamMini .initials.me{background:#3388e3}
+body[data-colorway="app"] .teamMini .personName{font-weight:650;font-size:11px;line-height:1.15}
+body[data-colorway="app"] .teamMini .personRole{font-size:10px;color:#a8bed9;margin-top:3px}
+body[data-colorway="app"] .teamMini .chevron{margin-left:auto;color:#8eb3d4}
+body[data-colorway="app"] .railFoot{font-size:10px;color:#92afc6;line-height:1.5;margin:12px 0 0}
+body[data-colorway="app"] .appDock{max-width:750px;width:min(calc(100% - 30px),750px);bottom:18px;height:68px;border-radius:40px;background:#1f3b57eb;border:1px solid #69819b88;box-shadow:0 18px 48px #0009,inset 0 1px #ffffff33;gap:4px}
+body[data-colorway="app"] .dockButton{height:55px;gap:4px;font-size:10px}
+body[data-colorway="app"] .dockButton[aria-current="page"]{background:#2b5b91ac;box-shadow:inset 0 1px #ffffff14}
+body[data-colorway="app"] .dockCar{margin-top:-17px;height:68px;max-width:83px;flex:0 0 83px;border:1px solid #8093b0;background:#344c6c;color:#fff;box-shadow:0 9px 24px #0004}
+body[data-colorway="app"] .dockCar[aria-current="page"]{background:#416da2}
+body[data-colorway="app"] .dockButton svg{height:22px;width:22px}
+body[data-colorway="app"] #aboutPage{max-width:1110px}
+body[data-colorway="app"] #aboutPage .aboutHeroCompact{border-radius:20px}
+body[data-colorway="app"] .miniDisclosure{font-size:11px;color:#adc6dc;margin-top:8px}
+@media(min-width:1650px){body[data-colorway="app"] #dashboardPage{grid-template-columns:minmax(275px,345px) minmax(0,1fr) minmax(290px,330px)!important;gap:18px!important}}
+@media(max-width:1170px){body[data-colorway="app"] #dashboardPage{grid-template-columns:minmax(235px,300px) minmax(0,1fr)!important}body[data-colorway="app"] #taskRail{grid-column:1/-1;display:grid!important;grid-template-columns:minmax(260px,.9fr) minmax(340px,1.1fr);align-items:start}body[data-colorway="app"] #centerRail{grid-column:2}body[data-colorway="app"] #vehicleRail{grid-column:1}body[data-colorway="app"] .headerLogos img{height:33px;max-width:105px}}
+@media(max-width:740px){body[data-colorway="app"] header{padding:12px 14px;min-height:76px}body[data-colorway="app"] .headerLogos{display:none}body[data-colorway="app"] header .brandWordmark h1{font-size:22px}body[data-colorway="app"] header .brandSubtitle{font-size:10px}body[data-colorway="app"] header .logo{width:48px;height:48px;border-radius:13px}body[data-colorway="app"] .headerRight{width:auto;gap:0}body[data-colorway="app"] #dashboardPage{display:flex!important;flex-direction:column;gap:12px!important;padding:12px 12px 122px!important}body[data-colorway="app"] #vehicleRail{width:100%;display:contents}body[data-colorway="app"] #centerRail{width:100%;display:contents}body[data-colorway="app"] #taskRail{width:100%;display:flex!important;flex-direction:column}body[data-colorway="app"] .appScene{order:0;width:100%}body[data-colorway="app"] #centerRail>.card:first-child{order:1;width:100%}body[data-colorway="app"] .dispatchCard{order:2;width:100%}body[data-colorway="app"] .metrics{order:3;width:100%}body[data-colorway="app"] .tripCard{order:4;width:100%}body[data-colorway="app"] #taskRail{order:5}body[data-colorway="app"] #centerRail .diagnostics{order:6;width:100%}body[data-colorway="app"] #centerRail #advancedPanel{order:7;width:100%}body[data-colorway="app"] #centerRail .card.padded:not(.tripCard){order:6;width:100%}body[data-colorway="app"] #vehicleRail .appScene{min-height:255px}body[data-colorway="app"] #vehicleRail .appScene .sceneArt{max-height:195px}body[data-colorway="app"] .mapHeadTitle h2{font-size:19px}body[data-colorway="app"] .legend{display:none!important}body[data-colorway="app"] #taskRail .mockPanel{width:100%;box-sizing:border-box}body[data-colorway="app"] .appDock{height:70px;bottom:12px}body[data-colorway="app"] .dockCar{height:66px;flex:0 0 69px}body[data-colorway="app"] .dockButton{font-size:9px}}
+
+body[data-colorway="app"] .appearanceMenu[open] .colorwayChooser{min-width:240px;align-items:stretch;padding:13px;gap:9px}
+body[data-colorway="app"] .appearanceMenu[open] .colorwayChooser .roles{display:flex!important;justify-content:space-evenly;width:100%;box-sizing:border-box;background:#162a41}
+body[data-colorway="app"] .settingsLabel{font-size:12px;font-weight:750;color:#e8f3ff}
+body[data-colorway="app"] .settingsNote{font-size:10px;line-height:1.5;color:#b6c9df;margin:0}
+
+/* V1.008: University identity marks, faithfully rendered from the supplied assets.
+   Dark-header variants are transparent and have no white tiles. */
+body[data-colorway="app"] .headerLogos{
+  display:flex;align-items:center;gap:28px;margin-right:16px;flex-shrink:0;
+}
+body[data-colorway="app"] .headerLogos img,
+body[data-colorway="app"] .headerLogos img.smeHeader{
+  display:block;width:auto;max-width:none;background:transparent;padding:0;
+  border:0;border-radius:0;box-shadow:none;object-fit:contain;
+}
+body[data-colorway="app"] .headerLogos img.sjsuHeader{height:42px;max-width:230px}
+body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px}
+@media(max-width:1170px){
+  body[data-colorway="app"] .headerLogos{gap:16px;margin-right:9px}
+  body[data-colorway="app"] .headerLogos img.sjsuHeader{height:32px;max-width:170px}
+  body[data-colorway="app"] .headerLogos img.smeHeader{height:45px;max-width:90px}
+}
+@media(max-width:740px){
+  body[data-colorway="app"] header{flex-wrap:wrap;gap:7px 10px;align-items:center}
+  body[data-colorway="app"] header .brand{flex:1 1 210px}
+  body[data-colorway="app"] .headerRight{display:flex;flex:1 0 100%;justify-content:flex-end;align-items:center;gap:12px}
+  body[data-colorway="app"] .headerLogos{display:flex!important;gap:15px;margin-right:auto;margin-left:0}
+  body[data-colorway="app"] .headerLogos img.sjsuHeader{height:29px;max-width:170px}
+  body[data-colorway="app"] .headerLogos img.smeHeader{height:40px;max-width:76px}
+}
+@media(max-width:370px){
+  body[data-colorway="app"] .headerLogos img.sjsuHeader{height:25px;max-width:139px}
+  body[data-colorway="app"] .headerLogos img.smeHeader{height:33px;max-width:62px}
+}

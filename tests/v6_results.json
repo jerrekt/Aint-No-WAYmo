@@ -1,0 +1,125 @@
+[
+  {
+    "mission": "200→230",
+    "done": true,
+    "failed": false,
+    "t": 75,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "230"
+    ],
+    "last": "Ready at IS 230; dispatch another room without remapping"
+  },
+  {
+    "mission": "200→202",
+    "done": true,
+    "failed": false,
+    "t": 25,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "202"
+    ],
+    "last": "Ready at IS 202; dispatch another room without remapping"
+  },
+  {
+    "mission": "251→263→251→202",
+    "done": true,
+    "failed": false,
+    "t": 188,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "263",
+      "251",
+      "202"
+    ],
+    "last": "Ready at IS 202; dispatch another room without remapping"
+  },
+  {
+    "mission": "200→230→251→263→202",
+    "done": true,
+    "failed": false,
+    "t": 313,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "230",
+      "251",
+      "263",
+      "202"
+    ],
+    "last": "Ready at IS 202; dispatch another room without remapping"
+  },
+  {
+    "mission": "263→200",
+    "done": true,
+    "failed": false,
+    "t": 144,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "200"
+    ],
+    "last": "Ready at IS 200; dispatch another room without remapping"
+  },
+  {
+    "mission": "202→230",
+    "done": true,
+    "failed": false,
+    "t": 100,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "230"
+    ],
+    "last": "Ready at IS 230; dispatch another room without remapping"
+  },
+  {
+    "mission": "queued 200→230→251→202",
+    "done": true,
+    "failed": false,
+    "t": 274,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "230",
+      "251",
+      "202",
+      "200"
+    ],
+    "last": "Ready at IS 202; dispatch another room without remapping"
+  },
+  {
+    "mission": "later 202→200",
+    "done": true,
+    "failed": false,
+    "t": 299,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "230",
+      "251",
+      "202",
+      "200"
+    ],
+    "last": "Ready at IS 200; dispatch another room without remapping"
+  },
+  {
+    "mission": "Go now 200→210 mid trip",
+    "done": true,
+    "failed": false,
+    "t": 25,
+    "collision": 0,
+    "edge": 0,
+    "arrivals": [
+      "210"
+    ],
+    "last": "Ready at IS 210; dispatch another room without remapping"
+  },
+  {
+    "mission": "MQTT lost - no dispatch",
+    "status": "MQTT LOST"
+  }
+]

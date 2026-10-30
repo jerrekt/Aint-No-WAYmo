@@ -1,0 +1,196 @@
+{
+  "project": "Mini-Waymo Micro / Ain't No Waymo",
+  "source": "SJSU IS Building floor 2 handwritten sketch and user corrections 2026-10-29",
+  "survey_status": "approximate schematic, NOT navigation-ready",
+  "units": "feet for travel lengths; relative for door positions",
+  "approximate_travel_lengths_ft": {
+    "north": 168,
+    "east": 300,
+    "south": null
+  },
+  "length_measurement_method": "iPhone Measure app; tolerance unspecified",
+  "door_symbols": {
+    "single": "two parallel lines",
+    "double": "three parallel lines"
+  },
+  "south_outer_wall_west_to_east": [
+    {
+      "id": "200",
+      "ordinal": 0,
+      "x_normalized": 0.073,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": null,
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "201",
+      "ordinal": 1,
+      "x_normalized": 0.134,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": null,
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "202",
+      "ordinal": 2,
+      "x_normalized": 0.195,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "A",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "203",
+      "ordinal": 3,
+      "x_normalized": 0.256,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "B",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "204",
+      "ordinal": 4,
+      "x_normalized": 0.317,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "C",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "205",
+      "ordinal": 5,
+      "x_normalized": 0.378,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "D",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "206",
+      "ordinal": 6,
+      "x_normalized": 0.439,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "E",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "207",
+      "ordinal": 7,
+      "x_normalized": 0.5,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "F",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "208",
+      "ordinal": 8,
+      "x_normalized": 0.561,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "G",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "209",
+      "ordinal": 9,
+      "x_normalized": 0.622,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "H",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "210",
+      "ordinal": 10,
+      "x_normalized": 0.683,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "I",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "211",
+      "ordinal": 11,
+      "x_normalized": 0.744,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "J",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "212",
+      "ordinal": 12,
+      "x_normalized": 0.805,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "K",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "213",
+      "ordinal": 13,
+      "x_normalized": 0.866,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": "L",
+      "note": "Even schematic spacing only; NOT measured door location"
+    },
+    {
+      "id": "214",
+      "ordinal": 14,
+      "x_normalized": 0.927,
+      "position_verified": false,
+      "room_sequence_user_approved": true,
+      "correction_id": null,
+      "note": "Even schematic spacing only; NOT measured door location"
+    }
+  ],
+  "north_outer_wall_west_to_east": [
+    "227",
+    "226",
+    "224",
+    "223",
+    "222"
+  ],
+  "north_inner_wall_west_to_east": [
+    "229",
+    "230"
+  ],
+  "east_inner_wall_north_to_south": [
+    "232",
+    "233",
+    "234?",
+    "235",
+    "elevator"
+  ],
+  "east_outer_wall_north_to_south": [
+    "220",
+    "219C?",
+    "219B?",
+    "218?",
+    "217",
+    "216",
+    "215",
+    "245?"
+  ],
+  "south_inner_wall_west_to_east": [
+    "241",
+    "240",
+    "238?"
+  ],
+  "unknown_door_callouts": {
+    "A-L": "south estimated door positions 202-213",
+    "M": "south inner 238?",
+    "N": "east inner 234?",
+    "O": "east outer 219C?",
+    "P": "east outer 219B?",
+    "Q": "east outer 218?",
+    "R": "east outer 245?"
+  },
+  "route_warning": "IS 251 and IS 263 not placed. All physical destinations require field verification before use."
+}

@@ -1,0 +1,146 @@
+
+/* V1.005 DRAFT: Original independent student UI inspired by app-like navigation layout. */
+body[data-colorway="app"]{
+ --cw-bg:#1d2939;--cw-top:#27374d;--cw-topInk:#f9fbff;--cw-surface:#2c394e;--cw-soft:#36445c;
+ --cw-hero:#2b3b52;--cw-heroInk:#fff;--cw-text:#f5f8fc;--cw-muted:#b0c1d9;--cw-border:#43516a;
+ --cw-primary:#57a5ff;--cw-primaryHover:#8fc4ff;--cw-primaryInk:#12243d;--cw-green:#55edcf;--cw-greenSoft:#174d4b;
+ --cw-map:#253c56;--cw-mark:#355a7b;--cw-alert:#513b37;--cw-mutedBtn:#38465d;--cw-brandSub:#b8c9dc;--cw-meta:#31415a;
+ --cw-logo:#04382f;--cw-logoInk:#6efbd7;--cw-shadow:none;
+ --ink:var(--cw-text);--muted:var(--cw-muted);--panel:var(--cw-surface);--panel2:var(--cw-soft);
+ --border:var(--cw-border);--aqua:var(--cw-green);--blue:var(--cw-primary);
+ background:linear-gradient(180deg,#354963 0,#253449 270px,#1d2939 640px);color:var(--cw-text);
+}
+body[data-colorway="app"] header{background:transparent;border:0;box-shadow:none;color:#f8fbff;padding:23px clamp(16px,4vw,58px) 4px;max-width:1550px;margin:auto;align-items:center}
+body[data-colorway="app"] .brand{gap:14px}
+body[data-colorway="app"] .brandWordmark h1{font-size:clamp(19px,2.3vw,29px);font-weight:730;letter-spacing:-.045em;color:#f8fbff}
+body[data-colorway="app"] .brandSubtitle{color:#aec1d8;letter-spacing:.015em}
+body[data-colorway="app"] .logo{height:47px;width:47px;border-radius:15px;background:#071827;border:1px solid #5ff0d0;box-shadow:none;color:#70f9dc}
+body[data-colorway="app"] .logo span{font-size:28px}
+body[data-colorway="app"] .headerRight{gap:9px}
+body[data-colorway="app"] .roles{border-radius:24px;background:#172539b0;border:1px solid #60738c;padding:4px}
+body[data-colorway="app"] .roles button{color:#bdcee0;border-radius:20px}
+body[data-colorway="app"] .roles button.active{color:#17253c;background:#dfeafa}
+body[data-colorway="app"] .headerRight .pill{border:1px solid #4c6b83;background:#263c53;color:#b7efd8}
+body[data-colorway="app"] .version{color:#9aaec8}
+body[data-colorway="app"] .pageNav{display:none}
+body[data-colorway="app"] .appearanceMenu{position:relative;z-index:40}
+body[data-colorway="app"] .appearanceMenu>summary{cursor:pointer;color:#e2ebf5;background:#17273a8a;border:1px solid #4a5d73;border-radius:24px;padding:11px 16px;font-weight:650;font-size:12px;list-style:none}
+body[data-colorway="app"] .appearanceMenu>summary::-webkit-details-marker{display:none}
+body[data-colorway="app"] .appearanceMenu[open] .colorwayChooser{position:absolute;right:0;top:49px;min-width:230px;display:flex;flex-direction:column;align-items:stretch;background:#293c53;border:1px solid #607289;border-radius:18px;box-shadow:0 18px 44px #07122099;padding:10px;z-index:41}
+body[data-colorway="app"] .appearanceMenu[open] .colorwayChooser .colorwayButton{width:100%;justify-content:flex-start;padding:10px 12px;border-radius:12px;font-size:12px}
+body[data-colorway="app"] .colorwayButton[data-theme-value="app"]{--s1:#283d54;--s2:#57a5ff}
+body[data-colorway="app"] main{gap:18px}
+body[data-colorway="app"] #dashboardPage{max-width:1470px;padding:20px 30px 165px;grid-template-columns:minmax(0,1.5fr) minmax(320px,.8fr);align-items:start}
+body[data-colorway="app"] #aboutPage{max-width:1100px;padding:26px 28px 170px}
+body[data-colorway="app"] .appScene{grid-column:1/-1;min-height:205px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;background:radial-gradient(ellipse 57% 98% at 72% 90%,#4b6582 0%,#32475f 55%,#293c54 97%);border-radius:35px;border:1px solid #5a6f88;padding:18px 40px;isolation:isolate}
+body[data-colorway="app"] .appScene:before{content:"";position:absolute;left:18%;right:-10%;height:1px;bottom:36px;background:#adbed044;transform:skewY(-4deg);z-index:-1}
+body[data-colorway="app"] .sceneWords{max-width:350px;z-index:1}
+body[data-colorway="app"] .sceneKicker{color:#9eeedd;text-transform:uppercase;font-size:10px;letter-spacing:.14em;font-weight:750}
+body[data-colorway="app"] .sceneWords h2{font-size:clamp(26px,3vw,41px);letter-spacing:-.055em;line-height:1.04;margin:12px 0 10px;font-weight:650;color:#fff}
+body[data-colorway="app"] .sceneWords p{font-size:13px;line-height:1.55;color:#c1d3e9;max-width:300px;margin:0}
+body[data-colorway="app"] .sceneArt{height:194px;width:min(45%,470px);flex-shrink:0;filter:drop-shadow(0 12px 9px #091b3266);display:block}
+body[data-colorway="app"] .sceneLabel{position:absolute;right:26px;top:21px;font-size:11px;color:#d6e8f5;letter-spacing:.03em;border:1px solid #8fa6be66;border-radius:25px;padding:6px 13px;background:#1c324577}
+body[data-colorway="app"] .card,body[data-colorway="app"] .aboutBlock,body[data-colorway="app"] .buildProgress,body[data-colorway="app"] .campusIdentity,body[data-colorway="app"] .metric,body[data-colorway="app"] .advancedDisclosure,body[data-colorway="app"] .diagnostics{background:#2d3b51;border:1px solid #43516a;box-shadow:none;color:#f3f7fc;border-radius:25px}
+body[data-colorway="app"] .card{overflow:hidden}
+body[data-colorway="app"] .metric{border-radius:20px;background:#303e54}
+body[data-colorway="app"] .metrics{gap:12px}
+body[data-colorway="app"] .metric label{font-size:12px;font-weight:540;color:#b5c8df}
+body[data-colorway="app"] .metric b{color:#f7fbff;font-size:24px;font-weight:550;letter-spacing:-.05em}
+body[data-colorway="app"] .metric small{color:#a5b9d0}
+body[data-colorway="app"] .head h2,body[data-colorway="app"] .tripHeader h2,body[data-colorway="app"] .aboutHead h2,body[data-colorway="app"] .progressHeader h2,body[data-colorway="app"] .boardToolbar h3,body[data-colorway="app"] .boardGroupHead h4{color:#f5f8fb}
+body[data-colorway="app"] .sub,body[data-colorway="app"] .head small,body[data-colorway="app"] .tripFooter,body[data-colorway="app"] .mapTip,body[data-colorway="app"] .smallhelp,body[data-colorway="app"] .trow span:first-child{color:#adc1d8}
+body[data-colorway="app"] .eyebrow{color:#76e7d2;letter-spacing:.12em}
+body[data-colorway="app"] .mapFrame{background:#1d3247;border:1px solid #5c7490;border-radius:23px;overflow:hidden}
+body[data-colorway="app"] .mapFrame svg{background:#1e364b}
+body[data-colorway="app"] .legend,body[data-colorway="app"] .infoBar{color:#b0c4da}
+body[data-colorway="app"] .badge{background:#334f64;border-color:#5b7b91;color:#c7f3e8;border-radius:100px}
+body[data-colorway="app"] .dispatchCard{position:relative;top:auto;padding:25px;border-radius:30px}
+body[data-colorway="app"] .dispatchTitle{font-size:34px;font-weight:620;color:#fff}
+body[data-colorway="app"] .destinationLabel{color:#bfd0e4;font-size:12px}
+body[data-colorway="app"] .largeSelect{background:#1f3046;border:1px solid #62758c;border-radius:17px;color:#fff;padding:17px 14px;font-size:21px}
+body[data-colorway="app"] .btn{border-radius:17px;background:#3a4b61;border:1px solid #576b83;color:#f3f7fc;box-shadow:none}
+body[data-colorway="app"] .btn:hover:not(:disabled){filter:brightness(1.12)}
+body[data-colorway="app"] .btn.primary{background:#58a5ff;color:#102640;border:1px solid #58a5ff;font-weight:800}
+body[data-colorway="app"] .btn.primary:hover:not(:disabled){background:#83bcff;color:#102640}
+body[data-colorway="app"] .btn.pauseBtn{background:#334e5c;color:#ccfff1}
+body[data-colorway="app"] .btn.danger{background:#503845;color:#ffebed;border-color:#805363}
+body[data-colorway="app"] #hardEstop{background:#5d3446!important;color:#fff!important;border-color:#b36b81!important;border-radius:17px!important}
+body[data-colorway="app"] .bar,body[data-colorway="app"] .progressTrack{background:#1a293c;border-radius:20px}
+body[data-colorway="app"] .barInner,body[data-colorway="app"] .progressFill{background:#5ae9bf}
+body[data-colorway="app"] .roomStep{background:#33445b;color:#e2edfa;border:1px solid #556780;border-radius:12px}
+body[data-colorway="app"] .roomStep.active{background:#355f7d;border-color:#60b3ff;color:#fff}
+body[data-colorway="app"] .events .evt{border-color:#4e6077}
+body[data-colorway="app"] .evt span,body[data-colorway="app"] .trow strong{color:#f4f8ff}
+body[data-colorway="app"] .caution{background:#58423e;border:1px solid #a58171;color:#fff3e9;border-radius:16px}
+body[data-colorway="app"] .aboutHero,body[data-colorway="app"] .aboutHeroCompact{background:linear-gradient(125deg,#344b63,#283a52);border:1px solid #5b7392;border-radius:31px;padding:40px}
+body[data-colorway="app"] .aboutHero h2,body[data-colorway="app"] .aboutHeroCompact h2{color:#fff}
+body[data-colorway="app"] .aboutHero p,body[data-colorway="app"] .aboutHeroCompact p,body[data-colorway="app"] .heroMuted,body[data-colorway="app"] .aboutHero .kicker{color:#c8d8e9}
+body[data-colorway="app"] .aboutHeroMeta span{color:#e2eef9;background:#354f67;border:1px solid #667b96;border-radius:14px}
+body[data-colorway="app"] .campusIdentity{background:#f7f9fb;color:#21364a;border:1px solid #d8e4ef;border-radius:22px;padding:15px 23px}
+body[data-colorway="app"] .campusIdentityText{color:#263e54}
+body[data-colorway="app"] .campusIdentityText span{color:#5e7188}
+body[data-colorway="app"] .aboutBlock p,body[data-colorway="app"] .aboutNarrative,body[data-colorway="app"] .scopeMini{color:#c0cede!important}
+body[data-colorway="app"] .aboutTable th{background:#344860;color:#edf6ff}
+body[data-colorway="app"] .aboutTable td,body[data-colorway="app"] .aboutTable td:first-child{color:#eff7ff;border-color:#55657c}
+body[data-colorway="app"] .aboutTableWrap{border-color:#52677d;border-radius:17px;overflow:hidden}
+body[data-colorway="app"] .teamPerson,body[data-colorway="app"] .aboutStep,body[data-colorway="app"] .progressMilestones li{background:#35455e;border:1px solid #52657f;border-radius:18px}
+body[data-colorway="app"] .teamPerson h3,body[data-colorway="app"] .aboutStep strong,body[data-colorway="app"] .progressMilestones b{color:#f5f8fb}
+body[data-colorway="app"] .teamPerson .role,body[data-colorway="app"] .teamPerson .teamAffiliation,body[data-colorway="app"] .progressMilestones small,body[data-colorway="app"] .progressHeader p{color:#adc2d7}
+body[data-colorway="app"] .teamAvatar{background:#214d50;color:#77fce1;border:1px solid #579b9d}
+body[data-colorway="app"] .progressScore,body[data-colorway="app"] .progressKicker{color:#7de9dc}
+body[data-colorway="app"] .progressBottom,body[data-colorway="app"] .progressNote{color:#b9cbe0}
+body[data-colorway="app"] .progressDetails{border-color:#586e84}
+body[data-colorway="app"] .progressDetails summary{color:#86c9ff}
+body[data-colorway="app"] .kratosNote{background:#34465b;border:1px solid #568d87;border-radius:20px}
+body[data-colorway="app"] .kratosNote strong,body[data-colorway="app"] .kratosNote p{color:#eaf4ff}
+body[data-colorway="app"] .boardPanel{background:#29374b;border-color:#50627a;border-radius:22px}
+body[data-colorway="app"] .boardReveal{color:#b0ddff}
+body[data-colorway="app"] .boardGroup,body[data-colorway="app"] .boardTask{background:#34455a;border-color:#50637c;border-radius:17px}
+body[data-colorway="app"] .boardGroupHead{background:#3a4d64;border-color:#62778f}
+body[data-colorway="app"] .boardTaskTitle,body[data-colorway="app"] .boardGroupHead span,body[data-colorway="app"] .boardDialogHeading h3,body[data-colorway="app"] .boardClaimDialog label{color:#f2f8ff}
+body[data-colorway="app"] .boardTaskMeta,body[data-colorway="app"] .boardCaution,body[data-colorway="app"] .boardToolbar p,body[data-colorway="app"] .boardConnection{color:#b6c6db}
+body[data-colorway="app"] .boardFilter,body[data-colorway="app"] .boardRefresh,body[data-colorway="app"] .boardTaskAction{background:#2e435a;border-color:#5a6f87;color:#eff8ff;border-radius:20px}
+body[data-colorway="app"] .boardFilter.selected{background:#375a7a;border-color:#68b8ff;color:#fff}
+body[data-colorway="app"] .boardTaskOwner,body[data-colorway="app"] .boardLiveFlag.live{color:#83d2ff}
+body[data-colorway="app"] .boardStatus.status-todo{background:#26384c;color:#c9daee}
+body[data-colorway="app"] .boardClaimDialog{background:#2b3d52;border-color:#648098;color:#edf5ff;border-radius:25px}
+body[data-colorway="app"] .boardClaimDialog input,body[data-colorway="app"] .boardClaimDialog select{color:#eff8ff;background:#1e2f44;border-color:#61748e}
+body[data-colorway="app"] #boardSubmit{background:#67adff;border-color:#67adff;color:#122b40}
+body[data-colorway="app"] a,body[data-colorway="app"] .scopeStatus{color:#91d1ff}
+body[data-colorway="app"] .appDock{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);width:min(calc(100% - 26px),550px);height:79px;background:#314159ed;border:1px solid #8b9db07a;box-shadow:0 20px 45px #020b1855,inset 0 1px #ced9e630;border-radius:39px;z-index:60;display:flex;align-items:center;padding:7px;gap:3px;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+body[data-colorway="app"] .dockButton{flex:1;height:63px;background:transparent;color:#c0d1e5;border:0;border-radius:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:600;min-width:0}
+body[data-colorway="app"] .dockButton svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+body[data-colorway="app"] .dockButton[aria-current="page"]{color:#fff;background:#1c3049e8}
+body[data-colorway="app"] .dockButton:hover{background:#405b76}
+body[data-colorway="app"] .dockButton:focus-visible{outline:2px solid #92d2ff;outline-offset:2px}
+body:not([data-colorway="app"]) .appDock,body:not([data-colorway="app"]) .appScene{display:none}
+@media(max-width:1100px){body[data-colorway="app"] #dashboardPage{grid-template-columns:1fr}body[data-colorway="app"] .controlsColumn{order:0}body[data-colorway="app"] .appScene{order:-2}body[data-colorway="app"] #dashboardPage>.column:first-of-type{order:-1}}
+@media(max-width:750px){
+ body[data-colorway="app"] header{padding:15px 17px 0;align-items:center;flex-wrap:wrap}
+ body[data-colorway="app"] .headerRight{width:100%;justify-content:space-between;gap:8px}
+ body[data-colorway="app"] .headerRight .pill,body[data-colorway="app"] .version{display:none}
+ body[data-colorway="app"] .appearanceMenu>summary{padding:9px 14px}
+ body[data-colorway="app"] .roles button{font-size:12px;padding:7px 12px}
+ body[data-colorway="app"] #dashboardPage{display:flex;flex-direction:column;gap:14px;padding:17px 13px 150px}
+ body[data-colorway="app"] #aboutPage{padding:17px 13px 150px}
+ body[data-colorway="app"] .appScene{width:100%;box-sizing:border-box;min-height:225px;border-radius:29px;padding:24px 22px;flex-direction:column;align-items:flex-start;justify-content:flex-start;order:0}
+ body[data-colorway="app"] .sceneWords h2{font-size:26px;margin:10px 0 5px}
+ body[data-colorway="app"] .sceneWords p{font-size:12px;max-width:245px}
+ body[data-colorway="app"] .sceneArt{position:absolute;right:-5px;bottom:-22px;width:69%;height:148px;opacity:.96;z-index:-1}
+ body[data-colorway="app"] .sceneLabel{right:12px;top:13px;font-size:9px;padding:5px 8px}
+ body[data-colorway="app"] #dashboardPage>.column:first-of-type{order:1;width:100%}
+ body[data-colorway="app"] #dashboardPage>.controlsColumn{order:0;width:100%}
+ body[data-colorway="app"] .card,body[data-colorway="app"] .aboutBlock,body[data-colorway="app"] .buildProgress{border-radius:25px}
+ body[data-colorway="app"] .dispatchCard{padding:20px}
+ body[data-colorway="app"] .dispatchTitle{font-size:32px}
+ body[data-colorway="app"] .appDock{bottom:13px;height:71px;border-radius:35px}
+ body[data-colorway="app"] .dockButton{height:57px;font-size:10px}
+ body[data-colorway="app"] .dockButton svg{width:22px;height:22px}
+ body[data-colorway="app"] .campusIdentity{flex-wrap:wrap}
+ body[data-colorway="app"] .aboutHeroCompact{padding:28px 23px}
+}
+@media(prefers-reduced-motion:reduce){body[data-colorway="app"] .appDock{backdrop-filter:none}}
+
+/* V1.006 selected diecast reference: maintains the V1.005 hero layout. */
+body[data-colorway="app"] .sceneArt.sceneDiecast{object-fit:cover;object-position:50% 49%;height:194px;width:min(45%,470px);border-radius:24px;border:1px solid #ffffff22;filter:drop-shadow(0 12px 9px #091b3266)}
+@media(max-width:700px){body[data-colorway="app"] .sceneArt.sceneDiecast{position:absolute;right:0;bottom:-9px;width:68%;height:134px;opacity:.96;border-radius:20px;object-position:50% 50%}}
