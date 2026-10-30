@@ -1,7 +1,7 @@
 {
-  "version": "V1.019",
+  "version": "V1.020",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-30",
-  "note": "Desktop pages 20 percent larger"
+  "note": "Show the version in the page headers and stamp it on every bump"
 }

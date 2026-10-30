@@ -1,3 +1,6 @@
+## V1.020 — 2026-10-30
+- Show the version in the page headers and stamp it on every bump
+
 ## V1.019 — 2026-10-30
 - Desktop pages 20 percent larger
 
