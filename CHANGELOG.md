@@ -1,3 +1,6 @@
+## V1.015 — 2026-10-29
+- Task update: kratos-01 done (Branden Adsuara); board serves team_tasks.json while live claims are off
+
 ## V1.014 — 2026-10-29
 - Team updates: Send an update form posts to Discord; live claims are a separate opt-in
 

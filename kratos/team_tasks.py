@@ -132,6 +132,12 @@ def update_task(task_id, name, command, status=None):
 
 @router.get('/api/tasks')
 def list_tasks():
+    if not live_writes_enabled():
+        # Live claims are off: BJ updates team_tasks.json by PR, so serve the file as is.
+        seed=json.loads(TASKS_SEED.read_text(encoding='utf-8'))
+        response=JSONResponse({'schema':1,'milestone_labels':seed['milestone_labels'],'tasks':seed['tasks'],'synchronized':True,'updated':utcnow()})
+        response.headers['Cache-Control']='no-store'
+        return response
     seed=setup()
     with db_connect() as db:
         rows=[dict(r) for r in db.execute('SELECT * FROM team_tasks ORDER BY rowid')]
