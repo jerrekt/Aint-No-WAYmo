@@ -1,7 +1,7 @@
 {
-  "version": "V1.009",
+  "version": "V1.010",
   "schema": 1,
   "status": "development-update",
   "date": "2026-10-29",
-  "note": "SME header logo uses the real swoosh colors"
+  "note": "Hallway map redrawn as a vector drawing sheet (crisp, estimated, not to scale)"
 }

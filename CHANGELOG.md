@@ -1,3 +1,6 @@
+## V1.010 — 2026-10-29
+- Hallway map redrawn as a vector drawing sheet (crisp, estimated, not to scale)
+
 ## V1.009 — 2026-10-29
 - SME header logo uses the real swoosh colors
 
