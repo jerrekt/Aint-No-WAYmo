@@ -18,8 +18,8 @@ with sync_playwright() as pw:
  assert 'Resume' in page.locator('#pauseRoute').inner_text()
  assert page.locator('#leftMotor').text_content()=='0.000 m/s'
  assert page.locator('#rightMotor').text_content()=='0.000 m/s'
- page.locator('#roomSelect').select_option('251');page.locator('#addStop').click()
- assert '251' in page.locator('#queueLive').inner_text()
+ page.locator('#roomSelect').select_option('224');page.locator('#addStop').click()
+ assert '224' in page.locator('#queueLive').inner_text()
  assert page.locator('#status').inner_text()=='PAUSED', 'Queue editing must not resume'
  page.locator('#pauseRoute').click();page.wait_for_timeout(200)
  assert page.locator('#status').inner_text()!='PAUSED'
@@ -32,8 +32,8 @@ with sync_playwright() as pw:
  page.locator('#holdRoute').click()
  assert page.locator('#status').inner_text()=='HELD — READY'
  assert page.locator('#pauseRoute').is_disabled()
- page.locator('#roomSelect').select_option('263');page.locator('#goNow').click();page.wait_for_timeout(110)
- assert page.locator('#destination').inner_text()=='IS 263'
+ page.locator('#roomSelect').select_option('227');page.locator('#goNow').click();page.wait_for_timeout(110)
+ assert page.locator('#destination').inner_text()=='IS 227'
  page.screenshot(path=str(root/'assets/preview_v8.png'),full_page=True)
  assert not errors,errors
  print('Browser V8 pause/resume, queue preservation, stop and guest tests passed')

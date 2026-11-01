@@ -82,7 +82,7 @@ main{grid-template-columns:minmax(0,1.55fr) minmax(330px,.70fr);align-items:star
  <div class="trow"><span>Kratos localization</span><strong id="recoveryStatus">Known start</strong></div>
  <p class="smallhelp" id="recoveryHint">Automatic recovery first checks for a unique visible location marker without rotating. Otherwise the robot stops; a 360° turn needs supervised clearance checks. Ambiguous matches never authorize driving.</p>
  </section>
-<section class="card padded"><div class="head" style="padding:0 0 12px"><h2>Simulation playback</h2><span class="badge" id="roleLabel">ADMIN SIMULATION</span></div><div class="controlGroup"><label for="preset">Room-to-room mission</label><select id="preset"><option value="200,230,251,263,202">200 → 230 → 251 → 263 → 202</option><option value="200,230">200 → 230</option><option value="202,230">202 → 230</option><option value="263,200">263 → 200</option><option value="251,263,251,202">251 → 263 → 251 → 202</option><option value="200,202,230">200 → 202 → 230</option></select></div><div class="actions"><button class="btn primary" id="start">▶ Start mission</button><button class="btn" id="reset">↺ Reset</button></div><div class="actions"><button class="btn" id="scan">↻ Scan 360°</button></div><div class="controlGroup"><label>Simulation speed</label><div class="rangeLine"><input id="speed" type="range" min="1" max="40" step="1" value="12"/><output id="speedNum">12×</output></div></div><p class="smallhelp">This page runs locally, not on your real Kratos server. Guest is a read-only UI preview, not implemented authentication.</p></section>
+<section class="card padded"><div class="head" style="padding:0 0 12px"><h2>Simulation playback</h2><span class="badge" id="roleLabel">ADMIN SIMULATION</span></div><div class="controlGroup"><label for="preset">Room-to-room mission</label><select id="preset"><option value="214,222,224,227,210">214 → 222 → 224 → 227 → 210</option><option value="214,222">214 → 222</option><option value="210,222">210 → 222</option><option value="227,214">227 → 214</option><option value="224,227,224,210">224 → 227 → 224 → 210</option><option value="214,210,222">214 → 210 → 222</option></select></div><div class="actions"><button class="btn primary" id="start">▶ Start mission</button><button class="btn" id="reset">↺ Reset</button></div><div class="actions"><button class="btn" id="scan">↻ Scan 360°</button></div><div class="controlGroup"><label>Simulation speed</label><div class="rangeLine"><input id="speed" type="range" min="1" max="40" step="1" value="12"/><output id="speedNum">12×</output></div></div><p class="smallhelp">This page runs locally, not on your real Kratos server. Guest is a read-only UI preview, not implemented authentication.</p></section>
  <section class="card padded"><div class="head" style="padding:0 0 10px"><h2>Fault simulation</h2><span class="badge warn">SIMULATION</span></div>
   <label class="switch"><input type="checkbox" id="people"/> Moving pedestrian <em>camera + depth</em></label>
   <label class="switch"><input type="checkbox" id="chair"/> Chair in hallway <em>block and wait</em></label>
@@ -104,7 +104,7 @@ let sim=null,audio=false,audioCtx=null,role='admin',paused=true,lastChimeLog=0,f
 const $=id=>document.getElementById(id);
 const map=$('map');
 const parseMission=()=> $('preset').value.split(',');
-let selectedRoom='263';
+let selectedRoom='227';
 function setRole(name){role=name;const guest=name==='guest';$('adminBtn').classList.toggle('active',!guest);$('guestBtn').classList.toggle('active',guest);$('roleLabel').textContent=guest?'VIEWER PREVIEW':'ADMIN SIMULATION';for(const id of ['preset','start','reset','scan','people','chair','lostWifi','badTof','noMarkers','autoScan','estop','noise','surveyNext','surveyAll','exportMap','importMapBtn','dropNode','drop','recover','readTag','roomSelect','mapClickMode','goNow','addStop','pauseRoute','holdRoute','clearFuture','hardEstop','releaseEstop','resetEstop'])$(id).disabled=guest;}
 function beep(){if(!audio)return; try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const now=audioCtx.currentTime;[[620,0,.14],[780,.18,.13],[950,.37,.22]].forEach(([f,off,d])=>{let osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=f;gain.gain.setValueAtTime(0,now+off);gain.gain.linearRampToValueAtTime(.12,now+off+.025);gain.gain.exponentialRampToValueAtTime(.001,now+off+d);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now+off);osc.stop(now+off+d+.02);});}catch(e){}}
 const X=x=>115+(x-9)*46, Y=y=>518-(y-2)*34;
@@ -151,11 +151,11 @@ function draw(){if(!sim)return;const s=sim.snapshot();const routeSegs=[];for(let
  }
 const MODE='Heading / route tracking';
 function configure(){sim.people=$('people').checked;sim.chair=$('chair').checked;sim.wifi=!$('lostWifi').checked;sim.tofHealthy=!$('badTof').checked;sim.markersEnabled=!$('noMarkers').checked;if($('estop').checked&&!sim.estopSwitchPressed)sim.pressEstop();sim.autoScan=$('autoScan').checked;sim.noise=Number($('noise').value);}
-function reset(usePreset=false){sim=new MicroSimulation(controller,{seed:17,mission:usePreset?parseMission():['200'],autoScan:$('autoScan').checked,survey});paused=true;lastChimeLog=0;configure();draw();$('start').textContent='▶ Start mission';$('chime').textContent='Ready';}
+function reset(usePreset=false){sim=new MicroSimulation(controller,{seed:17,mission:usePreset?parseMission():['214'],autoScan:$('autoScan').checked,survey});paused=true;lastChimeLog=0;configure();draw();$('start').textContent='▶ Start mission';$('chime').textContent='Ready';}
 let controller;
 async function init(){
- $('roomSelect').innerHTML=Object.keys(ROOMS).map(r=>`<option value="${r}">IS ${r} (provisional)</option>`).join('');
- chooseRoom('263');
+ $('roomSelect').innerHTML=Object.keys(ROOMS).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).map(r=>`<option value="${r}">IS ${r} (provisional)</option>`).join('');
+ chooseRoom('227');
  $('dropNode').innerHTML=Object.keys(NODES).map(n=>`<option value="${n}">${n} · ${Object.entries(ROOMS).find(([,id])=>id===n)?.[0]||'junction'}</option>`).join('');
  // Demo UX: make one synthetic survey immediately available. This is NOT
  // real-world mapping, location recognition, or an imported floor plan.

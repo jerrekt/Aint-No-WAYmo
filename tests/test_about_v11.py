@@ -7,7 +7,7 @@ with sync_playwright() as pw:
  errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
  page.set_content((root/'Mini_Waymo_V11_Demo.html').read_text(),wait_until='load');page.wait_for_timeout(500)
  assert page.locator('#dashboardPage').is_visible()
- assert page.locator('#roomSelect').input_value()=='263'
+ assert page.locator('#roomSelect').input_value()=='227'
  page.locator('#navAbout').click()
  assert page.locator('#aboutPage').is_visible()
  assert not page.locator('#dashboardPage').is_visible()
@@ -19,7 +19,7 @@ with sync_playwright() as pw:
  page.locator('#navDashboard').click()
  assert page.locator('#dashboardPage').is_visible()
  page.locator('#goNow').click();page.wait_for_timeout(120)
- assert '263' in page.locator('#destination').inner_text()
+ assert '227' in page.locator('#destination').inner_text()
  page.locator('#guestBtn').click();page.locator('#navAbout').click();assert page.locator('#aboutPage').is_visible()
  page.locator('#navDashboard').click();assert page.locator('#goNow').is_disabled()
  assert not errors,errors

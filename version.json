@@ -1,7 +1,7 @@
 {
-  "version": "V1.023",
+  "version": "V1.024",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-01",
-  "note": "Task board claims and status changes go through the claim server in the bots container (waymo-api.adsuaracloud.com); falls back to this server's /api/tasks, then the built-in copy"
+  "note": "Fix map compass, update Where to? list to the new map rooms, W tab icon, Claude Code handoff (CLAUDE.md)"
 }

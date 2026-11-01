@@ -6,12 +6,12 @@ with sync_playwright() as pw:
  page=browser.new_page(viewport={'width':1390,'height':960},device_scale_factor=1)
  errors=[];page.on('pageerror',lambda e: errors.append(str(e)))
  page.set_content((root/'mini_waymo_micro_v9_demo.html').read_text(),wait_until='load');page.wait_for_timeout(450)
- assert page.locator('#roomSelect').input_value()=='263'
- assert 'Go to IS 263' in page.locator('#goNow').inner_text()
+ assert page.locator('#roomSelect').input_value()=='227'
+ assert 'Go to IS 227' in page.locator('#goNow').inner_text()
  page.locator('#goNow').click();page.wait_for_timeout(200)
- assert page.locator('#destination').inner_text()=='IS 263'
- page.locator('#roomSelect').select_option('251');page.locator('#addStop').click()
- assert '251' in page.locator('#queueLive').inner_text()
+ assert page.locator('#destination').inner_text()=='IS 227'
+ page.locator('#roomSelect').select_option('224');page.locator('#addStop').click()
+ assert '224' in page.locator('#queueLive').inner_text()
  page.locator('#pauseRoute').click();page.wait_for_timeout(180)
  assert page.locator('#status').inner_text()=='PAUSED'
  page.locator('#pauseRoute').click();page.wait_for_timeout(150)
@@ -24,10 +24,10 @@ with sync_playwright() as pw:
  page.locator('#releaseEstop').click();page.locator('#resetEstop').click();page.wait_for_timeout(100)
  assert page.locator('#goNow').is_enabled()
  assert page.locator('#status').inner_text()!='DRIVING','reset must not auto-resume'
- page.locator('#roomSelect').select_option('263');page.locator('#goNow').click();page.wait_for_timeout(120)
- assert page.locator('#destination').inner_text()=='IS 263'
+ page.locator('#roomSelect').select_option('227');page.locator('#goNow').click();page.wait_for_timeout(120)
+ assert page.locator('#destination').inner_text()=='IS 227'
  page.locator('#dropNode').select_option('I');page.locator('#drop').click();page.wait_for_timeout(100)
- assert page.locator('#location').inner_text()=='IS 251','automatic unique marker recovery should recognize IS251'
+ assert page.locator('#location').inner_text()=='IS 224','automatic unique marker recovery should recognize IS224'
  assert 'AUTO RECOVERY' in page.locator('#events').text_content()
  page.locator('#noMarkers').check();page.locator('#drop').click();page.wait_for_timeout(100)
  assert page.locator('#location').inner_text()=='UNKNOWN'
@@ -38,5 +38,5 @@ with sync_playwright() as pw:
  page.locator('#adminBtn').click()
  page.screenshot(path=str(root/'assets/preview_v9.png'),full_page=True)
  assert not errors,errors
- print('Browser V9: Go IS263, queue, Pause, latched simulated E-stop, manual reset, auto marker and guest tests passed')
+ print('Browser V9: Go IS227, queue, Pause, latched simulated E-stop, manual reset, auto marker and guest tests passed')
  browser.close()
