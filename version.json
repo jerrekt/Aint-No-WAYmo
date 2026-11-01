@@ -1,7 +1,7 @@
 {
-  "version": "V1.026",
+  "version": "V1.027",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-01",
-  "note": "Split the page into separate Live map, My Car, Build, About and Team views"
+  "note": "Add a short wordmark and route-line intro splash (once per visit, tap to skip)"
 }
