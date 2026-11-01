@@ -759,9 +759,24 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 }
 </style><style id="desktopScale">@media(min-width:1121px){body{zoom:1.2}}.version{font-size:12px;font-weight:700;color:#9fc3d4}</style><!-- Claim server in the bots container (Bricked-Sorting kratos/claim-bot, waymo instance). Empty = this server's own /api/tasks. -->
 <meta name="waymo-tasks-api" content="https://waymo-api.adsuaracloud.com">
+<style id="introSplashStyle">
+#introSplash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#1d3b59,#0b1726 70%);color:#edf5ff;cursor:pointer;animation:introOut .5s ease 2.4s forwards}
+#introSplash .introWord{font-weight:800;letter-spacing:-.02em;font-size:clamp(24px,7vw,34px);opacity:0;transform:translateY(8px);animation:introRise .7s ease .2s forwards}
+#introSplash svg{width:min(70%,300px);margin:14px 0 6px}
+#introSplash .introBase{fill:none;stroke:#24405a;stroke-width:6;stroke-linecap:round}
+#introSplash .introLine{fill:none;stroke:#7fe3c4;stroke-width:3;stroke-linecap:round;stroke-dasharray:240;stroke-dashoffset:240;animation:introDraw 1.2s ease .9s forwards}
+#introSplash .introDot{fill:#edf5ff;offset-path:path("M10 10 H 130 Q 170 10 170 30 T 230 50");offset-distance:0%;opacity:0;animation:introDrive 1.2s ease .9s forwards}
+#introSplash .introTag{color:#a9bdd3;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:0;animation:introRise .7s ease .6s forwards}
+@keyframes introDraw{to{stroke-dashoffset:0}}
+@keyframes introDrive{0%{offset-distance:0%;opacity:1}100%{offset-distance:100%;opacity:1}}
+@keyframes introRise{to{opacity:1;transform:none}}
+@keyframes introOut{to{opacity:0;visibility:hidden}}
+@media (prefers-reduced-motion:reduce){#introSplash{animation:introOut .3s ease .6s forwards}#introSplash *{animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}}
+</style>
 </head>
 <body data-colorway="blue">
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.026 · DRAFT</span></div></header>
+<div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.027 · DRAFT</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -1915,8 +1930,8 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.026 · DRAFT';
-  document.title="Ain't No Waymo | V1.026 Draft";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.027 · DRAFT';
+  document.title="Ain't No Waymo | V1.027 Draft";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
 </script></body></html>

@@ -1,3 +1,6 @@
+## V1.027 — 2026-11-01
+- Add a short wordmark and route-line intro splash (once per visit, tap to skip)
+
 ## V1.026 — 2026-11-01
 - Split the page into separate Live map, My Car, Build, About and Team views
 
