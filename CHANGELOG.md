@@ -1,3 +1,6 @@
+## V1.023 — 2026-11-01
+- Task board claims and status changes go through the claim server in the bots container (waymo-api.adsuaracloud.com); falls back to this server's /api/tasks, then the built-in copy
+
 ## V1.022 — 2026-10-30
 - Show the version number in the site header (all colorways, desktop and mobile)
 
