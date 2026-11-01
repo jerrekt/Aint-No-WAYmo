@@ -1,3 +1,6 @@
+## V1.028 — 2026-11-01
+- kratos-02 in progress, owner Branden Adsuara
+
 ## V1.027 — 2026-11-01
 - Add a short wordmark and route-line intro splash (once per visit, tap to skip)
 
