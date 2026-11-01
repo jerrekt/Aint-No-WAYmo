@@ -1,7 +1,7 @@
 {
-  "version": "V1.025",
+  "version": "V1.026",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-01",
-  "note": "Where to? room 245 is now 215 (map label and dropdown)"
+  "note": "Split the page into separate Live map, My Car, Build, About and Team views"
 }

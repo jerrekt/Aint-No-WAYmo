@@ -1,3 +1,6 @@
+## V1.026 — 2026-11-01
+- Split the page into separate Live map, My Car, Build, About and Team views
+
 ## V1.025 — 2026-11-01
 - Where to? room 245 is now 215 (map label and dropdown)
 - Remove the white SJSU / SME affiliation banner from the Live map and About pages (the header already shows both logos).
