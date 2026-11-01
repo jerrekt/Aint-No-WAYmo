@@ -1,3 +1,8 @@
+## V1.025 — 2026-11-01
+- Where to? room 245 is now 215 (map label and dropdown)
+- Remove the white SJSU / SME affiliation banner from the Live map and About pages (the header already shows both logos).
+- Handoff docs: room 245 is now 215.
+
 ## V1.024 — 2026-11-01
 - Fix the map compass: true north is about 31 degrees clockwise of plan up (measured from the Google Maps footprint).
 - Update the Where to? list and map hotspots to the rooms on the new map (29 rooms, 201-245). Rooms snap to the nearest hallway stop; old rooms not on the map (200, 215, 225, 251, 263, 265) are removed. Default room 227, start room 214. 218B and 219C are not listed (the backend only accepts numeric room ids). Added tools/sync_room_list.py and maps/is_second_floor_rooms.json.
