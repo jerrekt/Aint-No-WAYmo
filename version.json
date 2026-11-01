@@ -1,7 +1,7 @@
 {
-  "version": "V1.024",
+  "version": "V1.025",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-01",
-  "note": "Fix map compass, update Where to? list to the new map rooms, W tab icon, Claude Code handoff (CLAUDE.md)"
+  "note": "Where to? room 245 is now 215 (map label and dropdown)"
 }

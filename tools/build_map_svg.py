@@ -142,7 +142,7 @@ for x, s in ((519, "241"), (745, "240"), (977, "239")):
     label(x, 803, s, 50)
 for x, s in zip(xs_south, SOUTH_ROOMS):
     label(x, 934, s, 42)
-label(1310, 901, "245", 50)
+label(1310, 901, "215", 50)
 # hall / feature callouts
 def callout(tx, ty, s1, s2, px, py):
     text(tx, ty, s1, 13, "start"); text(tx, ty + 16, s2, 13, "start")
