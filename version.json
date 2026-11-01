@@ -1,7 +1,7 @@
 {
-  "version": "V1.023",
+  "version": "V1.024",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-10-30",
-  "note": "Fix map compass (true north ~31 deg clockwise of plan up) and update the Where to? room list to the new map rooms"
+  "date": "2026-11-01",
+  "note": "Fix map compass, update Where to? list to the new map rooms, W tab icon, Claude Code handoff (CLAUDE.md)"
 }

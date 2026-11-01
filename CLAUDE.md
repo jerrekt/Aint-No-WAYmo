@@ -37,9 +37,9 @@ node tests/test_v6.mjs && node tests/test_v9.mjs && node tests/test_v10.mjs && n
 Plain `pytest tests` fails at collection (needs fastapi and a system Chromium); CI doesn't run it. The browser tests in `tests/browser_v*.py` were updated to the new rooms but never run.
 
 ## Current state
-- V1.022 merged (version in header). **PR #14 (V1.023)** is open and green: compass fix (true north is about 31 degrees clockwise of plan up, measured from a north-up Google Maps screenshot, not surveyed), new Where to? list (29 rooms, 201 to 245), W tab icon.
+- V1.023 is on main (task board claims go through the claim server in the bots container, `waymo-api.adsuaracloud.com`, with a fallback to this server's `/api/tasks`). **PR #14 (V1.024)** is open: compass fix (true north is about 31 degrees clockwise of plan up, measured from a north-up Google Maps screenshot, not surveyed), new Where to? list (29 rooms, 201 to 245), W tab icon, this handoff. Another Claude chat (Chat A) opens its own PRs, so two PRs can pick the same next version: whichever merges second must update from main and rebump.
 - PR #6 (V1.017) is still open but redundant: kratos-07 is already done on main and the version is far past V1.017. Close it.
-- Live task claims are off on purpose (`WAYMO_TASK_WRITES`). Team updates go to Discord via `/api/updates`.
+- Live task claims on this server are off on purpose (`WAYMO_TASK_WRITES`); claims now go through the bots-container claim server (see V1.023). Team updates go to Discord via `/api/updates`.
 
 ## Open work
 1. **North wall (rooms 227 to 222), needs BJ at school:** wall length before the first door, each door and wall width, which doors are doubles. Then add to `build_map_svg.py` and run the full refresh.
@@ -47,7 +47,7 @@ Plain `pytest tests` fails at collection (needs fastapi and a system Chromium); 
 3. **Labels:** 218B and 219C are unconfirmed and not in the dropdown. Is "Aviation Club Room" right? East wall labels (q65). White map sheet (q66). Label 223 repeats in the source (two 223s on the north wall, one dashed). Two doors are both labelled 216.
 4. **Compass:** check the 31 degrees against a phone compass in the hallway.
 5. **Task list additions:** BJ has a list of 11 suggested new tasks to approve yes/no (survey measurements, Kratos hardening, hardware decisions). `tests/test_team_board.py` line 20 asserts the task count (37); update it when tasks change. Progress bars come from `team_tasks.json` via `tools/rebuild_offline_progress.py`; keep SME (`jerrekt/sme-sjsu`, `data/site.json`) and Mnemosyne (`projects/mini-waymo-notes.md`, `projects/sme.md`) in step. Find the exact bar values with `grep -n -i progress`.
-6. **Mnemosyne:** `changes.yaml` entries for V1.022 and V1.023 are not logged yet.
+6. **Mnemosyne:** `changes.yaml` entries for V1.022 and V1.024 are not logged yet (V1.023 belongs to Chat A).
 7. **Seapot 20% to 99% load rate:** documented as unconfirmed only. Before public use: Cloudflare view, date range, request count, survey details.
 8. **Opus-high backlog:** constant-time admin token compare (`hmac.compare_digest`); Cloudflare Access on write routes (q62); reserve CT 312's address (q56); q54; q59 (remove Kratos / CT 312 / tunnel wording from public pages); backups; MQTT and ESP32 tests; accept letter-suffixed room ids in the backend; decision on held-back infra docs.
 9. **Hardware (BJ to confirm what's done):** diecast measurements, ESP32-S3 vs C3 choice, 1/43 RC drift car fit. Mark finished items in `team_tasks.json` by PR.
