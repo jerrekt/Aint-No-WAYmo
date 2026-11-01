@@ -2,6 +2,7 @@
 - Fix the map compass: true north is about 31 degrees clockwise of plan up (measured from the Google Maps footprint)
 - Update the Where to? list and map hotspots to the rooms on the new map (29 rooms, 201-245). Rooms snap to the nearest hallway stop; old rooms not on the map (200, 215, 225, 251, 263, 265) are removed. New default room is 227, start room 214. 218B and 219C are not listed (the backend only accepts numeric room ids). Added tools/sync_room_list.py and maps/is_second_floor_rooms.json.
 - Replace the tab icon with a W in the app header colors (assets/favicon.svg and both pages).
+- Add CLAUDE.md (Claude Code handoff) and tools/embed_map.py (one-command map refresh with build_map_svg.py and sync_room_list.py).
 
 ## V1.022 — 2026-10-30
 - Show the version number in the site header (all colorways, desktop and mobile)
