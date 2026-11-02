@@ -1,3 +1,6 @@
+## V1.032 — 2026-11-01
+- Add survey-05 (north wall doors) and survey-06 (unclear room labels)
+
 ## V1.031 — 2026-11-02
 - Simpler task titles and details; kratos-04 (live task board database) done
 

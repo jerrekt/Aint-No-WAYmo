@@ -278,6 +278,22 @@
       "detail": "Start with two nearby rooms. Confirm the room marker on arrival."
     },
     {
+      "id": "survey-05",
+      "milestone": "survey",
+      "title": "Measure the north wall doors (rooms 227 to 222)",
+      "status": "todo",
+      "owner": null,
+      "detail": "Needs someone at school. Measure the wall before the first door, each door and wall width, and which doors are doubles. Then add them to the map."
+    },
+    {
+      "id": "survey-06",
+      "milestone": "survey",
+      "title": "Confirm the unclear room labels",
+      "status": "todo",
+      "owner": null,
+      "detail": "Unconfirmed: 218B, 219C, two doors both labelled 216, and a repeated 223. Check each in person. Keep guessed labels marked with a question mark until confirmed."
+    },
+    {
       "id": "demo-01",
       "milestone": "demo",
       "title": "Test stopping for people and signaling",
