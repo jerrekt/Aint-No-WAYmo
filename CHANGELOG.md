@@ -1,3 +1,6 @@
+## V1.030 — 2026-11-01
+- Drop "(provisional)" from the Where to? options
+
 ## V1.029 — 2026-11-01
 - kratos-02 in progress, owner Branden Adsuara
 
