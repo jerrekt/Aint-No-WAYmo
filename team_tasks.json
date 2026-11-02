@@ -185,8 +185,8 @@
       "id": "kratos-02",
       "milestone": "kratos",
       "title": "Install private MQTT broker and test ESP32-C3 link",
-      "status": "todo",
-      "owner": null,
+      "status": "in_progress",
+      "owner": "Branden Adsuara",
       "detail": "C3 receive-only bench kit prepared; latency not measured. Bench topics are isolated from the real car. Measure round trip, 95th percentile and max, ack rate and reconnect time. Targets: under 150 ms at p95 and 99% acked (not measured)."
     },
     {
