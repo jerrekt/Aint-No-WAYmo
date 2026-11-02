@@ -1514,7 +1514,7 @@ function configure(){sim.people=$('people').checked;sim.chair=$('chair').checked
 function reset(usePreset=false){sim=new MicroSimulation(controller,{seed:17,mission:usePreset?parseMission():['214'],autoScan:$('autoScan').checked,survey});paused=true;lastChimeLog=0;configure();draw();$('start').textContent='▶ Start mission';$('chime').textContent='Ready';}
 let controller;
 async function init(){
- $('roomSelect').innerHTML=Object.keys(ROOMS).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).map(r=>`<option value="${r}">IS ${r} (provisional)</option>`).join('');
+ $('roomSelect').innerHTML=Object.keys(ROOMS).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).map(r=>`<option value="${r}">IS ${r}</option>`).join('');
  chooseRoom('227');
  $('dropNode').innerHTML=Object.keys(NODES).map(n=>`<option value="${n}">${n} · ${Object.entries(ROOMS).find(([,id])=>id===n)?.[0]||'junction'}</option>`).join('');
  // Demo UX: make one synthetic survey immediately available. This is NOT

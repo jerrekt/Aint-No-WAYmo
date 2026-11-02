@@ -1,5 +1,6 @@
 ## V1.028 — 2026-11-01
 - Simplify the opening page for visitors; move trip controls, vehicle status and diagnostics to a Controls tab (was My Car)
+- Where to? options no longer say "(provisional)".
 
 ## V1.027 — 2026-11-01
 - Add a short wordmark and route-line intro splash (once per visit, tap to skip)
