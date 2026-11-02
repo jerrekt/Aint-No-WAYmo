@@ -1,3 +1,6 @@
+## V1.029 — 2026-11-01
+- kratos-02 in progress, owner Branden Adsuara
+
 ## V1.028 — 2026-11-01
 - Simplify the opening page for visitors; move trip controls, vehicle status and diagnostics to a Controls tab (was My Car)
 

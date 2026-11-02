@@ -1,7 +1,7 @@
 {
-  "version": "V1.028",
+  "version": "V1.029",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-01",
-  "note": "Simplify the opening page for visitors; move trip controls, vehicle status and diagnostics to a Controls tab (was My Car)"
+  "note": "kratos-02 in progress, owner Branden Adsuara"
 }
