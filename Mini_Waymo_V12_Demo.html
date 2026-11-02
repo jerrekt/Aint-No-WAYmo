@@ -776,7 +776,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </head>
 <body data-colorway="blue">
 <div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.027 · DRAFT</span></div></header>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.028 · DRAFT</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -1601,7 +1601,7 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
  const navAbout=document.getElementById('navAbout');
  // Five views share this page: map, car, build, about, team. Each shows only its own parts.
  const VIEWS={map:'',car:'car',build:'build',about:'about',team:'team'};
- const TITLES={map:"Ain\'t No Waymo | Mini-Waymo · SJSU SME",car:'My Car | Mini-Waymo · SJSU SME',build:'Build | Mini-Waymo · SJSU SME',about:'About | Mini-Waymo · SJSU SME',team:'Team | Mini-Waymo · SJSU SME'};
+ const TITLES={map:"Ain\'t No Waymo | Mini-Waymo · SJSU SME",car:'Controls | Mini-Waymo · SJSU SME',build:'Build | Mini-Waymo · SJSU SME',about:'About | Mini-Waymo · SJSU SME',team:'Team | Mini-Waymo · SJSU SME'};
  const DOCK={map:'dockMap',car:'dockCar',build:'dockBuild',about:'dockAbout',team:'dockTeam'};
  function currentView(){const h=location.hash.replace(/^#/,'').toLowerCase();return Object.prototype.hasOwnProperty.call(VIEWS,h)&&h?h:'map';}
  function routePage(){
@@ -1855,7 +1855,7 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
   const oldDock=document.querySelector('.appDock');
   if(oldDock){
     const theme=document.getElementById('dockTheme');const aboutDock=document.getElementById('dockAbout');
-    const car=make('button','dockButton dockCar','dockCar');car.type='button';car.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 14 6 9c.3-1 1.2-1.5 2.3-1.5h7.4c1.1 0 2 .5 2.3 1.5l2 5"></path><path d="M3 14h18v5H3z"></path><circle cx="7" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg><span>My Car</span>';
+    const car=make('button','dockButton dockCar','dockCar');car.type='button';car.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 14 6 9c.3-1 1.2-1.5 2.3-1.5h7.4c1.1 0 2 .5 2.3 1.5l2 5"></path><path d="M3 14h18v5H3z"></path><circle cx="7" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg><span>Controls</span>';
     car.addEventListener('click',()=>window.waymoGo('car'));
     const teamButton=make('button','dockButton','dockTeam');teamButton.type='button';teamButton.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M2 21v-3a6 6 0 0 1 12 0v3M14 16a5 5 0 0 1 8 4v1"></path></svg><span>Team</span>';
     teamButton.addEventListener('click',()=>window.waymoGo('team'));
@@ -1870,9 +1870,18 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     const tag=(el,v)=>{if(el)el.dataset.v=v;};
     const vr=document.getElementById('vehicleRail'),cr=document.getElementById('centerRail');
     tag(vr?.querySelector('.appScene'),'car');
-    tag(vr?.querySelector('.dispatchCard'),'map');
-    tag(vr?.querySelector('.metrics'),'map car');
-    if(cr){[...cr.children].forEach((c,i)=>tag(c,(i===2||i===4)?'car':'map'));}
+    // Visitor page (map): explainer, Where to?, map, simple status. Controls page (car): everything else.
+    const intro=document.createElement('section');intro.className='mockPanel visitorIntro';intro.dataset.v='map';
+    intro.innerHTML='<h2>A toy self-driving car</h2><p>This Mini-Waymo drives itself around the second floor of the SJSU Industrial Studies building. What you see here is a simulation while the real car is built.</p><ol><li>Pick a room.</li><li>Press Go.</li><li>Watch the car drive there on the map.</li></ol>';
+    vr?.prepend(intro);
+    const dc=vr?.querySelector('.dispatchCard');
+    tag(dc,'map car');
+    if(dc){
+      [...dc.children].forEach((c,i)=>{if(i<=3||c.classList.contains('mapTip'))tag(c,'map car');else if(!c.classList.contains('screenReader'))tag(c,'car');});
+      tag(dc.querySelector('#addStop'),'car');
+    }
+    tag(vr?.querySelector('.metrics'),'car');
+    if(cr){[...cr.children].forEach((c,i)=>tag(c,(i===2||i===4||i===5)?'car':'map'));}
     tag(document.getElementById('taskRail'),'none');
     const ab=document.getElementById('aboutPage');
     if(ab){
@@ -1888,6 +1897,7 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     const st=document.createElement('style');
     st.textContent=['map','car','build','about','team'].map(v=>`body[data-view="${v}"] #dashboardPage [data-v]:not([data-v~="${v}"]),body[data-view="${v}"] #aboutPage [data-v]:not([data-v~="${v}"]){display:none!important}`).join('\n')+
       '\nbody[data-colorway="app"][data-view="map"] #dashboardPage,body[data-colorway="app"][data-view="car"] #dashboardPage{grid-template-columns:minmax(245px,330px) minmax(0,1fr)!important}';
+    st.textContent+='#dashboardPage .visitorIntro{padding:16px 18px}#dashboardPage .visitorIntro h2{font-size:17px;margin:0 0 6px;letter-spacing:-.02em}#dashboardPage .visitorIntro p{font-size:13px;line-height:1.5;color:#b8cee5;margin:0 0 10px}#dashboardPage .visitorIntro ol{margin:0;padding-left:20px;font-size:13px;line-height:1.7;color:#edf5ff}';
     document.head.appendChild(st);
     window.waymoRoutePage&&window.waymoRoutePage();
   })();
@@ -1930,8 +1940,8 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.027 · DRAFT';
-  document.title="Ain't No Waymo | V1.027 Draft";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.028 · DRAFT';
+  document.title="Ain't No Waymo | V1.028 Draft";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
 </script></body></html>
