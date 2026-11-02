@@ -1,7 +1,7 @@
 {
-  "version": "V1.029",
+  "version": "V1.030",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-01",
-  "note": "kratos-02 in progress, owner Branden Adsuara"
+  "note": "Drop \"(provisional)\" from the Where to? options"
 }
