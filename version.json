@@ -1,7 +1,7 @@
 {
-  "version": "V1.030",
+  "version": "V1.031",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-11-01",
-  "note": "Drop \"(provisional)\" from the Where to? options"
+  "date": "2026-11-02",
+  "note": "Simpler task titles and details; kratos-04 (live task board database) done"
 }

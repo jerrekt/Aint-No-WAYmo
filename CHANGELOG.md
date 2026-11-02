@@ -1,3 +1,6 @@
+## V1.031 — 2026-11-02
+- Simpler task titles and details; kratos-04 (live task board database) done
+
 ## V1.030 — 2026-11-01
 - Drop "(provisional)" from the Where to? options
 
