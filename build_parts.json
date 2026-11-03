@@ -1,0 +1,179 @@
+{
+  "_note": "Build page parts list. 'bought' is changed only by pull request, from a Discord part update. Run python3 tools/embed_build_parts.py after editing.",
+  "versions": {
+    "v1": {
+      "name": "V1: line follower",
+      "effort": "Low effort",
+      "how": "Follows a tape line on the floor. It still decides: it counts junction and door marks to pick turns for the chosen room, and stops for anything in front of it.",
+      "catch": "Floor tape needs building permission."
+    },
+    "v2": {
+      "name": "V2: room scanner",
+      "effort": "Our version",
+      "how": "Stops to scan with the cone depth sensor on a roof servo, matches the scan to the saved map, and confirms room markers with the camera.",
+      "catch": "The drift car steers like a real car, so it can't spin in place. A small roof servo sweeps the sensor instead."
+    }
+  },
+  "parts": [
+    {
+      "id": "waymo-shell",
+      "part": "Waymo shell",
+      "what": "World's Littlest Waymo Jaguar I-PACE diecast. The body and glass; the base and wheels may be replaced.",
+      "versions": "both",
+      "bought": true,
+      "note": "On hand. Inside still to be measured."
+    },
+    {
+      "id": "donor-car",
+      "part": "Donor RC car",
+      "what": "1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering servo, gears, wheels and battery.",
+      "versions": "both",
+      "bought": false,
+      "note": "Steers with a front servo, so it can't turn in place. Confirm on teardown."
+    },
+    {
+      "id": "esp32-s3-sense",
+      "part": "XIAO ESP32-S3 Sense",
+      "what": "The car's brain and camera. Runs motors, safety stop and marker reading.",
+      "versions": "both",
+      "bought": false,
+      "note": "An ESP32-C3 is on hand for bench tests only (no camera)."
+    },
+    {
+      "id": "motor-driver",
+      "part": "Motor driver",
+      "what": "Small driver (DRV8835 class) for the drive motor. The steering servo runs straight from the ESP32.",
+      "versions": "both",
+      "bought": false,
+      "note": "Skip if the donor's board can be reused."
+    },
+    {
+      "id": "battery-protection",
+      "part": "Battery protection and charger",
+      "what": "Protects the LiPo and charges it safely (TP4056 class).",
+      "versions": "both",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "estop",
+      "part": "Physical E-stop",
+      "what": "Tiny slide switch plus a tether or pull-pin that cuts motor power without Wi-Fi.",
+      "versions": "both",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "lights-sound",
+      "part": "Turn lights and chime",
+      "what": "2 amber LEDs with resistors and a small piezo sounder.",
+      "versions": "both",
+      "bought": false,
+      "note": "LEDs and resistors on hand; piezo to buy."
+    },
+    {
+      "id": "bulk-cap",
+      "part": "Bulk capacitor",
+      "what": "Steadies the power when the motors start, so the ESP32 doesn't reset.",
+      "versions": "both",
+      "bought": true,
+      "note": "On hand."
+    },
+    {
+      "id": "thin-wire",
+      "part": "Thin wire (about 30 AWG)",
+      "what": "Fits inside the shell; normal hookup wire is too thick.",
+      "versions": "both",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "kapton",
+      "part": "Kapton tape",
+      "what": "Insulates the electronics from the metal diecast shell.",
+      "versions": "both",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "chassis-print",
+      "part": "Printed chassis and room markers",
+      "what": "3D printed chassis to hold the parts, and printed markers for the rooms.",
+      "versions": "both",
+      "bought": true,
+      "note": "Printer and filament on hand."
+    },
+    {
+      "id": "pin-vise",
+      "part": "Small drill or pin vise",
+      "what": "Opens the diecast to get the body off its base.",
+      "versions": "both",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "power-meter",
+      "part": "Multimeter or USB power meter",
+      "what": "Measures motor start-up and stall current.",
+      "versions": "both",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "hotspot",
+      "part": "Travel router or phone hotspot",
+      "what": "Gives the car its own Wi-Fi in the hallway if campus Wi-Fi blocks it.",
+      "versions": "both",
+      "bought": false,
+      "note": "Still to decide."
+    },
+    {
+      "id": "line-sensor",
+      "part": "Line sensor",
+      "what": "Small reflectance sensor under the car to follow the tape.",
+      "versions": "v1",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "floor-tape",
+      "part": "Floor tape",
+      "what": "The line the car follows.",
+      "versions": "v1",
+      "bought": false,
+      "note": "Needs building permission."
+    },
+    {
+      "id": "tof-single",
+      "part": "Single-point depth sensor",
+      "what": "Cheap front distance sensor (VL53L0X or VL53L1X class) to stop for obstacles.",
+      "versions": "v1",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "vl53l7cx",
+      "part": "VL53L7CX cone depth sensor",
+      "what": "8 x 8 depth grid in a cone of about 60 degrees, 2 to 3 m indoors. Swept on the roof servo to scan the room.",
+      "versions": "v2",
+      "bought": false,
+      "note": ""
+    },
+    {
+      "id": "imu",
+      "part": "IMU (gyro)",
+      "what": "Tracks the car's heading between scans and on turns.",
+      "versions": "v2",
+      "bought": false,
+      "note": "Skip if the donor's gyro can be used."
+    },
+    {
+      "id": "roof-servo",
+      "part": "Roof servo",
+      "what": "Sweeps the depth sensor on the roof, like a real Waymo's lidar. Needed because the drift car can't spin in place.",
+      "versions": "v2",
+      "bought": false,
+      "note": ""
+    }
+  ]
+}

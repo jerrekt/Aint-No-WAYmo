@@ -15,6 +15,7 @@ BJ (Branden Adsuara, GitHub `jerrekt`) runs this SJSU SME project: a Mini-Waymo 
 - Auto-pull: merged PRs go live in about a minute. Changes under `kratos/` restart the app (rollback if it fails). Page-only changes don't restart.
 - Main pages: `Mini_Waymo_V12_Demo.html` (Live map + simulator) and `Mini_Waymo_V12_About.html`. The `V9`/`V10`/`V12` file names are historical snapshots, not the version number. Repo version is in `VERSION`.
 - The header version pill and tab title are stamped by `tools/version.py bump`. Don't hand-edit them.
+- Build page parts list: `build_parts.json` (V1 line follower / V2 room scanner, each part `bought` true/false). After editing run `python3 tools/embed_build_parts.py`; `check_repo.py` fails if the page copy is stale. The Mark bought button posts to `/api/parts/updates` (Discord, same sign-in and limits as task updates); apply the pasted `{"id":...,"bought":...}` line by PR.
 
 ## Updating the map and the "Where to?" list
 The map is a generated SVG, embedded in the demo page as base64. Don't hand-edit the SVG or the base64.
