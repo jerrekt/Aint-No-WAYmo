@@ -75,7 +75,7 @@
       "title": "Measure the diecast car",
       "status": "todo",
       "owner": null,
-      "detail": "Use calipers: inside size, wheelbase, wheel size, roof height and ground clearance. Photograph the opened shell. Earlier numbers are guesses, not measurements."
+      "detail": "Outside is 112 x 45.6 x 51.2 mm (Waymo shop, about 1:42). Use calipers for the inside: size, wheelbase, wheel size, roof height and ground clearance. Photograph the opened shell."
     },
     {
       "id": "diecast-fit-02",
@@ -83,15 +83,15 @@
       "title": "Mock-fit the ESP32, depth sensor and motor driver",
       "status": "todo",
       "owner": null,
-      "detail": "Check the parts fit, the camera can see out and the antenna isn't blocked by metal. Parts are candidates, not final."
+      "detail": "Check the parts fit, the camera pokes through the windshield, the turret sits on the roof, and the antenna isn't blocked by metal. Parts are candidates, not final."
     },
     {
       "id": "diecast-fit-03",
       "milestone": "diecast-fit",
-      "title": "Find where the battery and motors go",
+      "title": "Find where the battery, drivetrain and electronics go",
       "status": "todo",
       "owner": null,
-      "detail": "Small 1S battery (about 200 to 300 mAh). Two motors may not fit side by side, so compare options."
+      "detail": "The donor drift car brings one drive motor, its steering and a small 1S battery. Fit them with the ESP32 and driver, and keep the battery clear of sharp metal."
     },
     {
       "id": "diecast-fit-04",
@@ -104,10 +104,10 @@
     {
       "id": "hardware-01",
       "milestone": "hardware",
-      "title": "Order the motors, driver and wheels",
+      "title": "Order the donor car and motor driver",
       "status": "todo",
       "owner": null,
-      "detail": "Wait until the fit is confirmed. Check the motors match the driver before buying."
+      "detail": "The donor drift car supplies the motor, steering, wheels and battery. Confirm the fit first, then buy a small dual-channel driver (DRV8835 class) that matches the donor's motor."
     },
     {
       "id": "hardware-02",
@@ -115,15 +115,15 @@
       "title": "Build the drivetrain",
       "status": "todo",
       "owner": null,
-      "detail": "Two-motor drive. Test forward, reverse, turns and slow stops."
+      "detail": "Run the donor's motor and steering from the ESP32. At teardown, check whether steering is a servo or a left/center/right coil. Test forward, reverse, turns and slow stops. It can't turn in place, so plan wide turns."
     },
     {
       "id": "hardware-03",
       "milestone": "hardware",
-      "title": "Wire the battery and charging safely",
+      "title": "Wire the battery and charging",
       "status": "todo",
       "owner": null,
-      "detail": "Check the motors starting up don't make the ESP32 reset, and that charging is safe."
+      "detail": "Use the donor's 1S pack (check it has its own protection board) and the XIAO's built-in charger. Check the motor starting up doesn't make the ESP32 reset."
     },
     {
       "id": "hardware-04",
@@ -136,10 +136,10 @@
     {
       "id": "hardware-05",
       "milestone": "hardware",
-      "title": "Add turn signals and a chime",
+      "title": "Add the chime and turn signals",
       "status": "todo",
       "owner": null,
-      "detail": "Lowest priority. Lights and sound must never slow down obstacle checks."
+      "detail": "The chime is a must: our own tones for trip start, arrival, and a please-move tone when something blocks the car for a few seconds. No copied Waymo audio. Turn signals are lowest priority. Neither may slow down obstacle checks."
     },
     {
       "id": "sensors-01",
@@ -147,15 +147,15 @@
       "title": "Get the depth sensor working",
       "status": "todo",
       "owner": null,
-      "detail": "Read real distances on the ESP32-S3. It sees forward (about 60 degrees), not all around."
+      "detail": "Read real distances on the ESP32-S3. The sensor sees a cone of about 60 degrees; the roof turret sweeps it to see more."
     },
     {
       "id": "sensors-02",
       "milestone": "sensors",
-      "title": "Add motion tracking (IMU or wheel counts)",
+      "title": "Add a gyro for heading",
       "status": "todo",
       "owner": null,
-      "detail": "Measure how much it drifts over a long hallway. Motor timing alone won't be enough."
+      "detail": "A small IMU tracks heading between scans. The donor car has no wheel encoders, so distance comes from markers and scans. Measure drift over a long hallway."
     },
     {
       "id": "sensors-03",

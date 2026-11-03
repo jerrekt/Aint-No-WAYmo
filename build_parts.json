@@ -4,14 +4,18 @@
     "v1": {
       "name": "V1: line follower",
       "effort": "Low effort",
-      "how": "Follows a tape line on the floor. It still decides: it counts junction and door marks to pick turns for the chosen room, and stops for anything in front of it.",
-      "catch": "Floor tape needs building permission."
+      "how": "Follows a tape line down the hallway, counts junction and door marks to know where it is, and stops at the chosen room.",
+      "can": "Room-to-room trips sent from the site. Stops for anything in front of it (single depth sensor). Physical E-stop.",
+      "cant": "Leave the tape, or recover if it loses count.",
+      "catch": "Permission to tape the floor."
     },
     "v2": {
       "name": "V2: room scanner",
       "effort": "Our version",
-      "how": "Stops to scan with the cone depth sensor on a roof servo, matches the scan to the saved map, and confirms room markers with the camera.",
-      "catch": "The drift car steers like a real car, so it can't spin in place. A small roof servo sweeps the sensor instead."
+      "how": "Drives the hallway like a real car (it steers; it can't spin in place). At stops, a roof turret sweeps the depth sensor to match the scan to the saved map, and the camera in the windshield reads room markers to confirm where it is.",
+      "can": "Room-to-room trips from the site with no tape. Gyro heading. Stops for obstacles even without Wi-Fi (the turret faces forward while driving). Stops instead of guessing when unsure. Physical E-stop.",
+      "cant": "See into rooms (about 2 to 3 m range), recognize people specifically, or turn in place.",
+      "catch": "Permission to place room markers, and the parts fit confirmed."
     }
   },
   "parts": [
@@ -21,20 +25,20 @@
       "what": "World's Littlest Waymo Jaguar I-PACE diecast. The body and glass; the base and wheels may be replaced.",
       "versions": "both",
       "bought": true,
-      "note": "On hand. Inside still to be measured."
+      "note": "On hand. Outside 112 x 45.6 x 51.2 mm (Waymo shop; height includes the roof dome), about 1:42 scale. Inside still to be measured."
     },
     {
       "id": "donor-car",
       "part": "Donor RC car",
-      "what": "1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering servo, gears, wheels and battery.",
+      "what": "1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering, gears, wheels and battery (check the battery has its own protection board).",
       "versions": "both",
       "bought": false,
-      "note": "Steers with a front servo, so it can't turn in place. Confirm on teardown."
+      "note": "Steers with a front servo or a left/center/right coil, so it can't turn in place. Confirm on teardown."
     },
     {
       "id": "esp32-s3-sense",
       "part": "XIAO ESP32-S3 Sense",
-      "what": "The car's brain and camera. Runs motors, safety stop and marker reading.",
+      "what": "The car's brain and camera. Runs motors, safety stop and marker reading. The camera pokes through the windshield, facing forward.",
       "versions": "both",
       "bought": false,
       "note": "An ESP32-C3 is on hand for bench tests only (no camera)."
@@ -48,14 +52,6 @@
       "note": "Skip if the donor's board can be reused."
     },
     {
-      "id": "battery-protection",
-      "part": "Battery protection and charger",
-      "what": "Protects the LiPo and charges it safely (TP4056 class).",
-      "versions": "both",
-      "bought": false,
-      "note": ""
-    },
-    {
       "id": "estop",
       "part": "Physical E-stop",
       "what": "Tiny slide switch plus a tether or pull-pin that cuts motor power without Wi-Fi.",
@@ -65,8 +61,8 @@
     },
     {
       "id": "lights-sound",
-      "part": "Turn lights and chime",
-      "what": "2 amber LEDs with resistors and a small piezo sounder.",
+      "part": "Chime and turn lights",
+      "what": "Small piezo sounder for the chime (a must) and 2 amber LEDs with resistors (lowest priority).",
       "versions": "both",
       "bought": false,
       "note": "LEDs and resistors on hand; piezo to buy."
@@ -98,7 +94,7 @@
     {
       "id": "chassis-print",
       "part": "Printed chassis and room markers",
-      "what": "3D printed chassis to hold the parts, and printed markers for the rooms.",
+      "what": "3D printed chassis to hold the parts, the roof turret dome, and printed markers for the rooms.",
       "versions": "both",
       "bought": true,
       "note": "Printer and filament on hand."
@@ -154,7 +150,7 @@
     {
       "id": "vl53l7cx",
       "part": "VL53L7CX cone depth sensor",
-      "what": "8 x 8 depth grid in a cone of about 60 degrees, 2 to 3 m indoors. Swept on the roof servo to scan the room.",
+      "what": "8 x 8 depth grid in a cone of about 60 degrees, 2 to 3 m indoors. Rides the roof turret: faces forward while driving to stop for obstacles, sweeps at stops to scan.",
       "versions": "v2",
       "bought": false,
       "note": ""
@@ -169,8 +165,8 @@
     },
     {
       "id": "roof-servo",
-      "part": "Roof servo",
-      "what": "Sweeps the depth sensor on the roof, like a real Waymo's lidar. Needed because the drift car can't spin in place.",
+      "part": "Roof turret servo",
+      "what": "Sweeps the depth sensor from a printed roof dome, like a real Waymo's lidar. Sweeps back and forth rather than spinning, so no slip ring. Needed because the drift car can't turn in place.",
       "versions": "v2",
       "bought": false,
       "note": ""

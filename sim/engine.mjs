@@ -15,7 +15,7 @@ export const EDGES=[['A','B'],['B','C'],['C','D'],['D','E'],['E','F'],['F','G'],
 export const ROOMS={'214':'A','213':'A','215':'A','216':'B','217':'C','221':'E','220':'F','222':'G','223':'H','230':'H',
  '224':'I','226':'I','227':'J','229':'K','239':'M','210':'M','211':'M','209':'M','212':'M','240':'N',
  '206':'N','207':'N','205':'N','208':'N','241':'O','203':'O','202':'O','204':'O','201':'O'};
-export const LABELS={0:'IDLE',1:'DRIVING',2:'WAITING FOR PEDESTRIAN',3:'OBSTACLE STOP',4:'SENSOR STOP',5:'MQTT LOST',6:'LOCALIZATION UNCERTAIN',7:'360° SCANNING',8:'ROOM CONFIRMED',9:'EMERGENCY STOP'};
+export const LABELS={0:'IDLE',1:'DRIVING',2:'WAITING FOR PEDESTRIAN',3:'OBSTACLE STOP',4:'SENSOR STOP',5:'MQTT LOST',6:'LOCALIZATION UNCERTAIN',7:'TURRET SCANNING',8:'ROOM CONFIRMED',9:'EMERGENCY STOP'};
 export const hypot=(a,b)=>Math.hypot(a,b);
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
@@ -230,9 +230,9 @@ export class MicroSimulation {
   this.out=[0,0,6,2,0];this.mode='LOCALIZATION UNCERTAIN';this.prevStatus=-1;
   this.log('Robot placed in hallway; Kratos location is UNKNOWN');
   if(this.autoRecover && !this.estopLatched){
-   // Prefer non-motion marker detection first; no 360 scan is required when a tag is visible.
+   // Prefer non-motion marker detection first; no turret scan is required when a tag is visible.
    if(this.tryMarkerRecovery())this.log('AUTO RECOVERY: marker confirmed location without rotating');
-   else this.log('AUTO RECOVERY: no unique visual marker; stop and request supervised 360 scan');
+   else this.log('AUTO RECOVERY: no unique visual marker; stop and request a supervised turret scan');
   }
  }
  finishLeg(result){
@@ -253,7 +253,7 @@ export class MicroSimulation {
   if(!this.wifi||!this.tofHealthy||this.estop||this.estopLatched){this.log('Recovery scan refused: connection/sensor/estop');return false}
   this.running=true;this.relocalizeRequested=true;this.scanning=true;
   this.scanData=[];this.scanTurns=0;this.nextScanAngle=0;this.scanStart=this.robot.yaw;
-  this.log('Relocalization: rotate 360° and compare saved scans');return true;
+  this.log('Relocalization: sweep the turret and compare saved scans');return true;
  }
  applyKnownNode(node,source){
   if(!(node in NODES))return false;
@@ -320,14 +320,14 @@ export class MicroSimulation {
  scanMatch(){
   // Coarse scan matching over nearby candidate poses (a tiny educational model).
   const d=this.scanData.filter(z=>z.range<3.43);
-  if(d.length<6){this.log('360 scan: insufficient stable walls');return;}
+  if(d.length<6){this.log('Turret scan: insufficient stable walls');return;}
   let best=null;const e=this.est;
   for(let dx=-0.24;dx<=0.241;dx+=0.08)for(let dy=-0.24;dy<=0.241;dy+=0.08)for(let da=-0.13;da<=0.131;da+=0.065){
     let score=0;
     for(const m of d){const expected=ray(e.x+dx,e.y+dy,m.yaw+da,3.5,[]);let residual=Math.abs(expected-m.range);score+=Math.min(residual,0.5)**2;}
     if(!best||score<best.score)best={score,dx,dy,da};
   }
-  if(best&&best.score/d.length<0.022){this.est.x+=best.dx*0.5;this.est.y+=best.dy*0.5;this.est.yaw=wrap(this.est.yaw+best.da*0.6);this.est.sigma=Math.max(0.075,Math.min(this.est.sigma,0.13));this.log('Kratos matched 360 scan to saved hallway map');}
+  if(best&&best.score/d.length<0.022){this.est.x+=best.dx*0.5;this.est.y+=best.dy*0.5;this.est.yaw=wrap(this.est.yaw+best.da*0.6);this.est.sigma=Math.max(0.075,Math.min(this.est.sigma,0.13));this.log('Kratos matched the turret scan to the saved hallway map');}
   else this.log('Scan geometry ambiguous; kept odometry estimate');
  }
  pauseVehicle(){
@@ -356,10 +356,10 @@ export class MicroSimulation {
   let target=this.currentTarget();
   if(!this.operatorPaused&&target&&!this.scanning&&Math.hypot(this.est.x-NODES[target][0],this.est.y-NODES[target][1])<0.18){
     if((this.autoScan||this.scanRequested)&&!this.scannedNodes.has(target)&&['C','E','G','H','J','M','N'].includes(target)){
-      this.scanning=true;this.scanStart=this.robot.yaw;this.scanTurns=0;this.nextScanAngle=0;this.scanData=[];this.scannedNodes.add(target);this.scanRequested=false;this.log('Stopped at junction '+target+' for 360° scan');
+      this.scanning=true;this.scanStart=this.robot.yaw;this.scanTurns=0;this.nextScanAngle=0;this.scanData=[];this.scannedNodes.add(target);this.scanRequested=false;this.log('Stopped at junction '+target+' for a turret scan');
     }else if(this.pathIndex<this.plan.length-1){this.pathIndex++;target=this.currentTarget();}
   }
-  if(!this.operatorPaused&&this.scanRequested&&!this.scanning&&this.localized){this.scanning=true;this.scanStart=this.robot.yaw;this.scanTurns=0;this.nextScanAngle=0;this.scanData=[];this.scanRequested=false;this.log('Manual 360° scan requested');}
+  if(!this.operatorPaused&&this.scanRequested&&!this.scanning&&this.localized){this.scanning=true;this.scanStart=this.robot.yaw;this.scanTurns=0;this.nextScanAngle=0;this.scanData=[];this.scanRequested=false;this.log('Manual turret sweep requested');}
   let desiredHeading=target?Math.atan2(NODES[target][1]-this.est.y,NODES[target][0]-this.est.x):this.est.yaw;
   let dGoal=target?Math.hypot(NODES[target][0]-this.est.x,NODES[target][1]-this.est.y):0;
   let signal=0;
@@ -375,7 +375,7 @@ export class MicroSimulation {
 this.mode=this.operatorPaused&&this.out[2]===0?'PAUSED':(LABELS[this.out[2]]||'UNKNOWN');if(this.relocalizeRequested&&[4,5,9].includes(this.out[2])){this.relocalizeRequested=false;this.scanning=false;this.running=false;this.log('Recovery scan aborted by safety controller');}
   if(this.out[2]!==this.prevStatus){
     if([2,3,4,5,6,9].includes(this.out[2]))this.log(this.mode+' — fail-safe motor command = 0');
-    if(this.out[2]===7)this.log('Scanning: differential wheels counter-rotate');
+    if(this.out[2]===7)this.log('Scanning: the roof turret sweeps the depth sensor (the simulator turns the car to show it)');
     this.prevStatus=this.out[2];
   }
   if(this.out[4])this.log('Arrival chime triggered (original placeholder audio)');
