@@ -67,26 +67,4 @@ tu.urllib.request.urlopen = broken
 before = len(tu._sent_all)
 assert cli.post('/api/updates', json=good, headers=ip(5)).status_code == 502
 assert len(tu._sent_all) == before
-tu.urllib.request.urlopen = fake_urlopen
-
-# Part updates: same sign-in and limits, part id must exist, repo line in the message.
-part = next(iter(tu._parts().values()))
-pgood = {'part_id': part['id'], 'name': 'Gage Watts', 'bought': True, 'note': 'Ordered on Amazon @everyone `x`', 'password': PW}
-assert cli.post('/api/parts/updates', json={**pgood, 'password': 'nope'}, headers=ip(20)).status_code == 401
-assert cli.post('/api/parts/updates', json={**pgood, 'part_id': 'not-a-part'}, headers=ip(20)).status_code == 404
-assert cli.post('/api/parts/updates', json={**pgood, 'bought': 'maybe'}, headers=ip(20)).status_code == 422
-assert cli.post('/api/parts/updates', json={**pgood, 'note': 'x' * 301}, headers=ip(20)).status_code == 422
-n = len(sent)
-r = cli.post('/api/parts/updates', json=pgood, headers=ip(21)); assert r.status_code == 200, r.text
-assert len(sent) == n + 1
-pm = sent[-1]
-assert pm['allowed_mentions'] == {'parse': []} and PW not in json.dumps(pm)
-assert f'"id": "{part["id"]}"' in pm['content'] and '"bought": true' in pm['content']
-assert '`x`' not in pm['content'] and 'Bought' in pm['content']
-r = cli.post('/api/parts/updates', json={**pgood, 'bought': False, 'note': ''}, headers=ip(21)); assert r.status_code == 200
-assert '"bought": false' in sent[-1]['content'] and 'Not bought' in sent[-1]['content']
-# Shares the per-visitor limit with task updates.
-assert cli.post('/api/updates', json=good, headers=ip(21)).status_code == 200
-assert cli.post('/api/updates', json=good, headers=ip(21)).status_code == 200
-assert cli.post('/api/parts/updates', json=pgood, headers=ip(21)).status_code == 429
 print('team updates tests passed:', len(sent), 'fake sends')

@@ -776,7 +776,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </head>
 <body data-colorway="blue">
 <div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.033 · DRAFT</span></div></header>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.034 · DRAFT</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -918,7 +918,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #partDialog h3{margin:0 0 4px;font-size:16px}
 #partDialog p{font-size:12px;line-height:1.5;margin:0 0 10px}
 #partDialog label{display:block;font-size:11px;font-weight:700;margin:10px 0 4px}
-#partDialog input,#partDialog textarea{width:100%;box-sizing:border-box;border:1px solid #34485b;border-radius:8px;padding:9px 10px;background:#0e1a25;color:inherit;font:inherit;font-size:14px}
+#partDialog input,#partDialog select,#partDialog textarea{width:100%;box-sizing:border-box;border:1px solid #34485b;border-radius:8px;padding:9px 10px;background:#0e1a25;color:inherit;font:inherit;font-size:14px}
 #partDialog textarea{min-height:60px;resize:vertical}
 #partDialog .pdActions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 #partDialog .pdActions button{border:1px solid #385064;background:#243443;color:inherit;border-radius:9px;padding:9px 13px;font-weight:600;font-size:12px;cursor:pointer}
@@ -931,23 +931,23 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <div class="bvGrid" id="buildVersions"></div>
 <div class="bpBar"><div aria-label="Filter parts" class="bpFilters" role="group"><button aria-pressed="true" data-pf="all" type="button">All parts</button><button aria-pressed="false" data-pf="v1" type="button">V1</button><button aria-pressed="false" data-pf="v2" type="button">V2</button><button aria-pressed="false" data-pf="need" type="button">Not bought</button></div><span aria-live="polite" class="bpCount" id="bpCount"></span></div>
 <ul class="bpList" id="bpList"></ul>
-<p class="aboutMini">Pressing Mark bought sends a note to BJ in Discord; the list changes for everyone once he updates it. Nothing here is confirmed to fit yet: the shell's inside, the donor's size, battery space, camera window and antenna still need checking.</p>
+<p class="aboutMini">Mark bought saves right away for everyone (team password needed) and posts in #waymo-task-feed. Nothing here is confirmed to fit yet: the shell's inside, the donor's size, battery space, camera window and antenna still need checking.</p>
 <p class="aboutMini"><span class="scopeStatus">Extra</span> Spectator video, later: an optional detachable FPV trailer with a DJI O4 camera and air unit. It is not part of the main car.</p>
 <script id="buildPartsData" type="application/json">{"versions":{"v1":{"name":"V1: line follower","effort":"Low effort","how":"Follows a tape line on the floor. It still decides: it counts junction and door marks to pick turns for the chosen room, and stops for anything in front of it.","catch":"Floor tape needs building permission."},"v2":{"name":"V2: room scanner","effort":"Our version","how":"Stops to scan with the cone depth sensor on a roof servo, matches the scan to the saved map, and confirms room markers with the camera.","catch":"The drift car steers like a real car, so it can't spin in place. A small roof servo sweeps the sensor instead."}},"parts":[{"id":"waymo-shell","part":"Waymo shell","what":"World's Littlest Waymo Jaguar I-PACE diecast. The body and glass; the base and wheels may be replaced.","versions":"both","bought":true,"note":"On hand. Inside still to be measured."},{"id":"donor-car","part":"Donor RC car","what":"1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering servo, gears, wheels and battery.","versions":"both","bought":false,"note":"Steers with a front servo, so it can't turn in place. Confirm on teardown."},{"id":"esp32-s3-sense","part":"XIAO ESP32-S3 Sense","what":"The car's brain and camera. Runs motors, safety stop and marker reading.","versions":"both","bought":false,"note":"An ESP32-C3 is on hand for bench tests only (no camera)."},{"id":"motor-driver","part":"Motor driver","what":"Small driver (DRV8835 class) for the drive motor. The steering servo runs straight from the ESP32.","versions":"both","bought":false,"note":"Skip if the donor's board can be reused."},{"id":"battery-protection","part":"Battery protection and charger","what":"Protects the LiPo and charges it safely (TP4056 class).","versions":"both","bought":false,"note":""},{"id":"estop","part":"Physical E-stop","what":"Tiny slide switch plus a tether or pull-pin that cuts motor power without Wi-Fi.","versions":"both","bought":false,"note":""},{"id":"lights-sound","part":"Turn lights and chime","what":"2 amber LEDs with resistors and a small piezo sounder.","versions":"both","bought":false,"note":"LEDs and resistors on hand; piezo to buy."},{"id":"bulk-cap","part":"Bulk capacitor","what":"Steadies the power when the motors start, so the ESP32 doesn't reset.","versions":"both","bought":true,"note":"On hand."},{"id":"thin-wire","part":"Thin wire (about 30 AWG)","what":"Fits inside the shell; normal hookup wire is too thick.","versions":"both","bought":false,"note":""},{"id":"kapton","part":"Kapton tape","what":"Insulates the electronics from the metal diecast shell.","versions":"both","bought":false,"note":""},{"id":"chassis-print","part":"Printed chassis and room markers","what":"3D printed chassis to hold the parts, and printed markers for the rooms.","versions":"both","bought":true,"note":"Printer and filament on hand."},{"id":"pin-vise","part":"Small drill or pin vise","what":"Opens the diecast to get the body off its base.","versions":"both","bought":false,"note":""},{"id":"power-meter","part":"Multimeter or USB power meter","what":"Measures motor start-up and stall current.","versions":"both","bought":false,"note":""},{"id":"hotspot","part":"Travel router or phone hotspot","what":"Gives the car its own Wi-Fi in the hallway if campus Wi-Fi blocks it.","versions":"both","bought":false,"note":"Still to decide."},{"id":"line-sensor","part":"Line sensor","what":"Small reflectance sensor under the car to follow the tape.","versions":"v1","bought":false,"note":""},{"id":"floor-tape","part":"Floor tape","what":"The line the car follows.","versions":"v1","bought":false,"note":"Needs building permission."},{"id":"tof-single","part":"Single-point depth sensor","what":"Cheap front distance sensor (VL53L0X or VL53L1X class) to stop for obstacles.","versions":"v1","bought":false,"note":""},{"id":"vl53l7cx","part":"VL53L7CX cone depth sensor","what":"8 x 8 depth grid in a cone of about 60 degrees, 2 to 3 m indoors. Swept on the roof servo to scan the room.","versions":"v2","bought":false,"note":""},{"id":"imu","part":"IMU (gyro)","what":"Tracks the car's heading between scans and on turns.","versions":"v2","bought":false,"note":"Skip if the donor's gyro can be used."},{"id":"roof-servo","part":"Roof servo","what":"Sweeps the depth sensor on the roof, like a real Waymo's lidar. Needed because the drift car can't spin in place.","versions":"v2","bought":false,"note":""}]}</script>
 <dialog aria-labelledby="pdTitle" id="partDialog"><form id="partForm" method="dialog" novalidate>
 <h3 id="pdTitle">Mark part</h3>
 <p id="pdPart"></p>
-<label for="pdName">Your name</label><input autocomplete="name" id="pdName" list="boardTeamNames" maxlength="70" placeholder="Full name" type="text"/>
-<label for="pdNote">Note (optional)</label><textarea id="pdNote" maxlength="300" placeholder="Where you bought it, price, when it arrives"></textarea>
+<label for="pdName">Your name</label><select id="pdName"><option value="">Pick your name</option></select>
 <label for="pdPassword">Team password</label><input autocomplete="off" id="pdPassword" placeholder="Shared team password" type="password"/>
-<div class="pdActions"><button class="pdPrimary" id="pdSend" type="button">Send to Discord</button><button id="pdCopy" type="button">Copy update</button><button id="pdCancel" type="button">Cancel</button></div>
+<div class="pdActions"><button class="pdPrimary" id="pdSend" type="button">Save</button><button id="pdCopy" type="button">Copy for Discord</button><button id="pdCancel" type="button">Cancel</button></div>
 <p aria-live="polite" class="pdMsg" id="pdMsg"></p>
 </form></dialog>
 <script>
 function waymoPartsInit(){
  const list=document.getElementById('bpList');if(!list)return;
  let data={versions:{},parts:[]};try{data=JSON.parse(document.getElementById('buildPartsData').textContent);}catch(_){}
- const parts=data.parts||[];let filter='all';let sendOn=false;let target=null;
+ let parts=data.parts||[];let filter='all';let writes=false;let target=null;
+ const API=((document.querySelector('meta[name="waymo-tasks-api"]')||{}).content||'').replace(/\/+$/,'');
  const vLabel={both:'V1 + V2',v1:'V1 only',v2:'V2 only'};
  function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n;}
  const vg=document.getElementById('buildVersions');
@@ -957,33 +957,37 @@ function waymoPartsInit(){
   const shown=parts.filter(p=>filter==='all'||(filter==='need'?!p.bought:(p.versions===filter||p.versions==='both')));
   for(const p of shown){const li=el('li','bpItem');const info=el('div');
    info.append(el('p','bpName',p.part),el('p','bpWhat',p.what));if(p.note)info.append(el('p','bpNote',p.note));
-   const tags=el('div','bpTags');tags.append(el('span','bpTag '+(p.bought?'bought':'notBought'),p.bought?'Bought':'Not bought'),el('span','bpTag',vLabel[p.versions]||p.versions));info.append(tags);
+   const tags=el('div','bpTags');tags.append(el('span','bpTag '+(p.bought?'bought':'notBought'),p.bought?'Bought':'Not bought'),el('span','bpTag',vLabel[p.versions]||p.versions));
+   if(p.bought&&p.bought_by)tags.append(el('span','bpTag','by '+p.bought_by));info.append(tags);
    const b=el('button','bpBtn',p.bought?'Mark not bought':'Mark bought');b.type='button';b.addEventListener('click',()=>openPart(p,!p.bought));
    li.append(info,b);list.append(li);}
   const got=parts.filter(p=>p.bought).length;document.getElementById('bpCount').textContent=got+' of '+parts.length+' bought';}
  document.querySelectorAll('#buildList [data-pf]').forEach(btn=>btn.addEventListener('click',()=>{filter=btn.dataset.pf;
   document.querySelectorAll('#buildList [data-pf]').forEach(x=>x.setAttribute('aria-pressed',String(x===btn)));render();}));
- const dlg=document.getElementById('partDialog'),nameI=document.getElementById('pdName'),noteI=document.getElementById('pdNote'),pw=document.getElementById('pdPassword'),send=document.getElementById('pdSend'),msg=document.getElementById('pdMsg');
+ const dlg=document.getElementById('partDialog'),nameS=document.getElementById('pdName'),pw=document.getElementById('pdPassword'),save=document.getElementById('pdSend'),msg=document.getElementById('pdMsg');
  function say(t,bad){msg.textContent=t;msg.classList.toggle('bad',!!bad);}
- function setSend(on){sendOn=on;send.disabled=!on;send.title=on?'':'Sending is not set up on the server yet. Use Copy update.';}
- setSend(false);
- if(/^https?:$/.test(location.protocol)){fetch('/api/updates/status',{cache:'no-store'}).then(r=>r.ok?r.json():{}).then(b=>setSend(!!b.enabled)).catch(()=>setSend(false));}
+ function setWrites(on,names){writes=on;save.disabled=!on;save.title=on?'':'Saving is off right now. Use Copy for Discord.';
+  if(names&&names.length){nameS.length=1;for(const n of names)nameS.append(new Option(n,n));}}
+ setWrites(false,[...document.querySelectorAll('#boardTeamNames option')].map(o=>o.value).filter(Boolean));
+ function load(){if(!API||!/^https?:$/.test(location.protocol))return;
+  fetch(API+'/api/parts',{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(b=>{
+   if(Array.isArray(b.parts)&&b.parts.length)parts=b.parts;setWrites(!!b.writes,b.names);render();}).catch(()=>{});}
  function openPart(p,bought){target={part:p,bought};document.getElementById('pdTitle').textContent=bought?'Mark bought':'Mark not bought';
-  document.getElementById('pdPart').textContent=p.part;say('');if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');setTimeout(()=>nameI.focus(),50);}
+  document.getElementById('pdPart').textContent=p.part;say(writes?'':'Saving is off right now. Use Copy for Discord.');if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');setTimeout(()=>nameS.focus(),50);}
  function closePart(){pw.value='';if(dlg.close)dlg.close();else dlg.removeAttribute('open');}
- document.getElementById('pdCancel').addEventListener("click",closePart);
- function asText(){const p=target.part;return 'Part update: '+(target.bought?'Bought':'Not bought')+'\nPart: '+p.part+' ('+p.id+')\nFrom: '+nameI.value.trim()+(noteI.value.trim()?'\n'+noteI.value.trim():'')+'\nFor build_parts.json: '+JSON.stringify({id:p.id,bought:target.bought});}
- document.getElementById('pdCopy').addEventListener('click',async()=>{if(nameI.value.trim().length<2){say('Enter your full name.',true);return;}
-  const text=asText();try{await navigator.clipboard.writeText(text);say('Copied. Paste it to BJ in Discord.');}catch(_){noteI.value=text;noteI.select();say('Copy did not work here. The update is in the note box: select it and copy.',true);}});
- send.addEventListener('click',async()=>{if(!sendOn){say('Sending is off. Use Copy update.',true);return;}
-  if(nameI.value.trim().length<2){say('Enter your full name.',true);return;}if(!pw.value){say('Enter the team password.',true);return;}
-  send.disabled=true;say('Sending...');
-  try{const r=await fetch('/api/parts/updates',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({part_id:target.part.id,name:nameI.value.trim(),bought:target.bought,note:noteI.value.trim(),password:pw.value})});
+ document.getElementById('pdCancel').addEventListener('click',closePart);
+ function asText(){const p=target.part;return 'Part update: '+(target.bought?'Bought':'Not bought')+'\nPart: '+p.part+' ('+p.id+')\nFrom: '+nameS.value+'\nFor build_parts.json: '+JSON.stringify({id:p.id,bought:target.bought});}
+ document.getElementById('pdCopy').addEventListener('click',async()=>{if(!nameS.value){say('Pick your name.',true);return;}
+  const text=asText();try{await navigator.clipboard.writeText(text);say('Copied. Paste it in #waymo-build.');}catch(_){say(text,false);}});
+ save.addEventListener('click',async()=>{if(!writes){say('Saving is off right now. Use Copy for Discord.',true);return;}
+  if(!nameS.value){say('Pick your name.',true);return;}if(!pw.value){say('Enter the team password.',true);return;}
+  save.disabled=true;say('Saving...');
+  try{const r=await fetch(API+'/api/parts/'+encodeURIComponent(target.part.id),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nameS.value,password:pw.value,bought:target.bought})});
    let b={};try{b=await r.json();}catch(_){}
-   if(!r.ok)throw Error(typeof b.detail==='string'?b.detail:'Could not send. Use Copy update.');
-   pw.value='';noteI.value='';say('Sent. BJ will update the list.');
-  }catch(err){say(String(err.message||err),true);}finally{send.disabled=!sendOn;}});
- render();
+   if(!r.ok)throw Error(typeof b.detail==='string'?b.detail:'Could not save. Use Copy for Discord.');
+   if(b.part)parts=parts.map(p=>p.id===b.part.id?b.part:p);render();pw.value='';say('Saved. Everyone sees it now, and it is posted in #waymo-task-feed.');setTimeout(closePart,1200);
+  }catch(err){say(String(err.message||err),true);}finally{save.disabled=!writes;}});
+ render();load();setInterval(()=>{if(!document.hidden)load();},30000);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',waymoPartsInit);else waymoPartsInit();
 </script>
@@ -1997,8 +2001,8 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.033 · DRAFT';
-  document.title="Ain't No Waymo | V1.033 Draft";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.034 · DRAFT';
+  document.title="Ain't No Waymo | V1.034 Draft";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
 </script></body></html>

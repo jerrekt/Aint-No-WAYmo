@@ -1,3 +1,6 @@
+## V1.034 — 2026-11-03
+- Build page parts: live bought flags and Mark bought through the claim bot; remove the retired CT 312 part route
+
 ## V1.033 — 2026-11-03
 - Build page: V1 line follower and V2 room scanner, parts list with Mark bought (Discord + PR)
 
