@@ -1,3 +1,6 @@
+## V1.033 — 2026-11-03
+- Build page: V1 line follower and V2 room scanner, parts list with Mark bought (Discord + PR)
+
 ## V1.032 — 2026-11-01
 - Add survey-05 (north wall doors) and survey-06 (unclear room labels)
 

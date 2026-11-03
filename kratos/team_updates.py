@@ -2,6 +2,8 @@
 
 For teammates who do not code: pick a task, write what you did, enter the team password, send.
 BJ gets it in Discord and copies it into team_tasks.json by pull request.
+Part updates (/api/parts/updates) work the same way for the Build page: Bought or Not bought,
+copied into build_parts.json by pull request. Both routes share the same sign-in check and send limits.
 
 Server-only settings (never in HTML or Git):
   WAYMO_TASK_PASSWORD   shared team password (8+ characters), same check as the task board
@@ -19,7 +21,9 @@ from threading import Lock
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
-from .team_tasks import TASKS_SEED, client_key, enforce_password, live_writes_enabled
+from .team_tasks import ROOT, TASKS_SEED, client_key, enforce_password, live_writes_enabled
+
+PARTS_FILE = ROOT / "build_parts.json"
 
 router = APIRouter()
 _lock = Lock()
@@ -41,6 +45,14 @@ class TeamUpdate(BaseModel):
     password: str = Field(min_length=1, max_length=256)
 
 
+class PartUpdate(BaseModel):
+    part_id: str = Field(min_length=1, max_length=80)
+    name: str = Field(min_length=2, max_length=70)
+    bought: bool
+    note: str = Field(default="", max_length=300)
+    password: str = Field(min_length=1, max_length=256)
+
+
 def _webhook() -> str | None:
     url = (os.environ.get("WAYMO_DISCORD_WEBHOOK") or "").strip()
     return url if url.startswith(WEBHOOK_PREFIXES) else None
@@ -49,6 +61,11 @@ def _webhook() -> str | None:
 def _tasks() -> dict:
     seed = json.loads(TASKS_SEED.read_text(encoding="utf-8"))
     return {t["id"]: t for t in seed.get("tasks", [])}
+
+
+def _parts() -> dict:
+    data = json.loads(PARTS_FILE.read_text(encoding="utf-8"))
+    return {p["id"]: p for p in data.get("parts", [])}
 
 
 def _clean(text: str, limit: int) -> str:
@@ -95,6 +112,41 @@ def _message(task: dict, name: str, status: str, summary: str) -> str:
     return msg[:1900]
 
 
+def _post(url: str, request: Request, content: str) -> None:
+    key = client_key(request)
+    _take_slot(key)
+    payload = json.dumps({
+        "content": content,
+        "username": "Ain't No Waymo board",
+        "allowed_mentions": {"parse": []},
+    }).encode("utf-8")
+    req = urllib.request.Request(url, data=payload, method="POST",
+                                 headers={"Content-Type": "application/json", "User-Agent": "aint-no-waymo-updates"})
+    try:
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            if resp.status >= 300:
+                raise HTTPException(502, "Discord did not accept the update. Use Copy update instead.")
+    except HTTPException:
+        _give_back(key)
+        raise
+    except (urllib.error.URLError, TimeoutError, OSError):
+        _give_back(key)
+        raise HTTPException(502, "Could not reach Discord. Use Copy update instead.")
+
+
+def _part_message(part: dict, name: str, bought: bool, note: str) -> str:
+    line = json.dumps({"id": part["id"], "bought": bought}, ensure_ascii=False)
+    msg = "\n".join([
+        f"**Part update** · {'Bought' if bought else 'Not bought'}",
+        f"**Part:** {_clean(part.get('part', part['id']), 140)} (`{part['id']}`)",
+        f"**From:** {name}",
+        *([f"> {note}"] if note else []),
+        "For build_parts.json:",
+        f"```json\n{line}\n```",
+    ])
+    return msg[:1900]
+
+
 @router.get("/api/updates/status")
 def updates_status():
     password_set = len(os.environ.get("WAYMO_TASK_PASSWORD") or "") >= 8
@@ -117,23 +169,22 @@ def send_update(update: TeamUpdate, request: Request):
     summary = "\n".join(_clean(part, 600) for part in update.summary.split("\n"))
     if len(name) < 2 or len(summary.strip()) < 3:
         raise HTTPException(422, "Enter your name and a short summary.")
-    key = client_key(request)
-    _take_slot(key)
-    payload = json.dumps({
-        "content": _message(task, name, update.status, summary),
-        "username": "Ain't No Waymo board",
-        "allowed_mentions": {"parse": []},
-    }).encode("utf-8")
-    req = urllib.request.Request(url, data=payload, method="POST",
-                                 headers={"Content-Type": "application/json", "User-Agent": "aint-no-waymo-updates"})
-    try:
-        with urllib.request.urlopen(req, timeout=8) as resp:
-            if resp.status >= 300:
-                raise HTTPException(502, "Discord did not accept the update. Use Copy update instead.")
-    except HTTPException:
-        _give_back(key)
-        raise
-    except (urllib.error.URLError, TimeoutError, OSError):
-        _give_back(key)
-        raise HTTPException(502, "Could not reach Discord. Use Copy update instead.")
+    _post(url, request, _message(task, name, update.status, summary))
+    return {"sent": True}
+
+
+@router.post("/api/parts/updates")
+def send_part_update(update: PartUpdate, request: Request):
+    url = _webhook()
+    if not url:
+        raise HTTPException(503, "Discord updates are not set up on the server yet. Use Copy update instead.")
+    enforce_password(request, update.password)
+    part = _parts().get(update.part_id)
+    if part is None:
+        raise HTTPException(404, "Unknown part. Refresh the page.")
+    name = _clean(update.name, 70)
+    note = _clean(update.note, 300)
+    if len(name) < 2:
+        raise HTTPException(422, "Enter your full name.")
+    _post(url, request, _part_message(part, name, update.bought, note))
     return {"sent": True}
