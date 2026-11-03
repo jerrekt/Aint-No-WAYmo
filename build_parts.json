@@ -30,10 +30,10 @@
     {
       "id": "donor-car",
       "part": "Donor RC car",
-      "what": "1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering servo, gears, wheels and battery.",
+      "what": "1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering, gears, wheels and battery (check the battery has its own protection board).",
       "versions": "both",
       "bought": false,
-      "note": "Steers with a front servo, so it can't turn in place. Confirm on teardown."
+      "note": "Steers with a front servo or a left/center/right coil, so it can't turn in place. Confirm on teardown."
     },
     {
       "id": "esp32-s3-sense",
@@ -52,14 +52,6 @@
       "note": "Skip if the donor's board can be reused."
     },
     {
-      "id": "battery-protection",
-      "part": "Battery protection and charger",
-      "what": "Protects the LiPo and charges it safely (TP4056 class).",
-      "versions": "both",
-      "bought": false,
-      "note": ""
-    },
-    {
       "id": "estop",
       "part": "Physical E-stop",
       "what": "Tiny slide switch plus a tether or pull-pin that cuts motor power without Wi-Fi.",
@@ -69,8 +61,8 @@
     },
     {
       "id": "lights-sound",
-      "part": "Turn lights and chime",
-      "what": "2 amber LEDs with resistors and a small piezo sounder.",
+      "part": "Chime and turn lights",
+      "what": "Small piezo sounder for the chime (a must) and 2 amber LEDs with resistors (lowest priority).",
       "versions": "both",
       "bought": false,
       "note": "LEDs and resistors on hand; piezo to buy."

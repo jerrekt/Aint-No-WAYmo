@@ -1,5 +1,8 @@
 ## V1.035 — 2026-11-03
 - Build page: clearer V1/V2 summaries (what it does, can, can't, needs); V2 depth sensor on a sweeping roof turret, camera through the windshield; official shell size
+- Simulator: 360-degree scans relabelled as roof-turret sweeps; wheel readouts marked as simulator-only, with a note that the real car steers and can't turn in place.
+- Tasks: drop two-motor wording (diecast-fit-03, hardware-01, hardware-02); battery uses the donor's protected pack and the XIAO charger (hardware-03); chime is a must with our own tones, turn signals lowest priority (hardware-05); gyro only, no wheel counts (sensors-02); shell size, windshield camera and turret in the fit tasks.
+- Parts: remove battery protection and charger; chime and turn lights reworded; donor steering may be a servo or a coil, check on teardown.
 
 ## V1.034 — 2026-11-03
 - Build page parts: live bought flags and Mark bought through the claim bot; remove the retired CT 312 part route
