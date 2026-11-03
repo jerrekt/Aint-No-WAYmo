@@ -1,3 +1,6 @@
+## V1.035 — 2026-11-03
+- Build page: clearer V1/V2 summaries (what it does, can, can't, needs); V2 depth sensor on a sweeping roof turret, camera through the windshield; official shell size
+
 ## V1.034 — 2026-11-03
 - Build page parts: live bought flags and Mark bought through the claim bot; remove the retired CT 312 part route
 

@@ -2,13 +2,14 @@
 // NOT a production chassis or verified match to any Waymo collectible.
 // Open shell, measure usable interior, wheel wells, axle offsets and fastener mounts.
 // Then update parameters before printing. Print at 100% scale.
+// Shell OUTSIDE (Waymo shop): 112 x 45.6 x 51.2 mm incl. roof dome, about 1:42. Inside still unmeasured.
 inside_length_mm = 90; // PLACEHOLDER
 inside_width_mm = 35;   // PLACEHOLDER
 tray_clearance_mm = 0.7; // radial allowance all sides
 floor_thickness_mm = 1.5;
 edge_lip_height_mm = 2.0;
 edge_lip_wall_mm = 1.0;
-wheelbase_mm = 69.5; // placeholder if 1:43
+wheelbase_mm = 69.5; // placeholder; about 71.5 if the shell is 1:42
 
 length = inside_length_mm - 2*tray_clearance_mm;
 width  = inside_width_mm - 2*tray_clearance_mm;
