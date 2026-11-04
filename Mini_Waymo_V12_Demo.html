@@ -667,6 +667,7 @@ body:not([data-colorway="app"]) .appDock,body:not([data-colorway="app"]) .appSce
 @media(orientation:portrait){.mapOverlayBox{width:min(100vh,calc(100vw*1500/1049));height:min(100vw,calc(100vh*1049/1500));transform:rotate(90deg)}}
 .mapCloseBtn{position:absolute;top:max(10px,env(safe-area-inset-top,0));right:max(10px,env(safe-area-inset-right,0));z-index:1;font-size:13px}
 .buildJump{display:flex;gap:8px;margin:0 0 12px}
+body:not([data-view="build"]) .buildJump{display:none}
 .buildJump a{font-size:12px;font-weight:700;padding:7px 12px;border-radius:99px;border:1px solid rgba(140,165,185,.55);color:inherit;text-decoration:none}
 .buildJump a:hover{border-color:#46e5c5}
 </style><style id="diecast-vehicle-reference-style">body[data-colorway="app"] .sceneArt.sceneDiecast{object-fit:cover;object-position:50% 49%;height:194px;width:min(45%,470px);border-radius:24px;border:1px solid #ffffff22;filter:drop-shadow(0 12px 9px #091b3266)}@media(max-width:700px){body[data-colorway="app"] .sceneArt.sceneDiecast{position:absolute;right:0;bottom:-9px;width:68%;height:134px;opacity:.96;border-radius:20px;object-position:50% 50%}}</style><style id="mockupLayoutV1007">/* V1.007 DRAFT — implemented layout based on team-approved reference mockup.
