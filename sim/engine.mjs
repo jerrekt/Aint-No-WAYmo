@@ -1,5 +1,5 @@
 // Mini-Waymo Micro V4: simulated hallway telemetry, idealized depth scan, noisy odometry,
-// gyroscope drift, landmark correction, MQTT watchdog, Kratos route planner.
+// gyroscope drift, landmark correction, MQTT watchdog, server route planner.
 // This is intentionally an illustrative / FICTIONAL hallway topology.
 // Placeholder reverse-C hallway graph based on user-supplied IS building footprint.
 // NO room number position is field verified. 200 starts bottom-right and 230
@@ -114,7 +114,7 @@ export class MicroSimulation {
  }
  log(m){if(this.logged.at(-1)?.text===m)return;this.logged.push({t:this.time,text:m});if(this.logged.length>120)this.logged.shift()}
  start(){
-  if(!this.localized){this.log('Kratos refused mission: position not confirmed');return false;}
+  if(!this.localized){this.log('Server refused mission: position not confirmed');return false;}
   if(this.stepIndex>=this.mission.length-1){this.complete=true;this.running=false;this.log('Idle at IS '+this.currentRoom+'; ready for another room');return true}
   this.complete=false;this.running=true;this.nextLeg();if(!this.activeLeg)this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};return true;
  }
@@ -216,7 +216,7 @@ export class MicroSimulation {
   this.log('Local reset simulated: no automatic restart; select a new trip');return true;
  }
  // Unknown drop-off point: only the simulator knows the physical spawn location.
- // Kratos starts with NO position. It must match a scan or read a location marker.
+ // The server starts with NO position. It must match a scan or read a location marker.
  placeUnknown(node){
   if(!(node in NODES))throw Error('Unknown placement node');
   if(this.activeLeg)this.finishLeg('picked up - localization lost');
@@ -228,7 +228,7 @@ export class MicroSimulation {
   this.scanning=false;this.scanRequested=false;this.scanData=[];this.scans=[];
   this.complete=false;this.failed=false;this.running=false;this.plan=[];this.pathIndex=0;
   this.out=[0,0,6,2,0];this.mode='LOCALIZATION UNCERTAIN';this.prevStatus=-1;
-  this.log('Robot placed in hallway; Kratos location is UNKNOWN');
+  this.log('Robot placed in hallway; Server location is UNKNOWN');
   if(this.autoRecover && !this.estopLatched){
    // Prefer non-motion marker detection first; no turret scan is required when a tag is visible.
    if(this.tryMarkerRecovery())this.log('AUTO RECOVERY: marker confirmed location without rotating');
@@ -276,7 +276,7 @@ export class MicroSimulation {
   this.relocalizationResult={ok:true,node:entries[0][0],heading:this.robot.yaw,reason:'Simulated unique marker'};
   return this.applyKnownNode(entries[0][0],'marker');
  }
- nextLeg(){const from=this.currentNode||ROOMS[this.currentRoom],to=this.mission[this.stepIndex+1], dest=ROOMS[to];this.plan=route(from,dest);this.pathIndex=1;this.goalConfirmed=false;this.dwell=0;if(!this.plan.length){this.failed=true;this.log('No mapped route');return;}this.log('Kratos planned: IS '+this.currentRoom+' → IS '+to+' ('+this.plan.join('→')+')')}
+ nextLeg(){const from=this.currentNode||ROOMS[this.currentRoom],to=this.mission[this.stepIndex+1], dest=ROOMS[to];this.plan=route(from,dest);this.pathIndex=1;this.goalConfirmed=false;this.dwell=0;if(!this.plan.length){this.failed=true;this.log('No mapped route');return;}this.log('Server planned: IS '+this.currentRoom+' → IS '+to+' ('+this.plan.join('→')+')')}
  currentTarget(){return this.plan[this.pathIndex]||null}
  person(){if(!this.people)return null; // periodic crossing near junction C: a moving student, not a real vision feed
   const phase=(this.time%22)/22;
@@ -327,7 +327,7 @@ export class MicroSimulation {
     for(const m of d){const expected=ray(e.x+dx,e.y+dy,m.yaw+da,3.5,[]);let residual=Math.abs(expected-m.range);score+=Math.min(residual,0.5)**2;}
     if(!best||score<best.score)best={score,dx,dy,da};
   }
-  if(best&&best.score/d.length<0.022){this.est.x+=best.dx*0.5;this.est.y+=best.dy*0.5;this.est.yaw=wrap(this.est.yaw+best.da*0.6);this.est.sigma=Math.max(0.075,Math.min(this.est.sigma,0.13));this.log('Kratos matched the turret scan to the saved hallway map');}
+  if(best&&best.score/d.length<0.022){this.est.x+=best.dx*0.5;this.est.y+=best.dy*0.5;this.est.yaw=wrap(this.est.yaw+best.da*0.6);this.est.sigma=Math.max(0.075,Math.min(this.est.sigma,0.13));this.log('The server matched the turret scan to the saved hallway map');}
   else this.log('Scan geometry ambiguous; kept odometry estimate');
  }
  pauseVehicle(){

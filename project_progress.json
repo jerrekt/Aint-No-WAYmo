@@ -8,7 +8,7 @@
       "id": "scope",
       "title": "Challenge scope and architecture",
       "status": "complete",
-      "evidence": "Three-week scope, ESP32-S3 / Kratos split and indoor building goal defined."
+      "evidence": "Three-week scope, ESP32-S3 / server split and indoor building goal defined."
     },
     {
       "id": "simulator",
@@ -36,7 +36,7 @@
     },
     {
       "id": "kratos",
-      "title": "Deploy Kratos website, MQTT and telemetry",
+      "title": "Deploy the website, MQTT and telemetry",
       "status": "not_started",
       "evidence": "FastAPI/MQTT examples exist but are not deployed to the live server or vehicle."
     },

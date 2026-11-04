@@ -43,13 +43,13 @@ def stamp_pages(new):
     """Write the current version into the visible header text of the site pages."""
     subs = {
         'Mini_Waymo_V12_Demo.html': [
-            (r'(<span class="version">)V1\.\d{3}( · DRAFT)', r'\g<1>%s\2'),
-            (r"(ver\.textContent=')V1\.\d{3}( · DRAFT')", r'\g<1>%s\2'),
-            (r'(<title>[^<]*?)V1\.\d{3}( Draft)', r'\g<1>%s\2'),
-            (r'(document\.title="Ain\'t No Waymo \| )V1\.\d{3}( Draft")', r'\g<1>%s\2'),
+            (r'(<span class="version">)V1\.\d{3}(</span>)', r'\g<1>%s\2'),
+            (r"(ver\.textContent=')V1\.\d{3}(')", r'\g<1>%s\2'),
+            (r'(<title>[^<]*?\| )V1\.\d{3}(</title>)', r'\g<1>%s\2'),
+            (r'(document\.title="Ain\'t No Waymo \| )V1\.\d{3}(")', r'\g<1>%s\2'),
         ],
         'Mini_Waymo_V12_About.html': [
-            (r'(<span class="pill">)V1\.\d{3}( draft · Student prototype)', r'\g<1>%s\2'),
+            (r'(<span class="pill">)V1\.\d{3}( · Student prototype)', r'\g<1>%s\2'),
         ],
     }
     for name, rules in subs.items():
