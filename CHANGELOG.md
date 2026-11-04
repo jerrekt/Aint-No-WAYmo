@@ -1,3 +1,6 @@
+## V1.037 — 2026-11-03
+- Weighted task board (groups, S/M/L points, V1 and V2 phase bars with the Nov 13 checkpoint), progress card counted from tasks, priced buy list by group
+
 ## V1.036 — 2026-11-03
 - Live map: the route line ends at the room's door and the car parks at the door on arrival
 - Team page: roles as agreed 2026-11-03 (BJ lead and systems, Noah drivetrain, Subir parts and site, Isabel mechanical fit, Brandon survey; Gage open). Parts: donor car ordered (arrives 11/06), DRV8833 and V1 line sensors on hand, sensor and turret servo being ordered.
