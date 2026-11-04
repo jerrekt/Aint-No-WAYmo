@@ -1,7 +1,7 @@
 {
-  "version": "V1.036",
+  "version": "V1.037",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-03",
-  "note": "Live map: the route line ends at the room's door and the car parks at the door on arrival"
+  "note": "Weighted task board (groups, S/M/L points, V1 and V2 phase bars with the Nov 13 checkpoint), progress card counted from tasks, priced buy list by group"
 }
