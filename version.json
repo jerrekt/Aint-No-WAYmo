@@ -1,7 +1,7 @@
 {
-  "version": "V1.037",
+  "version": "V1.038",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-11-03",
-  "note": "Weighted task board (groups, S/M/L points, V1 and V2 phase bars with the Nov 13 checkpoint), progress card counted from tasks, priced buy list by group"
+  "date": "2026-11-04",
+  "note": "Site polish: retire the old update form, server wording on public pages (q59), updated footer, no DRAFT tag, About describes the two versions, full-screen map on phones, decision and trip beside the map on desktop, trip chip hidden until a trip, Build jump links"
 }

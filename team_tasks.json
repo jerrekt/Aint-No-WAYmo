@@ -9,7 +9,7 @@
     "diecast-fit": "Diecast fit and chassis",
     "hardware": "Drivetrain and electronics",
     "sensors": "Sensing and local safety",
-    "kratos": "Kratos infrastructure",
+    "kratos": "Server infrastructure",
     "survey": "IS Building mapping",
     "demo": "Physical demonstration"
   },
@@ -77,10 +77,10 @@
     {
       "id": "scope-02",
       "milestone": "scope",
-      "title": "Pick the car's setup: local safety plus Kratos",
+      "title": "Pick the car's setup: local safety plus a server",
       "status": "done",
       "owner": null,
-      "detail": "The ESP32 handles stopping; Kratos handles missions.",
+      "detail": "The ESP32 handles stopping; the server handles missions.",
       "size": "S",
       "phase": "v1"
     },
@@ -210,7 +210,7 @@
       "title": "Add a physical E-stop that cuts motor power",
       "status": "todo",
       "owner": null,
-      "detail": "Must work without Wi-Fi or Kratos and must not restart on its own. Do this before any self-driving test.",
+      "detail": "Must work without Wi-Fi or the server and must not restart on its own. Do this before any self-driving test.",
       "size": "M",
       "phase": "v1"
     },
@@ -267,7 +267,7 @@
     {
       "id": "kratos-01",
       "milestone": "kratos",
-      "title": "Set up the Waymo container on Kratos",
+      "title": "Set up the server for the site",
       "status": "done",
       "owner": "Branden Adsuara",
       "detail": "Container running; the app runs as a limited user.",
