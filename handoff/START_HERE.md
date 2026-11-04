@@ -9,7 +9,7 @@
 - **Visual check:** `previews/V1.008_Desktop.png` and `previews/V1.008_Mobile.png`.
 - **All sources:** `aint-no-waymo/` (GitHub-ready working tree, including MCU, backend, assets, tasks, maps, and version tools).
 - **Claude handoff:** `handoffs/CLAUDE.md`, `handoffs/KRATOS.md`, `handoffs/CLAUDE_PASTE_PROMPT.md`.
-- **Team handoff:** `handoffs/TEAM.md`, `handoffs/TEAM_PASTE_PROMPT.md`.
+- **Team handoff:** `handoffs/TEAM.md`, `handoffs/TEAM_PASTE_PROMPT.md`, `handoffs/SUBIR_HANDOFF.md` (build status, parts, pin map, 2026-11-03).
 - **Hardware/map:** `handoffs/HARDWARE_MAP.md`.
 - **Mnemosyne note:** `handoffs/MNEMOSYNE_CURRENT_STATE.md`.
 - **Deployment review:** `handoffs/RELEASE_CHECKLIST.md`.
