@@ -1,5 +1,6 @@
 ## V1.036 — 2026-11-03
 - Live map: the route line ends at the room's door and the car parks at the door on arrival
+- Team page: roles as agreed 2026-11-03 (BJ lead and systems, Noah drivetrain, Subir parts and site, Isabel mechanical fit, Brandon survey; Gage open). Parts: donor car ordered (arrives 11/06), DRV8833 and V1 line sensors on hand, sensor and turret servo being ordered.
 
 ## V1.035 — 2026-11-03
 - Build page: clearer V1/V2 summaries (what it does, can, can't, needs); V2 depth sensor on a sweeping roof turret, camera through the windshield; official shell size

@@ -25,15 +25,15 @@
       "what": "World's Littlest Waymo Jaguar I-PACE diecast. The body and glass; the base and wheels may be replaced.",
       "versions": "both",
       "bought": true,
-      "note": "On hand. Outside 112 x 45.6 x 51.2 mm (Waymo shop; height includes the roof dome), about 1:42 scale. Inside still to be measured."
+      "note": "On hand. Outside 112 x 45.6 x 51.2 mm (Waymo shop; height includes the roof dome), about 1:42 scale. Isabel is measuring the inside with calipers."
     },
     {
       "id": "donor-car",
       "part": "Donor RC car",
       "what": "1/43 4WD mini RC drift car (Dingdongwu, on Amazon). Gives the drive motor, steering, gears, wheels and battery (check the battery has its own protection board).",
       "versions": "both",
-      "bought": false,
-      "note": "Steers with a front servo or a left/center/right coil, so it can't turn in place. Confirm on teardown."
+      "bought": true,
+      "note": "Ordered by Noah, arriving Fri 11/06. Steers with a front servo or a left/center/right coil, so it can't turn in place. Confirm on teardown."
     },
     {
       "id": "esp32-s3-sense",
@@ -48,8 +48,8 @@
       "part": "Motor driver",
       "what": "Small driver (DRV8835 class) for the drive motor. The steering servo runs straight from the ESP32.",
       "versions": "both",
-      "bought": false,
-      "note": "Skip if the donor's board can be reused."
+      "bought": true,
+      "note": "DRV8833 on hand (BJ). Channel B steers if the donor's steering is a coil."
     },
     {
       "id": "estop",
@@ -128,8 +128,8 @@
       "part": "Line sensor",
       "what": "Small reflectance sensor under the car to follow the tape.",
       "versions": "v1",
-      "bought": false,
-      "note": ""
+      "bought": true,
+      "note": "KY-033 line sensor and two IR sensors on hand (Noah), tested on an ESP32."
     },
     {
       "id": "floor-tape",
@@ -153,7 +153,7 @@
       "what": "8 x 8 depth grid in a cone of about 60 degrees, 2 to 3 m indoors. Rides the roof turret: faces forward while driving to stop for obstacles, sweeps at stops to scan.",
       "versions": "v2",
       "bought": false,
-      "note": ""
+      "note": "Pololu #3418. Being ordered by Subir."
     },
     {
       "id": "imu",
@@ -169,7 +169,7 @@
       "what": "Sweeps the depth sensor from a printed roof dome, like a real Waymo's lidar. Sweeps back and forth rather than spinning, so no slip ring. Needed because the drift car can't turn in place.",
       "versions": "v2",
       "bought": false,
-      "note": ""
+      "note": "2 g 180-degree micro servo, JST version. Being ordered by Subir."
     }
   ]
 }
