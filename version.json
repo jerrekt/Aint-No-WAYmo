@@ -1,7 +1,7 @@
 {
-  "version": "V1.035",
+  "version": "V1.036",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-11-03",
-  "note": "Build page: clearer V1/V2 summaries (what it does, can, can't, needs); V2 depth sensor on a sweeping roof turret, camera through the windshield; official shell size"
+  "date": "2026-11-04",
+  "note": "Map dimensions read from maps/is_second_floor_dimensions.json, drawn as measured, estimated (~) or to measure, with a key"
 }

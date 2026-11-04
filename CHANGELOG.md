@@ -1,3 +1,6 @@
+## V1.036 — 2026-11-04
+- Map dimensions read from maps/is_second_floor_dimensions.json, drawn as measured, estimated (~) or to measure, with a key
+
 ## V1.035 — 2026-11-03
 - Build page: clearer V1/V2 summaries (what it does, can, can't, needs); V2 depth sensor on a sweeping roof turret, camera through the windshield; official shell size
 - Simulator: 360-degree scans relabelled as roof-turret sweeps; wheel readouts marked as simulator-only, with a note that the real car steers and can't turn in place.
