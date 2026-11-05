@@ -54,7 +54,8 @@ The Build page on the site is the live list. When you buy something, mark it the
 | 2 g micro servo (turret) | To buy | Not set | V2 |
 | Gyro (LSM6-series carrier) | To buy; could share the Pololu shipping | Not set | V2 |
 | Piezo sounder (chime) | To buy | Not set | Both |
-| Thin wire (about 30 AWG), Kapton tape, pin vise | To buy | Not set | Both |
+| Thin wire (about 30 AWG), pin vise | To buy | Not set | Both |
+| Kapton tape | Nice to have; the printed tray, electrical tape or hot glue insulate too | Not set | Both |
 | Multimeter or USB power meter | To check if someone has one | Not set | Both |
 | Line sensor, floor tape, VL53L1X single-point sensor | Only if we build V1 | Not set | V1 |
 | Phone hotspot | Use a phone; no purchase | Not set | Both |
@@ -89,7 +90,7 @@ Power path: battery → main switch → XIAO BAT+, and main switch → E-stop �
 - Steering after teardown: a coil uses BOUT1/BOUT2 with D2/D3 as PWM. A 3-wire servo takes its signal on D2 and V+ from the rail. A 5-wire servo (motor plus position pot) runs its motor on BOUT1/BOUT2, and its pot wiper moves to D10 in place of the rail sense.
 - If the board resets under load, give the VL53L7CX its own small 3.3 V regulator.
 - No SD card in the Sense board, because pins D8 to D10 are shared with it.
-- The shell is metal: Kapton under every board, and the Wi-Fi antenna out of the metal.
+- The shell is metal: nothing conductive may touch it. Keep boards in the printed tray (or under tape or hot glue), and the Wi-Fi antenna out of the metal.
 
 ## Website and repo
 
@@ -128,7 +129,7 @@ The next big unlock is the donor car's teardown: it settles the steering wiring 
 
 - [ ] Tear down the donor car when it arrives: is the steering a servo or a coil, does the battery have a protection board, what are its dimensions
 - [ ] Measure the shell's inside with calipers: size, wheelbase, roof height, ground clearance
-- [ ] Order the rest: S3 Sense, turret servo, gyro, piezo, thin wire, Kapton
+- [ ] Order the rest: S3 Sense, turret servo, gyro, piezo, thin wire
 - [ ] Flash the ESP32-C3 bench test and measure the delay (BJ)
 - [ ] Measure the north wall doors, rooms 227 to 222 (someone at school)
 - [ ] Confirm the unclear room labels: 218B, 219C, the two 216s, the repeated 223

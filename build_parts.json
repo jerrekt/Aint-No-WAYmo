@@ -133,8 +133,8 @@
     },
     {
       "id": "kapton",
-      "part": "Kapton tape",
-      "what": "Insulates the electronics from the metal diecast shell.",
+      "part": "Kapton tape (nice to have)",
+      "what": "Optional. Insulation between boards and the metal shell; the printed tray, electrical tape or hot glue do the same job.",
       "versions": "both",
       "group": "power",
       "qty": "1 roll",
@@ -143,7 +143,7 @@
       "where": "Amazon",
       "link": "",
       "bought": false,
-      "note": ""
+      "note": "Skip unless a board has to sit right against the metal."
     },
     {
       "id": "chassis-print",
