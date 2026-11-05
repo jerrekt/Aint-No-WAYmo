@@ -2,7 +2,7 @@
   "schema": 1,
   "version": "V1.003-draft",
   "note": "Starting list for the task board. Live owner and status come from the claim server (waymo-api); this file is the fallback and the source of titles and details.",
-  "note_sizes": "Size is S, M or L (1, 2 or 4 points); the bars count points, not tasks. Phase v1 = needed before the first car rolls on tape (checkpoint); v2 = the room scanner for the demo. Sizes and phases are estimates; fix them by pull request.",
+  "note_sizes": "Size is S, M or L (1, 2 or 4 points); the bars count points, not tasks. Phase both = needed by either car; v1 = only the line follower (the simple alternative path); v2 = only the room scanner (the smart car for the demo). Each car's bar counts the shared work plus its own. Sizes and phases are estimates; fix them by pull request.",
   "milestone_labels": {
     "scope": "Project definition",
     "simulator": "Website and simulator",
@@ -19,14 +19,17 @@
     "L": 4
   },
   "phases": {
+    "both": {
+      "label": "Shared",
+      "when": "Either car"
+    },
     "v1": {
       "label": "V1 line follower",
-      "when": "First car",
-      "checkpoint": "2026-11-13"
+      "when": "Simple path"
     },
     "v2": {
       "label": "V2 room scanner",
-      "when": "Demo"
+      "when": "Smart path"
     }
   },
   "groups": [
@@ -72,7 +75,7 @@
       "owner": null,
       "detail": "Scope and deadline are written down.",
       "size": "S",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "scope-02",
@@ -82,7 +85,7 @@
       "owner": null,
       "detail": "The ESP32 handles stopping; the server handles missions.",
       "size": "S",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "scope-03",
@@ -92,7 +95,7 @@
       "owner": null,
       "detail": "Confirm who does what. One owner per active task; don't assume anyone's role.",
       "size": "S",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "simulator-01",
@@ -102,7 +105,7 @@
       "owner": null,
       "detail": "The browser simulator runs room missions with a stop queue.",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "simulator-02",
@@ -112,7 +115,7 @@
       "owner": null,
       "detail": "Automated simulator checks pass.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "simulator-03",
@@ -122,7 +125,7 @@
       "owner": null,
       "detail": "Live at aintnowaymo.adsuaracloud.com.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "simulator-04",
@@ -132,7 +135,7 @@
       "owner": null,
       "detail": "Claim and update tasks on this page or with the Discord commands (/claim, /done, /tasks).",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "diecast-fit-01",
@@ -142,7 +145,7 @@
       "owner": null,
       "detail": "Outside is 112 x 45.6 x 51.2 mm (Waymo shop, about 1:42). Use calipers for the inside: size, wheelbase, wheel size, roof height and ground clearance. Photograph the opened shell.",
       "size": "S",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "diecast-fit-02",
@@ -152,7 +155,7 @@
       "owner": null,
       "detail": "Check the parts fit, the camera pokes through the windshield, the turret sits on the roof, and the antenna isn't blocked by metal. Parts are candidates, not final.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "diecast-fit-03",
@@ -162,7 +165,7 @@
       "owner": null,
       "detail": "The donor drift car brings one drive motor, its steering and a small 1S battery. Fit them with the ESP32 and driver, and keep the battery clear of sharp metal.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "diecast-fit-04",
@@ -172,7 +175,7 @@
       "owner": null,
       "detail": "Needs the real measurements first. Print a test fit; nothing sharp near the battery.",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "hardware-01",
@@ -182,7 +185,7 @@
       "owner": null,
       "detail": "The donor drift car supplies the motor, steering, wheels and battery. Confirm the fit first, then buy a small dual-channel driver (DRV8835 class) that matches the donor's motor.",
       "size": "S",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "hardware-02",
@@ -192,7 +195,7 @@
       "owner": null,
       "detail": "Run the donor's motor and steering from the ESP32. At teardown, check whether steering is a servo or a left/center/right coil. Test forward, reverse, turns and slow stops. It can't turn in place, so plan wide turns.",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "hardware-03",
@@ -202,7 +205,7 @@
       "owner": null,
       "detail": "Use the donor's 1S pack (check it has its own protection board) and the XIAO's built-in charger. Check the motor starting up doesn't make the ESP32 reset.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "hardware-04",
@@ -212,7 +215,7 @@
       "owner": null,
       "detail": "Must work without Wi-Fi or the server and must not restart on its own. Do this before any self-driving test.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "hardware-05",
@@ -221,6 +224,16 @@
       "status": "todo",
       "owner": null,
       "detail": "The chime is a must: our own tones for trip start, arrival, and a please-move tone when something blocks the car for a few seconds. No copied Waymo audio. Turn signals are lowest priority. Neither may slow down obstacle checks.",
+      "size": "M",
+      "phase": "both"
+    },
+    {
+      "id": "hardware-06",
+      "milestone": "hardware",
+      "title": "Build the roof turret for the depth sensor",
+      "status": "todo",
+      "owner": null,
+      "detail": "Printed dome on the roof with the 2 g servo sweeping the VL53L7CX. Wire the servo to the motor rail.",
       "size": "M",
       "phase": "v2"
     },
@@ -252,15 +265,55 @@
       "owner": null,
       "detail": "Stop for close objects, bad readings, lost connection or E-stop. Test with the network off.",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "sensors-04",
       "milestone": "sensors",
-      "title": "Recognize room markers",
+      "title": "Recognize room markers with the camera",
       "status": "todo",
       "owner": null,
       "detail": "Start with two markers. If unsure where it is, stop instead of guessing.",
+      "size": "L",
+      "phase": "v2"
+    },
+    {
+      "id": "sensors-05",
+      "milestone": "sensors",
+      "title": "Get the line sensor reading the tape",
+      "status": "todo",
+      "owner": null,
+      "detail": "Reflectance sensor array under the car (2 or 3 elements); tune the threshold on the real floor and tape.",
+      "size": "M",
+      "phase": "v1"
+    },
+    {
+      "id": "sensors-06",
+      "milestone": "sensors",
+      "title": "Follow the tape and stop at the counted door",
+      "status": "todo",
+      "owner": null,
+      "detail": "Steer on the line, count door and junction marks, stop at the chosen room. No map or markers needed.",
+      "size": "L",
+      "phase": "v1"
+    },
+    {
+      "id": "sensors-07",
+      "milestone": "sensors",
+      "title": "Place room markers (with permission)",
+      "status": "todo",
+      "owner": null,
+      "detail": "Printed markers by each door at car height so the windshield camera can read which room it is at.",
+      "size": "S",
+      "phase": "v2"
+    },
+    {
+      "id": "sensors-08",
+      "milestone": "sensors",
+      "title": "Match the turret scan to the saved map",
+      "status": "todo",
+      "owner": null,
+      "detail": "At each stop sweep the sensor, compare the wall distances with the saved hallway, and decide where the car is. Stop if unsure. Stretch goal: fall back to gyro plus markers.",
       "size": "L",
       "phase": "v2"
     },
@@ -272,7 +325,7 @@
       "owner": "Branden Adsuara",
       "detail": "Container running; the app runs as a limited user.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-02",
@@ -282,7 +335,7 @@
       "owner": "Branden Adsuara",
       "detail": "Bench kit ready, kept apart from the real car. Measure the delay (goal: under 150 ms for 95% of messages) and how many messages get through. Not measured yet.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-03",
@@ -292,7 +345,7 @@
       "owner": "Branden Adsuara",
       "detail": "Live through its own Cloudflare tunnel.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-04",
@@ -302,7 +355,7 @@
       "owner": "Branden Adsuara",
       "detail": "Claims and status are saved and shared between this page and Discord. Backed up on the same machine for now.",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-05",
@@ -312,7 +365,7 @@
       "owner": null,
       "detail": "Only admins send commands; guests can only watch. Enforce it on the server, not just on the page. Keep MQTT private.",
       "size": "L",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-06",
@@ -322,7 +375,7 @@
       "owner": null,
       "detail": "Label real, estimated and simulated data clearly. Track each command as sent, received and done. A disconnected car must not look live.",
       "size": "L",
-      "phase": "v2"
+      "phase": "both"
     },
     {
       "id": "kratos-07",
@@ -332,7 +385,7 @@
       "owner": "Branden Adsuara",
       "detail": "Merged changes go live within a minute.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-08",
@@ -342,7 +395,7 @@
       "owner": "Branden Adsuara",
       "detail": "Changes need a pull request and passing checks; no force pushes.",
       "size": "S",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "kratos-09",
@@ -352,7 +405,7 @@
       "owner": "Branden Adsuara",
       "detail": "The update form posts to Discord. Task claiming replaces it once claiming is on.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "survey-01",
@@ -362,7 +415,7 @@
       "owner": null,
       "detail": "The map is drawn from phone measurements. Room labels and lengths still need checking on site.",
       "size": "M",
-      "phase": "v2"
+      "phase": "both"
     },
     {
       "id": "survey-02",
@@ -372,22 +425,22 @@
       "owner": null,
       "detail": "South wall (rooms 201 to 214) is done. North wall still needed. The hand sketch wins; mark unsure doors with a guessed room number and ?.",
       "size": "M",
-      "phase": "v2"
+      "phase": "both"
     },
     {
       "id": "survey-03",
       "milestone": "survey",
-      "title": "Place room markers (with permission)",
+      "title": "Lay the tape route and junction marks (with permission)",
       "status": "todo",
       "owner": null,
-      "detail": "Ask before placing anything. If markers aren't allowed, use existing signs.",
+      "detail": "Tape line down the hallway with a mark at each door and junction so the line follower can count them. Needs permission to tape the floor.",
       "size": "S",
       "phase": "v1"
     },
     {
       "id": "survey-04",
       "milestone": "survey",
-      "title": "Teach the car a short hallway route",
+      "title": "Teach the car a short hallway route (scan matching)",
       "status": "todo",
       "owner": null,
       "detail": "Start with two nearby rooms. Confirm the room marker on arrival.",
@@ -402,7 +455,7 @@
       "owner": null,
       "detail": "Needs someone at school. Measure the wall before the first door, each door and wall width, and which doors are doubles. Then add them to the map.",
       "size": "M",
-      "phase": "v2"
+      "phase": "both"
     },
     {
       "id": "survey-06",
@@ -412,7 +465,7 @@
       "owner": null,
       "detail": "Unconfirmed: 218B, 219C, two doors both labelled 216, and a repeated 223. Check each in person. Keep guessed labels marked with a question mark until confirmed.",
       "size": "S",
-      "phase": "v2"
+      "phase": "both"
     },
     {
       "id": "demo-01",
@@ -422,7 +475,7 @@
       "owner": null,
       "detail": "Simulated only so far. Record failed tries too.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "demo-02",
@@ -432,7 +485,7 @@
       "owner": null,
       "detail": "Not done on the real car yet. Record failed tries too.",
       "size": "L",
-      "phase": "v2"
+      "phase": "both"
     },
     {
       "id": "demo-03",
@@ -442,7 +495,7 @@
       "owner": null,
       "detail": "On the real car, supervised. Check it restarts safely afterwards.",
       "size": "M",
-      "phase": "v1"
+      "phase": "both"
     },
     {
       "id": "demo-04",
@@ -452,7 +505,7 @@
       "owner": null,
       "detail": "Videos, photos, delays, mission counts and failures. Tie the progress bar to finished milestones.",
       "size": "L",
-      "phase": "v2"
+      "phase": "both"
     }
   ]
 }

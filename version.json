@@ -1,7 +1,7 @@
 {
-  "version": "V1.040",
+  "version": "V1.041",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-04",
-  "note": "Simulator: car keeps to the right-hand lane, turns into the door on arrival (crossing the hall for left-side rooms), and plays Waymo-style ride chimes for departure, arrival and please-move; the Sound button toggles them"
+  "note": "Task board: V1 and V2 are parallel paths, not phases. Tasks are shared, V1-only or V2-only; each car's bar counts shared work plus its own. Five new path-specific tasks (line sensor, tape following, room markers, roof turret, scan matching); checkpoint flag dropped"
 }
