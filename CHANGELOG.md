@@ -1,3 +1,8 @@
+## V1.039 — 2026-11-04
+- Board keeps sizes, phases and groups when tasks come from the live API; the task route now sends them too
+- Kapton tape marked nice to have on the Build page: the printed tray, electrical tape or hot glue insulate the boards from the metal shell just as well.
+- Gyro bought: HiLetgo GY-521 MPU-6050 3-pack, $11.79 (BJ).
+
 ## V1.038 — 2026-11-04
 - Site polish: retire the old update form, server wording on public pages (q59), updated footer, no DRAFT tag, About describes the two versions, full-screen map on phones, decision and trip beside the map on desktop, trip chip hidden until a trip, Build jump links
 
