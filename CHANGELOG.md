@@ -1,3 +1,6 @@
+## V1.044 — 2026-11-05
+- Build page: wiring plan diagram (assets/wiring.svg) drawn from the team handoff pin map, with the decisions of 2026-11-05: steering is a servo on D2 (D3 free), and the V2 depth sensor is a TF-Luna lidar on the motor rail instead of the VL53L7CX. Parts list, tasks, About table and SUBIR_HANDOFF.md pin map updated to match
+
 ## V1.043 — 2026-11-05
 - Simulator: car marker turns the short way again; its heading was never wrapped, so after enough trips the shortest-turn maths went the long way round (about 270 degrees) on the next dispatch
 

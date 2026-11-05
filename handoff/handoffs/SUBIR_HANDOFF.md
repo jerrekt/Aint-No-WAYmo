@@ -27,7 +27,7 @@ The car is a 1/43 drift car's guts inside the Waymo shell, with the sensor on a 
 | Drivetrain | Donor 1/43 4WD mini RC drift car (motor, steering, wheels, battery) | Fits the shell's size class; it steers like a car, so no turning in place |
 | Brain and camera | XIAO ESP32-S3 Sense | Camera pokes through the windshield, facing forward, and reads room markers |
 | Motor driver | DRV8833 dual H-bridge (BJ has one) | Runs on 1S, 3.3 V logic; channel A drives, channel B steers if the steering is a coil |
-| Depth sensor (V2) | Pololu VL53L7CX carrier #3418, 13 x 18 mm | Widest cone (60 x 60 degrees), 3.5 m; faces forward while driving, sweeps at stops |
+| Depth sensor (V2) | TF-Luna single-point lidar, 8 m, 5 g, I2C 0x10 | Decided 2026-11-05, replaces the VL53L7CX: real range down the hall; the turret wags it ±25° while driving for obstacle stop and sweeps a full arc at stops |
 | Turret servo (V2) | 2 g 180-degree micro servo (FFTY, JST version) | Sweeps the sensor back and forth from a printed roof dome; no slip ring |
 | Gyro (V2) | GY-521 MPU-6050 board | Heading between scans; the donor has no wheel encoders |
 | Sound | Piezo chime, a must | Our own tones: trip start, arrival, and please-move when blocked. No copied Waymo audio |
@@ -35,7 +35,7 @@ The car is a 1/43 drift car's guts inside the Waymo shell, with the sensor on a 
 | Battery | Donor's 1S pack + the XIAO's built-in charger | No separate protection board; check the pack has its own at teardown |
 | E-stop | Slide switch on the motor power | Cuts motors without Wi-Fi; the ESP32 stays on |
 
-Check at teardown: is the donor's steering a servo or a left/center/right coil? That decides the wiring for steering.
+Steering: the donor uses a servo (BJ, 2026-11-05).
 
 ## Parts
 
@@ -49,7 +49,7 @@ The Build page on the site is the live list. When you buy something, mark it the
 | 3D printer and filament (chassis, turret dome, markers) | On hand | BJ | Both |
 | ESP32-C3 | On hand, bench tests only (no camera) | BJ | Testing |
 | Donor 1/43 RC drift car | Ordered | Noah | Both |
-| VL53L7CX depth sensor (Pololu #3418) | Ordering | Subir | V2 |
+| TF-Luna lidar (replaces the VL53L7CX; don't order the 7CX) | To buy, Amazon | Not set | V2 |
 | XIAO ESP32-S3 Sense | To buy, with BJ's Seeed order | BJ | Both |
 | 2 g micro servo (turret) | To buy | Not set | V2 |
 | Gyro (GY-521 MPU-6050, 3-pack) | Ordered, arrives Nov 6 | BJ | V2 |
@@ -64,31 +64,31 @@ Pololu ships from Las Vegas, so UPS Ground usually arrives in 1 to 2 days. Add t
 
 ## Wiring
 
-Draft until the donor car's teardown, because the steering type changes pins D2 and D3. BJ has diagrams for both versions; this pin map is the same plan in table form. All grounds are joined.
+Steering is a servo (BJ, 2026-11-05), so D2 is its signal and D3 is free. The wiring diagram on the Build page (`assets/wiring.svg`) is this table drawn out. All grounds are joined.
 
 | XIAO pin | GPIO | V1 | V2 | Note |
 | --- | --- | --- | --- | --- |
 | D0 | 1 | DRV8833 AIN1 (drive) | DRV8833 AIN1 (drive) | PWM |
 | D1 | 2 | DRV8833 AIN2 (drive) | DRV8833 AIN2 (drive) | PWM |
-| D2 | 3 | Steering: BIN1, or servo signal | Steering: BIN1, or servo signal | Depends on teardown |
-| D3 | 4 | Steering: BIN2 (coil only) | Steering: BIN2 (coil only) | Free if the steering is a 3-wire servo |
-| D4 | 5 | I2C SDA: VL53L1X | I2C SDA: VL53L7CX + gyro | One shared bus |
-| D5 | 6 | I2C SCL: VL53L1X | I2C SCL: VL53L7CX + gyro | One shared bus |
+| D2 | 3 | Steering servo signal | Steering servo signal | Donor steers with a servo (BJ, 2026-11-05) |
+| D3 | 4 | Free | Free | Was BIN2 for a steering coil |
+| D4 | 5 | I2C SDA: VL53L1X | I2C SDA: TF-Luna (0x10) + gyro (0x68) | One shared bus |
+| D5 | 6 | I2C SCL: VL53L1X | I2C SCL: TF-Luna + gyro | One shared bus |
 | D6 | 43 | Left turn LED (330 Ω) | Left turn LED (330 Ω) | Flickers at boot; harmless |
 | D7 | 44 | Right turn LED (330 Ω) | Right turn LED (330 Ω) | |
 | D8 | 7 | Line sensor (analog in) | Turret servo signal | Shared with the SD slot: no SD card |
 | D9 | 8 | Piezo chime (100 Ω) | Piezo chime (100 Ω) | PWM tone |
 | D10 | 9 | Rail sense (analog in) | Rail sense (analog in) | 100k/100k divider from the motor rail |
 | BAT+ | pad | 1S battery after the main switch | 1S battery after the main switch | Back of the XIAO; charges over USB-C |
-| 3V3 | out | VL53L1X VIN, line sensor VCC, nSLEEP | VL53L7CX VIN, gyro VIN, nSLEEP | Watch the total load |
+| 3V3 | out | VL53L1X VIN, line sensor VCC, nSLEEP | Gyro VIN, nSLEEP | The TF-Luna is NOT on 3V3 |
 
-Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, servos V+, 470 µF bulk cap to GND).
+Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, steering and turret servo V+, TF-Luna VCC, 470 µF bulk cap to GND).
 
-- Power the depth sensor and gyro from the XIAO's 3V3 pin, never the battery. Battery voltage on the sensor's VIN would push the I2C lines over the ESP32's limit.
+- Gyro from the XIAO's 3V3 pin. The TF-Luna takes 3.7 to 5.2 V and about 70 mA, so it goes on the motor rail (after the E-stop; it stops with the motors, which is fine). Its I2C lines are 3.3 V logic, so no level shifter. Below about 3.7 V on the pack the Luna may misread: the D10 rail sense should flag low battery before that.
 - The E-stop cuts only the motor rail (driver and servos); the ESP32 stays on. D10 reads the rail, so the firmware sees both the battery level and the E-stop state.
 - DRV8833: tie nSLEEP high, and put the 470 µF bulk cap across VM and GND at the board.
-- Steering after teardown: a coil uses BOUT1/BOUT2 with D2/D3 as PWM. A 3-wire servo takes its signal on D2 and V+ from the rail. A 5-wire servo (motor plus position pot) runs its motor on BOUT1/BOUT2, and its pot wiper moves to D10 in place of the rail sense.
-- If the board resets under load, give the VL53L7CX its own small 3.3 V regulator.
+- Steering servo: signal on D2, V+ from the motor rail, GND common. BOUT1/BOUT2 on the DRV8833 are spare. (If the teardown shows a 5-wire servo with a position pot instead, its motor goes on BOUT1/BOUT2 and the pot wiper to D10 in place of the rail sense.)
+- If the Luna is noisy on the shared rail, add a 100 µF cap at its connector.
 - No SD card in the Sense board, because pins D8 to D10 are shared with it.
 - The shell is metal: nothing conductive may touch it. Keep boards in the printed tray (or under tape or hot glue), and the Wi-Fi antenna out of the metal.
 

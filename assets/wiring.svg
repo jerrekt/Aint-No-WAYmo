@@ -60,8 +60,6 @@
 <text x="370" y="316" font-size="12" fill="#1b2a3a" text-anchor="end">nSLEEP</text>
 <polyline points="520,220 492,220 492,208 380,208" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <polyline points="520,266 478,266 478,234 380,234" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="520,312 464,312 464,260 380,260" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="520,358 450,358 450,286 380,286" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <text x="470" y="200" font-size="11" fill="#5a6b7c" text-anchor="middle">PWM</text>
 <text x="390" y="316" font-size="11" fill="#5a6b7c" text-anchor="start">to 3V3</text>
 <circle cx="180" cy="350" r="4" fill="#1b2a3a"/>
@@ -69,20 +67,19 @@
 <circle cx="220" cy="350" r="4" fill="#1b2a3a"/>
 <text x="220" y="340" font-size="12" fill="#5a6b7c" text-anchor="middle">GND</text>
 <text x="160" y="212" font-size="11" fill="#5a6b7c" text-anchor="start">AOUT1/2</text>
-<text x="160" y="264" font-size="11" fill="#5a6b7c" text-anchor="start">BOUT1/2</text>
+<text x="160" y="264" font-size="11" fill="#5a6b7c" text-anchor="start">BOUT1/2 spare</text>
 <rect x="20" y="188" width="110" height="52" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
 <text x="75.0" y="212.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1b2a3a">Drive</text>
 <text x="75.0" y="231.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">motor</text>
 <polyline points="130,214 150,214" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <rect x="20" y="250" width="110" height="52" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
 <text x="75.0" y="274.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1b2a3a">Steering</text>
-<text x="75.0" y="293.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">coil: BOUT1/2</text>
-<polyline points="130,276 150,276" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="20" y="372" font-size="11" fill="#5a6b7c" text-anchor="start">If the donor steers with a 3-wire servo: signal on D2, V+ from the motor rail, D3 free.</text>
-<text x="150" y="428" font-size="12" fill="#0f7b62" text-anchor="start" font-weight="700">I2C bus · SDA D4 · SCL D5 · fed from 3V3, never the battery</text>
+<text x="75.0" y="293.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">servo: D2 + rail</text>
+<text x="20" y="372" font-size="11" fill="#5a6b7c" text-anchor="start">Steering servo: signal on D2, V+ from the motor rail. D3 and BOUT1/2 are spare.</text>
+<text x="150" y="428" font-size="12" fill="#0f7b62" text-anchor="start" font-weight="700">I2C bus · SDA D4 · SCL D5 · gyro on 3V3, Luna on the motor rail</text>
 <rect x="150" y="440" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
-<text x="265.0" y="473.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Depth sensor</text>
-<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">V1 VL53L1X · V2 VL53L7CX</text>
+<text x="265.0" y="473.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Depth sensor / lidar</text>
+<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">V1 VL53L1X · V2 TF-Luna (0x10)</text>
 <rect x="150" y="530" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
 <text x="265.0" y="563.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">GY-521 MPU-6050</text>
 <text x="265.0" y="582.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">gyro · V2 only</text>
@@ -98,7 +95,7 @@
 <text x="374" y="552" font-size="10" fill="#0f7b62" text-anchor="end">SDA</text>
 <text x="374" y="482" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
 <text x="374" y="572" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
-<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">Resets under load? Give the depth sensor its own small 3.3 V regulator.</text>
+<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">TF-Luna: 3.7 to 5.2 V, about 70 mA, 3.3 V logic, so it rides the motor rail. V1 VL53L1X runs on 3V3.</text>
 <polyline points="770,220 880,220" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <polyline points="770,266 880,266" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <rect x="810" y="210" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
@@ -130,7 +127,7 @@
 <text x="1095" y="416" font-size="11" fill="#5a6b7c" text-anchor="start">the battery and the E-stop</text>
 <polyline points="770,450 880,450" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
 <rect x="880" y="426" width="300" height="48" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
-<text x="1030.0" y="448.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2a3a">3V3 → sensors, gyro, line sensor, nSLEEP</text>
+<text x="1030.0" y="448.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2a3a">3V3 → gyro, V1 sensors, line sensor, nSLEEP</text>
 <text x="1030.0" y="467.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">watch the total 3V3 load</text>
 <polyline points="770,496 820,496 820,735 460,735 460,765" fill="none" stroke="#2d7f3a" stroke-width="3" stroke-linejoin="round"/>
 <text x="832" y="500" font-size="11" fill="#2d7f3a" text-anchor="start">BAT+ pad on the back · charges over USB-C</text>
@@ -156,12 +153,12 @@
 <circle cx="460" cy="765" r="4" fill="#2d7f3a"/>
 <polyline points="180,350 180,390 135,390 135,715 850,715 850,765" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
 <circle cx="850" cy="765" r="4" fill="#b8352f"/>
-<text x="150" y="709" font-size="11" fill="#b8352f" text-anchor="start">motor rail → DRV8833 VM · steering servo V+ · turret servo V+</text>
+<text x="150" y="709" font-size="11" fill="#b8352f" text-anchor="start">motor rail → DRV8833 VM · steering servo V+ · turret servo V+ · TF-Luna VCC</text>
 <polyline points="220,350 220,380 120,380 120,700" fill="none" stroke="#5a6b7c" stroke-width="2" stroke-linejoin="round" stroke-dasharray="5 4"/>
 <text x="120" y="712" font-size="10" fill="#5a6b7c" text-anchor="middle">GND</text>
 <text x="860" y="757" font-size="11" fill="#b8352f" text-anchor="start">E-stop cuts only this rail; the ESP32 stays on</text>
 <text x="20" y="36" font-size="22" fill="#1b2a3a" text-anchor="start" font-weight="700">Ain’t No Waymo · wiring plan</text>
-<text x="20" y="60" font-size="13" fill="#5a6b7c" text-anchor="start">Draft until the donor teardown settles the steering. Same plan as the pin map in the team handoff.</text>
+<text x="20" y="60" font-size="13" fill="#5a6b7c" text-anchor="start">Same plan as the pin map in the team handoff. Steering is a servo; the V2 lidar is a TF-Luna.</text>
 <text x="20" y="80" font-size="13" fill="#5a6b7c" text-anchor="start">Metal shell: nothing conductive may touch it; boards sit in the printed tray.</text>
 <rect x="20" y="894" width="28" height="6" fill="#1b2a3a"/>
 <text x="56" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">both versions</text>
@@ -173,4 +170,6 @@
 <text x="806" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">motor rail (behind the E-stop)</text>
 <rect x="1020" y="894" width="28" height="6" fill="#2d7f3a"/>
 <text x="1056" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">battery → ESP32</text>
+<polyline points="520,312 464,312 464,402 75,402 75,302" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="475" y="366" font-size="11" fill="#5a6b7c">free</text>
 </svg>

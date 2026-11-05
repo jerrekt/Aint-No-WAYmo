@@ -233,7 +233,7 @@
       "title": "Build the roof turret for the depth sensor",
       "status": "todo",
       "owner": null,
-      "detail": "Printed dome on the roof with the 2 g servo sweeping the VL53L7CX. Wire the servo to the motor rail.",
+      "detail": "Printed dome on the roof with the 2 g servo sweeping the TF-Luna lidar. Wire the servo and the lidar to the motor rail.",
       "size": "M",
       "phase": "v2"
     },
