@@ -824,7 +824,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </head>
 <body data-colorway="blue">
 <div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.041</span></div></header>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.042</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -1563,7 +1563,7 @@ function displayPoint(x,y){
  }
  return nearest||{x:750,y:500};
 }
-let carPose=null;
+let carPose=null,lastHot='';
 // Chimes: short synthesized jingles in the spirit of a Waymo ride (start, arrival, please-move). No recordings.
 const chime=(()=>{let ctx=null,last={};const KEY='waymoChimeV1';
  const pref=()=>{try{return localStorage.getItem(KEY)!=='off';}catch(e){return true;}};
@@ -1587,7 +1587,7 @@ function chimeWatch(s){
 function draw(){
  if(!sim)return;
  const s=sim.snapshot();
- let h=`<image href="${SURVEY_IMAGE_URI}" x="0" y="0" width="1500" height="1049" preserveAspectRatio="none"/>`;
+ let h='',hot='';
  // Every route, pose, scan and object is simulated and should not be treated as field localization.
  // Keep-right: the route and the car ride in the right-hand lane of the direction of travel, like a real car.
  // Hall centre lines come from the drawing (north hall y=222, east hall x=1196, south hall y=868); the lane sits 18 px right of centre.
@@ -1613,7 +1613,7 @@ function draw(){
   const active=s.goal===room, pending=(s.pending||[]).includes(room);
   const border=active?'#0f7b62':pending?'#e59b26':'#2a68ca';
   const focus=active||pending;
-  h+=`<g class="room-hotspot" role="button" tabindex="0" data-room="${room}" aria-label="Select room IS ${room}" style="cursor:pointer"><rect x="${p[0]-23}" y="${p[1]-19}" width="46" height="36" rx="4" fill="${focus?'#d8f5e6':'#ffffff'}" fill-opacity="${focus?'.33':'.005'}" stroke="${border}" stroke-width="${focus?4:2}" stroke-opacity="${focus?'1':'.55'}"/></g>`;
+  hot+=`<g class="room-hotspot" role="button" tabindex="0" data-room="${room}" aria-label="Select room IS ${room}" style="cursor:pointer"><rect x="${p[0]-23}" y="${p[1]-19}" width="46" height="36" rx="4" fill="${focus?'#d8f5e6':'#ffffff'}" fill-opacity="${focus?'.33':'.005'}" stroke="${border}" stroke-width="${focus?4:2}" stroke-opacity="${focus?'1':'.55'}"/></g>`;
  }
  for(const o of s.objects){const p=displayPoint(o.x,o.y);h+=`<circle cx="${p.x}" cy="${p.y}" r="${Math.max(7,o.r*12)}" fill="${o.person?'#ef9f20':'#df6275'}" stroke="white" stroke-width="2" opacity=".8"/>`;}
  for(const pt of s.scans.slice(-140)){const p=displayPoint(pt.x,pt.y);h+=`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#2888d0" opacity=".65"/>`;}
@@ -1631,7 +1631,10 @@ function draw(){
  chimeWatch(s);
  h+=`<rect x="17" y="15" width="330" height="37" rx="10" fill="#132c47" fill-opacity=".94"/><text x="182" y="39" font-size="18" font-family="Arial,sans-serif" fill="#ffffff" text-anchor="middle" font-weight="700">SURVEY MAP · APPROXIMATE</text>`;
  h+=`<rect x="1070" y="15" width="399" height="37" rx="10" fill="#132c47" fill-opacity=".94"/><text x="1269" y="39" font-size="16" font-family="Arial,sans-serif" fill="#fbecc3" text-anchor="middle" font-weight="700">ROUTE OVERLAY IS SIMULATED</text>`;
- map.innerHTML=h;
+ // Two layers: rooms are only re-rendered when selection changes, so a click on a room is never swallowed by a redraw.
+ if(!map.querySelector('#mapHot')){map.innerHTML=`<image href="${SURVEY_IMAGE_URI}" x="0" y="0" width="1500" height="1049" preserveAspectRatio="none"/><g id="mapDyn" style="pointer-events:none"></g><g id="mapHot"></g>`;}
+ if(hot!==lastHot){map.querySelector('#mapHot').innerHTML=hot;lastHot=hot;}
+ map.querySelector('#mapDyn').innerHTML=h;
  $('status').textContent=s.mode;$('status').style.color=[2,3,4,5,6,9].includes(s.status)?'#ffad9a':'#92f4d7';$('decisionLine').textContent=s.estopLatched?'Safety latch engaged. Motor power cut; local reset required.':!s.localized?(s.scanning?'Recovering position by scan...':'Location uncertain. Looking for a unique room marker.'):s.status===2?'Pedestrian nearby. Yielding until clear.':s.status===3?'Path blocked. Waiting for a safe route.':s.status===7?'Scanning walls to compare with saved map.':s.status===1?'Following corridor toward IS '+s.goal+'.':s.complete?'Destination confirmed. Waiting for your next room.':s.operatorPaused?'Paused. Destination and stops are preserved.':'Ready. Select a room to begin.';$('safetyBanner').style.display=s.estopLatched?'block':'none';$('hardEstop').disabled=role==='guest'||s.estopLatched;$('goNow').disabled=role==='guest'||s.estopLatched;$('addStop').disabled=role==='guest'||s.estopLatched; $('statusHint').textContent=s.operatorPaused?'Route and queue saved; motors commanded to stop':s.complete?'All mission stops confirmed':s.scanning?'Collecting angular range readings':s.status===3?'Route blocked; operator assistance':s.status===2?'Waiting for person to move':s.status===5?'Lost commands; motors inhibited':'Independent onboard decision';
  $('clock').textContent=`${String(Math.floor(s.time/60)).padStart(2,'0')}:${String(Math.floor(s.time%60)).padStart(2,'0')}`;
  $('location').textContent=s.localized?(/^[0-9]+$/.test(s.current)?`IS ${s.current}`:`Junction ${s.current}`):'UNKNOWN';$('marker').textContent=`Last marker: ${s.lastMarker}`;$('destination').textContent=s.goal?`IS ${s.goal}`:'Ready for a room';$('progress').textContent=`Step ${Math.min(s.stepIndex+1,s.mission.length-1)} of ${s.mission.length-1}`;$('uncertainty').textContent=s.localized?`±${s.est.sigma.toFixed(2)} m`:'Not localized';
@@ -2133,8 +2136,8 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.041';
-  document.title="Ain't No Waymo | V1.041";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.042';
+  document.title="Ain't No Waymo | V1.042";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
 </script></body></html>
