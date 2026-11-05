@@ -1579,10 +1579,10 @@ let chimePrev=null;
 function chimeWatch(s){
  if(chimePrev){
   if(s.running&&!chimePrev.running&&s.goal)chime.play('start');
-  if((s.arrivals||[]).length>chimePrev.arrivals)chime.play('arrive');
+  if((+s.arrivals||0)>chimePrev.arrivals)chime.play('arrive');
   if([2,3].includes(s.status)&&![2,3].includes(chimePrev.status))chime.play('move');
  }
- chimePrev={running:s.running,arrivals:(s.arrivals||[]).length,status:s.status};
+ chimePrev={running:s.running,arrivals:+s.arrivals||0,status:s.status};
 }
 function draw(){
  if(!sim)return;
