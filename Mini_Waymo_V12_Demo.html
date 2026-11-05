@@ -824,7 +824,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </head>
 <body data-colorway="blue">
 <div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.038</span></div></header>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.039</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -1770,7 +1770,7 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
  const stateClass={todo:'todo',in_progress:'in_progress',blocked:'blocked',done:'done'};
  const actionFor=(task)=>task.status==='done'?'':!task.owner?'Claim':task.status==='in_progress'?'Update':'Update';
  function element(tag,className,value){const node=document.createElement(tag);if(className)node.className=className;if(value!==undefined)node.textContent=value;return node;}
- function refreshCount(){const entries=data.tasks||[];const d=entries.filter(t=>t.status==='done').length;const n=entries.filter(t=>t.owner).length;document.getElementById('boardTaskCount').textContent=d+'/'+entries.length+' tasks done';statusLine.textContent=!liveClaims?'Offline preview. Claims work on the live site and in Discord (/claim).':live?'Live sync active - '+n+' assigned task'+(n===1?'':'s')+'. Refreshes every 15 seconds.':'Preview only - connect the task server to save and share claims.';statusLine.classList.toggle('offline',liveClaims&&!live);indicator.classList.toggle('live',live);indicator.textContent=live?'Live sync':'Preview only';}
+ function refreshCount(){const entries=data.tasks||[];const d=entries.filter(t=>t.status==='done').length;const n=entries.filter(t=>t.owner).length;document.getElementById('boardTaskCount').textContent=d+'/'+entries.length+' tasks done';statusLine.textContent=!liveClaims?(live?'Live from the task board - '+n+' assigned task'+(n===1?'':'s')+'. Claim in Discord with /claim.':'Offline preview. Claims work on the live site and in Discord (/claim).'):live?'Live sync active - '+n+' assigned task'+(n===1?'':'s')+'. Refreshes every 15 seconds.':'Preview only - connect the task server to save and share claims.';statusLine.classList.toggle('offline',liveClaims&&!live);indicator.classList.toggle('live',live);indicator.textContent=live?'Live sync':'Preview only';}
  /* ---- weighted board: sizes, phases, groups ---- */
  const SIZE_WORD={S:'small',M:'medium',L:'large'};
  const sizeOf=t=>SIZE_WORD[t.size]?t.size:'M';
@@ -1868,9 +1868,11 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
   select.previousElementSibling.hidden=!t.owner;select.hidden=!t.owner;
   names.value=t.owner||names.value||'';password.value='';error.textContent='';dialog.showModal();names.focus();
  }
+ /* Live APIs return tasks + milestone labels only; keep sizes, phases and groups from the embedded file. */
+ function mergeBoard(seed,body){const byId={};for(const t of seed.tasks||[])byId[t.id]=t;const tasks=(body.tasks||[]).map(t=>{const s=byId[t.id]||{};return Object.assign({},s,t,{size:t.size||s.size,phase:t.phase||s.phase,milestone:t.milestone||s.milestone});});return Object.assign({},seed,body,{tasks,size_points:body.size_points||seed.size_points,phases:body.phases||seed.phases,groups:body.groups||seed.groups,milestone_labels:Object.assign({},seed.milestone_labels||{},body.milestone_labels||{})});}
  async function pull(){if(!/^https?:$/.test(location.protocol)){live=false;redraw();return;}
   data=fallback;live=false;base='';
-  for(const root of (API?[API,'']:[''])){try{const res=await fetch(root+'/api/tasks',{cache:'no-store'});if(!res.ok)throw Error('Task API unavailable');const body=await res.json();if(!Array.isArray(body.tasks))throw Error('Bad API data');data=body;live=true;base=root;if(root)liveClaims=!!body.writes;break;}catch(_){}}
+  for(const root of (API?[API,'']:[''])){try{const res=await fetch(root+'/api/tasks',{cache:'no-store'});if(!res.ok)throw Error('Task API unavailable');const body=await res.json();if(!Array.isArray(body.tasks))throw Error('Bad API data');data=mergeBoard(fallback,body);live=true;base=root;if(root)liveClaims=!!body.writes;break;}catch(_){}}
   redraw();}
  form.addEventListener('submit',async event=>{
   event.preventDefault();if(!selected||!live)return;
@@ -2088,8 +2090,8 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.038';
-  document.title="Ain't No Waymo | V1.038";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.039';
+  document.title="Ain't No Waymo | V1.039";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
 </script></body></html>
