@@ -1,7 +1,7 @@
 {
-  "version": "V1.039",
+  "version": "V1.040",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-04",
-  "note": "Board keeps sizes, phases and groups when tasks come from the live API; the task route now sends them too"
+  "note": "Simulator: car keeps to the right-hand lane, turns into the door on arrival (crossing the hall for left-side rooms), and plays Waymo-style ride chimes for departure, arrival and please-move; the Sound button toggles them"
 }

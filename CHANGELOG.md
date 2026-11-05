@@ -1,3 +1,6 @@
+## V1.040 — 2026-11-04
+- Simulator: car keeps to the right-hand lane, turns into the door on arrival (crossing the hall for left-side rooms), and plays Waymo-style ride chimes for departure, arrival and please-move; the Sound button toggles them
+
 ## V1.039 — 2026-11-04
 - Board keeps sizes, phases and groups when tasks come from the live API; the task route now sends them too
 - Kapton tape marked nice to have on the Build page: the printed tray, electrical tape or hot glue insulate the boards from the metal shell just as well.
