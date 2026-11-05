@@ -1,6 +1,7 @@
 ## V1.042 — 2026-11-05
 - Map: clicking a room sends the car again. The 90 ms redraw was replacing the room hotspots between mouse-down and mouse-up, so clicks were lost; rooms now sit on their own layer above the route and are only redrawn when selection changes
 - Arrival chime plays again: it read the arrival count as a list, so it never fired.
+- `CLAUDE.md` rewritten as the full updater handoff (rules, infrastructure, repo map, map pipeline, vault workflow, current state); `handoff/handoffs/CLAUDE_PASTE_PROMPT.md` is the matching paste prompt for a new chat.
 
 ## V1.041 — 2026-11-04
 - Task board: V1 and V2 are parallel paths, not phases. Tasks are shared, V1-only or V2-only; each car's bar counts shared work plus its own. Five new path-specific tasks (line sensor, tape following, room markers, roof turret, scan matching); checkpoint flag dropped
