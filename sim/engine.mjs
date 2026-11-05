@@ -116,7 +116,7 @@ export class MicroSimulation {
  start(){
   if(!this.localized){this.log('Server refused mission: position not confirmed');return false;}
   if(this.stepIndex>=this.mission.length-1){this.complete=true;this.running=false;this.log('Idle at IS '+this.currentRoom+'; ready for another room');return true}
-  this.complete=false;this.running=true;this.nextLeg();if(!this.activeLeg)this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};return true;
+  this.complete=false;this.running=true;this.offRoute=false;this.manual=false;this.nextLeg();if(!this.activeLeg)this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};return true;
  }
 
  // Dispatch APIs mirror the server model: a Go now replaces the outstanding
@@ -148,14 +148,14 @@ export class MicroSimulation {
   if(!this.canDispatch())return false;
   // Current location remains the last *confirmed* room. Path from the
   // estimated physical pose, not from an older marker or a spawned start.
-  if(!this.running && room===this.currentRoom){this.log('Already at IS '+room+'; ready for another destination');return true;}
+  if(!this.running && room===this.currentRoom && !this.offRoute){this.log('Already at IS '+room+'; ready for another destination');return true;}
   const newPlan=this.nextFromEstimatedPose(ROOMS[room]);
   if(!newPlan.length){this.log('Go now refused: no verified mapped route');return false;}
   this.mission=[this.currentRoom,room];this.stepIndex=0;this.plan=newPlan;this.pathIndex=0;
   this.goalConfirmed=false;this.dwell=0;this.complete=false;this.failed=false;
   if(this.activeLeg)this.finishLeg('rerouted');this.activeLeg={from:this.currentRoom,to:room,start:this.time};
   this.scanning=false;this.scanRequested=false;this.relocalizeRequested=false;
-  this.scannedNodes=new Set();this.running=true;this.dispatchCount++;
+  this.scannedNodes=new Set();this.running=true;this.dispatchCount++;this.offRoute=false;this.manual=false;
   this.operatorPaused=false;this.log('GO NOW to IS '+room+'; replaced pending stops; replan '+newPlan.join('→'));
   return true;
  }
@@ -413,5 +413,29 @@ this.mode=this.operatorPaused&&this.out[2]===0?'PAUSED':(LABELS[this.out[2]]||'U
   }}
   if(this.time>680){this.failed=true;this.log('Simulation exceeded maximum time');}
  }
- snapshot(){return {time:this.time,robot:this.robot,est:this.est,sensor:this.sensor,mode:this.mode,status:this.out[2],signal:this.out[3],path:this.plan,stepIndex:this.stepIndex,mission:this.mission,goal:this.mission[this.stepIndex+1],current:this.currentRoom,complete:this.complete,failed:this.failed,arrivals:this.arrivals,collisions:this.collisions,boundaryViolations:this.boundaryViolations,waitS:this.waitS,lastMarker:this.lastMarker,heartbeatAge:this.heartbeatAge,scans:this.scans,objects:this.objects(),noise:this.noise,scanning:this.scanning,localized:this.localized,relocalizationNode:this.relocalizationNode,relocalizationResult:this.relocalizationResult,surveyAnchors:Object.keys(this.survey?.signatures||{}).length,pending:this.plannedStops(),operatorPaused:this.operatorPaused,estopLatched:this.estopLatched,estopSwitchPressed:this.estopSwitchPressed,dispatchCount:this.dispatchCount,completedStops:[...this.completedStops],running:!!this.running,batteryVoltage:this.batteryVoltage,batteryLow:this.lowBatteryStop,arrivalVerified:!!this.goalConfirmed,tripHistory:[...this.tripHistory]};}
+ // Manual drive (Controls page, team password). Car-like: it steers, it can't turn in place.
+ // The depth sensor still stops it short of obstacles and walls; E-stop and a lost link stop it.
+ manualStep(dt=0.08,throttle=0,steer=0){
+  if(this.running&&!this.complete){this.log('Manual drive refused: a trip is running');return false;}
+  throttle=clamp(+throttle||0,-1,1);steer=clamp(+steer||0,-1,1);
+  let target=throttle>=0?throttle*0.25:throttle*0.12,why='';
+  if(this.estop||this.estopLatched){target=0;why='E-stop';}
+  else if(!this.wifi){target=0;why='link lost';}
+  this.time+=dt;this.sense();
+  if(target>0&&this.sensor.front<0.25){target=0;why='obstacle ahead';}
+  this.manualV=(this.manualV||0)+(target-(this.manualV||0))*Math.min(1,dt/0.14);
+  if(Math.abs(this.manualV)<0.002&&target===0)this.manualV=0;
+  const v=this.manualV,yaw=wrap(this.robot.yaw+v/0.071*Math.tan(steer*0.45)*dt);
+  const nx=this.robot.x+v*dt*Math.cos(yaw),ny=this.robot.y+v*dt*Math.sin(yaw);
+  if(v!==0&&!inHall(nx,ny,0.07)){this.manualV=0;why='wall';}
+  else if(v!==0){this.robot.x=nx;this.robot.y=ny;this.robot.yaw=yaw;this.totalTravel+=Math.abs(v*dt);this.offRoute=true;}
+  this.robot.lv=this.robot.rv=this.manualV;
+  this.est.x=this.robot.x;this.est.y=this.robot.y;this.est.yaw=this.robot.yaw;
+  this.mode=why?'MANUAL · STOPPED ('+why+')':this.manualV?'MANUAL DRIVE':'MANUAL · READY';
+  if(why&&why!==this.manualWhy)this.log('Manual drive stopped: '+why);
+  this.manualWhy=why;this.manual=true;
+  return !why;
+ }
+ manualEnd(){this.manual=false;this.manualV=0;this.robot.lv=0;this.robot.rv=0;this.manualWhy='';if(this.offRoute)this.log('Manual drive ended; the next trip plans from here');}
+ snapshot(){return {time:this.time,robot:this.robot,est:this.est,sensor:this.sensor,mode:this.mode,status:this.out[2],signal:this.out[3],path:this.plan,stepIndex:this.stepIndex,mission:this.mission,goal:this.mission[this.stepIndex+1],current:this.currentRoom,complete:this.complete,failed:this.failed,arrivals:this.arrivals,collisions:this.collisions,boundaryViolations:this.boundaryViolations,waitS:this.waitS,lastMarker:this.lastMarker,heartbeatAge:this.heartbeatAge,scans:this.scans,objects:this.objects(),noise:this.noise,scanning:this.scanning,localized:this.localized,relocalizationNode:this.relocalizationNode,relocalizationResult:this.relocalizationResult,surveyAnchors:Object.keys(this.survey?.signatures||{}).length,pending:this.plannedStops(),operatorPaused:this.operatorPaused,estopLatched:this.estopLatched,estopSwitchPressed:this.estopSwitchPressed,dispatchCount:this.dispatchCount,completedStops:[...this.completedStops],running:!!this.running,batteryVoltage:this.batteryVoltage,batteryLow:this.lowBatteryStop,arrivalVerified:!!this.goalConfirmed,tripHistory:[...this.tripHistory],manual:!!this.manual,offRoute:!!this.offRoute};}
 }
