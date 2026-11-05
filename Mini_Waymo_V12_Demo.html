@@ -877,6 +877,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 <section class="aboutBlock" id="buildList">
 <style>
 #buildList .bvGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 18px}
+#buildList .wiringFig{margin:0 0 18px}#buildList .wiringFig img{display:block;width:100%;height:auto;border:1px solid rgba(140,165,185,.45);border-radius:12px;background:#f7fafc}#buildList .wiringFig figcaption{font-size:12px;opacity:.7;margin:6px 2px 0}
 #buildList .bvCard{border:1px solid rgba(140,165,185,.45);border-radius:12px;padding:14px}
 #buildList .bvCard h3{margin:4px 0 6px;font-size:16px}
 #buildList .bvCard p{margin:0 0 8px;font-size:13px;line-height:1.55}
@@ -943,6 +944,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </style>
 <div class="aboutHead"><h2>Build list</h2><span class="aside">Two versions · fit not confirmed yet</span></div>
 <div class="bvGrid" id="buildVersions"></div>
+<figure class="wiringFig"><a href="assets/wiring.svg" target="_blank" rel="noopener"><img src="assets/wiring.svg" alt="Wiring plan: XIAO ESP32-S3 Sense pins to the DRV8833, drive motor, steering, I2C depth sensor and gyro, line sensor or turret servo, piezo, turn LEDs, and the battery, main switch and E-stop on the motor rail" loading="lazy"/></a><figcaption>Wiring plan · draft until the donor teardown settles the steering · same pins as the team handoff · tap to open full size</figcaption></figure>
 <div class="bpBar"><div aria-label="Which car to count" class="bpFilters" role="group"><button aria-pressed="false" data-pv="v1" type="button">V1 line follower</button><button aria-pressed="true" data-pv="v2" type="button">V2 room scanner</button></div><div aria-label="Filter parts" class="bpFilters" role="group"><button aria-pressed="true" data-pf="all" type="button">All</button><button aria-pressed="false" data-pf="need" type="button">To buy</button><button aria-pressed="false" data-pf="got" type="button">On hand</button></div></div><p class="bpTotals" id="bpTotals" aria-live="polite"></p>
 <div class="bpList" id="bpList"></div>
 <p class="aboutMini">Mark bought saves right away for everyone (team password needed) and posts in #waymo-task-feed. Nothing here is confirmed to fit yet: the shell's inside, the donor's size, battery space, camera window and antenna still need checking.</p>
