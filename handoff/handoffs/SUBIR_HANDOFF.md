@@ -29,7 +29,7 @@ The car is a 1/43 drift car's guts inside the Waymo shell, with the sensor on a 
 | Motor driver | DRV8833 dual H-bridge (BJ has one) | Runs on 1S, 3.3 V logic; channel A drives, channel B steers if the steering is a coil |
 | Depth sensor (V2) | Pololu VL53L7CX carrier #3418, 13 x 18 mm | Widest cone (60 x 60 degrees), 3.5 m; faces forward while driving, sweeps at stops |
 | Turret servo (V2) | 2 g 180-degree micro servo (FFTY, JST version) | Sweeps the sensor back and forth from a printed roof dome; no slip ring |
-| Gyro (V2) | Small LSM6-series IMU carrier | Heading between scans; the donor has no wheel encoders |
+| Gyro (V2) | GY-521 MPU-6050 board | Heading between scans; the donor has no wheel encoders |
 | Sound | Piezo chime, a must | Our own tones: trip start, arrival, and please-move when blocked. No copied Waymo audio |
 | Turn lights | 2 amber LEDs | Lowest priority |
 | Battery | Donor's 1S pack + the XIAO's built-in charger | No separate protection board; check the pack has its own at teardown |
@@ -52,7 +52,7 @@ The Build page on the site is the live list. When you buy something, mark it the
 | VL53L7CX depth sensor (Pololu #3418) | Ordering | Subir | V2 |
 | XIAO ESP32-S3 Sense | To buy, with BJ's Seeed order | BJ | Both |
 | 2 g micro servo (turret) | To buy | Not set | V2 |
-| Gyro (LSM6-series carrier) | To buy; could share the Pololu shipping | Not set | V2 |
+| Gyro (GY-521 MPU-6050, 3-pack) | Ordered, arrives Nov 6 | BJ | V2 |
 | Piezo sounder (chime) | To buy | Not set | Both |
 | Thin wire (about 30 AWG), pin vise | To buy | Not set | Both |
 | Kapton tape | Nice to have; the printed tray, electrical tape or hot glue insulate too | Not set | Both |
@@ -129,7 +129,7 @@ The next big unlock is the donor car's teardown: it settles the steering wiring 
 
 - [ ] Tear down the donor car when it arrives: is the steering a servo or a coil, does the battery have a protection board, what are its dimensions
 - [ ] Measure the shell's inside with calipers: size, wheelbase, roof height, ground clearance
-- [ ] Order the rest: S3 Sense, turret servo, gyro, piezo, thin wire
+- [ ] Order the rest: S3 Sense, turret servo, piezo, thin wire
 - [ ] Flash the ESP32-C3 bench test and measure the delay (BJ)
 - [ ] Measure the north wall doors, rooms 227 to 222 (someone at school)
 - [ ] Confirm the unclear room labels: 218B, 219C, the two 216s, the repeated 223

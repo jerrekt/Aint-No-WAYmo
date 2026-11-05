@@ -259,17 +259,18 @@
     },
     {
       "id": "imu",
-      "part": "IMU (gyro)",
-      "what": "Tracks the car's heading between scans and on turns.",
+      "part": "IMU (gyro), MPU-6050",
+      "what": "GY-521 MPU-6050 board. Tracks the car's heading between scans and on turns. 3-pack; two spares.",
       "versions": "v2",
       "group": "brains",
-      "qty": "1",
-      "cost": 12,
-      "approx": true,
-      "where": "Pololu",
+      "qty": "1 (3-pack)",
+      "cost": 11.79,
+      "approx": false,
+      "where": "Amazon (HiLetgo)",
       "link": "https://www.pololu.com/category/80/imus-accelerometers-gyros-compasses",
-      "bought": false,
-      "note": "Tiny LSM6-class carrier. The donor car's gyro sits inside its radio chip and can't be tapped."
+      "bought": true,
+      "note": "",
+      "bought_by": "BJ"
     },
     {
       "id": "roof-servo",
