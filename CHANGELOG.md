@@ -1,3 +1,6 @@
+## V1.043 — 2026-11-05
+- Simulator: car marker turns the short way again; its heading was never wrapped, so after enough trips the shortest-turn maths went the long way round (about 270 degrees) on the next dispatch
+
 ## V1.042 — 2026-11-05
 - Map: clicking a room sends the car again. The 90 ms redraw was replacing the room hotspots between mouse-down and mouse-up, so clicks were lost; rooms now sit on their own layer above the route and are only redrawn when selection changes
 - Arrival chime plays again: it read the arrival count as a list, so it never fired.
