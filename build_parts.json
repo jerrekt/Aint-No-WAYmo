@@ -283,9 +283,9 @@
       "cost": 15.99,
       "approx": false,
       "where": "Amazon",
-      "link": "",
+      "link": "https://www.amazon.com/dp/B0GVRXMLGY",
       "bought": false,
-      "note": "2 g 180-degree micro servo, JST version. Being ordered by Subir."
+      "note": "2 g 180-degree micro servo, 2-pack, JR plug (standard 3-pin, breadboard-friendly; cut short in the car). Check with Subir before ordering."
     }
   ],
   "group_labels": {
