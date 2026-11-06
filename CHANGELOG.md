@@ -1,3 +1,6 @@
+## V1.047 — 2026-11-05
+- Build page parts: costs now count only what the car uses; BJ keeps the rest. One S3 Sense ($17.56) and the OV5640 ($16.30), each with its share of the Seeed shipping and tax (the second board is for another project); one gyro of the 3-pack ($4.32); one servo of the 2-pack ($8.80); Kapton about $0.15 of the $10.99 pack; thin wire, piezo and floor tape estimated by the amount used. Multimeter is a tool on hand at $0. Small drill / pin vise removed
+
 ## V1.046 — 2026-11-05
 - Build page parts: recorded BJ's orders. Waymo shell (Nov 1, $49.32, complete); TF-Luna lidar ($28.58) and MPU-6050 3-pack ($12.97) delivered Nov 5; 2-pack of 2 g roof servos ($17.59) and Kapton tape ($10.99) arriving Sat Nov 7; 2 XIAO ESP32-S3 Sense ($27.98) and a new OV5640 autofocus camera part ($12.99) ordered from Seeed Nov 5 ($51.42 total). 14 of 20 parts now bought. SUBIR_HANDOFF.md parts table matches
 
