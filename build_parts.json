@@ -54,13 +54,29 @@
       "what": "The car's brain and camera. Runs motors, safety stop and marker reading. The camera pokes through the windshield, facing forward.",
       "versions": "both",
       "group": "brains",
-      "qty": "1",
-      "cost": 13.99,
+      "qty": "2 (1 spare)",
+      "cost": 27.98,
       "approx": false,
       "where": "Seeed Studio",
       "link": "https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html",
-      "bought": false,
-      "note": "An ESP32-C3 is on hand for bench tests only (no camera)."
+      "bought": true,
+      "note": "BJ ordered 2 from Seeed (US warehouse) on Nov 5, plus the OV5640 camera: $51.42 total with shipping and tax. An ESP32-C3 is on hand for bench tests.",
+      "bought_by": "BJ"
+    },
+    {
+      "id": "ov5640-camera",
+      "part": "OV5640 autofocus camera",
+      "what": "Swaps in for the Sense's stock camera: autofocus and higher resolution, so it reads the room markers more reliably. Comes with a heat sink.",
+      "versions": "both",
+      "group": "brains",
+      "qty": "1",
+      "cost": 12.99,
+      "approx": false,
+      "where": "Seeed Studio",
+      "link": "",
+      "bought": true,
+      "bought_by": "BJ",
+      "note": "Ordered Nov 5 in the same Seeed order as the S3 Sense boards."
     },
     {
       "id": "motor-driver",

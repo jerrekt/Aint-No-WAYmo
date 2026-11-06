@@ -1,5 +1,5 @@
 ## V1.046 — 2026-11-05
-- Build page parts: recorded BJ's orders. Waymo shell (Nov 1, $49.32, complete); TF-Luna lidar ($28.58) and MPU-6050 3-pack ($12.97) delivered Nov 5; 2-pack of 2 g roof servos ($17.59) and Kapton tape ($10.99) arriving Sat Nov 7. 12 of 19 parts now bought. SUBIR_HANDOFF.md parts table matches
+- Build page parts: recorded BJ's orders. Waymo shell (Nov 1, $49.32, complete); TF-Luna lidar ($28.58) and MPU-6050 3-pack ($12.97) delivered Nov 5; 2-pack of 2 g roof servos ($17.59) and Kapton tape ($10.99) arriving Sat Nov 7; 2 XIAO ESP32-S3 Sense ($27.98) and a new OV5640 autofocus camera part ($12.99) ordered from Seeed Nov 5 ($51.42 total). 14 of 20 parts now bought. SUBIR_HANDOFF.md parts table matches
 
 ## V1.045 — 2026-11-05
 - Controls page: Drive it yourself. Unlock with the team password, then hold the pad or W A S D to drive. Drives the simulator now, and the real car once the server switches it on (one driver at a time, the car stops itself if commands stop). The map shows on Controls while unlocked. Admin token check is now constant-time
