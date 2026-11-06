@@ -27,7 +27,7 @@ The car is a 1/43 drift car's guts inside the Waymo shell, with the sensor on a 
 | Drivetrain | Donor 1/43 4WD mini RC drift car (motor, steering, wheels, battery) | Fits the shell's size class; it steers like a car, so no turning in place |
 | Brain and camera | XIAO ESP32-S3 Sense | Camera pokes through the windshield, facing forward, and reads room markers |
 | Motor driver | DRV8833 dual H-bridge (BJ has one) | Runs on 1S, 3.3 V logic; channel A drives, channel B steers if the steering is a coil |
-| Depth sensor (V2) | TF-Luna single-point lidar, 8 m, 5 g, I2C 0x10 | Decided 2026-11-05, replaces the VL53L7CX: real range down the hall; the turret wags it ±25° while driving for obstacle stop and sweeps a full arc at stops |
+| Depth sensor (both) | TF-Luna single-point lidar, 8 m, 5 g, I2C 0x10 | Decided 2026-11-05, replaces the VL53L7CX: real range down the hall; the turret wags it ±25° while driving for obstacle stop and sweeps a full arc at stops |
 | Turret servo (V2) | 2 g 180-degree micro servo (FFTY, JST version) | Sweeps the sensor back and forth from a printed roof dome; no slip ring |
 | Gyro (V2) | GY-521 MPU-6050 board | Heading between scans; the donor has no wheel encoders |
 | Sound | Piezo chime, a must | Our own tones: trip start, arrival, and please-move when blocked. No copied Waymo audio |
@@ -57,7 +57,7 @@ The Build page on the site is the live list. When you buy something, mark it the
 | Thin wire (about 30 AWG), pin vise | To buy | Not set | Both |
 | Kapton tape | Nice to have; the printed tray, electrical tape or hot glue insulate too | Not set | Both |
 | Multimeter or USB power meter | To check if someone has one | Not set | Both |
-| Line sensor, floor tape, VL53L1X single-point sensor | Only if we build V1 | Not set | V1 |
+| Line sensor, floor tape | Only if we build V1 (V1 uses the same TF-Luna, facing forward) | Not set | V1 |
 | Phone hotspot | Use a phone; no purchase | Not set | Both |
 
 Pololu ships from Las Vegas, so UPS Ground usually arrives in 1 to 2 days. Add the gyro to the same Pololu order to share shipping.
@@ -72,15 +72,15 @@ Steering is a servo (BJ, 2026-11-05), so D2 is its signal and D3 is free. The wi
 | D1 | 2 | DRV8833 AIN2 (drive) | DRV8833 AIN2 (drive) | PWM |
 | D2 | 3 | Steering servo signal | Steering servo signal | Donor steers with a servo (BJ, 2026-11-05) |
 | D3 | 4 | Free | Free | Was BIN2 for a steering coil |
-| D4 | 5 | I2C SDA: VL53L1X | I2C SDA: TF-Luna (0x10) + gyro (0x68) | One shared bus |
-| D5 | 6 | I2C SCL: VL53L1X | I2C SCL: TF-Luna + gyro | One shared bus |
+| D4 | 5 | I2C SDA: TF-Luna (0x10) | I2C SDA: TF-Luna (0x10) + gyro (0x68) | One shared bus |
+| D5 | 6 | I2C SCL: TF-Luna | I2C SCL: TF-Luna + gyro | One shared bus |
 | D6 | 43 | Left turn LED (330 Ω) | Left turn LED (330 Ω) | Flickers at boot; harmless |
 | D7 | 44 | Right turn LED (330 Ω) | Right turn LED (330 Ω) | |
 | D8 | 7 | Line sensor (analog in) | Turret servo signal | Shared with the SD slot: no SD card |
 | D9 | 8 | Piezo chime (100 Ω) | Piezo chime (100 Ω) | PWM tone |
 | D10 | 9 | Rail sense (analog in) | Rail sense (analog in) | 100k/100k divider from the motor rail |
 | BAT+ | pad | 1S battery after the main switch | 1S battery after the main switch | Back of the XIAO; charges over USB-C |
-| 3V3 | out | VL53L1X VIN, line sensor VCC, nSLEEP | Gyro VIN, nSLEEP | The TF-Luna is NOT on 3V3 |
+| 3V3 | out | Line sensor VCC, nSLEEP | Gyro VIN, nSLEEP | The TF-Luna is NOT on 3V3 |
 
 Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, steering and turret servo V+, TF-Luna VCC, 470 µF bulk cap to GND).
 

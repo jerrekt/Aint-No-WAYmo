@@ -79,7 +79,7 @@
 <text x="150" y="428" font-size="12" fill="#0f7b62" text-anchor="start" font-weight="700">I2C bus · SDA D4 · SCL D5 · gyro on 3V3, Luna on the motor rail</text>
 <rect x="150" y="440" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
 <text x="265.0" y="473.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Depth sensor / lidar</text>
-<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">V1 VL53L1X · V2 TF-Luna (0x10)</text>
+<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">TF-Luna (0x10) · V1 fixed, V2 on the turret</text>
 <rect x="150" y="530" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
 <text x="265.0" y="563.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">GY-521 MPU-6050</text>
 <text x="265.0" y="582.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">gyro · V2 only</text>
@@ -95,7 +95,7 @@
 <text x="374" y="552" font-size="10" fill="#0f7b62" text-anchor="end">SDA</text>
 <text x="374" y="482" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
 <text x="374" y="572" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
-<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">TF-Luna: 3.7 to 5.2 V, about 70 mA, 3.3 V logic, so it rides the motor rail. V1 VL53L1X runs on 3V3.</text>
+<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">TF-Luna: 3.7 to 5.2 V, about 70 mA, 3.3 V logic, so it rides the motor rail on both cars.</text>
 <polyline points="770,220 880,220" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <polyline points="770,266 880,266" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <rect x="810" y="210" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>

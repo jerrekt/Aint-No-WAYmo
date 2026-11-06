@@ -5,7 +5,7 @@
       "name": "V1: line follower",
       "effort": "Low effort",
       "how": "Follows a tape line down the hallway, counts junction and door marks to know where it is, and stops at the chosen room.",
-      "can": "Room-to-room trips sent from the site. Stops for anything in front of it (single depth sensor). Physical E-stop.",
+      "can": "Room-to-room trips sent from the site. Stops for anything in front of it (the TF-Luna, facing forward). Physical E-stop.",
       "cant": "Leave the tape, or recover if it loses count.",
       "catch": "Permission to tape the floor."
     },
@@ -230,24 +230,10 @@
       "note": "Needs building permission."
     },
     {
-      "id": "tof-single",
-      "part": "Single-point depth sensor",
-      "what": "Cheap front distance sensor (VL53L0X or VL53L1X class) to stop for obstacles.",
-      "versions": "v1",
-      "group": "brains",
-      "qty": "1",
-      "cost": 13,
-      "approx": true,
-      "where": "Pololu",
-      "link": "https://www.pololu.com/product/3415",
-      "bought": false,
-      "note": ""
-    },
-    {
       "id": "tf-luna",
       "part": "TF-Luna lidar (single point, 8 m)",
-      "what": "Single-point lidar, 0.2 to 8 m, 5 g. Rides the roof turret: the servo wags it left and right while driving to stop for obstacles, and sweeps a full arc at stops to scan the hallway. I2C mode, address 0x10.",
-      "versions": "v2",
+      "what": "Single-point lidar, 0.2 to 8 m, 5 g, I2C 0x10. V1: fixed facing forward as the obstacle stop. V2: rides the roof turret, wagging left and right while driving and sweeping a full arc at stops to scan the hallway.",
+      "versions": "both",
       "group": "brains",
       "qty": "1",
       "cost": 28.58,
@@ -255,7 +241,7 @@
       "where": "Amazon (Benewake)",
       "link": "",
       "bought": true,
-      "note": "Replaces the VL53L7CX (decided 2026-11-05). Powered from the motor rail, not 3V3. Ask Subir not to order the 7CX.",
+      "note": "One sensor for both cars; it replaces the VL53L7CX and V1's VL53L1X (decided 2026-11-05). Powered from the motor rail, not 3V3.",
       "bought_by": "BJ"
     },
     {
