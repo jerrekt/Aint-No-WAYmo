@@ -21,17 +21,18 @@
   "parts": [
     {
       "id": "waymo-shell",
-      "part": "Waymo shell",
+      "part": "Waymo shell (World's Littlest I-PACE)",
       "what": "World's Littlest Waymo Jaguar I-PACE diecast. The body and glass; the base and wheels may be replaced.",
       "versions": "both",
       "group": "car",
       "qty": "1",
-      "cost": null,
+      "cost": 49.32,
       "approx": false,
       "where": "Waymo shop",
       "link": "https://shop.withwaymo.com/product/worlds-littlest-i-pace-model-car-waymwfna100199",
       "bought": true,
-      "note": "On hand (BJ bought it; Subir splitting; Dan said he'll cover it all if we finish). Outside 112 x 45.6 x 51.2 mm, about 1:42. Isabel is measuring the inside."
+      "note": "On hand: ordered Nov 1, 2026, $49.32 total, order complete (BJ bought it; Subir splitting; Dan said he'll cover it all if we finish). Outside 112 x 45.6 x 51.2 mm, about 1:42. Isabel is measuring the inside.",
+      "bought_by": "BJ"
     },
     {
       "id": "donor-car",
@@ -53,13 +54,29 @@
       "what": "The car's brain and camera. Runs motors, safety stop and marker reading. The camera pokes through the windshield, facing forward.",
       "versions": "both",
       "group": "brains",
-      "qty": "1",
-      "cost": 13.99,
+      "qty": "2 (1 spare)",
+      "cost": 27.98,
       "approx": false,
       "where": "Seeed Studio",
       "link": "https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html",
-      "bought": false,
-      "note": "An ESP32-C3 is on hand for bench tests only (no camera)."
+      "bought": true,
+      "note": "BJ ordered 2 from Seeed (US warehouse) on Nov 5, plus the OV5640 camera: $51.42 total with shipping and tax. An ESP32-C3 is on hand for bench tests.",
+      "bought_by": "BJ"
+    },
+    {
+      "id": "ov5640-camera",
+      "part": "OV5640 autofocus camera",
+      "what": "Swaps in for the Sense's stock camera: autofocus and higher resolution, so it reads the room markers more reliably. Comes with a heat sink.",
+      "versions": "both",
+      "group": "brains",
+      "qty": "1",
+      "cost": 12.99,
+      "approx": false,
+      "where": "Seeed Studio",
+      "link": "",
+      "bought": true,
+      "bought_by": "BJ",
+      "note": "Ordered Nov 5 in the same Seeed order as the S3 Sense boards."
     },
     {
       "id": "motor-driver",
@@ -133,17 +150,18 @@
     },
     {
       "id": "kapton",
-      "part": "Kapton tape (nice to have)",
+      "part": "Kapton tape",
       "what": "Optional. Insulation between boards and the metal shell; the printed tray, electrical tape or hot glue do the same job.",
       "versions": "both",
       "group": "power",
-      "qty": "1 roll",
-      "cost": 7,
-      "approx": true,
-      "where": "Amazon",
+      "qty": "1 (4-pack)",
+      "cost": 10.99,
+      "approx": false,
+      "where": "Amazon (ELEGOO)",
       "link": "",
-      "bought": false,
-      "note": "Skip unless a board has to sit right against the metal."
+      "bought": true,
+      "note": "Ordered Nov 5: 4 rolls, 1/8 to 1 in wide. Arriving Sat Nov 7. Use it where a board sits against the metal shell.",
+      "bought_by": "BJ"
     },
     {
       "id": "chassis-print",
@@ -250,12 +268,13 @@
       "versions": "v2",
       "group": "brains",
       "qty": "1",
-      "cost": 26.0,
-      "approx": true,
-      "where": "Amazon",
+      "cost": 28.58,
+      "approx": false,
+      "where": "Amazon (Benewake)",
       "link": "",
-      "bought": false,
-      "note": "Replaces the VL53L7CX (decided 2026-11-05). Powered from the motor rail, not 3V3. Ask Subir not to order the 7CX."
+      "bought": true,
+      "note": "Delivered Nov 5. Replaces the VL53L7CX (decided 2026-11-05). Powered from the motor rail, not 3V3.",
+      "bought_by": "BJ"
     },
     {
       "id": "imu",
@@ -264,12 +283,12 @@
       "versions": "v2",
       "group": "brains",
       "qty": "1 (3-pack)",
-      "cost": 11.79,
+      "cost": 12.97,
       "approx": false,
       "where": "Amazon (HiLetgo)",
       "link": "https://www.pololu.com/category/80/imus-accelerometers-gyros-compasses",
       "bought": true,
-      "note": "",
+      "note": "Delivered Nov 5 (ordered Nov 4). Two spares in the pack.",
       "bought_by": "BJ"
     },
     {
@@ -278,13 +297,14 @@
       "what": "Sweeps the depth sensor from a printed roof dome, like a real Waymo's lidar. Sweeps back and forth rather than spinning, so no slip ring. Needed because the drift car can't turn in place.",
       "versions": "v2",
       "group": "brains",
-      "qty": "1 (2-pack)",
-      "cost": 15.99,
+      "qty": "2 (2-pack)",
+      "cost": 17.59,
       "approx": false,
       "where": "Amazon",
       "link": "",
-      "bought": false,
-      "note": "2 g 180-degree micro servo, JST version. Being ordered by Subir."
+      "bought": true,
+      "note": "BJ ordered a 2-pack of 2 g micro servos (3.7 to 5 V, JR connector) Nov 5. Arriving Sat Nov 7. Subir does not need to order one.",
+      "bought_by": "BJ"
     }
   ],
   "group_labels": {
