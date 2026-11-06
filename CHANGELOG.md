@@ -1,6 +1,7 @@
 ## V1.046 — 2026-11-05
 - Parts: TF-Luna lidar and the MPU-6050 gyro delivered (BJ); prices are what was paid, tax included
 - Turret servo listing set to the JR-plug 2-pack (arrives sooner than the JST version, plugs straight into a breadboard).
+- Kapton tape moved to a new "Add extras" group on the buy list; extras are listed but left out of the to-buy and on-hand totals.
 
 ## V1.045 — 2026-11-05
 - Controls page: Drive it yourself. Unlock with the team password, then hold the pad or W A S D to drive. Drives the simulator now, and the real car once the server switches it on (one driver at a time, the car stops itself if commands stop). The map shows on Controls while unlocked. Admin token check is now constant-time

@@ -133,17 +133,17 @@
     },
     {
       "id": "kapton",
-      "part": "Kapton tape (nice to have)",
+      "part": "Kapton tape",
       "what": "Optional. Insulation between boards and the metal shell; the printed tray, electrical tape or hot glue do the same job.",
       "versions": "both",
-      "group": "power",
+      "group": "extras",
       "qty": "1 roll",
       "cost": 7,
       "approx": true,
       "where": "Amazon",
       "link": "",
       "bought": false,
-      "note": "Skip unless a board has to sit right against the metal."
+      "note": "Add extra. Only if a board has to sit right against the metal; the printed tray, electrical tape or hot glue insulate too."
     },
     {
       "id": "chassis-print",
@@ -292,6 +292,7 @@
     "car": "Car and shell",
     "brains": "Brains and sensors",
     "power": "Power and wiring",
-    "tools": "Tools and supplies"
+    "tools": "Tools and supplies",
+    "extras": "Add extras (not counted in the total)"
   }
 }
