@@ -250,12 +250,13 @@
       "versions": "v2",
       "group": "brains",
       "qty": "1",
-      "cost": 26.0,
-      "approx": true,
-      "where": "Amazon",
+      "cost": 28.58,
+      "approx": false,
+      "where": "Amazon (Benewake)",
       "link": "",
-      "bought": false,
-      "note": "Replaces the VL53L7CX (decided 2026-11-05). Powered from the motor rail, not 3V3. Ask Subir not to order the 7CX."
+      "bought": true,
+      "note": "Replaces the VL53L7CX (decided 2026-11-05). Powered from the motor rail, not 3V3. Ask Subir not to order the 7CX.",
+      "bought_by": "BJ"
     },
     {
       "id": "imu",
@@ -264,7 +265,7 @@
       "versions": "v2",
       "group": "brains",
       "qty": "1 (3-pack)",
-      "cost": 11.79,
+      "cost": 12.97,
       "approx": false,
       "where": "Amazon (HiLetgo)",
       "link": "https://www.pololu.com/category/80/imus-accelerometers-gyros-compasses",
