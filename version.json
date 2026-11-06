@@ -1,7 +1,7 @@
 {
-  "version": "V1.045",
+  "version": "V1.046",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-05",
-  "note": "Controls page: Drive it yourself. Unlock with the team password, then hold the pad or W A S D to drive. Drives the simulator now, and the real car once the server switches it on (one driver at a time, the car stops itself if commands stop). The map shows on Controls while unlocked. Admin token check is now constant-time"
+  "note": "Build page: Waymo shell order recorded (Nov 1, 2026, $49.32, complete)"
 }

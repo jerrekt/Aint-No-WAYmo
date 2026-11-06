@@ -28,7 +28,7 @@ The car is a 1/43 drift car's guts inside the Waymo shell, with the sensor on a 
 | Brain and camera | XIAO ESP32-S3 Sense | Camera pokes through the windshield, facing forward, and reads room markers |
 | Motor driver | DRV8833 dual H-bridge (BJ has one) | Runs on 1S, 3.3 V logic; channel A drives, channel B steers if the steering is a coil |
 | Depth sensor (V2) | TF-Luna single-point lidar, 8 m, 5 g, I2C 0x10 | Decided 2026-11-05, replaces the VL53L7CX: real range down the hall; the turret wags it ±25° while driving for obstacle stop and sweeps a full arc at stops |
-| Turret servo (V2) | 2 g 180-degree micro servo (FFTY, JST version) | Sweeps the sensor back and forth from a printed roof dome; no slip ring |
+| Turret servo (V2) | 2 g 180-degree micro servo (2-pack bought, JR connector) | Sweeps the sensor back and forth from a printed roof dome; no slip ring |
 | Gyro (V2) | GY-521 MPU-6050 board | Heading between scans; the donor has no wheel encoders |
 | Sound | Piezo chime, a must | Our own tones: trip start, arrival, and please-move when blocked. No copied Waymo audio |
 | Turn lights | 2 amber LEDs | Lowest priority |
@@ -49,13 +49,13 @@ The Build page on the site is the live list. When you buy something, mark it the
 | 3D printer and filament (chassis, turret dome, markers) | On hand | BJ | Both |
 | ESP32-C3 | On hand, bench tests only (no camera) | BJ | Testing |
 | Donor 1/43 RC drift car | Ordered | Noah | Both |
-| TF-Luna lidar (replaces the VL53L7CX; don't order the 7CX) | To buy, Amazon | Not set | V2 |
+| TF-Luna lidar (replaces the VL53L7CX; don't order the 7CX) | Delivered Nov 5 | BJ | V2 |
 | XIAO ESP32-S3 Sense | To buy, with BJ's Seeed order | BJ | Both |
-| 2 g micro servo (turret) | To buy | Not set | V2 |
-| Gyro (GY-521 MPU-6050, 3-pack) | Ordered, arrives Nov 6 | BJ | V2 |
+| 2 g micro servo (turret), 2-pack, JR connector | Ordered Nov 5, arrives Sat Nov 7 | BJ | V2 |
+| Gyro (GY-521 MPU-6050, 3-pack) | Delivered Nov 5 | BJ | V2 |
 | Piezo sounder (chime) | To buy | Not set | Both |
 | Thin wire (about 30 AWG), pin vise | To buy | Not set | Both |
-| Kapton tape | Nice to have; the printed tray, electrical tape or hot glue insulate too | Not set | Both |
+| Kapton tape (4-pack) | Ordered Nov 5, arrives Sat Nov 7 | BJ | Both |
 | Multimeter or USB power meter | To check if someone has one | Not set | Both |
 | Line sensor, floor tape, VL53L1X single-point sensor | Only if we build V1 | Not set | V1 |
 | Phone hotspot | Use a phone; no purchase | Not set | Both |
