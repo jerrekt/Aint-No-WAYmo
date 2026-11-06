@@ -50,11 +50,11 @@ The Build page on the site is the live list. When you buy something, mark it the
 | ESP32-C3 | On hand, bench tests only (no camera) | BJ | Testing |
 | Donor 1/43 RC drift car | Ordered | Noah | Both |
 | TF-Luna lidar (replaces the VL53L7CX; don't order the 7CX) | Delivered Nov 5 | BJ | V2 |
-| XIAO ESP32-S3 Sense (2, one spare) + OV5640 autofocus camera | Ordered Nov 5 from Seeed (US warehouse) | BJ | Both |
+| XIAO ESP32-S3 Sense + OV5640 autofocus camera (second board is for another project) | Ordered Nov 5 from Seeed (US warehouse) | BJ | Both |
 | 2 g micro servo (turret), 2-pack, JR connector | Ordered Nov 5, arrives Sat Nov 7 | BJ | V2 |
 | Gyro (GY-521 MPU-6050, 3-pack) | Delivered Nov 5 | BJ | V2 |
 | Piezo sounder (chime) | To buy | Not set | Both |
-| Thin wire (about 30 AWG), pin vise | To buy | Not set | Both |
+| Thin wire (about 30 AWG) | To buy | Not set | Both |
 | Kapton tape (4-pack) | Ordered Nov 5, arrives Sat Nov 7 | BJ | Both |
 | Multimeter or USB power meter | To check if someone has one | Not set | Both |
 | Line sensor, floor tape, VL53L1X single-point sensor | Only if we build V1 | Not set | V1 |
