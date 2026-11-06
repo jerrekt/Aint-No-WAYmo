@@ -6,6 +6,8 @@ Motion output remains disabled by firmware until hardware passes bench testing.
 """
 from __future__ import annotations
 import asyncio
+import hashlib
+import hmac
 import json
 import os
 import sqlite3
@@ -49,7 +51,10 @@ def recent_history(limit: int = 40):
 def admin(authorization: str | None):
     if not ADMIN_TOKEN:
         raise HTTPException(503, "Admin token not configured")
-    if authorization != "Bearer " + ADMIN_TOKEN:
+    # Constant-time compare (hash first so the length of the token is not revealed).
+    expected = hashlib.sha256(("Bearer " + ADMIN_TOKEN).encode()).digest()
+    provided = hashlib.sha256((authorization or "").encode()).digest()
+    if not hmac.compare_digest(expected, provided):
         raise HTTPException(401, "Admin authentication required")
 
 
@@ -394,6 +399,16 @@ from .team_tasks import router as team_tasks_router
 app.include_router(team_tasks_router)
 from .team_updates import router as team_updates_router
 app.include_router(team_updates_router)
+
+# Manual drive from the Controls page (team password, one driver, dead man in the firmware).
+from . import manual_drive
+def _manual_busy():
+    if state.get('emergency_stop_requested'): return 'Remote stop is active. Reset it first.'
+    if state.get('active_destination'): return 'A trip is running. Stop it first.'
+    return None
+manual_drive.configure(publish_fn=publish, busy_fn=_manual_busy,
+                       connected_fn=lambda: bool(broker and broker.is_connected()))
+app.include_router(manual_drive.router)
 
 # Single-origin deployment convenience. FastAPI serves the static site and
 # /api/tasks from the same hostname, avoiding browser CORS and hidden API hosts.

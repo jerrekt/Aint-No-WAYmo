@@ -32,6 +32,7 @@ jobs:
           node tests/test_v9.mjs
           node tests/test_v10.mjs
           node tests/test_pause.mjs
+          node tests/test_manual_sim.mjs
       - name: Validate team metadata and public map caveats
         run: python tools/check_repo.py
   bench-tests:

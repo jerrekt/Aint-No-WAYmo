@@ -121,6 +121,12 @@ A private MQTT broker (the message server the car will talk to) is set up, with 
 - **Next:** flash the ESP32-C3 bench test (`bench/esp32-c3`, no motor output) and measure the round-trip delay. The goal is under 150 ms for 95% of messages; nothing has been measured yet.
 - **Later:** reaching the broker from campus with the car on a phone hotspot. That needs a firmware change and a security review first.
 
+**Manual drive (V1.045).** The Controls page has a "Drive it yourself" pad behind the team password. When BJ turns it on for the car, the server sends on `waymo/micro-01/cmd`:
+
+`{"type":"manual","seq":12,"throttle":0.5,"steer":-0.2,"ttl_ms":400}`
+
+throttle and steer run from -1 to 1 (steer +1 = left). The firmware must: drop any command whose `seq` is not newer than the last one; scale throttle to a safe walking speed; and **stop the motors if no newer command arrives within `ttl_ms`** (a dead man, so a closed tab or lost Wi-Fi stops the car). `ttl_ms: 0` means stop now. The depth-sensor stop and the physical E-stop still win over manual commands.
+
 Wi-Fi and broker passwords go only in the board's `secrets.h`, which Git ignores. Never commit or screenshot that file.
 
 ## Next steps

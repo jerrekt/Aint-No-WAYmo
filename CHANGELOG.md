@@ -1,3 +1,6 @@
+## V1.045 — 2026-11-05
+- Controls page: Drive it yourself. Unlock with the team password, then hold the pad or W A S D to drive. Drives the simulator now, and the real car once the server switches it on (one driver at a time, the car stops itself if commands stop). The map shows on Controls while unlocked. Admin token check is now constant-time
+
 ## V1.044 — 2026-11-05
 - Build page: wiring plan diagram (assets/wiring.svg) drawn from the team handoff pin map, with the decisions of 2026-11-05: steering is a servo on D2 (D3 free), and the V2 depth sensor is a TF-Luna lidar on the motor rail instead of the VL53L7CX. Parts list, tasks, About table and SUBIR_HANDOFF.md pin map updated to match
 

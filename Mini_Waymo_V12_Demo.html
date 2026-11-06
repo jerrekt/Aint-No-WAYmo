@@ -199,6 +199,11 @@ main{gap:16px;padding:24px}
 .legend i{background:#169c78}
 .legend i.true{border-color:#db943c}
 .badge{background:#ebf1fc;color:#3359ac;border-radius:5px}
+.manualForm{display:flex;gap:8px;margin-top:10px}.manualForm input{flex:1;min-width:0;padding:10px 12px;border-radius:8px;border:1px solid #cdd8e4;font:inherit}
+.mpad{display:grid;grid-template-areas:". up ." "left down right";grid-template-columns:repeat(3,64px);gap:8px;justify-content:center;margin:12px 0 4px;touch-action:none;user-select:none;-webkit-user-select:none}
+.mkey{min-height:56px;font-size:20px;touch-action:none}.mkey.on{background:#1e52a4;color:#fff;border-color:#1e52a4}
+.manualMsg{font-size:12.5px;margin:8px 0 0;min-height:1em}.manualMsg.bad{color:#c0392b}
+#manualBadge.on{background:#d8f5e6;color:#0f7b62}
 .warn{color:#a46914}
 .metric{border:1px solid #e1e7ee;background:#fff;border-radius:9px;padding:15px}
 .metric label{color:#5e7289}
@@ -824,7 +829,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </head>
 <body data-colorway="blue">
 <div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.044</span></div></header>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.045</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -1239,7 +1244,7 @@ class MicroSimulation {
  start(){
   if(!this.localized){this.log('Server refused mission: position not confirmed');return false;}
   if(this.stepIndex>=this.mission.length-1){this.complete=true;this.running=false;this.log('Idle at IS '+this.currentRoom+'; ready for another room');return true}
-  this.complete=false;this.running=true;this.nextLeg();if(!this.activeLeg)this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};return true;
+  this.complete=false;this.running=true;this.offRoute=false;this.manual=false;this.nextLeg();if(!this.activeLeg)this.activeLeg={from:this.currentRoom,to:this.mission[this.stepIndex+1],start:this.time};return true;
  }
 
  // Dispatch APIs mirror the server model: a Go now replaces the outstanding
@@ -1271,14 +1276,14 @@ class MicroSimulation {
   if(!this.canDispatch())return false;
   // Current location remains the last *confirmed* room. Path from the
   // estimated physical pose, not from an older marker or a spawned start.
-  if(!this.running && room===this.currentRoom){this.log('Already at IS '+room+'; ready for another destination');return true;}
+  if(!this.running && room===this.currentRoom && !this.offRoute){this.log('Already at IS '+room+'; ready for another destination');return true;}
   const newPlan=this.nextFromEstimatedPose(ROOMS[room]);
   if(!newPlan.length){this.log('Go now refused: no verified mapped route');return false;}
   this.mission=[this.currentRoom,room];this.stepIndex=0;this.plan=newPlan;this.pathIndex=0;
   this.goalConfirmed=false;this.dwell=0;this.complete=false;this.failed=false;
   if(this.activeLeg)this.finishLeg('rerouted');this.activeLeg={from:this.currentRoom,to:room,start:this.time};
   this.scanning=false;this.scanRequested=false;this.relocalizeRequested=false;
-  this.scannedNodes=new Set();this.running=true;this.dispatchCount++;
+  this.scannedNodes=new Set();this.running=true;this.dispatchCount++;this.offRoute=false;this.manual=false;
   this.operatorPaused=false;this.log('GO NOW to IS '+room+'; replaced pending stops; replan '+newPlan.join('→'));
   return true;
  }
@@ -1536,7 +1541,31 @@ this.mode=this.operatorPaused&&this.out[2]===0?'PAUSED':(LABELS[this.out[2]]||'U
   }}
   if(this.time>680){this.failed=true;this.log('Simulation exceeded maximum time');}
  }
- snapshot(){return {time:this.time,robot:this.robot,est:this.est,sensor:this.sensor,mode:this.mode,status:this.out[2],signal:this.out[3],path:this.plan,stepIndex:this.stepIndex,mission:this.mission,goal:this.mission[this.stepIndex+1],current:this.currentRoom,complete:this.complete,failed:this.failed,arrivals:this.arrivals,collisions:this.collisions,boundaryViolations:this.boundaryViolations,waitS:this.waitS,lastMarker:this.lastMarker,heartbeatAge:this.heartbeatAge,scans:this.scans,objects:this.objects(),noise:this.noise,scanning:this.scanning,localized:this.localized,relocalizationNode:this.relocalizationNode,relocalizationResult:this.relocalizationResult,surveyAnchors:Object.keys(this.survey?.signatures||{}).length,pending:this.plannedStops(),operatorPaused:this.operatorPaused,estopLatched:this.estopLatched,estopSwitchPressed:this.estopSwitchPressed,dispatchCount:this.dispatchCount,completedStops:[...this.completedStops],running:!!this.running,batteryVoltage:this.batteryVoltage,batteryLow:this.lowBatteryStop,arrivalVerified:!!this.goalConfirmed,tripHistory:[...this.tripHistory]};}
+ // Manual drive (Controls page, team password). Car-like: it steers, it can't turn in place.
+ // The depth sensor still stops it short of obstacles and walls; E-stop and a lost link stop it.
+ manualStep(dt=0.08,throttle=0,steer=0){
+  if(this.running&&!this.complete){this.log('Manual drive refused: a trip is running');return false;}
+  throttle=clamp(+throttle||0,-1,1);steer=clamp(+steer||0,-1,1);
+  let target=throttle>=0?throttle*0.25:throttle*0.12,why='';
+  if(this.estop||this.estopLatched){target=0;why='E-stop';}
+  else if(!this.wifi){target=0;why='link lost';}
+  this.time+=dt;this.sense();
+  if(target>0&&this.sensor.front<0.25){target=0;why='obstacle ahead';}
+  this.manualV=(this.manualV||0)+(target-(this.manualV||0))*Math.min(1,dt/0.14);
+  if(Math.abs(this.manualV)<0.002&&target===0)this.manualV=0;
+  const v=this.manualV,yaw=wrap(this.robot.yaw+v/0.071*Math.tan(steer*0.45)*dt);
+  const nx=this.robot.x+v*dt*Math.cos(yaw),ny=this.robot.y+v*dt*Math.sin(yaw);
+  if(v!==0&&!inHall(nx,ny,0.07)){this.manualV=0;why='wall';}
+  else if(v!==0){this.robot.x=nx;this.robot.y=ny;this.robot.yaw=yaw;this.totalTravel+=Math.abs(v*dt);this.offRoute=true;}
+  this.robot.lv=this.robot.rv=this.manualV;
+  this.est.x=this.robot.x;this.est.y=this.robot.y;this.est.yaw=this.robot.yaw;
+  this.mode=why?'MANUAL · STOPPED ('+why+')':this.manualV?'MANUAL DRIVE':'MANUAL · READY';
+  if(why&&why!==this.manualWhy)this.log('Manual drive stopped: '+why);
+  this.manualWhy=why;this.manual=true;
+  return !why;
+ }
+ manualEnd(){this.manual=false;this.manualV=0;this.robot.lv=0;this.robot.rv=0;this.manualWhy='';if(this.offRoute)this.log('Manual drive ended; the next trip plans from here');}
+ snapshot(){return {time:this.time,robot:this.robot,est:this.est,sensor:this.sensor,mode:this.mode,status:this.out[2],signal:this.out[3],path:this.plan,stepIndex:this.stepIndex,mission:this.mission,goal:this.mission[this.stepIndex+1],current:this.currentRoom,complete:this.complete,failed:this.failed,arrivals:this.arrivals,collisions:this.collisions,boundaryViolations:this.boundaryViolations,waitS:this.waitS,lastMarker:this.lastMarker,heartbeatAge:this.heartbeatAge,scans:this.scans,objects:this.objects(),noise:this.noise,scanning:this.scanning,localized:this.localized,relocalizationNode:this.relocalizationNode,relocalizationResult:this.relocalizationResult,surveyAnchors:Object.keys(this.survey?.signatures||{}).length,pending:this.plannedStops(),operatorPaused:this.operatorPaused,estopLatched:this.estopLatched,estopSwitchPressed:this.estopSwitchPressed,dispatchCount:this.dispatchCount,completedStops:[...this.completedStops],running:!!this.running,batteryVoltage:this.batteryVoltage,batteryLow:this.lowBatteryStop,arrivalVerified:!!this.goalConfirmed,tripHistory:[...this.tripHistory],manual:!!this.manual,offRoute:!!this.offRoute};}
 }
 
 const wasmBase64='AGFzbQEAAAABGAVgAXwBfGACfHwBfGAAAGACf38AYAABfwIhAwNlbnYDc2luAAADZW52A2NvcwAAA2VudgVhdGFuMgABAwkIAgIDBAQCBAQFBAEBAgIGPwp/AUGwiQQLfwBBgAgLfwBBqAkLfwBBsAkLfwBBsIkEC38AQYAIC38AQbCJBAt/AEGAgAgLfwBBAAt/AEEBCweNAhIGbWVtb3J5AgARX193YXNtX2NhbGxfY3RvcnMAAwpjb3JlX3Jlc2V0AAQJY29yZV9zdGVwAAUKY29yZV9pbnB1dAAGC2NvcmVfb3V0cHV0AAcOY29yZV93YXNtX3N0ZXAACBBjb3JlX2lucHV0X2NvdW50AAkRY29yZV9vdXRwdXRfY291bnQACgxfX2Rzb19oYW5kbGUDAQpfX2RhdGFfZW5kAwILX19zdGFja19sb3cDAwxfX3N0YWNrX2hpZ2gDBA1fX2dsb2JhbF9iYXNlAwULX19oZWFwX2Jhc2UDBgpfX2hlYXBfZW5kAwcNX19tZW1vcnlfYmFzZQMIDF9fdGFibGVfYmFzZQMJCswMCAIACw0AQQBBADoAgIiAgAALhwwCAX8GfCABQgA3AwAgAUIANwMYIAFCgICAgICAgIjAADcDECABQQhqIgJCADcDACABQSBqQgA3AwACQAJAIAArA0giA71C////////////AINC//////////f/AFUNACAAKwMYIgS9Qv///////////wCDQv/////////3/wBVDQAgACsDCCIFvUL///////////8Ag0L/////////9/8AVQ0AIAArA0AiBr1C////////////AINC//////////f/AFUNACAAKwMwIge9Qv///////////wCDQoCAgICAgID4/wBTDQELIAFCADcDACABQoCAgICAgICAwAA3AxggAUKAgICAgICAiMAANwMQIAJCADcDAA8LAkAgACsDaEQAAAAAAADgP2RFDQAgAUIANwMAIAFCgICAgICAgIDAADcDGCABQoCAgICAgICRwAA3AxAgAUEIakIANwMADwsCQCADRJqZmZmZmek/ZEUNACABQgA3AwAgAUKAgICAgICAgMAANwMYIAFCgICAgICAgIrAADcDECABQQhqQgA3AwAPCwJAIAZEzczMzMzM5D9kRQ0AIAFCADcDACABQoCAgICAgICAwAA3AxggAUKAgICAgICAjMAANwMQIAFBCGpCADcDAA8LAkACQCAAKwMgRAAAAAAAAOA/Yw0AIAArA2BEmpmZmZmZ2T9kDQAgACsDUERmZmZmZmbWP2QNACAAKwNYRAAAAAAAAOA/ZA0AIAREAAAAAAAAAABjRQ0BCyABQgA3AwAgAUKAgICAgICAgMAANwMYIAFCgICAgICAgIjAADcDECABQQhqQgA3AwAPCwJAAkAgACsDACIDRAAAAAAAAAhAYg0AIAArA3AhAyABQQhqQgA3AwAgAUIANwMAAkAgA0QAAAAAAADgP2RFDQAgAUIANwMYIAFCgICAgICAgJDAADcDEEEALQCAiICAAA0CQQBBAToAgIiAgAAgAUKAgICAgICA+D83AyAPCyABQoCAgICAgICAwAA3AxggAUKAgICAgICAjMAANwMQDwtBAEEAOgCAiICAAAJAIANEAAAAAAAAAABiDQAgAUIANwMAIAFBGGpCADcDACABQRBqQgA3AwAgAUEIakIANwMADwsCQCAAKwMoIgZE16NwPQrX4z9kRQ0AIAdEAAAAAAAA8D9jRQ0AIAFCADcDACABQoCAgICAgICAwAA3AxggAUKAgICAgICAgMAANwMQIAFBCGpCADcDAA8LAkAgBER7FK5H4XrUP2NFDQAgAUIANwMAIAFCgICAgICAgIDAADcDGCABQoCAgICAgICEwAA3AxAgAUEIakIANwMADwsCQCADRAAAAAAAAABAYg0AIAFCgICAgICAgI7AADcDECABQoquj4XXx8LTPzcDCCABQoquj4XXx8LTv383AwAPCwJAIANEAAAAAAAA8D9hDQAgAUIANwMAIAFBGGpCADcDACABQRBqQgA3AwAgAUEIakIANwMADwtEzczMzMzM/L9EzczMzMzM/D8gBRCAgICAACAFEIGAgIAAEIKAgIAAIgVEmpmZmZmZAUCiIgMgA0TNzMzMzMz8P2QbIANEzczMzMzM/L9jGyEIRAAAAAAAAAAAIQMCQCAFmSIFRM3MzMzMzPA/ZA0ARHsUrkfhesQ/IQMgBUTNzMzMzMzcP2RFDQBEMzMzMzMzsz8hAwsgAUKAgICAgICA+D83AxAgAUQAAAAAAADwP0QAAAAAAADwv0QAAAAAAAAAACAAKwMQIgVEAAAAAAAA4L9jGyAFRAAAAAAAAOA/ZBs5AxggAUQpXI/C9SjMv0QpXI/C9SjMPyAIRLgehetRuJ4/oiIFRLgehetRuK4/RLgehetRuK4/IAMgB0QAAAAAAAD4P2MbIAMgBkTXo3A9CtfjP2QbIAREMzMzMzMz6z9jGyIEoCIDIANEKVyPwvUozD9kGyADRClcj8L1KMy/Yxs5AwggAUQpXI/C9SjMv0QpXI/C9SjMPyAEIAWhIgMgA0QpXI/C9SjMP2QbIANEKVyPwvUozL9jGzkDAAsLCABBiIiAgAALCABBgImAgAALFABBiIiAgABBgImAgAAQhYCAgAALBABBDwsEAEEFCwC4AQRuYW1lABAPY29udHJvbGxlci53YXNtAYoBCwADc2luAQNjb3MCBWF0YW4yAxFfX3dhc21fY2FsbF9jdG9ycwQKY29yZV9yZXNldAUJY29yZV9zdGVwBgpjb3JlX2lucHV0Bwtjb3JlX291dHB1dAgOY29yZV93YXNtX3N0ZXAJEGNvcmVfaW5wdXRfY291bnQKEWNvcmVfb3V0cHV0X2NvdW50BxIBAA9fX3N0YWNrX3BvaW50ZXIAfwlwcm9kdWNlcnMBDHByb2Nlc3NlZC1ieQEFY2xhbmdfMTcuMC4wIChodHRwczovL2dpdGh1Yi5jb20vc3dpZnRsYW5nL2xsdm0tcHJvamVjdC5naXQgMTA5OTliNmQwMzRmZTMxOGYzZDU2YzgzYmRkYjY1NzI1OTNhOGJiMCkASQ90YXJnZXRfZmVhdHVyZXMEKwptdWx0aXZhbHVlKw9tdXRhYmxlLWdsb2JhbHMrD3JlZmVyZW5jZS10eXBlcysIc2lnbi1leHQ=';
@@ -1609,7 +1638,7 @@ function draw(){
  const goalLeg=s.goal&&s.path.length?doorLeg(s.goal):null;
  if(goalLeg)h+=`<line x1="${goalLeg.x1}" y1="${goalLeg.y1}" x2="${goalLeg.x2}" y2="${goalLeg.y2}" stroke="#1e52a4" stroke-width="11" stroke-linecap="round" stroke-dasharray="19 12" opacity=".9"/>`;
  // Parked at a room: show the car at the door.
- const atDoor=s.localized&&!s.scanning&&/^[0-9]+$/.test(s.current)&&(s.complete||!s.path.length||s.current===s.goal)?doorLeg(s.current):null;
+ const atDoor=s.localized&&!s.scanning&&!s.offRoute&&/^[0-9]+$/.test(s.current)&&(s.complete||!s.path.length||s.current===s.goal)?doorLeg(s.current):null;
  for(const [room,p] of SURVEY_POINTS){
   if(!(room in ROOMS))continue;
   const active=s.goal===room, pending=(s.pending||[]).includes(room);
@@ -1626,7 +1655,7 @@ function draw(){
   else{const c=displayPoint(s.est.x,s.est.y);let best=null;
    for(let j=0;j<s.path.length-1;j++){const pa=displayPoint(...NODES[s.path[j]]),pb=displayPoint(...NODES[s.path[j+1]]);const dx=pb.x-pa.x,dy=pb.y-pa.y,l2=dx*dx+dy*dy||1;const u=Math.max(0,Math.min(1,((c.x-pa.x)*dx+(c.y-pa.y)*dy)/l2));const qx=pa.x+u*dx,qy=pa.y+u*dy,d=Math.hypot(c.x-qx,c.y-qy);if(!best||d<best.d)best={d,pa,pb,dx,dy};}
    if(best&&s.running){const o=laneShift(best.pa,best.pb);target={x:c.x+o.x,y:c.y+o.y,a:Math.atan2(best.dy,best.dx)*180/Math.PI+90};}
-   else target={x:c.x,y:c.y,a:carPose?carPose.a:-s.est.yaw*180/Math.PI+90};}
+   else target={x:c.x,y:c.y,a:(s.offRoute||s.manual||!carPose)?-s.est.yaw*180/Math.PI+90:carPose.a};}
   if(!carPose||Math.hypot(carPose.x-target.x,carPose.y-target.y)>140)carPose={x:target.x,y:target.y,a:target.a};
   else{const k=0.28;const da=((((target.a-carPose.a)%360)+540)%360)-180; // shortest turn; JS % keeps the sign, so normalise twice
    carPose={x:carPose.x+(target.x-carPose.x)*k,y:carPose.y+(target.y-carPose.y)*k,a:(carPose.a+da*k+360)%360};}
@@ -1684,7 +1713,7 @@ $('clearFuture').onclick=()=>{if(role==='guest')return;sim.clearPending();draw()
 document.addEventListener('pointerdown',()=>chime.unlock(),{once:true,passive:true});
 map.addEventListener('click',e=>{const el=e.target.closest('[data-room]');if(!el||role==='guest')return;chooseRoom(el.dataset.room);const mode=$('mapClickMode').value;if(mode!=='select')sendRoom(mode);else draw();});
 map.addEventListener('keydown',e=>{const el=e.target.closest('[data-room]');if(!el||role==='guest'||!['Enter',' '].includes(e.key))return;e.preventDefault();chooseRoom(el.dataset.room);const mode=$('mapClickMode').value;if(mode!=='select')sendRoom(mode);else draw();});
-function frame(t){const diff=Math.min(.2,(t-frameLast)/1000);frameLast=t;if(!paused&&sim&&!sim.complete&&!sim.failed){accumulator+=diff*Number($('speed').value);let cycles=0;while(accumulator>.08&&cycles++<85){sim.tick(.08);accumulator-=.08;}if(cycles>=85)accumulator=0;}
+function frame(t){const diff=Math.min(.2,(t-frameLast)/1000);frameLast=t;if(typeof manualFrame==='function')manualFrame(diff);if(!paused&&sim&&!sim.complete&&!sim.failed){accumulator+=diff*Number($('speed').value);let cycles=0;while(accumulator>.08&&cycles++<85){sim.tick(.08);accumulator-=.08;}if(cycles>=85)accumulator=0;}
  if(t-lastRender>90){draw();lastRender=t;}requestAnimationFrame(frame);}
 $('start').onclick=()=>{if(role==='guest')return;if(Object.keys(survey.signatures).length<3){sim.log('Mission refused: complete the saved hallway survey first');draw();return;}if(!sim.localized){sim.log('Mission refused: relocalize first');draw();return;}if(sim.failed){sim.log('Resolve failure and reset before restarting');draw();return;}if(sim.complete){sim.log('Trip complete — select Go now or Add stop to dispatch another room');draw();return;}if(sim.plan.length===0&&!sim.start())return;sim.running=true;paused=false;$('start').textContent='▶ Running';chime.unlock();};
 
@@ -2139,8 +2168,113 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.044';
-  document.title="Ain't No Waymo | V1.044";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.045';
+  document.title="Ain't No Waymo | V1.045";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
-</script></body></html>
+</script>
+<template id="manualCardTpl"><section class="card padded manualCard" data-v="car" id="manualCard"><div class="tripHeader"><div><div class="eyebrow">MANUAL</div><h2>Drive it yourself</h2></div><span class="badge" id="manualBadge">LOCKED</span></div>
+<div id="manualLocked"><p class="smallhelp">Team only. Unlock with the team password to steer the car by hand. Nothing is saved on this device.</p>
+<form autocomplete="off" class="manualForm" id="manualForm"><label class="screenReader" for="manualPw">Team password</label><input autocomplete="current-password" id="manualPw" maxlength="256" placeholder="Team password" type="password"/><button class="btn primary" id="manualUnlock" type="submit">Unlock</button></form></div>
+<div hidden="" id="manualPad"><div aria-label="Drive pad: hold to drive, let go to stop" class="mpad" role="group">
+<button class="btn mkey" data-k="up" style="grid-area:up" type="button" aria-label="Forward">▲</button><button class="btn mkey" data-k="left" style="grid-area:left" type="button" aria-label="Steer left">◀</button><button class="btn mkey" data-k="down" style="grid-area:down" type="button" aria-label="Reverse">▼</button><button class="btn mkey" data-k="right" style="grid-area:right" type="button" aria-label="Steer right">▶</button></div>
+<p class="smallhelp">Hold to drive, let go to stop. Keys: W A S D or the arrows. It steers like a real car, so it can't turn in place. The depth sensor still stops it short of walls and people.</p>
+<div class="trow"><span>Driving</span><strong id="manualTarget">Simulator</strong></div>
+<button class="btn danger" id="manualLock" style="width:100%;margin-top:8px" type="button">■ Stop and lock</button></div>
+<p aria-live="polite" class="manualMsg" id="manualMsg"></p>
+</section></template>
+<script>
+/* Manual drive: team password via the server, then hold-to-drive. Drives the simulator, and the real
+   car too when the server has it switched on and connected (it sends the car a command every 100 ms;
+   the car stops by itself if they stop arriving). Token lives only in this page's memory. */
+(function(){
+ const $m=id=>document.getElementById(id);
+ // Inserted after the layout script has tagged views by position, so it shifts nothing.
+ const tpl=$m('manualCardTpl'),anchor=document.querySelector('#centerRail > .diagnostics')||document.getElementById('advancedPanel');
+ if(!tpl||!anchor)return;anchor.after(tpl.content.firstElementChild);
+ const held={up:false,down:false,left:false,right:false};
+ let unlocked=false,token=null,seq=0,lastSend=0,acc=0,sending=false;
+ const msg=(t,bad)=>{const m=$m('manualMsg');m.textContent=t||'';m.classList.toggle('bad',!!bad);};
+ const axes=()=>({thr:(held.up?1:0)-(held.down?1:0),steer:(held.left?1:0)-(held.right?1:0)});
+ // While unlocked, the map shows on Controls too, with the pad right under it, so you can see where you drive.
+ const mapCard=document.querySelector('#centerRail > .card'),card=$m('manualCard');
+ const mapTag=mapCard?mapCard.dataset.v:'';
+ function placeCard(){
+  if(!mapCard||!card)return;
+  if(unlocked){mapCard.dataset.v=(mapTag||'map')+' car';if(card.previousElementSibling!==mapCard)mapCard.after(card);}
+  else{mapCard.dataset.v=mapTag;if(anchor.nextElementSibling!==card)anchor.after(card);}
+ }
+ function show(){
+  placeCard();
+  $m('manualLocked').hidden=unlocked;$m('manualPad').hidden=!unlocked;
+  const b=$m('manualBadge');b.textContent=unlocked?(token?'CAR':'SIMULATOR'):'LOCKED';b.classList.toggle('on',unlocked);
+  $m('manualTarget').textContent=token?'The real car (and the simulator)':'Simulator';
+  document.querySelectorAll('.mkey').forEach(k=>k.classList.toggle('on',!!held[k.dataset.k]));
+ }
+ function clearHeld(){for(const k in held)held[k]=false;show();}
+ async function post(path,body){
+  const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});
+  let j={};try{j=await r.json();}catch(e){}
+  return {ok:r.ok,status:r.status,detail:(j&&typeof j.detail==='string')?j.detail:'',json:j};
+ }
+ async function lock(note){
+  const t=token;token=null;unlocked=false;clearHeld();
+  if(typeof sim!=='undefined'&&sim&&sim.manual)sim.manualEnd();
+  if(t){try{await post('/api/manual/release',{token:t});}catch(e){}}
+  msg(note||'Locked.');show();
+ }
+ $m('manualForm').addEventListener('submit',async e=>{
+  e.preventDefault();const pw=$m('manualPw').value;if(!pw){msg('Type the team password.',true);return;}
+  if(typeof role!=='undefined'&&role==='guest'){msg('Viewer preview: switch back to admin to drive.',true);return;}
+  $m('manualUnlock').disabled=true;msg('Checking…');
+  try{
+   const r=await post('/api/manual/unlock',{password:pw});
+   if(r.ok){$m('manualPw').value='';unlocked=true;token=r.json.token||null;seq=0;
+    msg(token?'Unlocked. You are driving the real car: keep it in sight, E-stop on the car always wins.':('Unlocked. Driving the simulator'+(r.json.reason?' ('+r.json.reason.replace(/\.$/,'').toLowerCase()+')':'')+'.'));}
+   else if(r.status===401)msg('Wrong team password.',true);
+   else if(r.status===429)msg('Too many wrong tries. Wait 10 minutes.',true);
+   else if(r.status===409)msg(r.detail||'Someone else is driving.',true);
+   else msg(r.detail||('The server said no ('+r.status+').'),true);
+  }catch(err){msg("Can't reach the server, so the password can't be checked here.",true);}
+  $m('manualUnlock').disabled=false;show();
+ });
+ $m('manualLock').onclick=()=>lock('Stopped and locked.');
+ document.querySelectorAll('.mkey').forEach(k=>{
+  const on=e=>{if(!unlocked)return;e.preventDefault();try{k.setPointerCapture(e.pointerId);}catch(_){}held[k.dataset.k]=true;show();};
+  const off=()=>{held[k.dataset.k]=false;show();};
+  k.addEventListener('pointerdown',on);['pointerup','pointercancel','lostpointercapture'].forEach(ev=>k.addEventListener(ev,off));
+  k.addEventListener('contextmenu',e=>e.preventDefault());
+ });
+ const KEYS={w:'up',arrowup:'up',s:'down',arrowdown:'down',a:'left',arrowleft:'left',d:'right',arrowright:'right'};
+ document.addEventListener('keydown',e=>{
+  if(!unlocked||document.body.dataset.view!=='car'||e.metaKey||e.ctrlKey||e.altKey)return;
+  const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+  const k=KEYS[e.key.toLowerCase()];if(!k)return;e.preventDefault();if(!held[k]){held[k]=true;show();}
+ });
+ document.addEventListener('keyup',e=>{const k=KEYS[(e.key||'').toLowerCase()];if(k&&held[k]){held[k]=false;show();}});
+ // Anything that could hide a held key from us lets go of everything.
+ window.addEventListener('blur',clearHeld);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)clearHeld();});
+ window.addEventListener('hashchange',()=>{if(document.body.dataset.view!=='car')clearHeld();});
+ window.addEventListener('pagehide',()=>{if(token)navigator.sendBeacon?.('/api/manual/release',new Blob([JSON.stringify({token})],{type:'application/json'}));});
+ async function sendCar(thr,steer){
+  if(!token||sending)return;sending=true;
+  try{const r=await post('/api/manual/drive',{token,seq:seq++,throttle:thr,steer});
+   if(r.status===401)await lock('Drive session ended. Unlock again.');
+   else if(r.status===409)msg(r.detail||'Not now.',true);
+   else if(r.status===503){token=null;show();msg((r.detail||'Car not connected')+'. Driving the simulator only.',true);}
+  }catch(e){msg('Lost the server. The car stops by itself.',true);}
+  sending=false;
+ }
+ window.manualFrame=function(dt){
+  if(!unlocked||typeof sim==='undefined'||!sim)return;
+  const {thr,steer}=axes(),moving=thr!==0||Math.abs(sim.manualV||0)>0;
+  if(sim.running&&!sim.complete){if(thr!==0)msg('A trip is running. Stop it first.',true);}
+  else if(moving||sim.manual){acc+=dt;let n=0;while(acc>=.08&&n++<4){sim.manualStep(.08,thr,steer);acc-=.08;}if(n>=4)acc=0;}
+  const now=performance.now(),gap=(thr||steer)?100:1000;
+  if(token&&now-lastSend>=gap){lastSend=now;sendCar(thr,steer);}
+ };
+ show();
+})();
+</script>
+</body></html>
