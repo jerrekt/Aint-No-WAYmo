@@ -1,7 +1,7 @@
 {
-  "version": "V1.047",
+  "version": "V1.048",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-11-05",
-  "note": "Build page parts: Kapton counts only the tape the car uses (about $0.15 of the $10.99 pack); multimeter is a tool on hand at $0"
+  "date": "2026-11-11",
+  "note": "Map dimensions show measured, estimated (~) or to measure from maps/is_second_floor_dimensions.json; VL53L7CX (Subir) as the V1 front sensor"
 }
