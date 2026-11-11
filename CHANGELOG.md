@@ -1,3 +1,6 @@
+## V1.049 — 2026-11-11
+- Tap a map dimension to see its status and source, and report a new measurement to Discord
+
 ## V1.048 — 2026-11-11
 - Map dimensions show measured, estimated (~) or to measure from maps/is_second_floor_dimensions.json; VL53L7CX (Subir) as the V1 front sensor
 

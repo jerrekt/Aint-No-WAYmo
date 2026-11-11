@@ -16,6 +16,7 @@
    "segments": [100, 65, 108, 65, 108, 65, 108, 65, 108, 65],
    "status": "estimated",
    "source": "South wall pattern copied; not measured on the north wall",
+   "task": "survey-05",
    "measured_by": null,
    "date": null
   },
@@ -40,7 +41,7 @@
   {
    "id": "east-wall-doors",
    "label": "East hall doors, rooms 220 to 216",
-   "inches": null,
+   "segments": null,
    "status": "to_measure",
    "source": null,
    "measured_by": null,
@@ -49,7 +50,7 @@
   {
    "id": "south-inner-doors",
    "label": "South hall inner wall, rooms 241 to 239",
-   "inches": null,
+   "segments": null,
    "status": "to_measure",
    "source": null,
    "measured_by": null,

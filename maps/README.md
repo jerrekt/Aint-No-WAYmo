@@ -20,7 +20,9 @@ Every dimension on the map comes from `is_second_floor_dimensions.json`. Each en
 - `estimated`: from a sketch, Google Maps or a copied pattern. Drawn dashed with `~` before the number.
 - `to_measure`: no number yet. Drawn amber with "to measure".
 
-To record a new measurement, change the entry's number (`inches`, `segments`, or the south wall's `lead`/`door`/`wall`), set `status` to `measured`, and fill in `source`, `measured_by` and `date`. Keep everything in inches. A chain's `segments` must keep the same count as the drawing has gaps; the script stops with a message if it doesn't. Then run the refresh below. Not a coder? Post the measurement with "Send an update" on the Build page.
+To record a new measurement, change the entry's number (`inches`, `segments`, or the south wall's `lead`/`door`/`wall`), set `status` to `measured`, and fill in `source`, `measured_by` and `date`. Keep everything in inches. A chain's `segments` must keep the same count as the drawing has gaps; the script stops with a message if it doesn't. Then run the refresh below.
+
+Not a coder? Tap the dimension on the Live map. Its card shows the status and source; enter the new number there and press **Send to Discord** (team password) or **Copy for Discord**. Someone then copies it into this file by pull request. The tap areas come from `DIM_HITS` in `tools/build_map_svg.py`, written to `is_second_floor_dimension_hits.json` and embedded by `tools/embed_map.py`; a new dimension needs a tap area there too.
 
 ## After changing the map
 Run `python3 tools/build_map_svg.py && python3 tools/sync_room_list.py`, then re-embed the SVG as `SURVEY_IMAGE_URI` in `Mini_Waymo_V12_Demo.html` and run the node tests in `tests/`. `sync_room_list.py` refreshes the Where to? list and map hotspots from `maps/is_second_floor_rooms.json`; rooms snap to the nearest hallway stop, and only all-digit room numbers are listed.
