@@ -79,7 +79,7 @@
 <text x="150" y="428" font-size="12" fill="#0f7b62" text-anchor="start" font-weight="700">I2C bus · SDA D4 · SCL D5 · gyro on 3V3, Luna on the motor rail</text>
 <rect x="150" y="440" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
 <text x="265.0" y="473.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Depth sensor / lidar</text>
-<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">V1 VL53L1X · V2 TF-Luna (0x10)</text>
+<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">V1 VL53L7CX · V2 TF-Luna</text>
 <rect x="150" y="530" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
 <text x="265.0" y="563.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">GY-521 MPU-6050</text>
 <text x="265.0" y="582.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">gyro · V2 only</text>
@@ -95,7 +95,9 @@
 <text x="374" y="552" font-size="10" fill="#0f7b62" text-anchor="end">SDA</text>
 <text x="374" y="482" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
 <text x="374" y="572" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
-<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">TF-Luna: 3.7 to 5.2 V, about 70 mA, 3.3 V logic, so it rides the motor rail. V1 VL53L1X runs on 3V3.</text>
+<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">TF-Luna (0x10): 3.7 to 5.2 V, about 70 mA, 3.3 V logic,</text>
+<text x="150" y="639" font-size="11" fill="#5a6b7c" text-anchor="start">so it rides the motor rail. Its pin 5 goes to GND (I2C mode).</text>
+<text x="150" y="653" font-size="11" fill="#5a6b7c" text-anchor="start">V1 VL53L7CX (0x29) runs on 3V3.</text>
 <polyline points="770,220 880,220" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <polyline points="770,266 880,266" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <rect x="810" y="210" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
@@ -114,17 +116,19 @@
 <text x="830" y="362" font-size="10" fill="#1b2a3a" text-anchor="middle">100</text>
 <rect x="880" y="338" width="300" height="40" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
 <text x="1030.0" y="364.0" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b2a3a">Piezo chime · PWM tone · a must</text>
-<polyline points="770,404 880,404" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="825" y="396" font-size="11" fill="#b8352f" text-anchor="middle">rail sense</text>
+<polyline points="770,404 790,404 790,420 970,420 970,404" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="970" cy="404" r="4" fill="#b8352f"/>
+<text x="776" y="434" font-size="11" fill="#b8352f" text-anchor="start">rail sense (middle)</text>
+<text x="856" y="400" font-size="10" fill="#b8352f" text-anchor="end">motor rail</text>
 <rect x="900" y="394" width="40" height="20" fill="#fff" stroke="#b8352f" stroke-width="2"/>
 <text x="920" y="408" font-size="10" fill="#b8352f" text-anchor="middle">100k</text>
 <rect x="1000" y="394" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
 <text x="1020" y="408" font-size="10" fill="#1b2a3a" text-anchor="middle">100k</text>
-<polyline points="880,404 900,404" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="860,404 900,404" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
 <polyline points="940,404 1000,404" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
 <polyline points="1040,404 1080,404 1080,542 770,542" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="1095" y="402" font-size="11" fill="#5a6b7c" text-anchor="start">motor rail ÷ 2: D10 sees</text>
-<text x="1095" y="416" font-size="11" fill="#5a6b7c" text-anchor="start">the battery and the E-stop</text>
+<text x="1095" y="402" font-size="11" fill="#5a6b7c" text-anchor="start">D10 sits between the two 100k,</text>
+<text x="1095" y="416" font-size="11" fill="#5a6b7c" text-anchor="start">so it sees half the rail: battery + E-stop</text>
 <polyline points="770,450 880,450" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
 <rect x="880" y="426" width="300" height="48" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
 <text x="1030.0" y="448.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2a3a">3V3 → gyro, V1 sensors, line sensor, nSLEEP</text>

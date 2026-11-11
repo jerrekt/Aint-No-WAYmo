@@ -1,7 +1,7 @@
 {
-  "version": "V1.048",
+  "version": "V1.049",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-11",
-  "note": "Map dimensions show measured, estimated (~) or to measure from maps/is_second_floor_dimensions.json; VL53L7CX (Subir) as the V1 front sensor"
+  "note": "Tap a map dimension to see its status and source, and report a new measurement to Discord"
 }

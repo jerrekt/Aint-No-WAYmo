@@ -57,7 +57,8 @@ The Build page on the site is the live list. When you buy something, mark it the
 | Thin wire (about 30 AWG) | To buy | Not set | Both |
 | Kapton tape (4-pack) | Ordered Nov 5, arrives Sat Nov 7 | BJ | Both |
 | Multimeter or USB power meter | To check if someone has one | Not set | Both |
-| Line sensor, floor tape, VL53L1X single-point sensor | Only if we build V1 | Not set | V1 |
+| Line sensor, floor tape | Only if we build V1 | Not set | V1 |
+| VL53L7CX depth sensor (V1 front, Pololu #3418; in place of the VL53L1X) | Arrived | Subir | V1 |
 | Phone hotspot | Use a phone; no purchase | Not set | Both |
 
 Pololu ships from Las Vegas, so UPS Ground usually arrives in 1 to 2 days. Add the gyro to the same Pololu order to share shipping.
@@ -72,19 +73,20 @@ Steering is a servo (BJ, 2026-11-05), so D2 is its signal and D3 is free. The wi
 | D1 | 2 | DRV8833 AIN2 (drive) | DRV8833 AIN2 (drive) | PWM |
 | D2 | 3 | Steering servo signal | Steering servo signal | Donor steers with a servo (BJ, 2026-11-05) |
 | D3 | 4 | Free | Free | Was BIN2 for a steering coil |
-| D4 | 5 | I2C SDA: VL53L1X | I2C SDA: TF-Luna (0x10) + gyro (0x68) | One shared bus |
-| D5 | 6 | I2C SCL: VL53L1X | I2C SCL: TF-Luna + gyro | One shared bus |
+| D4 | 5 | I2C SDA: VL53L7CX (0x29) | I2C SDA: TF-Luna (0x10) + gyro (0x68) | One shared bus |
+| D5 | 6 | I2C SCL: VL53L7CX | I2C SCL: TF-Luna + gyro | One shared bus |
 | D6 | 43 | Left turn LED (330 Ω) | Left turn LED (330 Ω) | Flickers at boot; harmless |
 | D7 | 44 | Right turn LED (330 Ω) | Right turn LED (330 Ω) | |
 | D8 | 7 | Line sensor (analog in) | Turret servo signal | Shared with the SD slot: no SD card |
 | D9 | 8 | Piezo chime (100 Ω) | Piezo chime (100 Ω) | PWM tone |
-| D10 | 9 | Rail sense (analog in) | Rail sense (analog in) | 100k/100k divider from the motor rail |
+| D10 | 9 | Rail sense (analog in) | Rail sense (analog in) | Motor rail → 100k → D10 → 100k → GND (D10 on the middle) |
 | BAT+ | pad | 1S battery after the main switch | 1S battery after the main switch | Back of the XIAO; charges over USB-C |
-| 3V3 | out | VL53L1X VIN, line sensor VCC, nSLEEP | Gyro VIN, nSLEEP | The TF-Luna is NOT on 3V3 |
+| 3V3 | out | VL53L7CX VIN, line sensor VCC, nSLEEP | Gyro VIN, nSLEEP | The TF-Luna is NOT on 3V3 |
 
 Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, steering and turret servo V+, TF-Luna VCC, 470 µF bulk cap to GND).
 
 - Gyro from the XIAO's 3V3 pin. The TF-Luna takes 3.7 to 5.2 V and about 70 mA, so it goes on the motor rail (after the E-stop; it stops with the motors, which is fine). Its I2C lines are 3.3 V logic, so no level shifter. Below about 3.7 V on the pack the Luna may misread: the D10 rail sense should flag low battery before that.
+- TF-Luna pin 5 (configuration) must be tied to GND. Left open, the Luna stays in serial (UART) mode and never answers on I2C. Pin 6 stays unconnected.
 - The E-stop cuts only the motor rail (driver and servos); the ESP32 stays on. D10 reads the rail, so the firmware sees both the battery level and the E-stop state.
 - DRV8833: tie nSLEEP high, and put the 470 µF bulk cap across VM and GND at the board.
 - Steering servo: signal on D2, V+ from the motor rail, GND common. BOUT1/BOUT2 on the DRV8833 are spare. (If the teardown shows a 5-wire servo with a position pot instead, its motor goes on BOUT1/BOUT2 and the pot wiper to D10 in place of the rail sense.)
