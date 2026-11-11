@@ -13,7 +13,7 @@ Written 2026-11-05 by the previous Claude chat. You are the new updater for this
 ## 2. How BJ works with you (rules)
 
 - **Short, direct replies.** No preambles, no recaps. He self-corrects mid-conversation and expects you to recalibrate without hedging.
-- **Branch, preview, wait for "push".** Work on a branch, screenshot at desktop and **400 px** width, describe the result. Open the PR only when he says **push**. He merges himself (merging from a Claude session is blocked). Say "push" once per PR; he says it a lot.
+- **Branch, preview, wait for "push".** Work on a branch, screenshot at desktop and **400 px** width, describe the result. Open the PR only when he says **push**. BJ or Subir merges (merging from a Claude session is blocked). Subir (GitHub `SubirKhan`) is a repo collaborator, which on this personal repo means write access: he can approve and merge once `version-and-simulator` passes (0 approvals required). Anything either of them merges is live in about a minute, `kratos/` included. Keep the "Protect main" ruleset's bypass list empty (adding the Write role there would let pushes skip PRs and CI). Say "push" once per PR; he says it a lot.
 - **One version bump per PR**: `python3 tools/version.py bump --message "..."` then `python3 tools/check_repo.py`. More changes in the same PR do not bump again: add lines under that version in `CHANGELOG.md`. If two PRs pick the same next version, whichever merges second updates from main and rebumps.
 - **Batch small things into one PR** to save his usage; don't open a PR per tweak unless he asks.
 - **Ask before building anything expensive to redo**; otherwise start and show the result.
@@ -39,7 +39,7 @@ Written 2026-11-05 by the previous Claude chat. You are the new updater for this
 | `Mini_Waymo_V12_Demo.html` | The app: Live map + simulator, Car, Build, About, Team views (`body[data-view]`, hash routing, dock ids `dockMap dockCar dockBuild dockAbout dockTeam`). The V9/V10/V12 file names are old snapshots, not the version. |
 | `Mini_Waymo_V12_About.html` | Standalone About page (same board code duplicated; patch both). |
 | `VERSION`, `version.json`, `CHANGELOG.md` | Stamped by `tools/version.py`; header pill and tab title are regex-stamped, never hand-edit. |
-| `team_tasks.json` | Task board seed: 44 tasks, `size` S/M/L (1/2/4 pts), `phase` `both`/`v1`/`v2`, `groups` (car, brains, map, demo), `milestone_labels`. `tests/test_team_board.py` line 20 asserts the count. |
+| `team_tasks.json` | Task board seed: 45 tasks, `size` S/M/L (1/2/4 pts), `phase` `both`/`v1`/`v2`, `groups` (car, brains, map, demo), `milestone_labels`. `tests/test_team_board.py` line 20 asserts the count. |
 | `team_members.json` | Roles and links for the Team page. |
 | `build_parts.json` | Parts with `group`, `cost`, `approx`, `qty`, `where`, `link`, `bought`, `bought_by`, `note`. After editing: `python3 tools/embed_build_parts.py` (check_repo fails if the embedded copy is stale). |
 | `tools/build_map_svg.py` → `maps/*.svg,*.json`; `tools/sync_room_list.py`; `tools/embed_map.py` | Map pipeline (section 5). |

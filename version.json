@@ -1,7 +1,7 @@
 {
-  "version": "V1.049",
+  "version": "V1.050",
   "schema": 1,
   "status": "development-update",
-  "date": "2026-11-11",
-  "note": "Tap a map dimension to see its status and source, and report a new measurement to Discord"
+  "date": "2026-11-10",
+  "note": "Tasks: new hardware-07, wire the ESP32 for the car (in progress; BJ claimed it, wiring with Subir and Isabel): leads soldered straight to the car S3, inline pin resistors, the wire color code and the first-power checks"
 }

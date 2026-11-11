@@ -1,3 +1,8 @@
+## V1.050 — 2026-11-10
+- Tasks: new hardware-07, wire the ESP32 for the car (in progress; BJ claimed it, wiring with Subir and Isabel): leads soldered straight to the car S3, inline pin resistors, the wire color code and the first-power checks
+- Tasks: chime task says Waymo-style tones (the no-Waymo-audio rule was dropped Nov 4); drivetrain task records the teardown: steering is a DC motor with a position pot
+- Handoff: Subir can approve and merge PRs too (repo collaborator); keep the main ruleset bypass list empty
+
 ## V1.049 — 2026-11-11
 - Tap a map dimension to see its status and source, and report a new measurement to Discord
 - Roof turret bench test for the XIAO ESP32-S3 (`bench/turret-s3`): sweeps the 2 g servo on D8 and reads the TF-Luna over I2C, JSON lines on USB serial. Compiles for seeed_xiao_esp32s3; logic tests in `bench/turret-s3/tests`. Not yet run on hardware.

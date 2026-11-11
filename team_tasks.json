@@ -193,7 +193,7 @@
       "title": "Build the drivetrain",
       "status": "todo",
       "owner": null,
-      "detail": "Run the donor's motor and steering from the ESP32. At teardown, check whether steering is a servo or a left/center/right coil. Test forward, reverse, turns and slow stops. It can't turn in place, so plan wide turns.",
+      "detail": "Run the donor's motor and steering from the ESP32. Teardown (Nov 9): the steering is a small DC motor with a position pot, so the ESP32 closes the steering loop itself. Test forward, reverse, turns and slow stops. It can't turn in place, so plan wide turns.",
       "size": "L",
       "phase": "both"
     },
@@ -223,7 +223,7 @@
       "title": "Add the chime and turn signals",
       "status": "todo",
       "owner": null,
-      "detail": "The chime is a must: our own tones for trip start, arrival, and a please-move tone when something blocks the car for a few seconds. No copied Waymo audio. Turn signals are lowest priority. Neither may slow down obstacle checks.",
+      "detail": "The chime is a must: Waymo-style tones for trip start, arrival, and a please-move tone when something blocks the car for a few seconds (same as the site's chimes). Turn signals are lowest priority. Neither may slow down obstacle checks.",
       "size": "M",
       "phase": "both"
     },
@@ -236,6 +236,16 @@
       "detail": "Printed dome on the roof with the 2 g servo sweeping the TF-Luna lidar. Wire the servo and the lidar to the motor rail.",
       "size": "M",
       "phase": "v2"
+    },
+    {
+      "id": "hardware-07",
+      "milestone": "hardware",
+      "title": "Wire the ESP32 for the car",
+      "status": "in_progress",
+      "owner": "Branden Adsuara",
+      "detail": "BJ, Subir and Isabel are wiring it together. Leads are soldered straight to the car's XIAO ESP32-S3 Sense with the silicone wire kit (no breadboard); the second S3 stays free for bench tests. Resistors sit inline at the pin under heat-shrink: 330 ohm per LED on D6, 100 ohm on D7 (piezo), and a 100k/100k divider on D9. DRV8833, E-stop and 470 uF cap on short soldered leads. Wire colors: black GND, red battery +, orange motor rail (after the E-stop), white 3V3, blue SDA, green SCL, yellow signals with pin-number tags. Before first power: continuity check for shorts (3V3, 5V and BAT+ against GND), then USB only. Then test that the outputs stop when commands stop.",
+      "size": "M",
+      "phase": "both"
     },
     {
       "id": "sensors-01",
