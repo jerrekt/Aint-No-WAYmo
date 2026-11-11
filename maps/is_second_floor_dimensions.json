@@ -1,0 +1,79 @@
+{
+ "note": "Dimensions shown on the IS second-floor map. Edit a value or status here, then run the full map refresh (see maps/README.md). status: measured = taken on site with a tape or laser; estimated = from a sketch, Google Maps or a copied pattern (drawn dashed with ~); to_measure = no number yet (drawn amber). Inches only. Only positions on the drawing live in tools/build_map_svg.py.",
+ "dimensions": [
+  {
+   "id": "north-hall-length",
+   "label": "North hall, overall",
+   "inches": 2016,
+   "status": "estimated",
+   "source": "Google Maps screenshot",
+   "measured_by": null,
+   "date": null
+  },
+  {
+   "id": "north-wall-doors",
+   "label": "North wall doors, rooms 227 to 222",
+   "segments": [100, 65, 108, 65, 108, 65, 108, 65, 108, 65],
+   "status": "estimated",
+   "source": "South wall pattern copied; not measured on the north wall",
+   "measured_by": null,
+   "date": null
+  },
+  {
+   "id": "north-inner-doors",
+   "label": "North hall inner wall, rooms 229 to 230",
+   "segments": [100, 65, 108, 65],
+   "status": "estimated",
+   "source": "South wall pattern copied; not measured",
+   "measured_by": null,
+   "date": null
+  },
+  {
+   "id": "east-hall-length",
+   "label": "East side, north wall to south wall",
+   "inches": 3600,
+   "status": "estimated",
+   "source": "Google Maps screenshot",
+   "measured_by": null,
+   "date": null
+  },
+  {
+   "id": "east-wall-doors",
+   "label": "East hall doors, rooms 220 to 216",
+   "inches": null,
+   "status": "to_measure",
+   "source": null,
+   "measured_by": null,
+   "date": null
+  },
+  {
+   "id": "south-inner-doors",
+   "label": "South hall inner wall, rooms 241 to 239",
+   "inches": null,
+   "status": "to_measure",
+   "source": null,
+   "measured_by": null,
+   "date": null
+  },
+  {
+   "id": "south-wall-pattern",
+   "label": "South wall doors, rooms 201 to 214",
+   "lead": 100,
+   "door": 65,
+   "wall": 108,
+   "status": "measured",
+   "source": "BJ, on site",
+   "measured_by": "Branden Adsuara",
+   "date": "2026-10-29"
+  },
+  {
+   "id": "south-east-end",
+   "label": "South wall, past 214 to the east end",
+   "inches": null,
+   "status": "to_measure",
+   "source": null,
+   "measured_by": null,
+   "date": null
+  }
+ ]
+}

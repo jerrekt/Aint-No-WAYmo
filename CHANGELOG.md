@@ -1,3 +1,6 @@
+## V1.048 — 2026-11-11
+- Map dimensions show measured, estimated (~) or to measure from maps/is_second_floor_dimensions.json; VL53L7CX (Subir) as the V1 front sensor
+
 ## V1.047 — 2026-11-05
 - Build page parts: costs now count only what the car uses; BJ keeps the rest. One S3 Sense ($17.56) and the OV5640 ($16.30), each with its share of the Seeed shipping and tax (the second board is for another project); one gyro of the 3-pack ($4.32); one servo of the 2-pack ($8.80); Kapton about $0.15 of the $10.99 pack; thin wire, piezo and floor tape estimated by the amount used. Multimeter is a tool on hand at $0. Small drill / pin vise removed
 

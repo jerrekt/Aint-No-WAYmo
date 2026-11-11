@@ -236,17 +236,18 @@
     },
     {
       "id": "tof-single",
-      "part": "Single-point depth sensor",
-      "what": "Cheap front distance sensor (VL53L0X or VL53L1X class) to stop for obstacles.",
+      "part": "VL53L7CX depth sensor (front)",
+      "what": "8 x 8 zone time-of-flight sensor, 90 degree view, up to 3.5 m. Faces forward from the bumper to stop for obstacles. Takes the place of the planned VL53L1X.",
       "versions": "v1",
       "group": "brains",
       "qty": "1",
-      "cost": 13,
-      "approx": true,
-      "where": "Pololu",
-      "link": "https://www.pololu.com/product/3415",
-      "bought": false,
-      "note": ""
+      "cost": 19.95,
+      "approx": false,
+      "where": "Pololu (#3418)",
+      "link": "https://www.pololu.com/product/3418",
+      "bought": true,
+      "note": "Bought by Subir; arrived. Carrier with its own 3.3 V regulator; header pins to solder. Runs from the XIAO's 3V3 on the shared I2C bus (D4/D5). Price without shipping.",
+      "bought_by": "Subir"
     },
     {
       "id": "tf-luna",
