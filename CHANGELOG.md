@@ -1,5 +1,6 @@
 ## V1.049 — 2026-11-11
 - Tap a map dimension to see its status and source, and report a new measurement to Discord
+- Roof turret bench test for the XIAO ESP32-S3 (`bench/turret-s3`): sweeps the 2 g servo on D8 and reads the TF-Luna over I2C, JSON lines on USB serial. Compiles for seeed_xiao_esp32s3; logic tests in `bench/turret-s3/tests`. Not yet run on hardware.
 
 ## V1.048 — 2026-11-11
 - Map dimensions show measured, estimated (~) or to measure from maps/is_second_floor_dimensions.json; VL53L7CX (Subir) as the V1 front sensor
