@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory() as tmp:
     app.include_router(router)
     cli=TestClient(app)
     tasks=cli.get('/api/tasks').json()
-    assert len(tasks['tasks'])==45
+    assert len(tasks['tasks'])==46
     assert 'password' not in json.dumps(tasks).lower()
     target=next(t for t in tasks['tasks'] if t['status']=='todo')
     tid=target['id']

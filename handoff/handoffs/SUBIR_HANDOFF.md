@@ -12,30 +12,30 @@ V1 is the low-effort fallback; V2 is the version we're building toward. Both use
 
 |  | V1: line follower | V2: room scanner |
 | --- | --- | --- |
-| What it does | Follows a tape line, counts junction and door marks, stops at the chosen room | Drives the hallway like a real car; at stops the roof turret sweeps the depth sensor to match the saved map, and the windshield camera reads room markers |
+| What it does | Follows a tape line, counts junction and door marks, stops at the chosen room | Drives the hallway like a real car; at stops the roof turret sweeps the lidar to match the saved map, and the hood camera reads room markers |
 | Can | Room-to-room trips; stops for anything in front (single depth sensor); physical E-stop | Trips with no tape; gyro heading; stops for obstacles without Wi-Fi; stops instead of guessing when unsure; physical E-stop |
 | Can't | Leave the tape, or recover if it loses count | See into rooms (2 to 3 m range), recognize people specifically, turn in place |
 | Needs | Permission to tape the floor | Permission to place room markers; the parts fit confirmed |
 
 ## Hardware decisions
 
-The car is a 1/43 drift car's guts inside the Waymo shell, with the sensor on a roof turret and the camera behind the windshield.
+The car is a 1/43 drift car's guts inside the Waymo shell, with the lidar on a roof turret and the camera on the hood.
 
 | Part | Decision | Why |
 | --- | --- | --- |
 | Shell | World's Littlest Waymo I-PACE, 112 x 45.6 x 51.2 mm outside, about 1:42 | Official size from the Waymo shop; inside still to measure with calipers |
-| Drivetrain | Donor 1/43 4WD mini RC drift car (motor, steering, wheels, battery) | Fits the shell's size class; it steers like a car, so no turning in place |
-| Brain and camera | XIAO ESP32-S3 Sense | Camera pokes through the windshield, facing forward, and reads room markers |
-| Motor driver | DRV8833 dual H-bridge (BJ has one) | Runs on 1S, 3.3 V logic; channel A drives, channel B steers if the steering is a coil |
+| Drivetrain | Donor 1/43 4WD mini RC drift car (motor, steering, wheels, battery) | Fits the shell's size class; it steers like a car, so no turning in place. Teardown (Nov 9): drive motor in the rear gearbox; steering is a small DC motor with a position pot (the stock board's RV pads), not a 3-wire servo |
+| Brain and camera | XIAO ESP32-S3 Sense with the OV5640 autofocus camera | The camera sits on the hood, facing forward, on a small printed stand; its flat cable snakes through the hood vent to the board. Its job: read the printed room marker by each door so the car knows which room it's at, and stop instead of guessing if it can't read one |
+| Motor driver | DRV8833 dual H-bridge (BJ has one) | Runs on 1S, 3.3 V logic; channel A drives, channel B runs the steering motor |
 | Depth sensor (V2) | TF-Luna single-point lidar, 8 m, 5 g, I2C 0x10 | Decided 2026-11-05, replaces the VL53L7CX: real range down the hall; the turret wags it ±25° while driving for obstacle stop and sweeps a full arc at stops |
-| Turret servo (V2) | 2 g 180-degree micro servo (2-pack bought, JR connector) | Sweeps the sensor back and forth from a printed roof dome; no slip ring |
+| Turret servo (V2) | 2 g 180-degree micro servo (2-pack bought, JR connector) | Sweeps the TF-Luna back and forth from a printed roof dome; no slip ring. Needs a printed adapter (servo horn to Luna) and a hole drilled in the roof for the servo and its wires |
 | Gyro (V2) | GY-521 MPU-6050 board | Heading between scans; the donor has no wheel encoders |
-| Sound | Piezo chime, a must | Our own tones: trip start, arrival, and please-move when blocked. No copied Waymo audio |
-| Turn lights | 2 amber LEDs | Lowest priority |
-| Battery | Donor's 1S pack + the XIAO's built-in charger | No separate protection board; check the pack has its own at teardown |
+| Sound | Piezo chime, a must | Waymo-style tones: trip start, arrival, and please-move when blocked |
+| Hazard lights | 2 amber LEDs on one pin (D6) | No turn signals: both blink together as hazards when the car stops for a person or is parked (decided 2026-11-10) |
+| Battery | Donor's 1S pack + the XIAO's built-in charger | Teardown: 701530 pouch, 1S 3.7 V 220 mAh (7 x 15 x 30 mm), protection board likely under the yellow tape. Too small for the S3 with Wi-Fi and camera: a 1S 400 to 500 mAh that fits is the upgrade |
 | E-stop | Slide switch on the motor power | Cuts motors without Wi-Fi; the ESP32 stays on |
 
-Steering: the donor uses a servo (BJ, 2026-11-05).
+Steering: a small DC motor with a position pot (teardown 2026-11-09). The ESP32 runs the motor through the DRV8833 and reads the pot, closing the loop itself like a servo does.
 
 ## Parts
 
@@ -65,31 +65,33 @@ Pololu ships from Las Vegas, so UPS Ground usually arrives in 1 to 2 days. Add t
 
 ## Wiring
 
-Steering is a servo (BJ, 2026-11-05), so D2 is its signal and D3 is free. The wiring diagram on the Build page (`assets/wiring.svg`) is this table drawn out. All grounds are joined.
+Updated 2026-11-10 after the teardown: steering is a DC motor plus a pot, so D2/D3 drive it through the DRV8833 and D10 reads the pot; battery sense moves to D9, the piezo to D7, and both amber LEDs share D6 (hazards only). The car's S3 is wired with leads soldered straight to the pins. The wiring diagram on the Build page (`assets/wiring.svg`) is this table drawn out. All grounds are joined.
 
 | XIAO pin | GPIO | V1 | V2 | Note |
 | --- | --- | --- | --- | --- |
 | D0 | 1 | DRV8833 AIN1 (drive) | DRV8833 AIN1 (drive) | PWM |
 | D1 | 2 | DRV8833 AIN2 (drive) | DRV8833 AIN2 (drive) | PWM |
-| D2 | 3 | Steering servo signal | Steering servo signal | Donor steers with a servo (BJ, 2026-11-05) |
-| D3 | 4 | Free | Free | Was BIN2 for a steering coil |
+| D2 | 3 | DRV8833 BIN1 (steering motor) | DRV8833 BIN1 (steering motor) | PWM |
+| D3 | 4 | DRV8833 BIN2 (steering motor) | DRV8833 BIN2 (steering motor) | PWM |
 | D4 | 5 | I2C SDA: VL53L7CX (0x29) | I2C SDA: TF-Luna (0x10) + gyro (0x68) | One shared bus |
 | D5 | 6 | I2C SCL: VL53L7CX | I2C SCL: TF-Luna + gyro | One shared bus |
-| D6 | 43 | Left turn LED (330 Ω) | Left turn LED (330 Ω) | Flickers at boot; harmless |
-| D7 | 44 | Right turn LED (330 Ω) | Right turn LED (330 Ω) | |
+| D6 | 43 | Both amber LEDs (330 Ω each) | Both amber LEDs (330 Ω each) | Hazards only; flickers at boot, harmless |
+| D7 | 44 | Piezo chime (100 Ω) | Piezo chime (100 Ω) | PWM tone |
 | D8 | 7 | Line sensor (analog in) | Turret servo signal | Shared with the SD slot: no SD card |
-| D9 | 8 | Piezo chime (100 Ω) | Piezo chime (100 Ω) | PWM tone |
-| D10 | 9 | Rail sense (analog in) | Rail sense (analog in) | Motor rail → 100k → D10 → 100k → GND (D10 on the middle) |
+| D9 | 8 | Battery sense (analog in) | Battery sense (analog in) | Motor rail → 100k → D9 → 100k → GND (D9 on the middle) |
+| D10 | 9 | Steering pot wiper (analog in) | Steering pot wiper (analog in) | Pot fed from 3V3, so the wiper stays in the ADC range |
 | BAT+ | pad | 1S battery after the main switch | 1S battery after the main switch | Back of the XIAO; charges over USB-C |
-| 3V3 | out | VL53L7CX VIN, line sensor VCC, nSLEEP | Gyro VIN, nSLEEP | The TF-Luna is NOT on 3V3 |
+| 3V3 | out | VL53L7CX VIN, line sensor VCC, steering pot, nSLEEP | Gyro VIN, steering pot, nSLEEP | The TF-Luna is NOT on 3V3 |
 
-Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, steering and turret servo V+, TF-Luna VCC, 470 µF bulk cap to GND).
+Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, turret servo V+, TF-Luna VCC, 470 µF bulk cap to GND).
 
-- Gyro from the XIAO's 3V3 pin. The TF-Luna takes 3.7 to 5.2 V and about 70 mA, so it goes on the motor rail (after the E-stop; it stops with the motors, which is fine). Its I2C lines are 3.3 V logic, so no level shifter. Below about 3.7 V on the pack the Luna may misread: the D10 rail sense should flag low battery before that.
+- Gyro from the XIAO's 3V3 pin. The TF-Luna takes 3.7 to 5.2 V and about 70 mA, so it goes on the motor rail (after the E-stop; it stops with the motors, which is fine). Its I2C lines are 3.3 V logic, so no level shifter. Below about 3.7 V on the pack the Luna may misread: the D9 battery sense should flag low battery before that.
 - TF-Luna pin 5 (configuration) must be tied to GND. Left open, the Luna stays in serial (UART) mode and never answers on I2C. Pin 6 stays unconnected.
-- The E-stop cuts only the motor rail (driver and servos); the ESP32 stays on. D10 reads the rail, so the firmware sees both the battery level and the E-stop state.
+- The E-stop cuts only the motor rail (driver and servos); the ESP32 stays on. D9 reads the rail, so the firmware sees both the battery level and the E-stop state.
 - DRV8833: tie nSLEEP high, and put the 470 µF bulk cap across VM and GND at the board.
-- Steering servo: signal on D2, V+ from the motor rail, GND common. BOUT1/BOUT2 on the DRV8833 are spare. (If the teardown shows a 5-wire servo with a position pot instead, its motor goes on BOUT1/BOUT2 and the pot wiper to D10 in place of the rail sense.)
+- Steering: the motor on DRV8833 BOUT1/BOUT2 (D2/D3), the pot on 3V3 and GND with its wiper on D10. Find the wiper with a meter first (the pad whose resistance sweeps as you turn the wheels).
+- Resistors go right at the pin, under heat-shrink: 330 Ω per LED on D6, 100 Ω on D7, and the 100k/100k divider on D9. Never feed the battery or motor rail straight into any pin.
+- Wire colors: black GND, red battery + (before the E-stop), orange motor rail (after the E-stop), white 3V3, blue SDA, green SCL, yellow signals with pin-number tags. Keep the stock pink/blue motor leads; the stock pot lead's red is 3.3 V, so tag it white.
 - If the Luna is noisy on the shared rail, add a 100 µF cap at its connector.
 - No SD card in the Sense board, because pins D8 to D10 are shared with it.
 - The shell is metal: nothing conductive may touch it. Keep boards in the printed tray (or under tape or hot glue), and the Wi-Fi antenna out of the metal.
@@ -133,11 +135,15 @@ Wi-Fi and broker passwords go only in the board's `secrets.h`, which Git ignores
 
 ## Next steps
 
-The next big unlock is the donor car's teardown: it settles the steering wiring and whether everything fits.
+The teardown is done (Nov 9). Next: fit everything in the shell and power up the wired car S3.
 
-- [ ] Tear down the donor car when it arrives: is the steering a servo or a coil, does the battery have a protection board, what are its dimensions
-- [ ] Measure the shell's inside with calipers: size, wheelbase, roof height, ground clearance
-- [ ] Order the rest: S3 Sense, turret servo, piezo, thin wire
+- [x] Tear down the donor car: steering is a DC motor with a position pot; battery is a 1S 220 mAh 701530 pouch
+- [ ] Find the steering pot's wiper with a meter; note which motor plug is drive and which is steering
+- [ ] Measure the shell's inside with calipers: size, wheelbase, roof height, ground clearance; compare the donor's wheelbase
+- [ ] Print the turret adapter (servo horn to TF-Luna) and drill the roof hole for the servo
+- [ ] Print the hood camera stand; route the camera's flat cable through the hood vent
+- [ ] Order the rest: piezo, a 1S 400 to 500 mAh battery that fits
+- [ ] First power on the car S3: continuity check for shorts, then USB only
 - [ ] Flash the ESP32-C3 bench test and measure the delay (BJ)
 - [ ] Measure the north wall doors, rooms 227 to 222 (someone at school)
 - [ ] Confirm the unclear room labels: 218B, 219C, the two 216s, the repeated 223

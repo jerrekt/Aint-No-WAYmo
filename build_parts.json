@@ -12,8 +12,8 @@
     "v2": {
       "name": "V2: room scanner",
       "effort": "Our version",
-      "how": "Drives the hallway like a real car (it steers; it can't spin in place). At stops, a roof turret sweeps a lidar to match the scan to the saved map, and the camera in the windshield reads room markers to confirm where it is.",
-      "can": "Room-to-room trips from the site with no tape. Gyro heading. Stops for obstacles even without Wi-Fi (the lidar wags left and right while driving). Stops instead of guessing when unsure. Physical E-stop.",
+      "how": "Drives the hallway like a real car (it steers; it can't spin in place). At stops, a roof turret sweeps a lidar to match the scan to the saved map, and the camera on the hood reads the room marker by the door to confirm where it is.",
+      "can": "Room-to-room trips from the site with no tape. Gyro heading. Stops for obstacles even without Wi-Fi (the lidar wags left and right while driving). Hazard lights when it stops for a person or parks. Stops instead of guessing when unsure. Physical E-stop.",
       "cant": "See into rooms (one point at a time, about 8 m down the hall), recognize people specifically, or turn in place.",
       "catch": "Permission to place room markers, and the parts fit confirmed."
     }
@@ -51,7 +51,7 @@
     {
       "id": "esp32-s3-sense",
       "part": "XIAO ESP32-S3 Sense",
-      "what": "The car's brain and camera. Runs motors, safety stop and marker reading. The camera pokes through the windshield, facing forward.",
+      "what": "The car's brain. Runs the motors, steering, safety stop and the camera. Its camera sits on the hood, facing forward, on a small printed stand; the flat cable snakes through the hood vent.",
       "versions": "both",
       "group": "brains",
       "qty": "1",
@@ -66,7 +66,7 @@
     {
       "id": "ov5640-camera",
       "part": "OV5640 autofocus camera",
-      "what": "Swaps in for the Sense's stock camera: autofocus and higher resolution, so it reads the room markers more reliably. Comes with a heat sink.",
+      "what": "The car's eyes for room markers: it reads the printed marker by each door so the car knows which room it's at, and the car stops instead of guessing if it can't read one. Autofocus and higher resolution than the Sense's stock camera. Sits on the hood. Comes with a heat sink.",
       "versions": "both",
       "group": "brains",
       "qty": "1",
@@ -108,8 +108,8 @@
     },
     {
       "id": "lights-sound",
-      "part": "Chime and turn lights",
-      "what": "Small piezo sounder for the chime (a must) and 2 amber LEDs with resistors (lowest priority).",
+      "part": "Chime and hazard lights",
+      "what": "Small piezo sounder for Waymo-style chimes (a must) and 2 amber LEDs on one pin. No turn signals: the LEDs blink together as hazards when the car stops for a person or is parked.",
       "versions": "both",
       "group": "power",
       "qty": "1 piezo, 2 LEDs",
@@ -166,7 +166,7 @@
     {
       "id": "chassis-print",
       "part": "Printed chassis and room markers",
-      "what": "3D printed chassis to hold the parts, the roof turret dome, and printed markers for the rooms.",
+      "what": "3D printed chassis to hold the parts, the roof turret dome, and printed markers for the rooms. Also the turret adapter (servo horn to TF-Luna) and the small stand that holds the camera on the hood.",
       "versions": "both",
       "group": "car",
       "qty": "1",
@@ -282,7 +282,7 @@
     {
       "id": "roof-servo",
       "part": "Roof turret servo",
-      "what": "Sweeps the depth sensor from a printed roof dome, like a real Waymo's lidar. Sweeps back and forth rather than spinning, so no slip ring. Needed because the drift car can't turn in place.",
+      "what": "Sweeps the TF-Luna from a printed roof dome, like a real Waymo's lidar. Sweeps back and forth rather than spinning, so no slip ring. Needs a printed adapter from the servo horn to the Luna, and a hole drilled in the roof for the servo and its wires.",
       "versions": "v2",
       "group": "brains",
       "qty": "1 of a 2-pack",

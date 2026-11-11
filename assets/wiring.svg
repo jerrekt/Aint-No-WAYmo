@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 930" font-family="Arial, Helvetica, sans-serif" role="img" aria-label="Wiring plan for the Mini-Waymo car">
-<rect width="1300" height="930" fill="#f7fafc"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 960" font-family="Arial, Helvetica, sans-serif" role="img" aria-label="Wiring plan for the Mini-Waymo car">
+<rect width="1300" height="960" fill="#f7fafc"/>
 <rect x="520" y="130" width="250" height="560" rx="12" fill="#ffffff" stroke="#1e52a4" stroke-width="3"/>
 <text x="645.0" y="158" font-size="18" fill="#1b2a3a" text-anchor="middle" font-weight="700">XIAO ESP32-S3 Sense</text>
-<text x="645.0" y="178" font-size="12" fill="#5a6b7c" text-anchor="middle">camera faces forward through the windshield</text>
+<text x="645.0" y="178" font-size="12" fill="#5a6b7c" text-anchor="middle">the car board, leads soldered to the pins</text>
 <circle cx="520" cy="220" r="4" fill="#1b2a3a"/>
 <text x="532" y="225" font-size="14" fill="#1b2a3a" text-anchor="start" font-weight="700">D0</text>
 <text x="568" y="225" font-size="11" fill="#5a6b7c" text-anchor="start">GPIO1</text>
@@ -45,9 +45,12 @@
 <circle cx="770" cy="542" r="4" fill="#1b2a3a"/>
 <text x="758" y="547" font-size="14" fill="#1b2a3a" text-anchor="end" font-weight="700">GND</text>
 <text x="710" y="547" font-size="11" fill="#5a6b7c" text-anchor="end"></text>
-<rect x="150" y="130" width="230" height="220" rx="10" fill="#ffffff" stroke="#1e52a4" stroke-width="2.5"/>
+<text x="645.0" y="644" font-size="11.5" fill="#5a6b7c" text-anchor="middle">Camera: OV5640 on the hood, facing forward;</text>
+<text x="645.0" y="660" font-size="11.5" fill="#5a6b7c" text-anchor="middle">flat cable through the hood vent.</text>
+<text x="645.0" y="676" font-size="11.5" fill="#5a6b7c" text-anchor="middle">Reads the room marker by each door.</text>
+<rect x="150" y="130" width="230" height="230" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
 <text x="265.0" y="156" font-size="17" fill="#1b2a3a" text-anchor="middle" font-weight="700">DRV8833</text>
-<text x="265.0" y="175" font-size="12" fill="#5a6b7c" text-anchor="middle">dual H-bridge · runs on 1S</text>
+<text x="265.0" y="175" font-size="12" fill="#5a6b7c" text-anchor="middle">A drives, B steers</text>
 <circle cx="380" cy="208" r="4" fill="#1b2a3a"/>
 <text x="370" y="212" font-size="12" fill="#1b2a3a" text-anchor="end">AIN1</text>
 <circle cx="380" cy="234" r="4" fill="#1b2a3a"/>
@@ -57,123 +60,129 @@
 <circle cx="380" cy="286" r="4" fill="#1b2a3a"/>
 <text x="370" y="290" font-size="12" fill="#1b2a3a" text-anchor="end">BIN2</text>
 <circle cx="380" cy="312" r="4" fill="#1b2a3a"/>
-<text x="370" y="316" font-size="12" fill="#1b2a3a" text-anchor="end">nSLEEP</text>
-<polyline points="520,220 492,220 492,208 380,208" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="520,266 478,266 478,234 380,234" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="470" y="200" font-size="11" fill="#5a6b7c" text-anchor="middle">PWM</text>
-<text x="390" y="316" font-size="11" fill="#5a6b7c" text-anchor="start">to 3V3</text>
-<circle cx="180" cy="350" r="4" fill="#1b2a3a"/>
-<text x="180" y="340" font-size="12" fill="#b8352f" text-anchor="middle" font-weight="700">VM</text>
-<circle cx="220" cy="350" r="4" fill="#1b2a3a"/>
-<text x="220" y="340" font-size="12" fill="#5a6b7c" text-anchor="middle">GND</text>
-<text x="160" y="212" font-size="11" fill="#5a6b7c" text-anchor="start">AOUT1/2</text>
-<text x="160" y="264" font-size="11" fill="#5a6b7c" text-anchor="start">BOUT1/2 spare</text>
-<rect x="20" y="188" width="110" height="52" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
-<text x="75.0" y="212.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1b2a3a">Drive</text>
-<text x="75.0" y="231.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">motor</text>
-<polyline points="130,214 150,214" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<rect x="20" y="250" width="110" height="52" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
-<text x="75.0" y="274.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1b2a3a">Steering</text>
-<text x="75.0" y="293.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">servo: D2 + rail</text>
-<text x="20" y="372" font-size="11" fill="#5a6b7c" text-anchor="start">Steering servo: signal on D2, V+ from the motor rail. D3 and BOUT1/2 are spare.</text>
-<text x="150" y="428" font-size="12" fill="#0f7b62" text-anchor="start" font-weight="700">I2C bus · SDA D4 · SCL D5 · gyro on 3V3, Luna on the motor rail</text>
-<rect x="150" y="440" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
-<text x="265.0" y="473.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Depth sensor / lidar</text>
-<text x="265.0" y="492.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">V1 VL53L7CX · V2 TF-Luna</text>
-<rect x="150" y="530" width="230" height="70" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
-<text x="265.0" y="563.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">GY-521 MPU-6050</text>
-<text x="265.0" y="582.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">gyro · V2 only</text>
-<polyline points="520,404 430,404 430,575" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="520,450 446,450 446,595" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="520,404 430,404 430,555" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="520,450 446,450 446,575" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="430,465 380,465" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="430,555 380,555" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="446,485 380,485" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="446,575 380,575" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="374" y="462" font-size="10" fill="#0f7b62" text-anchor="end">SDA</text>
-<text x="374" y="552" font-size="10" fill="#0f7b62" text-anchor="end">SDA</text>
-<text x="374" y="482" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
-<text x="374" y="572" font-size="10" fill="#0f7b62" text-anchor="end">SCL</text>
-<text x="150" y="625" font-size="11" fill="#5a6b7c" text-anchor="start">TF-Luna (0x10): 3.7 to 5.2 V, about 70 mA, 3.3 V logic,</text>
-<text x="150" y="639" font-size="11" fill="#5a6b7c" text-anchor="start">so it rides the motor rail. Its pin 5 goes to GND (I2C mode).</text>
-<text x="150" y="653" font-size="11" fill="#5a6b7c" text-anchor="start">V1 VL53L7CX (0x29) runs on 3V3.</text>
-<polyline points="770,220 880,220" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="770,266 880,266" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<rect x="810" y="210" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
-<text x="830" y="224" font-size="10" fill="#1b2a3a" text-anchor="middle">330</text>
-<rect x="810" y="256" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
-<text x="830" y="270" font-size="10" fill="#1b2a3a" text-anchor="middle">330</text>
-<rect x="880" y="200" width="300" height="86" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
-<text x="1030.0" y="241.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1b2a3a">Amber turn LEDs</text>
-<text x="1030.0" y="260.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">left D6 · right D7 · lowest priority</text>
-<polyline points="770,312 880,312" fill="none" stroke="#c8761c" stroke-width="2.5" stroke-linejoin="round"/>
-<rect x="880" y="292" width="300" height="40" rx="10" fill="#ffffff" stroke="#c8761c" stroke-width="2.5"/>
-<text x="1030.0" y="318.0" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b2a3a">D8 · V1 line sensor  /  V2 turret servo</text>
-<text x="1030.0" y="346" font-size="11" fill="#5a6b7c" text-anchor="middle">no SD card: D8 to D10 are shared with the slot</text>
-<polyline points="770,358 880,358" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<rect x="810" y="348" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
-<text x="830" y="362" font-size="10" fill="#1b2a3a" text-anchor="middle">100</text>
-<rect x="880" y="338" width="300" height="40" rx="10" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.5"/>
-<text x="1030.0" y="364.0" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b2a3a">Piezo chime · PWM tone · a must</text>
-<polyline points="770,404 790,404 790,420 970,420 970,404" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
-<circle cx="970" cy="404" r="4" fill="#b8352f"/>
-<text x="776" y="434" font-size="11" fill="#b8352f" text-anchor="start">rail sense (middle)</text>
-<text x="856" y="400" font-size="10" fill="#b8352f" text-anchor="end">motor rail</text>
-<rect x="900" y="394" width="40" height="20" fill="#fff" stroke="#b8352f" stroke-width="2"/>
-<text x="920" y="408" font-size="10" fill="#b8352f" text-anchor="middle">100k</text>
-<rect x="1000" y="394" width="40" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
-<text x="1020" y="408" font-size="10" fill="#1b2a3a" text-anchor="middle">100k</text>
-<polyline points="860,404 900,404" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="940,404 1000,404" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<polyline points="1040,404 1080,404 1080,542 770,542" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="1095" y="402" font-size="11" fill="#5a6b7c" text-anchor="start">D10 sits between the two 100k,</text>
-<text x="1095" y="416" font-size="11" fill="#5a6b7c" text-anchor="start">so it sees half the rail: battery + E-stop</text>
-<polyline points="770,450 880,450" fill="none" stroke="#0f7b62" stroke-width="2.5" stroke-linejoin="round"/>
-<rect x="880" y="426" width="300" height="48" rx="10" fill="#ffffff" stroke="#0f7b62" stroke-width="2.5"/>
-<text x="1030.0" y="448.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2a3a">3V3 → gyro, V1 sensors, line sensor, nSLEEP</text>
-<text x="1030.0" y="467.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">watch the total 3V3 load</text>
-<polyline points="770,496 820,496 820,735 460,735 460,765" fill="none" stroke="#2d7f3a" stroke-width="3" stroke-linejoin="round"/>
-<text x="832" y="500" font-size="11" fill="#2d7f3a" text-anchor="start">BAT+ pad on the back · charges over USB-C</text>
-<text x="880" y="560" font-size="11" fill="#5a6b7c" text-anchor="start">GND · all grounds joined</text>
-<rect x="60" y="765" width="180" height="60" rx="10" fill="#ffffff" stroke="#2d7f3a" stroke-width="2.5"/>
-<text x="150.0" y="793.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">1S battery</text>
-<text x="150.0" y="812.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">donor pack (protected?)</text>
-<rect x="390" y="765" width="140" height="60" rx="10" fill="#ffffff" stroke="#2d7f3a" stroke-width="2.5"/>
-<text x="460.0" y="801.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Main switch</text>
-<rect x="600" y="765" width="140" height="60" rx="10" fill="#ffffff" stroke="#b8352f" stroke-width="2.5"/>
-<text x="670.0" y="793.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">E-stop</text>
-<text x="670.0" y="812.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">slide switch</text>
-<rect x="810" y="765" width="220" height="60" rx="10" fill="#ffffff" stroke="#b8352f" stroke-width="2.5"/>
-<text x="920.0" y="793.0" text-anchor="middle" font-size="17" font-weight="700" fill="#1b2a3a">Motor rail</text>
-<text x="920.0" y="812.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">DRV8833 VM · servo V+</text>
-<rect x="1080" y="765" width="120" height="60" rx="10" fill="#ffffff" stroke="#b8352f" stroke-width="2.5"/>
-<text x="1140.0" y="793.0" text-anchor="middle" font-size="14" font-weight="700" fill="#1b2a3a">470 µF</text>
-<text x="1140.0" y="812.0" text-anchor="middle" font-size="12.5" fill="#5a6b7c">across VM and GND</text>
-<polyline points="240,795 390,795" fill="none" stroke="#2d7f3a" stroke-width="3" stroke-linejoin="round"/>
-<polyline points="530,795 600,795" fill="none" stroke="#b8352f" stroke-width="3" stroke-linejoin="round"/>
-<polyline points="740,795 810,795" fill="none" stroke="#b8352f" stroke-width="3" stroke-linejoin="round"/>
-<polyline points="1030,795 1080,795" fill="none" stroke="#b8352f" stroke-width="3" stroke-linejoin="round"/>
-<circle cx="460" cy="765" r="4" fill="#2d7f3a"/>
-<polyline points="180,350 180,390 135,390 135,715 850,715 850,765" fill="none" stroke="#b8352f" stroke-width="2.5" stroke-linejoin="round"/>
-<circle cx="850" cy="765" r="4" fill="#b8352f"/>
-<text x="150" y="709" font-size="11" fill="#b8352f" text-anchor="start">motor rail → DRV8833 VM · steering servo V+ · turret servo V+ · TF-Luna VCC</text>
-<polyline points="220,350 220,380 120,380 120,700" fill="none" stroke="#5a6b7c" stroke-width="2" stroke-linejoin="round" stroke-dasharray="5 4"/>
-<text x="120" y="712" font-size="10" fill="#5a6b7c" text-anchor="middle">GND</text>
-<text x="860" y="757" font-size="11" fill="#b8352f" text-anchor="start">E-stop cuts only this rail; the ESP32 stays on</text>
+<text x="370" y="316" font-size="12" fill="#1b2a3a" text-anchor="end">EEP</text>
+<polyline points="520,220 492,220 492,208 380,208" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="520,266 478,266 478,234 380,234" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="520,312 464,312 464,260 380,260" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="520,358 450,358 450,286 380,286" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<text x="455" y="196" font-size="11" fill="#5a6b7c" text-anchor="middle">PWM</text>
+<polyline points="380,312 402,312" fill="none" stroke="#6b7783" stroke-width="4.5" stroke-linejoin="round"/>
+<polyline points="380,312 402,312" fill="none" stroke="#aab4bf" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="406" y="316" font-size="11" fill="#5a6b7c" text-anchor="start">3V3</text>
+<circle cx="190" cy="360" r="4" fill="#1b2a3a"/>
+<text x="190" y="350" font-size="12" fill="#ef7d00" text-anchor="middle" font-weight="700">VCC</text>
+<circle cx="245" cy="360" r="4" fill="#1b2a3a"/>
+<text x="245" y="350" font-size="12" fill="#5a6b7c" text-anchor="middle">GND</text>
+<text x="160" y="212" font-size="11" fill="#5a6b7c" text-anchor="start">AOUT</text>
+<text x="160" y="264" font-size="11" fill="#5a6b7c" text-anchor="start">BOUT</text>
+<rect x="20" y="182" width="112" height="52" rx="9" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.4"/>
+<text x="76.0" y="204.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">Drive</text>
+<text x="76.0" y="222.0" font-size="12" fill="#5a6b7c" text-anchor="middle">rear gearbox</text>
+<polyline points="132,202 150,202" fill="none" stroke="#c2185b" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="132,214 150,214" fill="none" stroke="#1e3fbf" stroke-width="3" stroke-linejoin="round"/>
+<rect x="20" y="244" width="112" height="52" rx="9" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.4"/>
+<text x="76.0" y="266.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">Steering</text>
+<text x="76.0" y="284.0" font-size="12" fill="#5a6b7c" text-anchor="middle">small motor</text>
+<polyline points="132,264 150,264" fill="none" stroke="#c2185b" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="132,276 150,276" fill="none" stroke="#1e3fbf" stroke-width="3" stroke-linejoin="round"/>
+<text x="20" y="316" font-size="11" fill="#5a6b7c" text-anchor="start">stock pink/blue leads</text>
+<text x="150" y="438" font-size="12" fill="#1b2a3a" text-anchor="start" font-weight="700">I2C · SDA D4 · SCL D5 · one shared bus</text>
+<rect x="150" y="450" width="230" height="64" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="265.0" y="469.0" font-size="13.5" fill="#1b2a3a" text-anchor="middle" font-weight="700">TF-Luna lidar (0x10)</text>
+<text x="265.0" y="487.0" font-size="12" fill="#5a6b7c" text-anchor="middle">VCC: motor rail · pin 5 to GND</text>
+<text x="265.0" y="505.0" font-size="12" fill="#5a6b7c" text-anchor="middle">roof turret</text>
+<rect x="150" y="526" width="230" height="64" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="265.0" y="554.0" font-size="13.5" fill="#1b2a3a" text-anchor="middle" font-weight="700">MPU-6050 gyro (0x68)</text>
+<text x="265.0" y="572.0" font-size="12" fill="#5a6b7c" text-anchor="middle">VCC: 3V3</text>
+<rect x="150" y="602" width="230" height="64" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="265.0" y="630.0" font-size="13.5" fill="#1b2a3a" text-anchor="middle" font-weight="700">VL53L7CX front (0x29)</text>
+<text x="265.0" y="648.0" font-size="12" fill="#5a6b7c" text-anchor="middle">VCC: 3V3</text>
+<polyline points="520,404 430,404 430,624" fill="none" stroke="#1e6fd9" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="520,450 446,450 446,644" fill="none" stroke="#2e9d4f" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="430,472 380,472" fill="none" stroke="#1e6fd9" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="446,492 380,492" fill="none" stroke="#2e9d4f" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="430,548 380,548" fill="none" stroke="#1e6fd9" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="446,568 380,568" fill="none" stroke="#2e9d4f" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="430,624 380,624" fill="none" stroke="#1e6fd9" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="446,644 380,644" fill="none" stroke="#2e9d4f" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="770,220 900,220" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<rect x="819" y="210" width="42" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
+<text x="840" y="224" font-size="10" fill="#1b2a3a" text-anchor="middle">330 ×2</text>
+<rect x="900" y="200" width="280" height="40" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="1040.0" y="225.0" font-size="13.5" fill="#1b2a3a" text-anchor="middle" font-weight="700">Hazard lights: 2 amber LEDs</text>
+<polyline points="770,266 900,266" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<rect x="819" y="256" width="42" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
+<text x="840" y="270" font-size="10" fill="#1b2a3a" text-anchor="middle">100</text>
+<rect x="900" y="246" width="280" height="40" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="1040.0" y="271.0" font-size="13.5" fill="#1b2a3a" text-anchor="middle" font-weight="700">Piezo chime (PWM tone)</text>
+<polyline points="770,312 900,312" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<rect x="900" y="292" width="280" height="40" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="1040.0" y="317.0" font-size="13" fill="#1b2a3a" text-anchor="middle" font-weight="700">V2 turret servo / V1 line sensor</text>
+<polyline points="770,358 900,358" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<rect x="819" y="348" width="42" height="20" fill="#fff" stroke="#1b2a3a" stroke-width="2"/>
+<text x="840" y="362" font-size="10" fill="#1b2a3a" text-anchor="middle">÷2</text>
+<rect x="900" y="338" width="280" height="40" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="1040.0" y="354.0" font-size="13" fill="#1b2a3a" text-anchor="middle" font-weight="700">Battery sense, motor rail ÷ 2</text>
+<text x="1040.0" y="372.0" font-size="12" fill="#5a6b7c" text-anchor="middle">rail → 100k → D9 → 100k → GND</text>
+<polyline points="770,404 900,404" fill="none" stroke="#d9a400" stroke-width="3" stroke-linejoin="round"/>
+<rect x="900" y="384" width="280" height="40" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="1040.0" y="400.0" font-size="13" fill="#1b2a3a" text-anchor="middle" font-weight="700">Steering pot wiper</text>
+<text x="1040.0" y="418.0" font-size="12" fill="#5a6b7c" text-anchor="middle">pot ends: 3V3 and GND</text>
+<polyline points="770,450 900,450" fill="none" stroke="#6b7783" stroke-width="5" stroke-linejoin="round"/>
+<polyline points="770,450 900,450" fill="none" stroke="#aab4bf" stroke-width="3" stroke-linejoin="round"/>
+<rect x="900" y="430" width="280" height="40" rx="9" fill="#ffffff" stroke="#1e52a4" stroke-width="2.4"/>
+<text x="1040.0" y="455.0" font-size="12.5" fill="#1b2a3a" text-anchor="middle" font-weight="700">3V3 → gyro, VL53L7CX, pot, EEP</text>
+<polyline points="770,496 830,496 830,750 460,750 460,780" fill="none" stroke="#d32f2f" stroke-width="3.5" stroke-linejoin="round"/>
+<text x="842" y="500" font-size="11" fill="#d32f2f" text-anchor="start">BAT+ pad on the back · charges over USB-C</text>
+<polyline points="770,542 800,542" fill="none" stroke="#1b1b1b" stroke-width="3" stroke-linejoin="round"/>
+<line x1="790" y1="542" x2="810" y2="542" stroke="#1b1b1b" stroke-width="2.5"/>
+<line x1="794" y1="547" x2="806" y2="547" stroke="#1b1b1b" stroke-width="2.5"/>
+<line x1="798" y1="552" x2="802" y2="552" stroke="#1b1b1b" stroke-width="2.5"/>
+<text x="832" y="546" font-size="11" fill="#5a6b7c" text-anchor="start">all grounds joined</text>
+<text x="890" y="190" font-size="11" fill="#5a6b7c" text-anchor="start">resistors sit right at the pin</text>
+<rect x="60" y="780" width="180" height="60" rx="9" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.4"/>
+<text x="150.0" y="806.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">1S battery</text>
+<text x="150.0" y="824.0" font-size="12" fill="#5a6b7c" text-anchor="middle">220 mAh stock; bigger planned</text>
+<rect x="390" y="780" width="140" height="60" rx="9" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.4"/>
+<text x="460.0" y="815.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">Main switch</text>
+<rect x="600" y="780" width="140" height="60" rx="9" fill="#ffffff" stroke="#c62828" stroke-width="2.4"/>
+<text x="670.0" y="806.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">E-stop</text>
+<text x="670.0" y="824.0" font-size="12" fill="#5a6b7c" text-anchor="middle">cuts motors only</text>
+<rect x="810" y="780" width="220" height="60" rx="9" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.4"/>
+<text x="920.0" y="806.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">Motor rail</text>
+<text x="920.0" y="824.0" font-size="12" fill="#5a6b7c" text-anchor="middle">DRV8833 VCC · Luna · servo</text>
+<rect x="1080" y="780" width="120" height="60" rx="9" fill="#ffffff" stroke="#1b2a3a" stroke-width="2.4"/>
+<text x="1140.0" y="806.0" font-size="14" fill="#1b2a3a" text-anchor="middle" font-weight="700">470 µF</text>
+<text x="1140.0" y="824.0" font-size="12" fill="#5a6b7c" text-anchor="middle">rail to GND</text>
+<polyline points="240,810 390,810" fill="none" stroke="#d32f2f" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="530,810 600,810" fill="none" stroke="#d32f2f" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="740,810 810,810" fill="none" stroke="#ef7d00" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="1030,810 1080,810" fill="none" stroke="#ef7d00" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="460" cy="780" r="4" fill="#d32f2f"/>
+<polyline points="190,360 190,390 135,390 135,730 870,730 870,780" fill="none" stroke="#ef7d00" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="870" cy="780" r="4" fill="#ef7d00"/>
+<text x="150" y="724" font-size="11" fill="#ef7d00" text-anchor="start">motor rail → DRV8833 VCC · TF-Luna VCC · turret servo V+ · battery sense</text>
+<polyline points="245,360 245,378 120,378 120,710" fill="none" stroke="#1b1b1b" stroke-width="2.5" stroke-linejoin="round"/>
+<line x1="110" y1="710" x2="130" y2="710" stroke="#1b1b1b" stroke-width="2.5"/>
+<line x1="114" y1="715" x2="126" y2="715" stroke="#1b1b1b" stroke-width="2.5"/>
+<line x1="118" y1="720" x2="122" y2="720" stroke="#1b1b1b" stroke-width="2.5"/>
+<text x="745" y="772" font-size="11" fill="#c62828" text-anchor="end">tag the red/orange split here</text>
 <text x="20" y="36" font-size="22" fill="#1b2a3a" text-anchor="start" font-weight="700">Ain’t No Waymo · wiring plan</text>
-<text x="20" y="60" font-size="13" fill="#5a6b7c" text-anchor="start">Same plan as the pin map in the team handoff. Steering is a servo; the V2 lidar is a TF-Luna.</text>
-<text x="20" y="80" font-size="13" fill="#5a6b7c" text-anchor="start">Metal shell: nothing conductive may touch it; boards sit in the printed tray.</text>
-<rect x="20" y="894" width="28" height="6" fill="#1b2a3a"/>
-<text x="56" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">both versions</text>
-<rect x="270" y="894" width="28" height="6" fill="#c8761c"/>
-<text x="306" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">V1 line follower</text>
-<rect x="520" y="894" width="28" height="6" fill="#0f7b62"/>
-<text x="556" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">V2 room scanner / I2C / 3V3</text>
-<rect x="770" y="894" width="28" height="6" fill="#b8352f"/>
-<text x="806" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">motor rail (behind the E-stop)</text>
-<rect x="1020" y="894" width="28" height="6" fill="#2d7f3a"/>
-<text x="1056" y="901" font-size="12" fill="#5a6b7c" text-anchor="start">battery → ESP32</text>
-<polyline points="520,312 464,312 464,402 75,402 75,302" fill="none" stroke="#1b2a3a" stroke-width="2.5" stroke-linejoin="round"/>
-<text x="475" y="366" font-size="11" fill="#5a6b7c">free</text>
+<text x="20" y="60" font-size="13" fill="#5a6b7c" text-anchor="start">Updated Nov 10 after the teardown: steering is a small motor with a position pot. Same pins as the team handoff.</text>
+<text x="20" y="80" font-size="13" fill="#5a6b7c" text-anchor="start">Metal shell: nothing conductive may touch it. Never feed the battery or motor rail straight into a pin.</text>
+<rect x="20" y="918" width="28" height="6" fill="#1b1b1b"/>
+<text x="56" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">black GND</text>
+<rect x="150" y="918" width="28" height="6" fill="#d32f2f"/>
+<text x="186" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">red battery +</text>
+<rect x="312" y="918" width="28" height="6" fill="#ef7d00"/>
+<text x="348" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">orange motor rail</text>
+<rect x="505" y="917" width="30" height="8" fill="#6b7783"/>
+<rect x="506" y="918" width="28" height="6" fill="#aab4bf"/>
+<text x="542" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">white 3V3</text>
+<rect x="636" y="918" width="28" height="6" fill="#1e6fd9"/>
+<text x="672" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">blue SDA</text>
+<rect x="758" y="918" width="28" height="6" fill="#2e9d4f"/>
+<text x="794" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">green SCL</text>
+<rect x="888" y="918" width="28" height="6" fill="#d9a400"/>
+<text x="924" y="925" font-size="12" fill="#5a6b7c" text-anchor="start">yellow signals (tag pin numbers)</text>
 </svg>

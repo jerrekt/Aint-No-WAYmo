@@ -153,7 +153,7 @@
       "title": "Mock-fit the ESP32, depth sensor and motor driver",
       "status": "todo",
       "owner": null,
-      "detail": "Check the parts fit, the camera pokes through the windshield, the turret sits on the roof, and the antenna isn't blocked by metal. Parts are candidates, not final.",
+      "detail": "Check the parts fit: the camera on the hood (flat cable through the hood vent), the turret on the roof, and the antenna not blocked by metal. Parts are candidates, not final.",
       "size": "M",
       "phase": "both"
     },
@@ -220,20 +220,20 @@
     {
       "id": "hardware-05",
       "milestone": "hardware",
-      "title": "Add the chime and turn signals",
+      "title": "Add the chime and hazard lights",
       "status": "todo",
       "owner": null,
-      "detail": "The chime is a must: Waymo-style tones for trip start, arrival, and a please-move tone when something blocks the car for a few seconds (same as the site's chimes). Turn signals are lowest priority. Neither may slow down obstacle checks.",
+      "detail": "The chime is a must: Waymo-style tones for trip start, arrival, and a please-move tone when something blocks the car for a few seconds (same as the site's chimes). Two amber LEDs on one pin blink together as hazards when the car stops for a person or is parked; no turn signals. Neither may slow down obstacle checks.",
       "size": "M",
       "phase": "both"
     },
     {
       "id": "hardware-06",
       "milestone": "hardware",
-      "title": "Build the roof turret for the depth sensor",
+      "title": "Build the roof turret for the lidar",
       "status": "todo",
       "owner": null,
-      "detail": "Printed dome on the roof with the 2 g servo sweeping the TF-Luna lidar. Wire the servo and the lidar to the motor rail.",
+      "detail": "TF-Luna on the 2 g servo under a printed roof dome. Print an adapter from the servo horn to the Luna, and drill a hole in the roof for the servo and its wires (the shell is metal: drill slowly, deburr, and line the edge with Kapton so wires can't chafe). Wire the servo and the Luna to the motor rail.",
       "size": "M",
       "phase": "v2"
     },
@@ -248,12 +248,22 @@
       "phase": "both"
     },
     {
+      "id": "hardware-08",
+      "milestone": "hardware",
+      "title": "Mount the camera on the hood",
+      "status": "todo",
+      "owner": null,
+      "detail": "Design and print a small stand so the camera lies against the hood facing forward. Route its flat cable through the hood vent to the ESP32 without sharp bends or metal edges (Kapton on the vent edge). Check it can read a room marker from the hallway.",
+      "size": "S",
+      "phase": "v2"
+    },
+    {
       "id": "sensors-01",
       "milestone": "sensors",
       "title": "Get the depth sensor working",
       "status": "todo",
       "owner": null,
-      "detail": "Read real distances on the ESP32-S3. The sensor sees a cone of about 60 degrees; the roof turret sweeps it to see more.",
+      "detail": "Read real distances from the TF-Luna on the ESP32-S3 (I2C at 0x10; tie its pin 5 to GND). It sees one narrow point; the roof turret sweeps it to see more.",
       "size": "M",
       "phase": "v2"
     },
@@ -313,7 +323,7 @@
       "title": "Place room markers (with permission)",
       "status": "todo",
       "owner": null,
-      "detail": "Printed markers by each door at car height so the windshield camera can read which room it is at.",
+      "detail": "Printed markers by each door at car height so the hood camera can read which room it is at.",
       "size": "S",
       "phase": "v2"
     },
