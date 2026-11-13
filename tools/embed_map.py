@@ -15,9 +15,14 @@ ROOT = Path(__file__).resolve().parents[1]
 SVG = ROOT / "maps" / "is_second_floor_drawing.svg"
 DIMS = ROOT / "maps" / "is_second_floor_dimensions.json"
 HITS = ROOT / "maps" / "is_second_floor_dimension_hits.json"
+FRAME = ROOT / "maps" / "is_second_floor_frame.json"
 PAGE = ROOT / "Mini_Waymo_V12_Demo.html"
 PATTERN = re.compile(r'(const SURVEY_IMAGE_URI="data:image/svg\+xml;base64,)[A-Za-z0-9+/=]+(")')
 DIM_PATTERN = re.compile(r'const MAP_DIMENSIONS=\[.*?\];')
+FRAME_PATTERN = re.compile(r'const MAP_FRAME=\{.*?\};')
+# The sheet size appears in the map markup and in the full-screen overlay CSS; keep them in step with the SVG.
+SIZE_PATTERNS = [re.compile(r'(id="map" style="aspect-ratio:)\d+/\d+(" viewbox="0 0 )\d+ \d+(")'),
+                 re.compile(r'(--map-w:)\d+(;--map-h:)\d+(;)')]
 # Which survey task a reported measurement belongs to (task ids from team_tasks.json).
 DEFAULT_TASK = "survey-02"
 
@@ -65,6 +70,19 @@ def main():
     new = PATTERN.sub(lambda m: m.group(1) + data + m.group(2), text)
     dims = json.dumps(dimensions(), ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     new = DIM_PATTERN.sub(lambda m: "const MAP_DIMENSIONS=" + dims + ";", new)
+    frame = json.loads(FRAME.read_text(encoding="utf-8"))
+    if len(FRAME_PATTERN.findall(new)) != 1:
+        raise SystemExit("MAP_FRAME not found exactly once in " + PAGE.name)
+    fjs = json.dumps({k: frame[k] for k in ("w", "h", "transform", "true_north_cw")}, separators=(",", ":"))
+    new = FRAME_PATTERN.sub(lambda m: "const MAP_FRAME=" + fjs + ";", new)
+    w, h = frame["w"], frame["h"]
+    m0 = SIZE_PATTERNS[0]
+    if len(m0.findall(new)) != 1:
+        raise SystemExit("map svg size not found exactly once in " + PAGE.name)
+    new = m0.sub(lambda m: f"{m.group(1)}{w}/{h}{m.group(2)}{w} {h}{m.group(3)}", new)
+    if len(SIZE_PATTERNS[1].findall(new)) != 1:
+        raise SystemExit("--map-w/--map-h not found exactly once in " + PAGE.name)
+    new = SIZE_PATTERNS[1].sub(lambda m: f"{m.group(1)}{w}{m.group(2)}{h}{m.group(3)}", new)
     if new == text:
         print("Already up to date:", PAGE.name)
         return

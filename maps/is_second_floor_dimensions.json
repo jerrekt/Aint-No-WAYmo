@@ -13,9 +13,20 @@
   {
    "id": "north-wall-doors",
    "label": "North wall doors, rooms 227 to 222",
-   "segments": [100, 65, 108, 65, 108, 65, 108, 65, 108, 65],
+   "segments": [
+    100,
+    72,
+    108,
+    36,
+    108,
+    72,
+    108,
+    72,
+    108,
+    72
+   ],
    "status": "estimated",
-   "source": "South wall pattern copied; not measured on the north wall",
+   "source": "Door widths from BJ (single 36\", double 72\", 2026-11-12); wall lengths copied from the south wall, not measured",
    "task": "survey-05",
    "measured_by": null,
    "date": null
@@ -23,9 +34,14 @@
   {
    "id": "north-inner-doors",
    "label": "North hall inner wall, rooms 229 to 230",
-   "segments": [100, 65, 108, 65],
+   "segments": [
+    100,
+    36,
+    108,
+    36
+   ],
    "status": "estimated",
-   "source": "South wall pattern copied; not measured",
+   "source": "Door widths from BJ (single 36\", 2026-11-12); wall lengths copied from the south wall, not measured",
    "measured_by": null,
    "date": null
   },
@@ -60,10 +76,10 @@
    "id": "south-wall-pattern",
    "label": "South wall doors, rooms 201 to 214",
    "lead": 100,
-   "door": 65,
+   "door": 36,
    "wall": 108,
    "status": "measured",
-   "source": "BJ, on site",
+   "source": "BJ, on site (walls 2026-10-29); door width 36\" per BJ 2026-11-12 (was 65\")",
    "measured_by": "Branden Adsuara",
    "date": "2026-10-29"
   },
