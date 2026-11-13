@@ -22,7 +22,7 @@ with sync_playwright() as pw:
  page.locator('#recoverQuick').click();page.wait_for_timeout(100)
  assert page.locator('#location').inner_text()=='UNKNOWN'
  page.locator('#noMarkers').uncheck();page.locator('#recoverQuick').click();page.wait_for_timeout(100)
- assert page.locator('#location').inner_text()=='IS 224'
+ assert page.locator('#location').inner_text()=='IS 225'
  page.locator('#guestBtn').click();assert page.locator('#recoverQuick').is_disabled()
  page.locator('#adminBtn').click();assert page.locator('#recoverQuick').is_enabled()
  page.screenshot(path=str(root/'v10_dashboard_preview.png'),full_page=True)

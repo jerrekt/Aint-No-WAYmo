@@ -27,7 +27,7 @@ with sync_playwright() as pw:
  page.locator('#roomSelect').select_option('227');page.locator('#goNow').click();page.wait_for_timeout(120)
  assert page.locator('#destination').inner_text()=='IS 227'
  page.locator('#dropNode').select_option('I');page.locator('#drop').click();page.wait_for_timeout(100)
- assert page.locator('#location').inner_text()=='IS 224','automatic unique marker recovery should recognize IS224'
+ assert page.locator('#location').inner_text()=='IS 225','automatic unique marker recovery should recognize IS225'
  assert 'AUTO RECOVERY' in page.locator('#events').text_content()
  page.locator('#noMarkers').check();page.locator('#drop').click();page.wait_for_timeout(100)
  assert page.locator('#location').inner_text()=='UNKNOWN'

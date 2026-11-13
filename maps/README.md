@@ -1,5 +1,7 @@
 # IS Building second floor survey — UNVERIFIED door coordinates
 
+**2026-11-12:** rooms, doors and their order now follow the posted emergency evacuation plan (`reference/evacuation-plan-2026-11-12.pdf`). Doors are 36" single, 72" double (BJ). True north is 47° clockwise of plan-up (phone compass on the east hall, 313°); the drawing is turned so north is up. Hall lengths are still estimates.
+
 These are **working references**, not a surveyed/approved floor plan and not navigation-ready robot coordinates.
 
 - `reference/original-hand-drawn-survey.png` — user's initial survey sketch.

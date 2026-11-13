@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Generate maps/is_second_floor_drawing.svg: a vector, drawing-sheet style plan of the IS second floor.
-Schematic only. Geometry follows the 1500x1049 px space used by the page overlay (hotspots and route nodes).
-Door positions are estimates from the user survey sketch. Not to scale, except the south wall doors 201 to 214,
-which follow BJ's stated pattern (2026-10-29): 100" wall, then 65" door and 108" wall repeating. Not navigation-ready."""
+Schematic only. The plan is drawn in the 1500x1049 px space used by the page overlay (hotspots and route nodes),
+then turned as a whole so true north points up; the turn is written to maps/is_second_floor_frame.json and the page
+applies the same transform to its overlay. Rooms, doors and their order come from the posted IS 2nd floor emergency
+evacuation plan (photo, 2026-11-12), placed along each hall in proportion. Not to scale, except the south wall doors
+201 to 214, which follow BJ's measured pattern (2026-10-29): 100" wall, then 65" door and 108" wall repeating.
+Not navigation-ready."""
 import sys, math, json, os
 OUT = sys.argv[1] if len(sys.argv) > 1 else "maps/is_second_floor_drawing.svg"
 P = dict(sheet="#ffffff", line="#111418", floor="#f3f1ea", dim="#1a3f8f", note="#555b66", warn="#b4540a")
@@ -28,8 +31,10 @@ def ft_in(inches):
     ft, inch = divmod(inches, 12)
     return f"{ft}'" if inch == 0 else f"{ft}' {inch}&quot;"
 F = "font-family=\"Arial, Helvetica, sans-serif\""
-o = []
-a = o.append
+o = []          # plan content, in the 1500x1049 plan space (turned as a group at the end)
+deco = []       # sheet furniture drawn upright on the turned canvas: key, compass, title block, note
+_to = [o]
+def a(s): _to[0].append(s)
 
 def text(x, y, s, size=14, anchor="middle", color=None, weight="normal", extra=""):
     a(f'<text x="{x}" y="{y}" font-size="{size}" text-anchor="{anchor}" fill="{color or P["line"]}" font-weight="{weight}" {F} {extra}>{s}</text>')
@@ -43,12 +48,14 @@ def label(x, y, s, w=None, dup=False):
     ROOM_LABELS.append((s, x, y, bool(dup)))
     w = w or (14 + 10 * len(s))
     dash = ' stroke-dasharray="4 3"' if dup else ""
+    a(f'<g transform="rotate({TRUE_NORTH_CW} {x} {y})">')   # undo the sheet turn so room numbers read upright
     a(f'<rect x="{x-w/2}" y="{y-14}" width="{w}" height="26" rx="2" fill="{P["sheet"]}" stroke="{P["warn"] if dup else P["line"]}" stroke-width="1.2"{dash}/>')
     text(x, y+5, s, 15, weight="bold", color=P["warn"] if dup else None)
+    a('</g>')
 
 def door(x, y, side, kind, gap=None):
     """Door gap in a wall at (x,y). side = direction the door swings toward (N,S,E,W)."""
-    gap = gap or (26 if kind == "single" else 34)
+    gap = gap or DOOR_GAP[kind]   # to the south wall scale: single 36", double 72" (BJ, 2026-11-12)
     hx = {"N": (1, 0), "S": (1, 0), "E": (0, 1), "W": (0, 1)}[side]
     nx, ny = {"N": (0, -1), "S": (0, 1), "E": (1, 0), "W": (-1, 0)}[side]
     ux, uy = hx
@@ -116,11 +123,13 @@ def span_dim(did, x1, y1, x2, y2, label_xy, rotate=False):
     a(f'<rect x="{lx - 40}" y="{ly - 12}" width="80" height="16" fill="{P["sheet"]}" {extra}/>')
     text(lx, ly, label, 11, color=color, extra=extra)
 
-W, H = 1500, 1049
-a(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">')
-a(f'<rect width="{W}" height="{H}" fill="{P["sheet"]}"/>')
-a(f'<rect x="5" y="5" width="{W-10}" height="{H-10}" fill="none" stroke="{P["line"]}" stroke-width="2"/>')
-a(f'<rect x="11" y="11" width="{W-22}" height="{H-22}" fill="none" stroke="{P["line"]}" stroke-width="0.8"/>')
+W, H = 1500, 1049   # plan space; the sheet itself is sized after the turn (see the end of this script)
+
+# ---- true north ----
+# Brandon Wu, 2026-11-12: phone compass held along the east hall, facing the 222 end (plan up), read 313 deg.
+# So plan up points 313 deg and true north is 47 deg clockwise of plan up. The whole plan is turned 47 deg
+# counterclockwise so north is straight up. (Earlier estimate from a Google Maps screenshot: 31 deg.)
+TRUE_NORTH_CW = 47
 
 # ---- corridor floor (north hall, east hall, south hall) ----
 north = (262, 182, 1342, 262)
@@ -149,14 +158,19 @@ for (x, y1, y2) in ((262, 182, 262), (1342, 182, 262), (328, 828, 908), (1262, 8
     line(x, wy1, x, wy2, 0.8)
 
 # ---- doors: (x, y, swing side, kind) ----
-D_N = [(434, 182, "N", "double"), (624, 182, "N", "single"), (811, 182, "N", "double"),
-       (979, 182, "N", "double"), (1133, 182, "N", "double"), (1288, 182, "N", "double")]
-D_NS = [(516, 262, "S", "single"), (718, 262, "S", "single"), (909, 262, "S", "single")]
-D_E = [(1232, 354, "E", "double"), (1232, 412, "E", "single"), (1232, 470, "E", "double"),
-       (1232, 528, "E", "double"), (1232, 630, "E", "double"), (1232, 695, "E", "single"),
-       (1232, 766, "E", "single")]
-D_W = [(1160, 335, "W", "single"), (1160, 660, "W", "single")]
-D_S = [(519, 828, "N", "single"), (745, 828, "N", "single"), (977, 828, "N", "single")]
+# Order and spacing from the evacuation plan (2026-11-12), scaled along each hall. Single/double is a guess.
+NORTH_OUT = [("227", 434, "double"), ("226", 607, "single"), ("225", 794, "double"),
+             ("224", 947, "double"), ("223", 1094, "double"), ("222", 1269, "double")]
+NORTH_IN = [("228", 483), ("229", 664), ("230", 777), ("UNISEX", 879), ("231B", 986), ("MEN", 1117)]
+EAST_OUT = [("221", 320, "single"), ("220A", 373, "single"), ("220", 415, "double"), ("219C", 459, "double"),
+            ("219", 545, "double"), ("218", 633, "single"), ("217", 678, "double"), ("216", 764, "single")]
+EAST_IN = [("233", 368), ("234", 468), ("235", 620), ("236", 672), ("237", 748)]
+SOUTH_IN = [("241", 535), ("240", 855), ("239", 1010)]
+D_N = [(x, 182, "N", k) for _, x, k in NORTH_OUT]
+D_NS = [(x, 262, "S", "single") for _, x in NORTH_IN]
+D_E = [(1232, y, "E", k) for _, y, k in EAST_OUT]
+D_W = [(1160, y, "W", "single") for _, y in EAST_IN]
+D_S = [(x, 828, "N", "single") for _, x in SOUTH_IN]
 # South wall, rooms 201 to 214: to scale from BJ's pattern (2026-10-29), one door each (205 has one door).
 # West end of the hall is x=328; 214's door centre stays at x=1168 so the east end lines up with the east hall.
 S_PAT = dim("south-wall-pattern")
@@ -168,29 +182,32 @@ def s_x(inches): return round(S_WEST + inches * S_PX, 1)
 xs_south = [s_x(S_LEAD + k * (S_DOOR + S_WALL) + S_DOOR / 2) for k in range(len(SOUTH_ROOMS))]
 S_END_IN = S_LEAD + len(SOUTH_ROOMS) * S_DOOR + (len(SOUTH_ROOMS) - 1) * S_WALL          # east jamb of 214
 D_SB = [(x, 908, "S", "single", round(S_DOOR * S_PX, 1)) for x in xs_south]
+DOOR_GAP = {"single": round(36 * S_PX, 1), "double": round(72 * S_PX, 1)}
 D_END = [(1262, 898, "E", "single")]
 for d in D_N + D_NS + D_E + D_W + D_S + D_SB + D_END:
     door(*d)
 
-# ---- elevator ----
-a(f'<rect x="1136" y="570" width="30" height="56" fill="{P["sheet"]}" stroke="{P["line"]}" stroke-width="2"/>')
-line(1136, 570, 1166, 626, 1.2); line(1166, 570, 1136, 626, 1.2)
+# ---- elevator, between 236 and 237 on the inner side of the east hall ----
+a(f'<rect x="1126" y="690" width="32" height="36" fill="{P["sheet"]}" stroke="{P["line"]}" stroke-width="2"/>')
+line(1126, 690, 1158, 726, 1.2); line(1158, 690, 1126, 726, 1.2)
+text(1100, 712, "ELEV", 10, color=P["note"], weight="bold")
 
-# ---- unconfirmed rooms taken from the user's markup (dashed) ----
-for (x, y, w, h, s) in ((1058, 262, 54, 46, "UNISEX"), (1088, 772, 72, 56, "STAIRS")):
-    a(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{P["warn"]}" stroke-width="1.4" stroke-dasharray="6 4"/>')
-    text(x + w / 2, y + h / 2 + 4, s, 11, color=P["warn"], weight="bold")
-text(1085, 322, "BATH (UNCONFIRMED)", 10, color=P["warn"])
+# ---- restrooms and stairs (from the evacuation plan) ----
+for (x, y, w, h, s) in ((852, 262, 54, 40, "UNISEX"), (1090, 262, 54, 40, "MEN"), (1088, 772, 72, 56, "STAIRS")):
+    a(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{P["line"]}" stroke-width="1.2"/>')
+    text(x + w / 2, y + h / 2 + 4, s, 11, color=P["note"], weight="bold")
 
 # ---- room labels ----
-dups = {(680, 934), (1133, 166)}
-for x, s in ((434, "227"), (624, "226"), (811, "224"), (979, "223"), (1133, "223"), (1288, "222")):
-    label(x, 166, s, 50, dup=(x, 166) in {(1133, 166)})
-for x, s in ((516, "229"), (909, "230")):
-    label(x, 294, s, 50)
-for y, s in ((354, "220"), (412, "221"), (470, "219C"), (528, "218B"), (630, "217"), (695, "216"), (766, "216")):
+for s, x, _ in NORTH_OUT:
+    label(x, 166, s, 50)
+for s, x in NORTH_IN:
+    if s[0].isdigit():
+        label(x, 294, s, 60 if len(s) > 3 else 50)
+for s, y, _ in EAST_OUT:
     label(1284, y, s, 60 if len(s) > 3 else 50)
-for x, s in ((519, "241"), (745, "240"), (977, "239")):
+for s, y in EAST_IN:
+    label(1108, y, s, 50)
+for s, x in SOUTH_IN:
     label(x, 803, s, 50)
 for x, s in zip(xs_south, SOUTH_ROOMS):
     label(x, 934, s, 42)
@@ -199,9 +216,6 @@ label(1310, 901, "215", 50)
 def callout(tx, ty, s1, s2, px, py):
     text(tx, ty, s1, 13, "start"); text(tx, ty + 16, s2, 13, "start")
     line(tx + 78, ty + 4, px, py, 0.8)
-callout(1030, 352, "Men's", "Bathroom", 1160, 335)
-callout(1030, 678, "Women's", "Bathroom", 1160, 660)
-text(1130, 600, "Elevator", 13, "end")
 text(802, 224, "NORTH HALL", 13, color=P["note"])
 text(1196, 560, "EAST HALL", 12, color=P["note"], extra='transform="rotate(-90 1196 560)"')
 text(800, 876, "SOUTH HALL", 13, color=P["note"])
@@ -221,8 +235,9 @@ arrowline(262, 92, 1342, 92, n["status"])
 line(262, 84, 262, 168, 0.5, color, "3 3"); line(1342, 84, 1342, 168, 0.5, color, "3 3")
 a(f'<rect x="680" y="78" width="220" height="26" fill="{P["sheet"]}"/>')
 text(790, 98, prefix + val + (f" ({n['inches']}&quot;)" if n.get("inches") else ""), 20, color=color, weight="bold")
-chain_dim("north-wall-doors", 134, [268, 402, 466, 596, 650, 792, 830, 972, 1006, 1148, 1336])
-chain_dim("north-inner-doors", 290, [546, 633, 709, 810, 880])
+GAP = DOOR_GAP
+chain_dim("north-wall-doors", 134, [268] + [v for _, x, k in NORTH_OUT[:5] for v in (x - GAP[k] / 2, x + GAP[k] / 2)])
+chain_dim("north-inner-doors", 352, [496, 651, 677, 764, 790])
 # east hall doors and south hall inner wall
 span_dim("east-wall-doors", 1340, 300, 1340, 800, (1352, 560), rotate=True)
 span_dim("south-inner-doors", 340, 764, 1060, 764, (700, 768))
@@ -256,6 +271,23 @@ text(1447, 548, prefix + val, 20, color=color, weight="bold")
 if ea.get("inches"):
     text(1447, 574, f"({ea['inches']}&quot;)", 20, color=color, weight="bold")
 
+# ---- sheet size after the turn ----
+# Everything above is plan content (x 250..1495, y 70..1012 in plan px). Turn it about its centre so true north
+# points up, then size the sheet to the turned outline plus a margin.
+PCX, PCY = 872, 541
+def turned(x, y):
+    r = math.radians(-TRUE_NORTH_CW)
+    dx, dy = x - PCX, y - PCY
+    return PCX + dx * math.cos(r) - dy * math.sin(r), PCY + dx * math.sin(r) + dy * math.cos(r)
+corners = [turned(x, y) for x, y in ((250, 70), (1495, 70), (1495, 1012), (250, 1012))]
+MARGIN = 40
+min_x, min_y = min(c[0] for c in corners), min(c[1] for c in corners)
+CW = round(max(c[0] for c in corners) - min_x + 2 * MARGIN)
+CH = round(max(c[1] for c in corners) - min_y + 2 * MARGIN)
+TX, TY = round(MARGIN - min_x, 1), round(MARGIN - min_y, 1)
+TRANSFORM = f"translate({TX} {TY}) rotate({-TRUE_NORTH_CW} {PCX} {PCY})"
+_to[0] = deco
+
 # ---- dimension legend (top-left) ----
 lx, ly = 24, 62   # below the page's "survey map" badge, which sits over the sheet's top-left corner
 a(f'<rect x="{lx}" y="{ly}" width="214" height="86" fill="{P["sheet"]}" stroke="{P["line"]}" stroke-width="1.2"/>')
@@ -266,44 +298,45 @@ for i, (status, word) in enumerate((("measured", "Measured on site"), ("estimate
     line(lx + 10, yy, lx + 46, yy, 1.6, color, dash)
     text(lx + 56, yy + 4, word, 12, "start", color)
 
-# ---- compass ----
-# Plan "up" is the building's own north. Measured from the Google Maps footprint (2026-10-30, north-up screenshot),
-# the building's long axis tilts 31 deg west of true north, so true north points 31 deg clockwise of plan-up.
-TRUE_NORTH_CW = 31
-cx, cy = 125, 860
-def rot(dx, dy, deg=TRUE_NORTH_CW):
-    r = math.radians(deg)
-    return dx * math.cos(r) - dy * math.sin(r), dx * math.sin(r) + dy * math.cos(r)
+# ---- compass: the plan is turned, so north is straight up ----
+cx, cy = 110, CH - 150
 a(f'<circle cx="{cx}" cy="{cy}" r="34" fill="none" stroke="{P["line"]}" stroke-width="1"/>')
-a(f'<g transform="rotate({TRUE_NORTH_CW} {cx} {cy})">')
 a(f'<polygon points="{cx},{cy-42} {cx+8},{cy} {cx},{cy+42} {cx-8},{cy}" fill="{P["line"]}"/>')
 a(f'<polygon points="{cx-42},{cy} {cx},{cy-8} {cx+42},{cy} {cx},{cy+8}" fill="none" stroke="{P["line"]}" stroke-width="1.2"/>')
-a('</g>')
-for s, (dx, dy), size, wt in (("N", (0, -57), 16, "bold"), ("S", (0, 61), 14, "normal"), ("W", (-56, 0), 14, "normal"), ("E", (56, 0), 14, "normal")):
-    rx, ry = rot(dx, dy)
-    text(round(cx + rx, 1), round(cy + ry + 5, 1), s, size, weight=wt)   # letters stay upright; positions follow the rose
-text(cx, cy + 90, "N = TRUE NORTH", 12, color=P["note"], weight="bold")
-text(cx, cy + 106, f"{TRUE_NORTH_CW}&#176; RIGHT OF PLAN UP", 11, color=P["note"])
+for s, dx, dy, size, wt in (("N", 0, -52, 16, "bold"), ("S", 0, 66, 14, "normal"), ("W", -56, 5, 14, "normal"), ("E", 56, 5, 14, "normal")):
+    text(cx + dx, cy + dy, s, size, weight=wt)
+text(cx, cy + 92, "N = TRUE NORTH", 12, color=P["note"], weight="bold")
+text(cx, cy + 108, f"PLAN TURNED {TRUE_NORTH_CW}&#176; SO NORTH IS UP", 11, color=P["note"])
 
 # ---- sheet title (top-left) and title block (bottom-right) ----
-bx, by, bw, bh = 1290, 936, 196, 100
+bx, by, bw, bh = CW - 216, CH - 120, 196, 100
 a(f'<rect x="{bx}" y="{by}" width="{bw}" height="{bh}" fill="{P["sheet"]}" stroke="{P["line"]}" stroke-width="1.6"/>')
 for yy in (by + 34, by + 62): line(bx, yy, bx + bw, yy, 0.8)
 line(bx + 98, by + 62, bx + 98, by + bh, 0.8)
 text(bx + 10, by + 15, "TITLE", 8, "start", P["note"]); text(bx + 10, by + 28, "IS 2ND FLOOR PLAN", 13, "start", weight="bold")
-text(bx + 10, by + 46, "STATUS", 8, "start", P["note"]); text(bx + 10, by + 57, "ESTIMATED, NOT SURVEYED", 11, "start", P["warn"], "bold")
+text(bx + 10, by + 46, "STATUS", 8, "start", P["note"]); text(bx + 10, by + 57, "ROOMS FROM EVAC PLAN", 11, "start", P["warn"], "bold")
 text(bx + 10, by + 74, "SCALE", 8, "start", P["note"]); text(bx + 10, by + 92, "NTS", 16, "start", weight="bold")
 text(bx + 108, by + 74, "UNITS", 8, "start", P["note"]); text(bx + 108, by + 92, "IN / FT", 14, "start", weight="bold")
-text(30, 1030, "Door positions estimated from a hand sketch. Dashed orange = unconfirmed. Dimension status: see the key, top left (from maps/is_second_floor_dimensions.json). Label 223 repeats in the source.", 12, "start", color=P["note"])
-a('</svg>')
-open(OUT, "w", encoding="utf-8").write("\n".join(o))
-print("wrote", OUT, len("\n".join(o)), "bytes")
+text(30, CH - 14, "Rooms and doors from the posted evacuation plan, spaced in proportion along each hall. Hall lengths not to scale. Dimension status: see the key.", 12, "start", color=P["note"])
+sheet = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {CW} {CH}" width="{CW}" height="{CH}">',
+         f'<rect width="{CW}" height="{CH}" fill="{P["sheet"]}"/>',
+         f'<rect x="5" y="5" width="{CW-10}" height="{CH-10}" fill="none" stroke="{P["line"]}" stroke-width="2"/>',
+         f'<rect x="11" y="11" width="{CW-22}" height="{CH-22}" fill="none" stroke="{P["line"]}" stroke-width="0.8"/>',
+         f'<g transform="{TRANSFORM}">'] + o + ['</g>'] + deco + ['</svg>']
+open(OUT, "w", encoding="utf-8").write("\n".join(sheet))
+print("wrote", OUT, len("\n".join(sheet)), "bytes")
+frame_path = os.path.join(os.path.dirname(OUT) or ".", "is_second_floor_frame.json")
+with open(frame_path, "w", encoding="utf-8") as fh:
+    json.dump({"note": "Sheet size and the plan-to-sheet transform, generated by tools/build_map_svg.py. The page draws its overlay "
+                       "(route, car, room and dimension tap areas) in plan px inside this transform. Read by tools/embed_map.py.",
+               "w": CW, "h": CH, "transform": TRANSFORM, "true_north_cw": TRUE_NORTH_CW}, fh, indent=1)
+print("wrote", frame_path, CW, "x", CH)
 # Tap areas for each dimension on the page, [x, y, w, h] in the same 1500x1049 space. tools/embed_map.py
 # puts them in the page with the values from the dimensions file.
 DIM_HITS = {
     "north-hall-length": [262, 76, 1080, 30],
     "north-wall-doors": [268, 116, 1068, 26],
-    "north-inner-doors": [546, 272, 334, 26],
+    "north-inner-doors": [490, 340, 310, 26],
     "east-wall-doors": [1326, 300, 30, 500],
     "south-inner-doors": [340, 748, 720, 26],
     "south-wall-pattern": [S_WEST, 952, round(s_end - S_WEST, 1), 58],   # below the room tap areas (y up to 950)

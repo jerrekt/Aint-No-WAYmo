@@ -12,9 +12,10 @@ export const NODES={
 export const EDGES=[['A','B'],['B','C'],['C','D'],['D','E'],['E','F'],['F','G'],
  ['G','H'],['H','I'],['I','J'],['J','K'],['K','L'],
  ['A','M'],['M','N'],['N','O'],['O','P']];
-export const ROOMS={'214':'A','213':'A','215':'A','216':'B','217':'C','221':'E','220':'F','222':'G','223':'H','230':'H',
- '224':'I','226':'I','227':'J','229':'K','239':'M','210':'M','211':'M','209':'M','212':'M','240':'N',
- '206':'N','207':'N','205':'N','208':'N','241':'O','203':'O','202':'O','204':'O','201':'O'};
+export const ROOMS={'214':'A','213':'A','215':'A','237':'B','216':'B','235':'C','236':'C','218':'C','217':'C','219':'D',
+ '234':'E','233':'E','220':'E','221':'F','223':'G','222':'G','224':'H','225':'I','230':'I','227':'J',
+ '226':'J','228':'K','229':'L','239':'M','210':'M','211':'M','240':'M','209':'M','212':'M','206':'N',
+ '207':'N','205':'N','208':'N','241':'O','203':'O','202':'O','204':'O','201':'O'};
 export const LABELS={0:'IDLE',1:'DRIVING',2:'WAITING FOR PEDESTRIAN',3:'OBSTACLE STOP',4:'SENSOR STOP',5:'MQTT LOST',6:'LOCALIZATION UNCERTAIN',7:'TURRET SCANNING',8:'ROOM CONFIRMED',9:'EMERGENCY STOP'};
 export const hypot=(a,b)=>Math.hypot(a,b);
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));

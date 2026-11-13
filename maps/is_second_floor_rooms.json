@@ -9,181 +9,229 @@
   },
   {
    "room": "226",
-   "x": 624,
+   "x": 607,
+   "y": 166,
+   "repeated_label": false
+  },
+  {
+   "room": "225",
+   "x": 794,
    "y": 166,
    "repeated_label": false
   },
   {
    "room": "224",
-   "x": 811,
+   "x": 947,
    "y": 166,
    "repeated_label": false
   },
   {
    "room": "223",
-   "x": 979,
+   "x": 1094,
    "y": 166,
    "repeated_label": false
-  },
-  {
-   "room": "223",
-   "x": 1133,
-   "y": 166,
-   "repeated_label": true
   },
   {
    "room": "222",
-   "x": 1288,
+   "x": 1269,
    "y": 166,
+   "repeated_label": false
+  },
+  {
+   "room": "228",
+   "x": 483,
+   "y": 294,
    "repeated_label": false
   },
   {
    "room": "229",
-   "x": 516,
+   "x": 664,
    "y": 294,
    "repeated_label": false
   },
   {
    "room": "230",
-   "x": 909,
+   "x": 777,
    "y": 294,
    "repeated_label": false
   },
   {
-   "room": "220",
-   "x": 1284,
-   "y": 354,
+   "room": "231B",
+   "x": 986,
+   "y": 294,
    "repeated_label": false
   },
   {
    "room": "221",
    "x": 1284,
-   "y": 412,
+   "y": 320,
+   "repeated_label": false
+  },
+  {
+   "room": "220A",
+   "x": 1284,
+   "y": 373,
+   "repeated_label": false
+  },
+  {
+   "room": "220",
+   "x": 1284,
+   "y": 415,
    "repeated_label": false
   },
   {
    "room": "219C",
    "x": 1284,
-   "y": 470,
+   "y": 459,
    "repeated_label": false
   },
   {
-   "room": "218B",
+   "room": "219",
    "x": 1284,
-   "y": 528,
+   "y": 545,
+   "repeated_label": false
+  },
+  {
+   "room": "218",
+   "x": 1284,
+   "y": 633,
    "repeated_label": false
   },
   {
    "room": "217",
    "x": 1284,
-   "y": 630,
+   "y": 678,
    "repeated_label": false
   },
   {
    "room": "216",
    "x": 1284,
-   "y": 695,
+   "y": 764,
    "repeated_label": false
   },
   {
-   "room": "216",
-   "x": 1284,
-   "y": 766,
+   "room": "233",
+   "x": 1108,
+   "y": 368,
+   "repeated_label": false
+  },
+  {
+   "room": "234",
+   "x": 1108,
+   "y": 468,
+   "repeated_label": false
+  },
+  {
+   "room": "235",
+   "x": 1108,
+   "y": 620,
+   "repeated_label": false
+  },
+  {
+   "room": "236",
+   "x": 1108,
+   "y": 672,
+   "repeated_label": false
+  },
+  {
+   "room": "237",
+   "x": 1108,
+   "y": 748,
    "repeated_label": false
   },
   {
    "room": "241",
-   "x": 519,
+   "x": 535,
    "y": 803,
    "repeated_label": false
   },
   {
    "room": "240",
-   "x": 745,
+   "x": 855,
    "y": 803,
    "repeated_label": false
   },
   {
    "room": "239",
-   "x": 977,
+   "x": 1010,
    "y": 803,
    "repeated_label": false
   },
   {
    "room": "201",
-   "x": 374.7,
+   "x": 377.8,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "202",
-   "x": 435.8,
+   "x": 438.6,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "203",
-   "x": 496.8,
+   "x": 499.4,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "204",
-   "x": 557.8,
+   "x": 560.2,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "205",
-   "x": 618.8,
+   "x": 620.9,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "206",
-   "x": 679.8,
+   "x": 681.7,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "207",
-   "x": 740.9,
+   "x": 742.5,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "208",
-   "x": 801.9,
+   "x": 803.3,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "209",
-   "x": 862.9,
+   "x": 864.1,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "210",
-   "x": 923.9,
+   "x": 924.9,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "211",
-   "x": 984.9,
+   "x": 985.6,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "212",
-   "x": 1046.0,
+   "x": 1046.4,
    "y": 934,
    "repeated_label": false
   },
   {
    "room": "213",
-   "x": 1107.0,
+   "x": 1107.2,
    "y": 934,
    "repeated_label": false
   },

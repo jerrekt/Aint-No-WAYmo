@@ -27,7 +27,7 @@
     "mission": "224→227→224→210",
     "done": true,
     "failed": false,
-    "t": 188,
+    "t": 213,
     "collision": 0,
     "edge": 0,
     "arrivals": [
@@ -80,7 +80,7 @@
     "mission": "queued 200→230→251→202",
     "done": true,
     "failed": false,
-    "t": 274,
+    "t": 224,
     "collision": 0,
     "edge": 0,
     "arrivals": [
@@ -95,7 +95,7 @@
     "mission": "later 202→200",
     "done": true,
     "failed": false,
-    "t": 299,
+    "t": 249,
     "collision": 0,
     "edge": 0,
     "arrivals": [

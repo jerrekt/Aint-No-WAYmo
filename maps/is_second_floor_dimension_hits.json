@@ -14,9 +14,9 @@
    26
   ],
   "north-inner-doors": [
-   546,
-   272,
-   334,
+   490,
+   340,
+   310,
    26
   ],
   "east-wall-doors": [
@@ -34,13 +34,13 @@
   "south-wall-pattern": [
    328,
    952,
-   851.5,
+   847.6,
    58
   ],
   "south-east-end": [
-   1179.5,
+   1175.6,
    952,
-   82.5,
+   86.4,
    24
   ],
   "east-hall-length": [

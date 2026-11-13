@@ -1,3 +1,6 @@
+## V1.050 — 2026-11-12
+- Map rebuilt from the posted IS 2nd floor evacuation plan: correct room order on every hall (225 added, 223 no longer repeats, 218/219 fixed, 228, 233 to 237 and the restrooms added), doors 36" single and 72" double, and the plan turned 47 degrees so true north is up (phone compass on the east hall). Where to? list now 38 rooms
+
 ## V1.049 — 2026-11-11
 - Tap a map dimension to see its status and source, and report a new measurement to Discord
 - Roof turret bench test for the XIAO ESP32-S3 (`bench/turret-s3`): sweeps the 2 g servo on D8 and reads the TF-Luna over I2C, JSON lines on USB serial. Compiles for seeed_xiao_esp32s3; logic tests in `bench/turret-s3/tests`. Not yet run on hardware.

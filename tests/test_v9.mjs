@@ -14,7 +14,7 @@ const survey=newSurvey();for(const n of Object.keys(NODES))recordSurveyAnchor(su
 {
  const sim=new MicroSimulation(core,{mission:['214'],survey});
  sim.placeUnknown('I');
- assert.equal(sim.localized,true); assert.equal(sim.currentRoom,'224');
+ assert.equal(sim.localized,true); assert.equal(sim.currentRoom,'225'); // stop I: the evac plan puts 225 where the sketch said 224
  assert.equal(sim.scanning,false);assert.equal(sim.running,false);
  assert(sim.goNow('227'));
 }
