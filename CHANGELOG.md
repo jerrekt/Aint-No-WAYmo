@@ -1,3 +1,6 @@
+## V1.053 — 2026-11-16
+- Simulator: the car keeps to the right-hand lane and stops in the hall in front of the room's door (the room number projected onto its hall) instead of driving into the room; smaller car marker and thinner route to fit the real halls
+
 ## V1.052 — 2026-11-16
 - Live map is now the SJSU Facilities floor plan image of the IS 2nd floor (Corporation Yard Map #29), turned so true north is up, with the simulator stops and 35 room hotspots placed on it; the redrawn sheet is retired
 - New `handoff/handoffs/BUILD_GUIDE.md`: the car build in order, one component at a time with a bench test and a pass check each, then mechanical fit, firmware integration and drive tests.

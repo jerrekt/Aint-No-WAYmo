@@ -1,7 +1,7 @@
 {
-  "version": "V1.052",
+  "version": "V1.053",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-16",
-  "note": "Live map is now the SJSU Facilities floor plan image of the IS 2nd floor (Corporation Yard Map #29), turned so true north is up, with the simulator stops and 35 room hotspots placed on it; the redrawn sheet is retired"
+  "note": "Simulator: the car keeps to the right-hand lane and stops in the hall in front of the room's door (the room number projected onto its hall) instead of driving into the room; smaller car marker and thinner route to fit the real halls"
 }

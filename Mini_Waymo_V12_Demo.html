@@ -830,7 +830,7 @@ body[data-colorway="app"] .headerLogos img.smeHeader{height:55px;max-width:105px
 </head>
 <body data-colorway="blue">
 <div id="introSplash" role="presentation" aria-hidden="true"><div class="introWord">Ain't No Waymo</div><svg viewBox="0 0 240 60"><path class="introBase" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><path class="introLine" d="M10 10 H 130 Q 170 10 170 30 T 230 50"/><circle class="introDot" r="5"/></svg><div class="introTag">Mini-Waymo · SJSU SME</div></div><script>(function(){var el=document.getElementById('introSplash');if(!el)return;var seen=false;try{seen=sessionStorage.getItem('waymoIntroSeen')==='1';sessionStorage.setItem('waymoIntroSeen','1')}catch(e){}function done(){if(el.parentNode)el.parentNode.removeChild(el)}if(seen){done();return}el.addEventListener('click',done);el.addEventListener('animationend',function(ev){if(ev.target===el)done()});window.addEventListener('load',function(){setTimeout(done,4000)})})();</script>
-<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.052</span></div></header>
+<header><div class="brand"><div aria-hidden="true" class="logo"><span>↗</span></div><div class="brandWordmark"><h1>Ain't No Waymo</h1><div class="brandSubtitle">Mini-Waymo <span aria-hidden="true">·</span> SJSU SME</div></div></div><div class="headerRight"><details class="appearanceMenu"><summary>Appearance ▾</summary><div aria-label="Website colorway" class="colorwayChooser" role="group"><button aria-pressed="true" class="colorwayButton" data-theme-value="app" type="button">Waymo App</button><button aria-pressed="false" class="colorwayButton" data-theme-value="blue" type="button">Ride Blue</button><button aria-pressed="false" class="colorwayButton" data-theme-value="night" type="button">Midnight</button><button aria-pressed="false" class="colorwayButton" data-theme-value="mint" type="button">Mint Circuit</button></div></details><nav aria-label="Site pages" class="pageNav"><button aria-current="page" class="active" id="navDashboard">Live map</button><button id="navAbout">About project</button></nav><span class="pill" id="serverPill">● Virtual MQTT linked</span><div class="roles"><button class="active" id="adminBtn">Admin</button><button id="guestBtn">Guest view</button></div><span class="version">V1.053</span></div></header>
 <main aria-label="About the Mini-Waymo Micro project" class="page-hidden" id="aboutPage">
 <section class="aboutHero aboutHeroCompact">
 <div class="kicker">San José State University · Society of Manufacturing Engineers</div>
@@ -1717,16 +1717,25 @@ function draw(){
  const LANE=MAP_FRAME.lane_px||11;const laneShift=(pa,pb)=>{const dx=pb.x-pa.x,dy=pb.y-pa.y,l=Math.hypot(dx,dy)||1;return {x:-dy/l*LANE,y:dx/l*LANE};};
  for(let j=0;j<s.path.length-1;j++){
   const a=NODES[s.path[j]],b=NODES[s.path[j+1]],pa=displayPoint(...a),pb=displayPoint(...b),o=laneShift(pa,pb);
-  h+=`<line x1="${pa.x+o.x}" y1="${pa.y+o.y}" x2="${pb.x+o.x}" y2="${pb.y+o.y}" stroke="#1e52a4" stroke-width="11" stroke-linecap="round" stroke-dasharray="19 12" opacity=".9"/>`;
+  h+=`<line x1="${pa.x+o.x}" y1="${pa.y+o.y}" x2="${pb.x+o.x}" y2="${pb.y+o.y}" stroke="#1e52a4" stroke-width="7" stroke-linecap="round" stroke-dasharray="12 8" opacity=".9"/>`;
  }
- // Last leg: from the hallway stop to the room's door, so the route ends at the door and not beside it.
- const doorLeg=room=>{const n=ROOMS[room],d=ROOM_IMAGE_HITS[room];if(!n||!d)return null;const pa=displayPoint(...NODES[n]);
-  // Start the turn-in from the lane the car arrives in (last route segment), so a left-side door shows a real crossing.
-  const i=s.path.indexOf(n);let o={x:0,y:0};
-  if(i>0){const pp=displayPoint(...NODES[s.path[i-1]]);o=laneShift(pp,pa);}else if(s.path.length>1&&i===0){const pn=displayPoint(...NODES[s.path[1]]);const q=laneShift(pa,pn);o=q;}
-  return {x1:pa.x+o.x,y1:pa.y+o.y,x2:d[0],y2:d[1]};};
+ // Last leg: stay in the right-hand lane and stop in front of the room's door (the room number projected onto its hall).
+ // Returns the lane point at the stop node (x1,y1), the stop in front of the door (x2,y2) and the heading there (a).
+ const doorLeg=room=>{const n=ROOMS[room],d=ROOM_IMAGE_HITS[room];if(!n||!d)return null;const P=displayPoint(...NODES[n]);
+  const i=s.path.indexOf(n),prev=i>0?displayPoint(...NODES[s.path[i-1]]):null;
+  let best=null;
+  for(const [a,b] of EDGES){if(a!==n&&b!==n)continue;const Q=displayPoint(...NODES[a===n?b:a]);
+   const dx=Q.x-P.x,dy=Q.y-P.y,l2=dx*dx+dy*dy||1,tt=((d[0]-P.x)*dx+(d[1]-P.y)*dy)/l2;
+   const tc=Math.max(0,Math.min(1,tt)),px=P.x+tc*dx,py=P.y+tc*dy,dist=Math.hypot(d[0]-px,d[1]-py);if(!best||dist<best.dist)best={dist,Q,dx,dy,tt:tc};}
+  if(!best)return null;
+  // Heading along that hall: keep the arrival direction when the door is on the hall the car came in on, otherwise face the door.
+  let hx=best.dx*Math.sign(best.tt||1),hy=best.dy*Math.sign(best.tt||1);
+  if(prev){const ax=P.x-prev.x,ay=P.y-prev.y;if(Math.abs(ax*best.dy-ay*best.dx)<1e-6*(Math.hypot(ax,ay)*Math.hypot(best.dx,best.dy)+1)){hx=ax;hy=ay;}}
+  const o=laneShift({x:0,y:0},{x:hx,y:hy});
+  const oIn=prev?laneShift(prev,P):o;
+  return {x1:P.x+oIn.x,y1:P.y+oIn.y,x2:P.x+best.tt*best.dx+o.x,y2:P.y+best.tt*best.dy+o.y,a:Math.atan2(hy,hx)*180/Math.PI+90};};
  const goalLeg=s.goal&&s.path.length?doorLeg(s.goal):null;
- if(goalLeg)h+=`<line x1="${goalLeg.x1}" y1="${goalLeg.y1}" x2="${goalLeg.x2}" y2="${goalLeg.y2}" stroke="#1e52a4" stroke-width="11" stroke-linecap="round" stroke-dasharray="19 12" opacity=".9"/>`;
+ if(goalLeg)h+=`<line x1="${goalLeg.x1}" y1="${goalLeg.y1}" x2="${goalLeg.x2}" y2="${goalLeg.y2}" stroke="#1e52a4" stroke-width="7" stroke-linecap="round" stroke-dasharray="12 8" opacity=".9"/><circle cx="${goalLeg.x2}" cy="${goalLeg.y2}" r="9" fill="#ffffff" stroke="#0f7b62" stroke-width="4"/>`;
  // Parked at a room: show the car at the door.
  const atDoor=s.localized&&!s.scanning&&!s.offRoute&&/^[0-9]+$/.test(s.current)&&(s.complete||!s.path.length||s.current===s.goal)?doorLeg(s.current):null;
  for(const [room,p] of SURVEY_POINTS){
@@ -1741,7 +1750,7 @@ function draw(){
  if($('showTruth').checked){const p=displayPoint(s.robot.x,s.robot.y);h+=`<circle cx="${p.x}" cy="${p.y}" r="17" fill="none" stroke="#de861d" stroke-width="4" stroke-dasharray="6 4"/>`;}
  if(s.localized){
   let target;
-  if(atDoor){const ang=Math.atan2(atDoor.y2-atDoor.y1,atDoor.x2-atDoor.x1)*180/Math.PI+90;target={x:atDoor.x1+(atDoor.x2-atDoor.x1)*0.72,y:atDoor.y1+(atDoor.y2-atDoor.y1)*0.72,a:ang};}
+  if(atDoor){target={x:atDoor.x2,y:atDoor.y2,a:atDoor.a};}
   else{const c=displayPoint(s.est.x,s.est.y);let best=null;
    for(let j=0;j<s.path.length-1;j++){const pa=displayPoint(...NODES[s.path[j]]),pb=displayPoint(...NODES[s.path[j+1]]);const dx=pb.x-pa.x,dy=pb.y-pa.y,l2=dx*dx+dy*dy||1;const u=Math.max(0,Math.min(1,((c.x-pa.x)*dx+(c.y-pa.y)*dy)/l2));const qx=pa.x+u*dx,qy=pa.y+u*dy,d=Math.hypot(c.x-qx,c.y-qy);if(!best||d<best.d)best={d,pa,pb,dx,dy};}
    if(best&&s.running){const o=laneShift(best.pa,best.pb);target={x:c.x+o.x,y:c.y+o.y,a:Math.atan2(best.dy,best.dx)*180/Math.PI+90};}
@@ -1749,7 +1758,7 @@ function draw(){
   if(!carPose||Math.hypot(carPose.x-target.x,carPose.y-target.y)>140)carPose={x:target.x,y:target.y,a:target.a};
   else{const k=0.28;const da=((((target.a-carPose.a)%360)+540)%360)-180; // shortest turn; JS % keeps the sign, so normalise twice
    carPose={x:carPose.x+(target.x-carPose.x)*k,y:carPose.y+(target.y-carPose.y)*k,a:(carPose.a+da*k+360)%360};}
-  h+=`<g transform="translate(${carPose.x.toFixed(1)} ${carPose.y.toFixed(1)}) rotate(${carPose.a.toFixed(1)})"><circle r="29" fill="#1754c5" opacity=".2"/><circle r="17" fill="#0a4dbf" stroke="#ffffff" stroke-width="5"/><path d="M 0 -27 L 9 -10 L -9 -10 Z" fill="#ffffff"/></g>`;}
+  h+=`<g transform="translate(${carPose.x.toFixed(1)} ${carPose.y.toFixed(1)}) rotate(${carPose.a.toFixed(1)}) scale(.62)"><circle r="29" fill="#1754c5" opacity=".2"/><circle r="17" fill="#0a4dbf" stroke="#ffffff" stroke-width="5"/><path d="M 0 -27 L 9 -10 L -9 -10 Z" fill="#ffffff"/></g>`;}
  chimeWatch(s);
  // Two layers: rooms are only re-rendered when selection changes, so a click on a room is never swallowed by a redraw.
  if(!map.querySelector('#mapHot')){const W=MAP_FRAME.w,H=MAP_FRAME.h;map.innerHTML=`<image href="${SURVEY_IMAGE_URI}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="none"/><g id="mapPlan" transform="${MAP_FRAME.transform}"><g id="mapDyn" style="pointer-events:none"></g><g id="mapHot"></g><g id="mapDims"></g></g><g style="pointer-events:none"><rect x="17" y="15" width="330" height="37" rx="10" fill="#132c47" fill-opacity=".94"/><text x="182" y="39" font-size="18" font-family="Arial,sans-serif" fill="#ffffff" text-anchor="middle" font-weight="700">SURVEY MAP · APPROXIMATE</text><rect x="${W-416}" y="15" width="399" height="37" rx="10" fill="#132c47" fill-opacity=".94"/><text x="${W-216}" y="39" font-size="16" font-family="Arial,sans-serif" fill="#fbecc3" text-anchor="middle" font-weight="700">ROUTE OVERLAY IS SIMULATED</text></g>`;renderMapDims(map.querySelector('#mapDims'));}
@@ -2256,8 +2265,8 @@ init().catch(e=>{document.body.insertAdjacentHTML('afterbegin',`<div style="back
     }
   }
   const titleText=document.querySelector('header .brandWordmark .brandSubtitle');if(titleText)titleText.textContent='Mini-Waymo · SJSU SME';
-  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.052';
-  document.title="Ain't No Waymo | V1.052";
+  const ver=document.querySelector('header .version');if(ver)ver.textContent='V1.053';
+  document.title="Ain't No Waymo | V1.053";
   if(location.hash&&window.waymoRoutePage)window.waymoRoutePage();
 })();
 </script>
