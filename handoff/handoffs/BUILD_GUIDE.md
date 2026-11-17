@@ -92,5 +92,7 @@ Each one passes before the next. Someone holds the E-stop every time.
 
 - On hand: Waymo shell, ESP32-C3 (bench only), XIAO ESP32-S3 Sense (ordered Nov 5; confirm it arrived), DRV8833, TF-Luna, MPU-6050 gyro (3), turret servos (2), Kapton, caps, LEDs, resistors, printer.
 - Still to buy: piezo, thin wire (about 30 AWG), multimeter or USB power meter if nobody has one.
-- Code: `bench/turret-s3` (Luna + turret) written, not yet run on the board. `bench/esp32-c3` MQTT test written for the C3. `firmware/` scaffold with motors disabled. Manual drive on the site (V1.045).
+- Wired (BJ, 2026-11-16): the gyro and the TF-Luna on the S3. Noah finishes the rest: [`NOAH_HANDOFF.md`](NOAH_HANDOFF.md).
+- TF-Luna cable colors on our cable, pin 1 to 6: black (+5V), white (SDA), green (SCL), red (GND), yellow (config), blue (data ready). Black is power and red is ground; go by pin number.
+- Code: `bench/turret-s3` (Luna + turret) written. `bench/esp32-c3` MQTT test written for the C3. `firmware/` scaffold with motors disabled. Manual drive on the site (V1.045).
 - Map: the Facilities floor plan with the simulator's stops and 35 rooms (V1.052).

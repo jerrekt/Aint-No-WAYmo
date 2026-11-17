@@ -86,6 +86,7 @@ Steering is a servo (BJ, 2026-11-05), so D2 is its signal and D3 is free. The wi
 Power path: battery → main switch → XIAO BAT+, and main switch → E-stop → motor rail (DRV8833 VM, steering and turret servo V+, TF-Luna VCC, 470 µF bulk cap to GND).
 
 - Gyro from the XIAO's 3V3 pin. The TF-Luna takes 3.7 to 5.2 V and about 70 mA, so it goes on the motor rail (after the E-stop; it stops with the motors, which is fine). Its I2C lines are 3.3 V logic, so no level shifter. Below about 3.7 V on the pack the Luna may misread: the D10 rail sense should flag low battery before that.
+- TF-Luna cable colors on our cable (BJ, 2026-11-16), pin 1 to 6: black (+5V), white (SDA), green (SCL), red (GND), yellow (config), blue (data ready). **Black is power and red is ground**, the reverse of normal, and not the colors in the datasheet picture. Go by pin number.
 - TF-Luna pin 5 (configuration) must be tied to GND. Left open, the Luna stays in serial (UART) mode and never answers on I2C. Pin 6 stays unconnected.
 - The E-stop cuts only the motor rail (driver and servos); the ESP32 stays on. D10 reads the rail, so the firmware sees both the battery level and the E-stop state.
 - DRV8833: tie nSLEEP high, and put the 470 µF bulk cap across VM and GND at the board.

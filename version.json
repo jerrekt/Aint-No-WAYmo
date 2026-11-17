@@ -1,7 +1,7 @@
 {
-  "version": "V1.053",
+  "version": "V1.054",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-16",
-  "note": "Simulator: the car keeps to the right-hand lane and stops in the hall in front of the room's door (the room number projected onto its hall) instead of driving into the room; smaller car marker and thinner route to fit the real halls"
+  "note": "Noah's wiring handoff and Claude paste prompt (handoff/handoffs/NOAH_HANDOFF.md, NOAH_PASTE_PROMPT.md): gyro and TF-Luna wired, what's left in order with pass checks, what to report. TF-Luna cable colors recorded (black is +5V, red is GND) in the handoffs and the turret bench README"
 }

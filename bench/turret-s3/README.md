@@ -8,13 +8,15 @@ Sweeps the 2 g turret servo and reads the TF-Luna lidar over I2C, printing one J
 | --- | --- | --- |
 | Servo signal (orange/yellow) | **D8** (GPIO7) | No SD card in the Sense board: D8 is shared with it |
 | Servo V+ (red) | Motor rail (after the E-stop) | On the bench, 3.7 to 5 V from the battery or a bench supply |
-| TF-Luna pin 1 VCC | Motor rail | **3.7 to 5.2 V, not the 3V3 pin** |
-| TF-Luna pin 2 SDA | **D4** (GPIO5) | Shared I2C bus with the gyro and VL53L7CX |
-| TF-Luna pin 3 SCL | **D5** (GPIO6) | |
-| TF-Luna pin 4 GND | GND | |
-| **TF-Luna pin 5 (CFG)** | **GND** | **Required.** Left open, the Luna talks serial (UART) and never answers on I2C |
-| TF-Luna pin 6 | Not connected | |
+| TF-Luna pin 1 VCC (**black** wire) | Motor rail | **3.7 to 5.2 V, not the 3V3 pin** |
+| TF-Luna pin 2 SDA (white) | **D4** (GPIO5) | Shared I2C bus with the gyro and VL53L7CX |
+| TF-Luna pin 3 SCL (green) | **D5** (GPIO6) | |
+| TF-Luna pin 4 GND (**red** wire) | GND | |
+| **TF-Luna pin 5 (CFG)** (yellow) | **GND** | **Required.** Left open, the Luna talks serial (UART) and never answers on I2C |
+| TF-Luna pin 6 (blue) | Not connected | |
 | All grounds | Joined | XIAO, servo, Luna, battery |
+
+Wire colors are our cable's (BJ, 2026-11-16): **black is +5V and red is GND**, the reverse of normal and not the datasheet picture's colors. Go by pin number.
 
 ## Flash and run
 

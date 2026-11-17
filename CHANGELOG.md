@@ -1,3 +1,6 @@
+## V1.054 — 2026-11-16
+- Noah's wiring handoff and Claude paste prompt (handoff/handoffs/NOAH_HANDOFF.md, NOAH_PASTE_PROMPT.md): gyro and TF-Luna wired, what's left in order with pass checks, what to report. TF-Luna cable colors recorded (black is +5V, red is GND) in the handoffs and the turret bench README
+
 ## V1.053 — 2026-11-16
 - Simulator: the car keeps to the right-hand lane and stops in the hall in front of the room's door (the room number projected onto its hall) instead of driving into the room; smaller car marker and thinner route to fit the real halls
 
