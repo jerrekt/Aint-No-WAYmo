@@ -19,7 +19,7 @@ const survey=newSurvey();for(const n of Object.keys(NODES))recordSurveyAnchor(su
 {
  let s=new MicroSimulation(c,{mission:['214'],survey});s.markersEnabled=false;s.placeUnknown('I');
  assert.equal(s.localized,false);assert.equal(s.recoverNow(),false);
- s.markersEnabled=true;assert.equal(s.recoverNow(),true);assert.equal(s.currentRoom,'225'); // stop I is 225 on the evac plan
+ s.markersEnabled=true;assert.equal(s.recoverNow(),true);assert.equal(s.currentRoom,'229'); // stop I: nearest room on the Facilities plan
  assert.equal(s.scanning,false);
 }
 {

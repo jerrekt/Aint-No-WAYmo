@@ -6,6 +6,12 @@ applies the same transform to its overlay. Rooms, doors and their order come fro
 evacuation plan (photo, 2026-11-12), placed along each hall in proportion. Not to scale, except the south wall doors
 201 to 214, which follow BJ's measured pattern (2026-10-29): 100" wall, then 65" door and 108" wall repeating.
 Not navigation-ready."""
+
+import sys as _sys
+if "--force" not in _sys.argv:
+    raise SystemExit("Retired 2026-11-16: the Live map now comes from the Facilities floor plan image. "
+                     "Run tools/build_map_image.py. (--force rebuilds this hand-drawn sheet and overwrites the map files.)")
+
 import sys, math, json, os
 OUT = sys.argv[1] if len(sys.argv) > 1 else "maps/is_second_floor_drawing.svg"
 P = dict(sheet="#ffffff", line="#111418", floor="#f3f1ea", dim="#1a3f8f", note="#555b66", warn="#b4540a")

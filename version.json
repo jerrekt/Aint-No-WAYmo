@@ -1,7 +1,7 @@
 {
-  "version": "V1.051",
+  "version": "V1.052",
   "schema": 1,
   "status": "development-update",
   "date": "2026-11-16",
-  "note": "Room names from the Facilities plan (Corporation Yard Map #29) in the Where to? list, the selected room and the map tooltips; stairs added at the 201 end, the 227 end and the 221/222 corner"
+  "note": "Live map is now the SJSU Facilities floor plan image of the IS 2nd floor (Corporation Yard Map #29), turned so true north is up, with the simulator stops and 35 room hotspots placed on it; the redrawn sheet is retired"
 }

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Refresh the "Where to?" room list from the current map drawing.
 
-Reads maps/is_second_floor_rooms.json (written by tools/build_map_svg.py), snaps each room to the nearest
+Reads maps/is_second_floor_rooms.json (written by tools/build_map_image.py), snaps each room to the nearest
 stop on the simulator's hallway graph (DISPLAY_NODES / EDGES in Mini_Waymo_V12_Demo.html), then rewrites
 ROOMS in sim/engine.mjs and in the demo page, plus the clickable map hotspots (ROOM_IMAGE_HITS).
 
 Rooms near each other share a stop; the graph itself is not changed. Only all-digit room numbers are listed:
 kratos/app.py rejects anything else for missions (r.isdigit()), and letter-suffixed doors (218B, 219C) are the
 unconfirmed ones. Run after every map change:
-    python3 tools/build_map_svg.py && python3 tools/sync_room_list.py
+    python3 tools/build_map_image.py && python3 tools/sync_room_list.py && python3 tools/embed_map.py
 Then re-embed the SVG (see VERSIONING.md notes) and run the node tests.
 """
 import json
