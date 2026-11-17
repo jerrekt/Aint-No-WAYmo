@@ -1,3 +1,7 @@
+# IS Building second floor map
+
+**2026-11-16:** the Live map is now the SJSU Facilities floor plan image (`reference/corporation-yard-map-29.pdf`), turned so true north is up. Stops and room positions on it: `is_second_floor_image_points.json`; build with `tools/build_map_image.py`. Everything below describes the retired hand-drawn sheet (`tools/build_map_svg.py`), kept for its dimension data.
+
 # IS Building second floor survey — UNVERIFIED door coordinates
 
 **2026-11-12:** rooms, doors and their order now follow the posted emergency evacuation plan (`reference/evacuation-plan-2026-11-12.pdf`). Doors are 36" single, 72" double (BJ). True north is 47° clockwise of plan-up (phone compass on the east hall, 313°); the drawing is turned so north is up. Hall lengths are still estimates.

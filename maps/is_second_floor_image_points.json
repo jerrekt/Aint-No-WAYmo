@@ -1,0 +1,218 @@
+{
+ "note": "Points on maps/is_second_floor_base.jpg, the SJSU Facilities 'Corporation Yard Map #29' sheet of the IS 2nd floor (maps/reference/corporation-yard-map-29.pdf, rendered at 80 dpi, cropped, the 'You are here' sticker painted out). Units are plan px: the crop at 60 dpi (1765 x 1030); the image file itself is 80 dpi. nodes: where the simulator's 16 hallway stops sit on the drawn halls (base hall y 227, 222 wing x 238, 201 wing x 1620). rooms: the printed room number, used for the map hotspot and the car's turn-in. 216 is not printed on the sheet (it says Advanced Computer Tech; the evacuation plan numbers it 216). Read by tools/build_map_image.py.",
+ "image": {
+  "file": "is_second_floor_base.jpg",
+  "width": 1765,
+  "height": 1030
+ },
+ "true_north_cw_of_left": 47,
+ "lane_px": 11,
+ "nodes": {
+  "A": [
+   1620,
+   227
+  ],
+  "B": [
+   1393,
+   227
+  ],
+  "C": [
+   1162,
+   227
+  ],
+  "D": [
+   931,
+   227
+  ],
+  "E": [
+   700,
+   227
+  ],
+  "F": [
+   469,
+   227
+  ],
+  "G": [
+   238,
+   227
+  ],
+  "H": [
+   238,
+   418
+  ],
+  "I": [
+   238,
+   609
+  ],
+  "J": [
+   238,
+   752
+  ],
+  "K": [
+   238,
+   895
+  ],
+  "L": [
+   238,
+   985
+  ],
+  "M": [
+   1620,
+   463
+  ],
+  "N": [
+   1620,
+   699
+  ],
+  "O": [
+   1620,
+   876
+  ],
+  "P": [
+   1620,
+   985
+  ]
+ },
+ "rooms": {
+  "201": [
+   1679,
+   971
+  ],
+  "202": [
+   1679,
+   916
+  ],
+  "203": [
+   1679,
+   857
+  ],
+  "204": [
+   1679,
+   804
+  ],
+  "205": [
+   1679,
+   745
+  ],
+  "206": [
+   1679,
+   690
+  ],
+  "207": [
+   1679,
+   632
+  ],
+  "208": [
+   1679,
+   575
+  ],
+  "209": [
+   1679,
+   518
+  ],
+  "210": [
+   1679,
+   460
+  ],
+  "211": [
+   1679,
+   409
+  ],
+  "212": [
+   1679,
+   343
+  ],
+  "213": [
+   1679,
+   277
+  ],
+  "214": [
+   1679,
+   202
+  ],
+  "215": [
+   1680,
+   116
+  ],
+  "216": [
+   1363,
+   116
+  ],
+  "217": [
+   1170,
+   160
+  ],
+  "218": [
+   1075,
+   160
+  ],
+  "219": [
+   886,
+   143
+  ],
+  "221": [
+   375,
+   99
+  ],
+  "222": [
+   121,
+   202
+  ],
+  "223": [
+   120,
+   305
+  ],
+  "224": [
+   135,
+   455
+  ],
+  "226": [
+   125,
+   720
+  ],
+  "227": [
+   119,
+   912
+  ],
+  "228": [
+   355,
+   835
+  ],
+  "229": [
+   305,
+   673
+  ],
+  "230": [
+   362,
+   552
+  ],
+  "233": [
+   475,
+   350
+  ],
+  "234": [
+   808,
+   386
+  ],
+  "235": [
+   1045,
+   337
+  ],
+  "236": [
+   1175,
+   303
+  ],
+  "237": [
+   1305,
+   358
+  ],
+  "240": [
+   1491,
+   579
+  ],
+  "241": [
+   1491,
+   844
+  ]
+ }
+}

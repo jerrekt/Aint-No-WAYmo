@@ -3,7 +3,7 @@
 dimension list (values, status, tap areas) as MAP_DIMENSIONS so each dimension on the map can be tapped.
 
 Full map refresh, in order:
-    python3 tools/build_map_svg.py && python3 tools/sync_room_list.py && python3 tools/embed_map.py
+    python3 tools/build_map_image.py && python3 tools/sync_room_list.py && python3 tools/embed_map.py
 Safe to run twice: a second run changes nothing.
 """
 import base64
@@ -53,8 +53,8 @@ def dimensions():
     hits = json.loads(HITS.read_text(encoding="utf-8"))["hits"]
     out = []
     for d in dims:
-        if d["id"] not in hits:
-            raise SystemExit(f'No tap area for "{d["id"]}": run tools/build_map_svg.py first')
+        if d["id"] not in hits:   # the floor plan image has no dimension tap areas; skip, keep the data
+            continue
         kind = "chain" if "segments" in d else "pattern" if "lead" in d else "span"
         out.append({"id": d["id"], "label": d["label"], "kind": kind, "status": d["status"], "shown": shown(d),
                     "source": d.get("source"), "measured_by": d.get("measured_by"), "date": d.get("date"),
@@ -75,7 +75,7 @@ def main():
     frame = json.loads(FRAME.read_text(encoding="utf-8"))
     if len(FRAME_PATTERN.findall(new)) != 1:
         raise SystemExit("MAP_FRAME not found exactly once in " + PAGE.name)
-    fjs = json.dumps({k: frame[k] for k in ("w", "h", "transform", "true_north_cw")}, separators=(",", ":"))
+    fjs = json.dumps({k: frame[k] for k in ("w", "h", "transform", "turn", "true_north_cw", "lane_px") if k in frame}, separators=(",", ":"))
     new = FRAME_PATTERN.sub(lambda m: "const MAP_FRAME=" + fjs + ";", new)
     names = json.loads(NAMES.read_text(encoding="utf-8"))["names"]
     if len(NAMES_PATTERN.findall(new)) != 1:

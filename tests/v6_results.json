@@ -27,7 +27,7 @@
     "mission": "224→227→224→210",
     "done": true,
     "failed": false,
-    "t": 213,
+    "t": 250,
     "collision": 0,
     "edge": 0,
     "arrivals": [
@@ -41,7 +41,7 @@
     "mission": "214→222→224→227→210",
     "done": true,
     "failed": false,
-    "t": 313,
+    "t": 350,
     "collision": 0,
     "edge": 0,
     "arrivals": [
@@ -56,7 +56,7 @@
     "mission": "227→214",
     "done": true,
     "failed": false,
-    "t": 144,
+    "t": 162,
     "collision": 0,
     "edge": 0,
     "arrivals": [
