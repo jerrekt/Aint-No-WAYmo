@@ -193,7 +193,9 @@ line(1126, 690, 1158, 726, 1.2); line(1158, 690, 1126, 726, 1.2)
 text(1100, 712, "ELEV", 10, color=P["note"], weight="bold")
 
 # ---- restrooms and stairs (from the evacuation plan) ----
-for (x, y, w, h, s) in ((852, 262, 54, 40, "UNISEX"), (1090, 262, 54, 40, "MEN"), (1088, 772, 72, 56, "STAIRS")):
+# Stairs at the 201 end, the 227 end and the 221/222 corner come from both posted plans; positions approximate.
+for (x, y, w, h, s) in ((852, 262, 54, 40, "UNISEX"), (1090, 262, 54, 40, "MEN"), (1088, 772, 72, 56, "STAIRS"),
+                        (334, 772, 62, 56, "STAIRS"), (268, 262, 62, 50, "STAIRS"), (1238, 266, 62, 38, "STAIRS")):
     a(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{P["line"]}" stroke-width="1.2"/>')
     text(x + w / 2, y + h / 2 + 4, s, 11, color=P["note"], weight="bold")
 

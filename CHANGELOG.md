@@ -1,3 +1,6 @@
+## V1.051 — 2026-11-16
+- Room names from the Facilities plan (Corporation Yard Map #29) in the Where to? list, the selected room and the map tooltips; stairs added at the 201 end, the 227 end and the 221/222 corner
+
 ## V1.050 — 2026-11-12
 - Map rebuilt from the posted IS 2nd floor evacuation plan: correct room order on every hall (225 added, 223 no longer repeats, 218/219 fixed, 228, 233 to 237 and the restrooms added), doors 36" single and 72" double, and the plan turned 47 degrees so true north is up (phone compass on the east hall). Where to? list now 38 rooms
 
