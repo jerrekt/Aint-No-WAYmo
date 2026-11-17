@@ -1,5 +1,6 @@
 ## V1.052 — 2026-11-16
 - Live map is now the SJSU Facilities floor plan image of the IS 2nd floor (Corporation Yard Map #29), turned so true north is up, with the simulator stops and 35 room hotspots placed on it; the redrawn sheet is retired
+- New `handoff/handoffs/BUILD_GUIDE.md`: the car build in order, one component at a time with a bench test and a pass check each, then mechanical fit, firmware integration and drive tests.
 
 ## V1.051 — 2026-11-16
 - Room names from the Facilities plan (Corporation Yard Map #29) in the Where to? list, the selected room and the map tooltips; stairs added at the 201 end, the 227 end and the 221/222 corner
