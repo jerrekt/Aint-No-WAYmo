@@ -1,0 +1,18 @@
+{
+ "note": "Room names from the SJSU Facilities 'Corporation Yard Map #29' plan of the IS building second floor (photo of the posted sheet, from Brandon Wu via BJ, 2026-11-16). That sheet is older than the evacuation plan, so names may be out of date. 216 is not numbered on it: 'Advanced Computer Tech.' sits where 216 is on the evacuation plan. Read by tools/embed_map.py.",
+ "names": {
+  "215": "Lecture",
+  "216": "Advanced Computer Tech",
+  "219": "Therapeutic Services",
+  "221": "Ceramics",
+  "222": "Design & Technical Drawing Tech",
+  "223": "Production Lab",
+  "224": "Architectural Graphics",
+  "227": "Computer Lab",
+  "228": "Polymer Tech",
+  "230": "Computer Lab",
+  "234": "Ceramics",
+  "240": "Computer Tech",
+  "241": "Electronics & Computer Tech"
+ }
+}

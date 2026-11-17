@@ -16,10 +16,12 @@ SVG = ROOT / "maps" / "is_second_floor_drawing.svg"
 DIMS = ROOT / "maps" / "is_second_floor_dimensions.json"
 HITS = ROOT / "maps" / "is_second_floor_dimension_hits.json"
 FRAME = ROOT / "maps" / "is_second_floor_frame.json"
+NAMES = ROOT / "maps" / "is_second_floor_room_names.json"
 PAGE = ROOT / "Mini_Waymo_V12_Demo.html"
 PATTERN = re.compile(r'(const SURVEY_IMAGE_URI="data:image/svg\+xml;base64,)[A-Za-z0-9+/=]+(")')
 DIM_PATTERN = re.compile(r'const MAP_DIMENSIONS=\[.*?\];')
 FRAME_PATTERN = re.compile(r'const MAP_FRAME=\{.*?\};')
+NAMES_PATTERN = re.compile(r'const ROOM_NAMES=\{.*?\};')
 # The sheet size appears in the map markup and in the full-screen overlay CSS; keep them in step with the SVG.
 SIZE_PATTERNS = [re.compile(r'(id="map" style="aspect-ratio:)\d+/\d+(" viewbox="0 0 )\d+ \d+(")'),
                  re.compile(r'(--map-w:)\d+(;--map-h:)\d+(;)')]
@@ -75,6 +77,11 @@ def main():
         raise SystemExit("MAP_FRAME not found exactly once in " + PAGE.name)
     fjs = json.dumps({k: frame[k] for k in ("w", "h", "transform", "true_north_cw")}, separators=(",", ":"))
     new = FRAME_PATTERN.sub(lambda m: "const MAP_FRAME=" + fjs + ";", new)
+    names = json.loads(NAMES.read_text(encoding="utf-8"))["names"]
+    if len(NAMES_PATTERN.findall(new)) != 1:
+        raise SystemExit("ROOM_NAMES not found exactly once in " + PAGE.name)
+    njs = json.dumps(names, separators=(",", ":"), ensure_ascii=False)
+    new = NAMES_PATTERN.sub(lambda m: "const ROOM_NAMES=" + njs + ";", new)
     w, h = frame["w"], frame["h"]
     m0 = SIZE_PATTERNS[0]
     if len(m0.findall(new)) != 1:
