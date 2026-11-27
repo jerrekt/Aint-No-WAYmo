@@ -1,3 +1,6 @@
+## V1.054 — 2026-11-27
+- Task board cleanup: scope-03 done, survey-05 folded into survey-02, survey-06 closed (fixed in V1.050), outdated details fixed, seed synced with the live board
+
 ## V1.053 — 2026-11-16
 - Simulator: the car keeps to the right-hand lane and stops in the hall in front of the room's door (the room number projected onto its hall) instead of driving into the room; smaller car marker and thinner route to fit the real halls
 
